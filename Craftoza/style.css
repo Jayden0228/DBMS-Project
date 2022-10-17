@@ -3,7 +3,16 @@ body{
     padding: 0;
 }
 
-.center {
+.adds{
+    overflow-x:scroll;     
+    white-space: nowrap;
+}
+.adds img{
+    height: 330px;
+    margin-right: 27px;
+}
+
+.center{
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -25,12 +34,41 @@ body{
     width: 50%;
 }
 
-.itembackground{
-    width: 55%;
-    height: 85%;
+.list1, .list2{
+    display: flex;
+    height: 300px;
 }
 
-#imageContainer, .list1, .list2{
+.itemcard{
+    margin-left: auto;
+    margin-right: auto;
+    width: 260px;
+    height: 250px;
+    background-image: url("images/itemback.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.item{
+    width: 240px;
+    height: 230px;
+    margin: 20px auto;
+}
+.item img{
+    width: auto;
+    height: 45%;
+    box-shadow: 4px 4px 20px gray;
+}
+.item p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-size:x-large;
+}
+
+#imageContainer{
     display: flex;
 }
 #imageContainer div{
