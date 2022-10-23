@@ -2,16 +2,46 @@ body{
     margin: 0;
     padding: 0;
 }
+#recommendation{
+    margin-bottom: 40px;
+}
 
-.center {
+.adds{
+    overflow-x:scroll;     
+    white-space: nowrap;
+}
+.adds img{
+    height: 330px;
+    margin-right: 27px;
+}
+
+.center{
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 90%;
 }
+.red1{
+    background-color: #FE3F3F;
+    opacity: 75.6%;
+}
+.red2{
+    background-color: #FE3F3F;
+    opacity: 93%;
+}
+.blue1{
+    background-color: #6088EB;
+    opacity: 75.6%;
+}
+.blue2{
+    background-color: #6088EB;
+    opacity: 93%;
+}
 
 .bardef{
     width: 100%;
+    /* width: 95%;
+    margin: auto; */
     height: 20px;
 }
 
@@ -25,12 +55,41 @@ body{
     width: 50%;
 }
 
-.itembackground{
-    width: 55%;
-    height: 85%;
+.list1, .list2{
+    display: flex;
+    height: 300px;
 }
 
-#imageContainer, .list1, .list2{
+.itemcard{
+    margin-left: auto;
+    margin-right: auto;
+    width: 260px;
+    height: 250px;
+    background-image: url("images/itemback.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.item{
+    width: 240px;
+    height: 230px;
+    margin: 20px auto;
+}
+.item img{
+    width: auto;
+    height: 45%;
+    box-shadow: 4px 4px 20px gray;
+}
+.item p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-size:x-large;
+}
+
+#imageContainer{
     display: flex;
 }
 #imageContainer div{
@@ -43,14 +102,7 @@ body{
     width:100%;
     height: 22px;
 }
-#navtab1{
-    background-color: #FE3F3F;
-    opacity: 75.6%;
-}
-#navtab2{
-    background-color: #FE3F3F;
-    opacity: 93%;
-}
+
 #navlist{
     display: flex;
     color: white;
@@ -69,15 +121,6 @@ body{
     padding-left: 30px;
     position: relative;
     top: -3px;
-}
-
-#recbar1{
-    background-color: #6088EB;
-    opacity: 75.6%;
-}
-#recbar2{
-    background-color: #6088EB;
-    opacity: 93%;
 }
 
 footer{
