@@ -9,19 +9,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsiveness.css">
     <title>Craftoza</title>
 </head>
 <body>
     <header>
         <br>
-        <div id="imageContainer">
-            <div>
-                <img src="images/Logo.png" alt="" width=15% height=20% style="position: relative; left:20px">
+        <div class="flex" id="imageContainer">
+            <div id="leftImage">
+                <img src="images/Logo.png" alt="Craftoza" width=160vw height=50vh>
             </div>
-            <div id="rightImages">
-                <img src="images/UserIcon.png" alt="" width=10.5% height=10.5%>
-                <img src="images/CartIcon.png" alt="" width=12.3% height=11.8%>
-                <img src="Images/Qicon.png" alt="" width=8.8% height=8.8%>
+            <div id="rightImage">
+                <img src="images/UserIcon.png" alt="" width=48vw height=48vw>
+                <img src="images/CartIcon.png" alt="" width=55vw height=48vw>
+                <img src="Images/Qicon.png" alt="" width=48vw height=48vw>
             </div>
         </div>
         <br>
@@ -29,10 +30,43 @@
             <div class="red1 navdiv"></div>
             <div class="red2 navdiv"></div>
             <div id="navlist">
-                <div>Explore</div>
-                <div>Premium</div>
-                <div>Wish List</div>
-                <div>Help</div>
+                <div>
+                    Explore
+                    <div class="dropdown">
+                        <a href="">Pottery</a>
+                        <a href="">Shells</a>
+                        <a href="">Jewellery</a>
+                        <a href="">Bag</a>
+                        <a href="">Coconut Item</a>
+                    </div>
+                </div>
+                <div>Premium
+                    <div class="dropdown">
+                        <a href="">Pottery</a>
+                        <a href="">Shells</a>
+                        <a href="">Jewellery</a>
+                        <a href="">Bag</a>
+                        <a href="">Coconut Item</a>
+                    </div>
+                </div>
+                <div>Wish List
+                    <div class="dropdown">
+                        <a href="">Pottery</a>
+                        <a href="">Shells</a>
+                        <a href="">Jewellery</a>
+                        <a href="">Bag</a>
+                        <a href="">Coconut Item</a>
+                    </div>
+                </div>
+                <div>Help
+                    <div class="dropdown">
+                        <a href="">Pottery</a>
+                        <a href="">Shells</a>
+                        <a href="">Jewellery</a>
+                        <a href="">Bag</a>
+                        <a href="">Coconut Item</a>
+                    </div>
+                </div>
                 <div><input type="text" placeholder="Search"></div>
             </div>
         </nav>
@@ -47,11 +81,10 @@
         
 
         <br><br><br>
-        <div id="recommendation">
-            <div class="bar">
-                <div class="blue1 bardef"></div>
-                <div class="blue2 bardef"></div>
+        <div class="ItemSection">
+            <div class="ItemSectionHeader">
                 <p>RECOMMENDED</p>
+                <hr>
             </div>
             <div class="itemlist">
                 <div class="list1">
@@ -120,102 +153,7 @@
 
         <br>
         <br>
-        <!-- <div id="recommendation">
-            <div class="bar">
-                <div id="recbar1" class="bardef"></div>
-                <div id="recbar2" class="bardef"></div>
-                <p>RECOMMENDED</p>
-            </div>
-            <div class="itemlist">
-                <div class="list1">
-                    <div class="item1">
-                        <img src="images/itemback.png" alt=""  class="center">
-    
-                    </div>
-                    <div class="item2">
-                        <img src="images/itemback.png" alt="" class="center">
-    
-                    </div>
-                </div>
-                <div class="list2">
-                    <div class="item3">
-                        <img src="images/itemback.png" alt="" class="center">
-    
-                    </div>
-                    <div class="item4">
-                        <img src="images/itemback.png" alt="" class="center">
-
-                    </div>    
-                </div>  
-            </div>
-        </div> -->
-        <div id="recommendation">
-            <div class="bar">
-                <div class="blue1 bardef"></div>
-                <div class="blue2 bardef"></div>
-                <p>RECOMMENDED</p>
-            </div>
-            <div class="itemlist">
-                <div class="list1">
-                    <div class="itemcard">
-                        <div class="item">
-                            <img src="images/item1.jpg" alt="" class="center">
-                            <p>Rope Basket</p>
-                            <p style="color:red; font-size:large;">Rs 299</p>
-                            <p style="color:#fe981b; font-size:large;">Flat 40% off</p>
-                        </div>
-    
-                    </div>
-                    <div class="itemcard">
-                        <div class="item">
-                            <img src="images/item1.jpg" alt="" class="center">
-                            <p>Rope Basket</p>
-                            <p style="color:red; font-size:large;">Rs 299</p>
-                            <p style="color:#fe981b; font-size:large;">Flat 40% off</p>
-                        </div>
-    
-                    </div>
-                    <div class="itemcard">
-                        <div class="item">
-                            <img src="images/item1.jpg" alt="" class="center">
-                            <p>Rope Basket</p>
-                            <p style="color:red; font-size:large;">Rs 299</p>
-                            <p style="color:#fe981b; font-size:large;">Flat 40% off</p>
-                        </div>
-    
-                    </div>
-                </div>
-                <div class="list2">
-                    <div class="itemcard">
-                        <div class="item">
-                            <img src="images/item1.jpg" alt="" class="center">
-                            <p>Rope Basket</p>
-                            <p style="color:red; font-size:large;">Rs 299</p>
-                            <p style="color:#fe981b; font-size:large;">Flat 40% off</p>
-                        </div>
-    
-                    </div>
-                    <div class="itemcard">
-                        <div class="item">
-                            <img src="images/item1.jpg" alt="" class="center">
-                            <p>Rope Basket</p>
-                            <p style="color:red; font-size:large;">Rs 299</p>
-                            <p style="color:#fe981b; font-size:large;">Flat 40% off</p>
-                        </div>
-
-                    </div>  
-                    <div class="itemcard">
-                        <div class="item">
-                            <img src="images/item1.jpg" alt="" class="center">
-                            <p>Rope Basket</p>
-                            <p style="color:red; font-size:large;">Rs 299</p>
-                            <p style="color:#fe981b; font-size:large;">Flat 40% off</p>
-                        </div>
-
-                    </div>   
-                </div>  
-            </div>
-        </div>
+       
         <br>
         <br>
         <br>
@@ -224,6 +162,7 @@
         <br>
         <br>
         <br>
+        
         <br>
         <br>
         <br>
