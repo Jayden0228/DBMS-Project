@@ -22,20 +22,14 @@ body{
     width: 90%;
 }
 .red1{
-    background-color: #FE3F3F;
-    opacity: 75.6%;
+   
+    background-color:#fe3f3fff ;
+    
 }
 .red2{
-    background-color: #FE3F3F;
-    opacity: 93%;
-}
-.blue1{
-    background-color: #6088EB;
-    opacity: 75.6%;
-}
-.blue2{
-    background-color: #6088EB;
-    opacity: 93%;
+  
+    background-color: #fe1f38ff;
+    opacity: 93.3%;
 }
 
 .bardef{
@@ -91,36 +85,50 @@ body{
 
 #imageContainer{
     display: flex;
+    height:24px;   
 }
-#imageContainer div{
-    height: fit-content;
+
+.Logo{
+    position:absolute;
+    top:10px;
+    left:30px;
+    height:42px;
+    width:160px;
+
 }
+
 #rightImages img{
     margin-left: 84px;
 }
 .navdiv{
     width:100%;
-    height: 22px;
+    height: 20px;
 }
 
 #navlist{
     display: flex;
     color: white;
     position: relative;
-    top:-33px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: larger;
+    top:-31px;
+    font-family:"Century Gothic";
+    font-size: 17px;
 }
 #navlist div{
     margin:0 auto;
 }
 #navlist div input{
-    border-radius: 30px;
-    width: 528px;
-    height: 24px;
+    border-radius: 8px;
+    width: 520px;
+    height: 22px;
     padding-left: 30px;
     position: relative;
-    top: -3px;
+    top: -1px;
+    border:0;
+    font-family:"Century Gothic";
+    font-size:12px;
+    background-color: white;
+  
+   
 }
 
 footer{
@@ -177,3 +185,4 @@ footer{
 #content1 div, #content2 div, #content3 div, #content4 div{
     padding-bottom: 3px;
 }
+
