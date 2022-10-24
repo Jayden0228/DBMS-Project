@@ -1,0 +1,115 @@
+@media only screen and (max-width: 1000px) {
+    #imageContainer{
+        width:94vw;
+    }
+    #rightImage{
+        margin-left: 24vw; 
+    }
+}
+@media only screen and (max-width: 500px) {
+    #imageContainer{
+        display: block;
+    }
+    #leftImage{
+        display: inline;
+        left:25.5vw;
+        margin: 10px;
+    }
+    #rightImage{
+        display: inline-block;
+        margin-left: 0vw; 
+        margin-top: 10px;
+    }
+    #navlist{
+        flex-wrap: wrap;
+        top:-50px;
+        font-size: medium;
+    }
+    .navdiv{
+        height: 28px;
+    }
+    #navlist div input{
+        width: 321px;
+        height: 16px;
+        padding-left: 30px;
+        top: 7px;
+    }
+    .adds{
+        height: 240px;
+        /* width: 90vw; */
+    } 
+    
+    .adds img{
+        height: 237px;
+        width: 90vw;
+
+    }
+    .list1, .list2 {
+        display: block;
+        height: auto;
+    }
+    .ItemSection{
+        height: auto;
+        width: 85vw;
+    }
+    .itemcard {
+        margin-left: auto;
+        margin-right: auto;
+        width: 250px;
+        height: 240px;
+    }
+    .item {
+        position: relative;
+        top: 21px;
+        width: 240px;
+        height: 213px;
+        margin: 10px auto;
+    }
+    .item img {
+        
+        width: auto;
+        height: 45%;
+        box-shadow: 4px 4px 20px gray;
+    }
+    .item p{
+        font-size:large;
+    }
+
+
+    #newsletter div p {
+        margin-top: 46px;
+        font-size: larger;
+    }
+    #newsletter div input {
+        width: 280px;
+        height: 22px;
+        padding-left: 25px;
+        font-size: 13px;
+        margin-left: 50px;
+    }
+    .button {
+        padding: 7px 18px;
+        font-size: 13px;
+        margin: 7px 0px;
+        margin-left: 165px;
+    }
+    #footercontent1, #footercontent2 {
+        display: flex;
+        flex-direction: column;
+        /* flex-wrap: wrap; */
+      }
+    #content1, #content2, #content3, #content4{
+        margin: 18px auto;
+    }
+    #content4 img{
+        /* margin: 26px 0px; */
+        width: 50vw;
+        height: 12vh;
+    }
+    #content1 div, #content2 div, #content3 div{
+        width: 204px;
+    }
+    #content1 div, #content2 div, #content3 div, #content4 div{
+        padding-bottom: 3px;
+    }
+}

@@ -1,0 +1,114 @@
+.red1{
+    background-color:#fe3f3fff ;
+}
+.red2{
+    background-color: #fe1f38ff;
+    opacity: 93.3%;
+}
+
+#imageContainer div{
+    width: 100vw;
+}
+.Logo img{
+    position: absolute;
+    top: -2px;
+    left: -33px;
+    height: 50px;
+    width: 172px;
+}
+
+#leftImage{
+    position: relative; 
+    left:4.5vw
+}
+#rightImage{
+    margin-left: 38vw; 
+}
+#rightImage a img{
+    margin-left: 12%; 
+}
+.navdiv{
+    width:100%;
+    height: 20px;
+}
+
+#navlist{
+    display: flex;
+    color: white;
+    position: relative;
+    top:-31px;
+    font-family:"Century Gothic";
+    font-size: 17px;
+}
+#navlist div{
+    margin:0 auto;
+}
+#navlist div input{
+    border-radius: 8px;
+    width: 520px;
+    height: 22px;
+    padding-left: 30px;
+    position: relative;
+    top: -1px;
+    border:0;
+    font-family:"Century Gothic";
+    font-size:12px;
+    background-color: white;
+}
+
+footer{
+    background-color: #DF2800;  /*d33a2c*/
+    color:white;
+    /* font-family: 'Open Sans', sans-serif; */
+    font-family: Georgia,Serif;
+    font-size: 20px;
+}
+#footercontent1, #footercontent2{
+    display: flex;
+    flex-direction: row;
+}
+#newsletter{
+    display: flex;
+    justify-content: center;
+}
+#newsletter div p{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 24px;
+}
+#newsletter div input{
+    border-radius: 30px;
+    width: 400px;
+    height: 30px;
+    padding-left: 30px;
+    font-size: 14px;
+}
+.button{
+    border: none;
+    border-radius: 30px;
+    background-color: #4CAF50;  /* #008CBA Blue */
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#content1{
+    margin: 55px auto;
+}
+#content2{
+    margin: 30px 280px;
+}
+#content1 div, #content2 div{
+    width: 204px;
+    padding-bottom: 3px;
+}
+#footerImage{
+    position: relative;
+    left: -90px;
+}
