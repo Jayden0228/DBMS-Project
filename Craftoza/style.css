@@ -66,14 +66,34 @@ body{
     width: 90%;
 }
 
-/* .blue1{
-    background-color: #6088EB;
-    opacity: 75.6%;
+.red1{
+   
+    background-color:#fe3f3fff ;
+    
 }
-.blue2{
-    background-color: #6088EB;
-    opacity: 93%;
-} */
+.red2{
+  
+    background-color: #fe1f38ff;
+    opacity: 93.3%;
+}
+
+.bardef{
+    width: 100%;
+    /* width: 95%;
+    margin: auto; */
+    height: 20px;
+}
+
+.bar p{
+    color: white;
+    position: relative;
+    top: -53px;
+    left: 38px;
+    font-size: 21px;
+    font-weight: bolder;
+    width: 50%;
+}
+
 
 .list1, .list2{
     display: flex;
@@ -114,4 +134,107 @@ body{
     font-family: 'Poppins', sans-serif;
     font-style: italic;
     font-size:x-large;
+}
+
+#imageContainer{
+    display: flex;
+    height:24px;   
+}
+
+.Logo{
+    position:absolute;
+    top:10px;
+    left:30px;
+    height:42px;
+    width:160px;
+
+}
+
+#rightImages img{
+    margin-left: 84px;
+}
+.navdiv{
+    width:100%;
+    height: 20px;
+}
+
+#navlist{
+    display: flex;
+    color: white;
+    position: relative;
+    top:-31px;
+    font-family:"Century Gothic";
+    font-size: 17px;
+}
+#navlist div{
+    margin:0 auto;
+}
+#navlist div input{
+    border-radius: 8px;
+    width: 520px;
+    height: 22px;
+    padding-left: 30px;
+    position: relative;
+    top: -1px;
+    border:0;
+    font-family:"Century Gothic";
+    font-size:12px;
+    background-color: white;
+  
+   
+}
+
+footer{
+    background-color: #DF2800;  /*d33a2c*/
+    color:white;
+    /* font-family: 'Open Sans', sans-serif; */
+    font-family: Georgia,Serif;
+    font-size: 20px;
+}
+#footercontent1, #footercontent2{
+    display: flex;
+    flex-direction: row;
+}
+#newsletter{
+    display: flex;
+    justify-content: center;
+}
+#newsletter div p{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 24px;
+}
+#newsletter div input{
+    border-radius: 30px;
+    width: 400px;
+    height: 30px;
+    padding-left: 30px;
+    font-size: 14px;
+}
+.button{
+    border: none;
+    border-radius: 30px;
+    background-color: #4CAF50;  /* #008CBA Blue */
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#content1, #content2{
+    margin: 55px auto;
+}
+#content3, #content4{
+    margin: 30px 280px;
+}
+#content1 div, #content2 div, #content3 div{
+    width: 204px;
+}
+#content1 div, #content2 div, #content3 div, #content4 div{
+    padding-bottom: 3px;
 }
