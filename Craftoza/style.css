@@ -86,6 +86,8 @@ body{
 #imageContainer{
     display: flex;
     height:24px;   
+    justify-content: right;;
+  
 }
 
 .Logo{
@@ -95,6 +97,17 @@ body{
     height:42px;
     width:160px;
 
+}
+
+#imageContainer .icons{
+    display:flex;
+    width:300px;
+    justify-content: space-around;
+}
+
+.icons img{
+ width:25px;
+ height: 25px;
 }
 
 #rightImages img{
