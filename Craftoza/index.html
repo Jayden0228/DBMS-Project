@@ -11,15 +11,52 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="navfooter.css">
     <link rel="stylesheet" href="responsiveness.css">
+    <link rel="stylesheet" href="login_sign.css">
     <title>Craftoza</title>
 </head>
 <body>
+    <div id="login_sign">
+        <!-- By default hidden -->
+        <div class="box center">
+            <a href="index.html" style="color:black;"><span>&#8592;</span></a>
+
+            <!-- onclick="disable()" -->
+            <!-- <script>
+                function disable(){
+                    document.getElementById('login_sign').style.display='none';
+                }
+            </script> -->
+
+            <img src="Images/Logo.png" alt="Craftoza"  class="center logo">
+
+            <p class="head bolder">LOGIN</p>
+
+            <form action="" method="post" class="center2">
+             
+                <label for="Username" class="bolder">Username</label><br>
+                <input type="text" id="username" name="Username" class="inp"><br>
+                <label for="Password" class="bolder">Password</label><br>
+                <input type="password" id="password" name="Password" class="inp"><br>
+                
+                <br>
+                <input type="checkbox" name="Remember_me" id="remember_me">
+                <label for="Remember_me">Remember Me?</label>
+                <br><br>
+
+                <input type="submit" value="LOGIN" class="button2">
+                <br>
+                <br>
+            </form>
+            <p style="font-size: large; padding-bottom: 40px;">Need an Account? <a href="sign.html">SIGN UP</a></p>
+        </div>
+    </div>
+    
+
     <header>
         <br>
         <div id="imageContainer">
             <div class="Logo">
                 <img src="images/Logo.png" alt height=100% width=100%>
-
             </div>
         </div>
             
