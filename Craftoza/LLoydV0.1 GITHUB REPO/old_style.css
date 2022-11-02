@@ -1,0 +1,86 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.flex{
+    display: flex;
+}
+
+.ItemSection{
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90vw;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ItemSectionHeader p{
+    color: #333333;
+    font-size: 21px;
+    font-weight: bolder;
+    width: 50%;
+    margin: 0;
+}
+.ItemSectionHeader hr{
+    margin-bottom: 30px;
+}
+
+.adds{
+    overflow-x:scroll;     
+    white-space: nowrap;
+}
+.adds img{
+    height: 330px;
+    margin-right: 27px;
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+
+.list1, .list2{
+    display: flex;
+    height: auto;
+    margin-bottom: 36px;
+}
+
+.itemcard{
+    margin-left: auto;
+    margin-right: auto;
+    width: 260px;
+    height: 250px;
+    background-image: url("images/itemback.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.itemcard:hover{
+    position:relative;
+    top: -2px;
+    left: -2px;
+}
+
+.item{
+    width: 92%;
+    height: 92%;
+    margin: 20px auto;
+}
+.item img{
+    width: auto;
+    height: 45%;
+    box-shadow: 4px 4px 20px gray;
+}
+.item p{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-size:x-large;
+}
