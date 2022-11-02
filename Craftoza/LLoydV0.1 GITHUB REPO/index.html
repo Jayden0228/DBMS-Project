@@ -10,9 +10,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="Fstyle.css">
+    <link rel="stylesheet" href="login_sign.css">
+
+    <script>
+        function displayNone(id){
+            document.getElementById(id).style.display="none";
+        }
+        function displayBlock(id){
+            document.getElementById(id).style.display="block";
+        }
+    </script>
+
     <title>Craftoza</title>
 </head>
 <body>
+    <div id="login">
+        <div class="box center">
+            <span class="arrow" onclick="displayNone('login')">&#8592;</span>
+            <img src="Images/Logo.png" alt="Craftoza"  class="center logo">
+
+            <p class="head bolder">LOGIN</p>
+
+            <form action="" method="post" class="center2">
+            
+                <label for="Username">Username</label><br>
+                <input type="text" id="username" name="Username" class="inp"><br>
+                <label for="Password">Password</label><br>
+                <input type="password" id="password" name="Password" class="inp"><br>
+                
+                <br>
+                <input type="checkbox" name="Remember_me" id="remember_me">
+                <label for="Remember_me" style="font-size: 14px;">Remember Me?</label>
+                <br>
+                <br>
+
+                <input type="submit" value="LOGIN" class="button2" onclick="displayNone('login')">
+                <br>
+                <br>
+            </form>
+            <p style="font-size: 14px; padding-bottom: 40px;">Need an Account? <span style="font-size: 14px;" onclick="displayNone('login');displayBlock('sign')">SIGN UP</span></p>
+        </div>
+    </div>
+
+    <div id="sign">
+        <div class="box center">
+            <span class="arrow" onclick="displayNone('sign')">&#8592;</span>
+            <img src="Images/Logo.png" alt="Craftoza"  class="center logo">
+
+            <p class="head bolder">SIGNUP</p>
+
+            <form action="" method="post" class="center2">
+                <label for="Username" class="bolder">Username</label><br>
+                <input type="text" id="username" name="Username" class="inp"><br>
+                <label for="Password" class="bolder">Password</label><br>
+                <input type="password" id="password" name="Password" class="inp"><br>
+                <label for="ConfirmPassword" class="bolder">Confirm Password</label><br>
+                <input type="password" id="confirmpassword" name="ConfirmPassword" class="inp"><br>
+                
+                <br>
+
+                <input type="submit" value="SIGNUP" class="button2" onclick="displayNone('sign')">
+                <br>
+                <br>
+            </form>
+            <p style="font-size: 14px; padding-bottom: 40px;">Already have an Account? <span style="font-size: 14px; display: inline-block;" onclick="displayNone('sign');displayBlock('login')">LOG IN</span></p>
+        </div>
+    </div>
 
     <header>
      
@@ -22,7 +85,7 @@
 
                 <div class="icons">
                     <ul>
-                        <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons"></li>
+                        <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons"  onclick="displayBlock('login')"></li>
                         <li><img src="Micro_Webpage_Elements\icons\cart.png" class="Icons"></li>
                         <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
                     </ul>

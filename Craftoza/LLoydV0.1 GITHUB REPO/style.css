@@ -13,7 +13,7 @@ header{
     align-items: center;   
     padding: 10px 10px;
     position: fixed;
-    z-index: 1000;
+    z-index: 2;
 }
 
 #logo{
@@ -55,6 +55,9 @@ input[type="search"]:focus{
 .icons li{
     display:inline-block;
     padding: 0px 40px;
+}
+.icons ul li img:hover{
+    cursor: pointer;
 }
 
 .lineBreaker{

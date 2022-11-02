@@ -16,8 +16,8 @@
     padding-top: 30px;
 }
 
-#login_sign{
-    /* display: none; */
+#login, #sign{
+    display: none;
     position: fixed;
     min-width: 100%;
     min-height: 100%;
@@ -38,6 +38,11 @@
     position: relative;
     z-index: 4;
 }
+
+.box span{
+    cursor: pointer;
+}
+
 .box p{
     font-size: xx-large;
     font-weight: 500;
@@ -73,7 +78,7 @@
 .button2:hover{
     background-color: #c23333;  /* #008CBA Blue */
 }
-span{
+.arrow{
     padding-left: 30px;
     padding-top: 17px;
     position: absolute;
