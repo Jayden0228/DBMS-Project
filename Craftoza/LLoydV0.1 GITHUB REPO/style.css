@@ -1,15 +1,18 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: "century gothic";
 }
 
 header{
+    background-color: white;
+    box-sizing: border-box;
     display:flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;   
     padding: 10px 10px;
-    position: fixed
+    position: fixed;
     z-index: 1000;
 }
 
@@ -21,11 +24,21 @@ header{
  top:10px;
 }
 
-input{
+/* input{
     width:550px;
     height: 30px;
     font-family: "century gothic";
+} */
 
+input[type="search"]{
+    width:450px;
+    height: 30px;
+    font-family: "century gothic";
+    transition: width 1s;
+
+}
+input[type="search"]:focus{
+    width:550px;
 }
 .Icons{
 
@@ -108,11 +121,53 @@ h1 {
 }
 
 #PromoAd2{
+    width: 210px;
     color: #3d3d3dbc;
     opacity: 58;
     position:absolute;
     right:140px;
     top:160px;
+    visibility: hidden;
+    animation: fade 8s ease-in infinite;
+}
+#PromoAd3{
+    width: 210px;
+    color: #3d3d3dbc;
+    opacity: 58;
+    position:absolute;
+    right:140px;
+    top:160px;
+    visibility: hidden;
+    animation: fade 8s ease-in 2s infinite;
+}
+#PromoAd4{
+    width: 210px;
+    color: #3d3d3dbc;
+    opacity: 58;
+    position:absolute;
+    right:140px;
+    top:160px;
+    visibility: hidden;
+    animation: fade 8s ease-in 4s infinite;
+}
+#PromoAd5{
+    width: 210px;
+    color: #3d3d3dbc;
+    opacity: 58;
+    position:absolute;
+    right:140px;
+    top:160px;
+    visibility: hidden;
+    animation: fade 8s ease-in 6s infinite;
+}
+
+@keyframes fade{
+    0%{
+        visibility: visible;
+    }
+    25%{
+        visibility: hidden;
+    }
 }
 
 .Board{
@@ -132,12 +187,17 @@ h1 {
     top:520px;
 }
 
+#HelpBar{
+    position: absolute;
+    top: 140px;
+}
+
 #HelpBar1{
     width:20px;
     height: 40px;
     position: absolute;
     left:0px;
-    top:150px;
+    top:45px;
     background-color: #5ea2ecfe;
     opacity: 86.9;
 }
@@ -146,7 +206,6 @@ h1 {
     height: 40px;
     position: relative;
     left:0px;
-    top:65px;
     background-color: #fd5353fe;
     opacity: 86.9;
 }
@@ -156,20 +215,23 @@ h1 {
     height: 40px;
     position: relative;
     left:0px;
-    top:73px;
+    top:50px;
     background-color: #ffe951fe;
     opacity: 86.9;
 }
 
 #HelpBar1:hover{
+    cursor: pointer;
     width:50px;
     transition: width 0.1s;
 }
 #HelpBar2:hover{
+    cursor: pointer;
     width:50px;
     transition: width 0.1s;
 }
 #HelpBar3:hover{
+    cursor: pointer;
     width:50px;
     transition: width 0.1s;
 }
