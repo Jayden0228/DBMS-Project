@@ -16,7 +16,7 @@
     padding-top: 30px;
 }
 
-#login, #sign{
+#login, #sign, #fpwd, #gotp, #npwd{
     display: none;
     position: fixed;
     min-width: 100%;
@@ -61,6 +61,19 @@
 .inp:focus{
     width:220px;
 }
+
+.otpinp{
+    outline: none;
+    border-style: none none solid none;
+    border-color: black;
+    padding: 3px 8px;
+    width: 10px;
+    font-size: 18px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
+
+
 .button2{
     border: none;
     border-radius: 30px;
