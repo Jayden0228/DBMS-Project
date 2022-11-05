@@ -51,19 +51,20 @@ input[type="search"]:focus{
     position: relative;
     right:20px;
 }
-
 .icons li{
     display:inline-block;
     padding: 0px 40px;
 }
 .icons ul li img:hover{
+    position: relative;
+    top:-1px;
+    left:-1px;
     cursor: pointer;
 }
 
 .lineBreaker{
     flex-basis: 100%;
     height: 1px;
-
 }
 
 .nav{
@@ -238,6 +239,3 @@ h1 {
     width:50px;
     transition: width 0.1s;
 }
-
-
-
