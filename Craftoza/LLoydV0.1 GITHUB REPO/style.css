@@ -79,14 +79,38 @@ input[type="search"]:focus{
 .NavLinks li{
     display:inline-block;
     padding: 0px 29px;
+    font-family: "Century Gothic";
+    font-size: 14px;
+    cursor: pointer;
 }
 
-a{
-    text-decoration: none;
-    font-family: "Century Gothic";
-    color:#000000ff;
-    font-size: 14px;
+.dropdown{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
+.dropdown a{
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 12px 16px;
+}
+
+.dropdown a:hover{
+    background-color: #ddd;
+}
+.NavLinks li:hover{
+    font-weight: bold;
+}
+
+.NavLinks li:hover .dropdown{
+    display: block;
+    font-weight: normal;
+}
+
 
 .BackgroundIMG{
     height: 630px;
