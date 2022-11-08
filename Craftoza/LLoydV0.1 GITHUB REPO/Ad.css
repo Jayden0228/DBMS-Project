@@ -1,6 +1,7 @@
 .Line{
     
-    position: absolute;       z-index: 2;
+    position: absolute;
+    z-index: 2;
     font-weight: 600;
     color: #4d4d4dff;
     font-family: "Microsoft Tai Le";
@@ -25,9 +26,9 @@
     top:110px;
     z-index: 2;
     left:15px;
-animation-name: AdAnimation;
-animation-iteration-count: infinite;
-animation-duration: 6s;
+    animation-name: AdAnimation;
+    animation-iteration-count: infinite;
+    animation-duration: 6s;
 }
 
 .danceBOX{
@@ -40,18 +41,18 @@ animation-duration: 6s;
     height: 140px;
     background-color:white;
      animation-name: AdAnimation2; 
-animation-iteration-count: infinite;
-animation-duration: 15s;
-border-top-left-radius:20px ;
-border-bottom-left-radius:5px ;
-animation-direction: alternate; */ 
+    animation-iteration-count: infinite;
+    animation-duration: 15s;
+    border-top-left-radius:20px ;
+    border-bottom-left-radius:5px ;
+    animation-direction: alternate; 
 
 
--webkit-backdrop-filter: blur(5px);
--moz-filter: blur(5px);
--o-filter:blur(5px);
--ms-filter:blur(5px);
-filter:blur(5px);
+    backdrop-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter:blur(5px);
+    -ms-filter:blur(5px);
+    filter:blur(5px);
 
 }
 
@@ -60,7 +61,7 @@ filter:blur(5px);
     width:80px;
     height: 80px;
     border-radius: 180px;
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     -moz-filter: blur(20px);
     -o-filter:blur(20px);
     -ms-filter:blur(20px);
@@ -124,7 +125,7 @@ filter:blur(5px);
         width: 210px;
     }
     100%{
-        background-color #ffe118ff;
+        background-color: #ffe118ff;
         opacity: 20%;
         position: absolute;
         right:0px;

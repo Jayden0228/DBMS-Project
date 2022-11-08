@@ -3,6 +3,7 @@
 body{
     margin: 0;
     padding: 0;
+    font-family: "century gothic";
 }
 
 header{
@@ -13,29 +14,37 @@ header{
     align-items: center;   
     padding: 10px 10px;
     position: fixed;
-    z-index:1000;
-   height: 98px;
+    z-index:6;
+    height: 98px;
 }
 
 #logo{
     margin-left:10px;
- padding: 5px 5px;
- width:200px;
- height: 50px;
- top:10px;
+    padding: 5px 5px;
+    width:200px;
+    height: 50px;
+    top:10px;
 }
 
-input{
+/* input{
     width:550px;
     height: 30px;
     font-family: "century gothic";
+} */
+
+input[type="search"]{
+    width:450px;
+    height: 30px;
+    font-family: "century gothic";
+    transition: width 1s;
 
 }
+input[type="search"]:focus{
+    width:550px;
+}
 .Icons{
-
     width:20px;
     height: 20px;
-
 }
 
 .icons{
@@ -47,7 +56,12 @@ input{
     display:inline-block;
     padding: 0px 40px;
 }
-
+.icons ul li img:hover{
+    position: relative;
+    top:-1px;
+    left:-1px;
+    cursor: pointer;
+}
 .lineBreaker{
     flex-basis: 100%;
     height: 1px;
@@ -66,14 +80,38 @@ input{
 .NavLinks li{
     display:inline-block;
     padding: 0px 29px;
+    font-family: "Century Gothic";
+    font-size: 14px;
+    cursor: pointer;
+}
+.dropdown{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 7;
+}
+.dropdown a{
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 12px 16px;
 }
 
-a{
-    text-decoration: none;
-    font-family: "Century Gothic";
-    color:#000000ff;
-    font-size: 14px;
+.dropdown a:hover{
+    background-color: #ddd;
 }
+
+.NavLinks li:hover{
+    font-weight: bold;
+}
+
+.NavLinks li:hover .dropdown{
+    display: block;
+    font-weight: normal;
+}
+
 
 .BackgroundIMG{
     height: 630px;
@@ -107,16 +145,58 @@ h1 {
     color: #a8a8a896;
     opacity: 82.7;
     position:absolute;
-    right:100px;
+    right:140px;
     top:120px;
 }
 
 #PromoAd2{
+    width: 210px;
     color: #3d3d3dbc;
     opacity: 58;
     position:absolute;
-    right:100px;
+    right:140px;
     top:160px;
+    visibility: hidden;
+    animation: fade 8s ease-in infinite;
+}
+#PromoAd3{
+    width: 210px;
+    color: #3d3d3dbc;
+    opacity: 58;
+    position:absolute;
+    right:140px;
+    top:160px;
+    visibility: hidden;
+    animation: fade 8s ease-in 2s infinite;
+}
+#PromoAd4{
+    width: 210px;
+    color: #3d3d3dbc;
+    opacity: 58;
+    position:absolute;
+    right:140px;
+    top:160px;
+    visibility: hidden;
+    animation: fade 8s ease-in 4s infinite;
+}
+#PromoAd5{
+    width: 210px;
+    color: #3d3d3dbc;
+    opacity: 58;
+    position:absolute;
+    right:140px;
+    top:160px;
+    visibility: hidden;
+    animation: fade 8s ease-in 6s infinite;
+}
+
+@keyframes fade{
+    0%{
+        visibility: visible;
+    }
+    25%{
+        visibility: hidden;
+    }
 }
 
 .Board{
@@ -126,6 +206,13 @@ h1 {
     left: 425px;
     top:240px;
    
+}
+.Craftie{
+    width:250px;
+    height:184px;
+    position:absolute;
+    left:40px;
+    top:520px;
 }
 
 .doorSAFE_AREA{
