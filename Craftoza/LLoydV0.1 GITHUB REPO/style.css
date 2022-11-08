@@ -1,19 +1,20 @@
+@import url("door.css");
+
 body{
     margin: 0;
     padding: 0;
-    font-family: "century gothic";
 }
 
 header{
-    background-color: white;
-    box-sizing: border-box;
     display:flex;
+    background-color: white;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;   
     padding: 10px 10px;
     position: fixed;
-    z-index: 2;
+    z-index:1000;
+   height: 98px;
 }
 
 #logo{
@@ -24,21 +25,11 @@ header{
  top:10px;
 }
 
-/* input{
+input{
     width:550px;
     height: 30px;
     font-family: "century gothic";
-} */
 
-input[type="search"]{
-    width:450px;
-    height: 30px;
-    font-family: "century gothic";
-    transition: width 1s;
-
-}
-input[type="search"]:focus{
-    width:550px;
 }
 .Icons{
 
@@ -51,20 +42,16 @@ input[type="search"]:focus{
     position: relative;
     right:20px;
 }
+
 .icons li{
     display:inline-block;
     padding: 0px 40px;
-}
-.icons ul li img:hover{
-    position: relative;
-    top:-1px;
-    left:-1px;
-    cursor: pointer;
 }
 
 .lineBreaker{
     flex-basis: 100%;
     height: 1px;
+
 }
 
 .nav{
@@ -79,38 +66,14 @@ input[type="search"]:focus{
 .NavLinks li{
     display:inline-block;
     padding: 0px 29px;
-    font-family: "Century Gothic";
-    font-size: 14px;
-    cursor: pointer;
 }
 
-.dropdown{
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown a{
-    display: block;
-    color: black;
+a{
     text-decoration: none;
-    padding: 12px 16px;
+    font-family: "Century Gothic";
+    color:#000000ff;
+    font-size: 14px;
 }
-
-.dropdown a:hover{
-    background-color: #ddd;
-}
-.NavLinks li:hover{
-    font-weight: bold;
-}
-
-.NavLinks li:hover .dropdown{
-    display: block;
-    font-weight: normal;
-}
-
 
 .BackgroundIMG{
     height: 630px;
@@ -128,7 +91,7 @@ input[type="search"]:focus{
     position:absolute;
     display: flex;
     top:240px;
-    right: 75px;
+    right: 25px;
     width:350px;
     height: 400px;
     z-index: 1;
@@ -144,88 +107,47 @@ h1 {
     color: #a8a8a896;
     opacity: 82.7;
     position:absolute;
-    right:140px;
+    right:100px;
     top:120px;
 }
 
 #PromoAd2{
-    width: 210px;
     color: #3d3d3dbc;
     opacity: 58;
     position:absolute;
-    right:140px;
+    right:100px;
     top:160px;
-    visibility: hidden;
-    animation: fade 8s ease-in infinite;
-}
-#PromoAd3{
-    width: 210px;
-    color: #3d3d3dbc;
-    opacity: 58;
-    position:absolute;
-    right:140px;
-    top:160px;
-    visibility: hidden;
-    animation: fade 8s ease-in 2s infinite;
-}
-#PromoAd4{
-    width: 210px;
-    color: #3d3d3dbc;
-    opacity: 58;
-    position:absolute;
-    right:140px;
-    top:160px;
-    visibility: hidden;
-    animation: fade 8s ease-in 4s infinite;
-}
-#PromoAd5{
-    width: 210px;
-    color: #3d3d3dbc;
-    opacity: 58;
-    position:absolute;
-    right:140px;
-    top:160px;
-    visibility: hidden;
-    animation: fade 8s ease-in 6s infinite;
-}
-
-@keyframes fade{
-    0%{
-        visibility: visible;
-    }
-    25%{
-        visibility: hidden;
-    }
 }
 
 .Board{
     width:370.1px;
     height: 460.1px;
     position:absolute;
-    left: 330px;
-    top:235px;
-
+    left: 425px;
+    top:240px;
+   
 }
 
-.Craftie{
-    width:250px;
-    height:184px;
+.doorSAFE_AREA{
+    width:305px;
+    height: 305px;
     position:absolute;
-    left:40px;
-    top:520px;
+    left: 45px;
+    top:400px;
 }
 
-#HelpBar{
-    position: absolute;
-    top: 140px;
+#DecoSize{
+    position:absolute;
+    left: 90px;
+    top:320px;
 }
 
 #HelpBar1{
     width:20px;
     height: 40px;
-    position: absolute;
+    position: relative;
     left:0px;
-    top:45px;
+    top:160px;
     background-color: #5ea2ecfe;
     opacity: 86.9;
 }
@@ -234,6 +156,7 @@ h1 {
     height: 40px;
     position: relative;
     left:0px;
+    top:180px;
     background-color: #fd5353fe;
     opacity: 86.9;
 }
@@ -243,23 +166,73 @@ h1 {
     height: 40px;
     position: relative;
     left:0px;
-    top:50px;
+    top:200px;
     background-color: #ffe951fe;
     opacity: 86.9;
 }
 
 #HelpBar1:hover{
-    cursor: pointer;
     width:50px;
     transition: width 0.1s;
 }
 #HelpBar2:hover{
-    cursor: pointer;
     width:50px;
     transition: width 0.1s;
 }
 #HelpBar3:hover{
-    cursor: pointer;
     width:50px;
     transition: width 0.1s;
 }
+
+
+
+
+
+
+
+.DoorTEXT{
+    position: absolute;
+    font-family: "century gothic";
+    color: rgb(35, 35, 35);
+    top: 112px;
+    left: 231px;
+    width: 120px;
+    height: 70px;
+    opacity: 1;
+    transition: .3s;
+}
+
+#knock{
+ position: absolute;
+ top:20px;
+}
+
+#meet{
+    position: absolute;
+    top:40px;
+}
+
+#DoorTxt{
+    position: absolute;
+    top:60px;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+.Advertise{
+    position: relative;       z-index: 2;
+    font-family: "century gothic";
+    color:rgb(35, 35, 35);
+    top:40px;
+    left:100px;
+    max-width:210px;
+    height: 150px;
+    
+}
+
+

@@ -1,0 +1,35 @@
+{
+    margin: 0;
+    padding:0;
+    font-family:sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height: 100vh;
+}
+
+.PRODUCTGALLERY{
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width:1225px;
+    height:300px;  
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 14px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.PRODUCT{
+    position: relative;
+    top:2px;
+    padding: 0px 10px;
+     display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

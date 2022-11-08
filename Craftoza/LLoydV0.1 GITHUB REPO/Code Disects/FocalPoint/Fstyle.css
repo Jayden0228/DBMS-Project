@@ -26,7 +26,7 @@ ul{
 }
 
 .CRAFT{
-    position: relative;
+    position: absolute;
     width:270px;
     top:-20px;
     left:20px;
@@ -47,8 +47,9 @@ ul{
 
 
 .FOCALPOINT{
-    position: relative;
-    top:-75px;
+    position: absolute;
+    top:-21px;
+    left:20px;
     text-align: center;
     justify-content: center;
     
@@ -66,10 +67,10 @@ ul{
 
 
 .OF{
-    position: relative;
+    position: absolute;
     width:70px;
-    top:-129px;
-    left:15px;
+    top:35px;
+    left:20px;
     text-align: left;
     justify-content: center;
     
@@ -90,10 +91,10 @@ ul{
 
 
 .GOAN{
-    position: relative;
+    position: absolute;
     width:276.249px;
     height: 88.960px;
-    top:-265px;
+    top:60px;
     left:100px;
 }
 
@@ -127,10 +128,10 @@ ul{
 
 
 .CREATIVITY{
-    position: relative;
+    position: absolute;
     width:368.439px;
     height: 70.291px;
-    top:-318px;
+    top:110px;
     left:15px;
 
 }
@@ -144,10 +145,10 @@ ul{
 
 
 .STAND{
-    position: relative;
+    position: absolute;
     display: flex;
     flex-direction: column;
-    top:-260px;
+    top:295px;
     left: 80px;
     width:210px;
     height: 40px;
