@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Goan Handicraft E-commerce site">
@@ -12,167 +13,352 @@
     <link rel="stylesheet" href="Fstyle.css">
     <link rel="stylesheet" href="Door.css">
     <link rel="stylesheet" href="Ad.css">
+    <link rel="stylesheet" href="login_sign.css">
+
+    <script>
+        function displayNone(id) {
+            document.getElementById(id).style.display = "none";
+        }
+        function displayBlock(id) {
+            document.getElementById(id).style.display = "block";
+        }
+        function nextip(id) {
+            document.getElementById(id).next().focus();
+        }
+    </script>
     <title>Craftoza</title>
 </head>
+
 <body>
 
-    <header>
-     
-            <div id="logo"><img src="C:\Users\Lloyd\Desktop\Craftoza\LLoydV0.1\Images\Logo.png" alt="logo" id="logo"></div>
+    <div id="login">
+        <div class="box center">
+            <span class="arrow" onclick="displayNone('login')">&#8592;</span>
+            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
 
-               <input type="search" value=" Search Products">
+            <p class="head bolder">LOGIN</p>
 
-                <div class="icons">
-                    <ul>
-                        <li><img src="C:\Users\Lloyd\Desktop\Craftoza\LLoydV0.1\Micro_Webpage_Elements\icons\admin.png" class="Icons"></li>
-                        <li><img src="C:\Users\Lloyd\Desktop\Craftoza\LLoydV0.1\Micro_Webpage_Elements\icons\cart.png" class="Icons"></li>
-                        <li><img src="C:\Users\Lloyd\Desktop\Craftoza\LLoydV0.1\Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
-                    </ul>
-            
-                </div>
-            <div class="lineBreaker"></div>
-            <nav>
-            <ul class="NavLinks">
-              <li> <a href="" >Explore</a></li> 
-              <li> <a href="" >Community</a></li> 
-              <li> <a href="" >About us</a></li> 
-              <li> <a href="" >Be An Agent</a></li> 
+            <form action="" method="post" class="center2">
+
+                <label for="Email">Email</label><br>
+                <input type="email" id="email" name="Email" value="" class="inp"><br>
+                <label for="Password">Password</label><br>
+                <input type="password" id="password" name="Password" value="" class="inp"><br>
+
+                <br>
+                <input type="checkbox" name="Remember_me" id="remember_me">
+                <label for="Remember_me" style="font-size: 14px;">Remember Me?</label>
+                <br>
+                <br>
+                <input type="submit" value="LOGIN" class="button2" onclick="displayNone('login')">
+
+                <p style="font-size: 14px; padding-left: 75px;"><span
+                        onclick="displayNone('login');displayBlock('fpwd')">Forgot Password</span></p>
+                <br>
+                <br>
+            </form>
+            <p style="font-size: 14px; padding-bottom: 40px;">Need an Account? <span style="font-size: 14px;"
+                    onclick="displayNone('login');displayBlock('sign')">SIGN UP</span></p>
+        </div>
+    </div>
+
+    <div id="sign">
+        <div class="box center">
+            <span class="arrow" onclick="displayNone('sign')">&#8592;</span>
+            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
+
+            <p class="head bolder">SIGNUP</p>
+
+            <form action="" method="post" class="center2">
+                <label for="Email">Email</label><br>
+                <input type="email" id="email" name="Email" value="" class="inp"><br>
+                <label for="Password" class="bolder">Password</label><br>
+                <input type="password" id="password" name="Password" value="" class="inp"><br>
+                <label for="ConfirmPassword" class="bolder">Confirm Password</label><br>
+                <input type="password" id="confirmpassword" name="ConfirmPassword" value="" class="inp"><br>
+
+                <br>
+
+                <input type="submit" value="SIGNUP" class="button2" onclick="displayNone('sign')">
+                <br>
+                <br>
+            </form>
+            <p style="font-size: 14px; padding-bottom: 40px;">Already have an Account? <span
+                    style="font-size: 14px; display: inline-block;"
+                    onclick="displayNone('sign');displayBlock('login')">LOG IN</span></p>
+        </div>
+    </div>
+
+    <div id="fpwd">
+        <div class="box center">
+            <span class="arrow" onclick="displayNone('fpwd')">&#8592;</span>
+            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
+
+            <p class="head bolder">FORGOT PASSWORD?</p>
+
+            <form action="" method="post" class="center2">
+
+                <br>
+                <label for="Email">Email</label><br>
+                <input type="email" id="email" name="Email" value="" class="inp"><br>
+                <!-- <label for="Password">Password</label><br>
+                <input type="password" id="password" name="Password"  value="" class="inp"><br>
                 
+                <br> -->
+                <!-- <input type="checkbox" name="Remember_me" id="remember_me">
+                <label for="Remember_me" style="font-size: 14px;">Remember Me?</label> -->
+                <br>
+
+                <input type="button" value="GET OTP" class="button2"
+                    onclick="displayNone('fpwd'); displayBlock('gotp')">
+                <br>
+                <br>
+            </form>
+            <p style="font-size: 14px; padding-bottom: 40px; padding-left: 75px;"><span
+                    onclick="displayNone('fpwd');displayBlock('login')">Back to Log In?</span></p>
+        </div>
+    </div>
+
+    <div id="gotp">
+        <div class="box center">
+            <span class="arrow" onclick="displayNone('gotp')">&#8592;</span>
+            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
+
+            <img src="Images/VALIDATE.jpg" alt="Email icon" class="center" style="width:20%;height:20%">
+            <p style="font-size: large;">Please Enter The OTP To Verify Your Account</p>
+            <p style="font-size: medium; color: rgb(44, 43, 43);">An OPT Has Been Sent To <span
+                    id="putemail">(Email)</span></p>
+
+
+            <form action="" method="post" class="center2">
+                <br>
+                <br>
+
+                <input type="text" id="otp" name="num1" value="" maxlength="1"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,''); nextip('otp');" class="otpinp">
+                <!-- error -->
+
+                <input type="text" id="otp2" name="num2" value="" maxlength="1"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
+                <input type="text" id="otp2" name="num3" value="" maxlength="1"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
+                <input type="text" id="otp2" name="num4" value="" maxlength="1"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
+                <input type="text" id="otp2" name="num5" value="" maxlength="1"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
+                <input type="text" id="otp2" name="num6" value="" maxlength="1"
+                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
+
+                <br>
+
+                <input type="button" value="VERIFY" class="button2" onclick="displayNone('gotp'); displayBlock('npwd')">
+                <br>
+                <br>
+            </form>
+
+            <p style="font-size: 14px; padding-bottom: 10px;"><span>RESEND OTP</span></p>
+
+            <p style="font-size: 14px; padding-bottom: 40px;"><span
+                    onclick="displayNone('gotp');displayBlock('fpwd')">INVALID EMAIL?</span></p>
+        </div>
+    </div>
+    <div id="npwd">
+        <div class="box center">
+            <span class="arrow" onclick="displayNone('sign')">&#8592;</span>
+            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
+
+            <p class="head bolder">NEW PASSWORD</p>
+
+            <form action="" method="post" class="center2">
+                <label for="Password" class="bolder">Password</label><br>
+                <input type="password" id="password" name="Password" value="" class="inp"><br>
+                <label for="ConfirmPassword" class="bolder">Confirm Password</label><br>
+                <input type="password" id="confirmpassword" name="ConfirmPassword" value="" class="inp"><br>
+
+                <br>
+
+                <input type="button" value="SUBMIT" class="button2" onclick="displayNone('npwd')">
+                <br>
+                <br>
+                <br>
+                <br>
+            </form>
+        </div>
+    </div>
+
+    <header>
+
+        <div id="logo"><img src="Images\Logo.png" alt="logo" id="logo"></div>
+
+        <input type="search" placeholder=" Search Products">
+
+        <div class="icons">
+            <ul>
+                <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons" onclick="displayBlock('login')"></li>
+                <li><img src="Micro_Webpage_Elements\icons\cart.png" class="Icons"></li>
+                <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
             </ul>
-           </nav>
+
+        </div>
+        <div class="lineBreaker"></div>
+        <nav>
+            <ul class="NavLinks">
+                <li>Explore
+                    <div class="dropdown">
+                        <a href="">Pottery</a>
+                        <a href="">Shells</a>
+                        <a href="">Jewellery</a>
+                        <a href="">Bag</a>
+                        <a href="">Coconut Item</a>
+                    </div>
+                </li>
+                <li>Community
+                    <div class="dropdown">
+                        <a href="">Craftie</a>
+                        <a href="">Craftoza Warriors</a>
+                    </div>
+                </li>
+                <li>About us
+                    <div class="dropdown">
+                        <a href="">Contact</a>
+                        <a href="">Social Media</a>
+                    </div>
+                </li>
+                <li>Be An Agent</li>
+
+            </ul>
+        </nav>
     </header>
-<main>
-<div  class="BackgroundIMG">
-    <img src="C:\Users\Lloyd\Desktop\Craftoza\LLoydV0.1\Micro_Webpage_Elements\FrontPageElemts\BackgroundImg1.png" height="100%" width="100%"></div>
+    <main>
+        <div class="BackgroundIMG">
+            <img src="Micro_Webpage_Elements\FrontPageElemts\BackgroundImg1.png" height="100%" width="100%">
+        </div>
 
-    <div class="RightImage">
-        <img src="C:\Users\Lloyd\Desktop\Craftoza\LLoydV0.1\Micro_Webpage_Elements\FrontPageElemts\Img1.png" height="100%" width="100%">
-    </div>
+        <div class="RightImage">
+            <img src="Micro_Webpage_Elements\FrontPageElemts\Img1.png" height="100%" width="100%">
+        </div>
 
 
 
-    <div class="Board">
-        <div class="BOARD">
-            <div class="CRAFT"><h1>क्राफ्टोझा  Craftoza</h1></div>
-            <div class="FOCALPOINT"><h1>Focal Point</h1></div>
-          
-            <div class="OF"><h1>of</h1></div>
-        
-            <div class="GOAN">
-                <ul>
-                    <li class="BLUE">G</li>
-                    <li class="RED">O</li>
-                    <li class="YELLOW">A</li>
-                    <li class="RED">N</li>
-                </ul>
+        <div class="Board">
+            <div class="BOARD">
+                <div class="CRAFT">
+                    <h1>क्राफ्टोझा Craftoza</h1>
                 </div>
-             
-            <div class="CREATIVITY"><h1>CREATIVITY</h1></div>
-        
-        
-            
-         <div class="STAND">
-            <div class="VFL1">VOCAL FOR LOCAL</div>
-            <div class="VFL2">VOCAL FOR LOCAL</div>
+                <div class="FOCALPOINT">
+                    <h1>Focal Point</h1>
+                </div>
+
+                <div class="OF">
+                    <h1>of</h1>
+                </div>
+
+                <div class="GOAN">
+                    <ul>
+                        <li class="BLUE">G</li>
+                        <li class="RED">O</li>
+                        <li class="YELLOW">A</li>
+                        <li class="RED">N</li>
+                    </ul>
+                </div>
+
+                <div class="CREATIVITY">
+                    <h1>CREATIVITY</h1>
+                </div>
+
+
+
+                <div class="STAND">
+                    <div class="VFL1">VOCAL FOR LOCAL</div>
+                    <div class="VFL2">VOCAL FOR LOCAL</div>
+                </div>
+            </div>
         </div>
-        </div> 
-    </div>
-    <div id="HelpBar1"></div>
-    <div id="HelpBar2"></div>
-    <div id="HelpBar3"></div>
+        <div id="HelpBar1"></div>
+        <div id="HelpBar2"></div>
+        <div id="HelpBar3"></div>
 
 
-<h1 id="PromoAd1">#क्राफ्टोझा50%</h1>
-<h1 id="PromoAd2">#CraftozaFAM</h1>
+        <h1 id="PromoAd1">#क्राफ्टोझा50%</h1>
+        <h1 id="PromoAd2">#CraftozaFAM1</h1>
+        <h1 id="PromoAd3">#CraftozaFAM2</h1>
+        <h1 id="PromoAd4">#CraftozaFAM3</h1>
+        <h1 id="PromoAd5">#CraftozaFAM4</h1>
 
 
 
 
 
 
-<!-- DOOR -->
-<img src="C:\Users\Lloyd\Desktop\CLLoyd\Images\decoration.png" id="DecoSize">
-<div class="doorSAFE_AREA">
+        <!-- DOOR -->
+        <img src="Images\decoration.png" id="DecoSize">
+        <div class="doorSAFE_AREA">
 
-    <div id="DoorSemiCircle">
-        <div id="INDoorSemiCircle"></div>
-    </div>
+            <div id="DoorSemiCircle">
+                <div id="INDoorSemiCircle"></div>
+            </div>
 
-    <div class="MainDoor">
+            <div class="MainDoor">
 
-        <div class="IMAGEBOX">
-           <div> <img src="C:\Users\Lloyd\Desktop\CLLoyd\Images\craftie.png" height="100%" width="100%"></div>
-         
-       <div class="Door" id="LeftDoor">
-            <div id="YellowL"></div>
-            <div class="LeftIntieror"></div>
-            <div class="DoorNOB" id="LeftNOB"></div>
+                <div class="IMAGEBOX">
+                    <div> <img src="Images\craftie.png" height="100%" width="100%"></div>
+
+                    <div class="Door" id="LeftDoor">
+                        <div id="YellowL"></div>
+                        <div class="LeftIntieror"></div>
+                        <div class="DoorNOB" id="LeftNOB"></div>
+                    </div>
+
+
+                    <div class="Door" id="RightDoor">
+                        <div id="YellowR"></div>
+                        <div class="RightIntieror"></div>
+                        <div class="DoorNOB" id="RightNOB"></div>
+                    </div>
+
+                </div>
+
+                <div class="DoorTEXT">
+                    <div id="knock">Knock! Knock!</div>
+                    <div id="meet">to meet</div>
+                    <div id="DoorTxt">CRAFTIE .....</div>
+                </div>
+
+            </div>
+
+
         </div>
 
 
-        <div class="Door" id="RightDoor">
-                <div id="YellowR"></div>
-                <div class="RightIntieror"></div>
-                <div class="DoorNOB" id="RightNOB"></div>
+
+
+        <!-- DOOR END -->
+
+
+        <div class="Advertise">
+            <div class="danceBOX">
+                <div id="dance1" class="DanceLight"></div>
+                <div id="dance2" class="DanceLight"></div>
+                <div id="dance3" class="DanceLight"></div>
+                <div id="dance4" class="DanceLight"></div>
+                <div id="dance5" class="DanceLight"></div>
+                <div id="dance6" class="DanceLight"></div>
+                <div id="dance7" class="DanceLight"></div>
+                <div id="dance8" class="DanceLight"></div>
+            </div>
+
+            <div class="Line" id="LINE1"></div>
+            <div class="Line" id="LINE2"></div>
+            <div class="Line" id="LINE3"></div>
+            <div id="LINE4"></div>
+
+
         </div>
 
-        </div>
 
-        <div class="DoorTEXT" >
-            <div id="knock">Knock! Knock!</div>
-            <div id="meet">to meet</div>
-            <div id="DoorTxt">CRAFTIE .....</div>
-        </div>
-      
-    </div>
-    
-  
-</div>
+    </main>
 
-
-
-
-<!-- DOOR END -->
-
-
-<div class="Advertise" >
-    <div class="danceBOX">
-        <div id="dance1" class="DanceLight"></div>
-        <div id="dance2"  class="DanceLight"></div>
-        <div id="dance3"  class="DanceLight"></div>
-        <div id="dance4" class="DanceLight"></div>
-        <div id="dance5"  class="DanceLight"></div>
-        <div id="dance6"  class="DanceLight"></div> 
-        <div id="dance7"  class="DanceLight"></div>    
-        <div id="dance8"  class="DanceLight"></div>     
-    </div>
-
-    <div class="Line" id="LINE1"></div>
-    <div class="Line" id="LINE2"></div>
-    <div class="Line" id="LINE3"></div>
-    <div id="LINE4"></div>
-
-
- </div>
-
-
-</main>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-   
-<script src="ADScript.js"></script>
+    <script src="ADScript.js"></script>
 </body>
+
 </html>
