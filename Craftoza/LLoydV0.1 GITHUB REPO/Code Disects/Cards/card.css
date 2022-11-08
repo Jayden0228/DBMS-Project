@@ -13,16 +13,16 @@ body{
 
 .card{
     position: relative;
-    width:320px;
-    height:350px;
+    width:285px;
+    height:275px;
     background:#f1f1f1ff;
     border-radius: 20px;
     overflow: hidden;
 }
 
+
 .shade1{
     position: absolute;  
-    opacity: ;
     width:100%;
     height:150%;
     left:-200px;
@@ -45,6 +45,16 @@ body{
     border-radius: 20px;
     overflow: hidden;
     transform:skewX(-20deg)
+}
+
+.card:hover .shade1{
+    transform: skewY(-65deg);
+    transition:0.4s;
+
+}
+.card:hover .shade2{
+    transform: skewY(65deg);
+    transition:0.4s;
 }
 
 .Top3Colours{
@@ -84,11 +94,89 @@ body{
     background-color: #507deaff;
 }
 
-.card:hover .shade1{
-    transform: skewY(65deg);
-    transition:0.5s;
+
+
+
+
+
+
+
+
+.ProImage{
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    position: relative;
+    left:69px;
+    top:20px;
+    opacity: 95%;
+    z-index: 2;
 }
-.card:hover .shade2{
-    transform: skewY(-65deg);
-    transition:0.5s;
+
+.card:hover img{
+height: 160;
+width: 160;
+position: relative;
+left:-6.8px;
+top:-5px;
+transition: 0.5s;
+
 }
+
+
+
+
+
+
+
+.card .HeaderBOX{
+    position: relative;
+    top:32px;
+    left:18px;
+    height: 58px;
+    width: 280px;
+    justify-content: center;
+    align-items:center;
+
+    display: flex;
+}
+
+.card .HeaderBOX h1{
+    font-family: "Century gothic";
+    font-size: 23px;
+    font-weight: 500;
+  
+}
+
+
+
+
+
+
+
+
+.Price{
+    position:relative;
+    top:2px;
+    left:160px;
+    height:50px;
+    width: 100px;
+    justify-content: center;
+    align-items:center;
+    display: flex;
+}
+
+.Price h1{
+    font-family: "Century gothic";
+    font-size: 22px;
+    font-weight: 500;
+    color:#ff0000ff;
+}
+
+.card:hover .Price{
+    position: relative;
+    transform: translate(-67px,0px);
+    transition: 0.5s;
+}
+
+

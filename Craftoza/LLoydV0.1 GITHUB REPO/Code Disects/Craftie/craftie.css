@@ -1,0 +1,159 @@
+{
+    margin: 0;
+    padding:0;
+    font-family:sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.safeArea{
+    z-index: 0;
+    position: relative;
+    width: 324px;
+    height: 309px;
+}
+
+.OuterBody{
+    z-index: 1;
+    position: absolute;
+    left:37px;
+    top:29.5px;
+    width: 250px;
+    height: 250px;
+    background-color:#875300ff;
+    border-radius:200px;
+}
+.InnerBoday1{
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    width: 234px;
+    height: 234px;
+    background-color: #8f5900ff;
+    border-radius: 234px;
+}
+
+.InnerBoday2{
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 223px;
+    height: 223px;
+    border-radius: 230px;
+    background-color: #c37a00ff;
+    opacity: 50%;
+}
+
+.Eyes{
+    position: absolute;
+    width:17px;
+    height:21px;
+    border-radius: 50%;
+    background-color: black;
+}
+#leftEYE{
+    position: absolute;
+    top: 87px;
+    left: 75px;
+}
+
+#rightEYE{
+    position: absolute;
+    top: 90px;
+    left: 125px;
+}
+
+.Smile{
+    position: absolute;
+    width: 27px;
+    height: 15px;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    background-color: black;
+    left: 19px;
+    top: 19px;
+    transform: rotate(3deg);
+}
+
+.Cheeks{
+    position: absolute;
+    width: 27px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: white;
+    transform: rotate(3deg);
+}
+
+#LeftCheek{
+    position: absolute;
+    top: 20px;
+    left: -26px;
+}
+#RightCheek{
+    position: absolute;
+    top: 26px;
+    left: 64px;
+}
+
+.Circles{
+    position: absolute;
+    width: 25;
+    height: 14;
+    border-radius: 50%;
+    background-color: #543500ff;
+    transform: rotate(3deg);
+}
+
+#Circles1{
+    position: absolute;
+    top: -67px;
+    left: 10px;
+}
+
+#Circles2{
+    position: absolute;
+    top: -73px;
+    left: 40px;
+}
+
+#Circles3{
+    position: absolute;
+    top: -55px;
+    left: 35px
+}
+
+.RIGHTHAND{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 246px;
+    top: 100px;
+}
+
+.RIGHTLEG{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 170px;
+    top: 236px;
+}
+
+.LEFTHAND{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: -10px;
+    top: 94px;
+}
+
+.LEFTLEG{
+   position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 54px;
+    top: 232px;
+}
