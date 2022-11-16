@@ -21,7 +21,6 @@
             width: 100%;
             height: auto;
         }
-
     </style>
     <script>
         function move(){
@@ -76,7 +75,7 @@
     </header>
     <main>
         <div id="top">
-            <p id="Headtext">Wish List</p>
+            <p id="Headtext">My Cart</p>
             <div id="craftie">
                 <img src="Images/craftie-rbg.png" alt="" onload="setTimeout(move, 1880)">            
             </div>
@@ -100,7 +99,6 @@
                     <button class="btn2">Remove From Wish List</button>
                 </div>
             </div>
-
             <br><br><br>
             <div class="item">
                 <div id="image">
@@ -119,11 +117,18 @@
                 </div>
             </div>
             <br><br><br>
+            <div id="billtable">
+                <p style="font-weight: bold;">Price Details</p>
+                <p>Price <span>Rs 2000</span></p>
+                <p>Discount <span>20%</span></p>
+                <p>Delivery Charges <span>Rs 40</span></p>
+                <hr>
+                <p style="font-weight: bold;">Total Amount <span>Rs 1640</span></p>
+            </div>
+            <br>
+            <button id="orderplc">Place Order</button>
+            <br><br><br>
         </div>
-
-        
     </main>
-
 </body>
-
 </html>
