@@ -6,7 +6,12 @@ body{
     font-family: "century gothic";
 }
 
-
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
 
 /* input{
     width:550px;
