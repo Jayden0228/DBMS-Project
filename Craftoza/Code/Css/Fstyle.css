@@ -1,26 +1,13 @@
-h1{
-    font-family: "Century Gothic";
-}
-
 ul{
     list-style:none;
     display:flex;
 }
 
-.BOARD{
-
-    width:370.100px;
-    height:235.926px ;
-}
-
 .CRAFT{
-    position: absolute;
-    width:270px;
-    top:-20px;
-    left:20px;
+    position: relative;
+    width: 270px;
+    left: 2px;
     text-align: left;
-    justify-content: center;
-
 }
 
 .CRAFT h1{
@@ -29,20 +16,11 @@ ul{
     color:#4d4d4dff;
 }
 
-
-
-
-
-
 .FOCALPOINT{
-    position: absolute;
-    top:-21px;
-    left:20px;
-    text-align: center;
-    justify-content: center;
-    
+    position: relative;
+    top: -55px;
+    left: -2px;
 }
-
 
 .FOCALPOINT h1{
     font-size: 63.38951874px;
@@ -50,47 +28,29 @@ ul{
     color:#4d4d4dff;
 }
 
-
-
-
-
-
 .OF{
-    position: absolute;
-    width:70px;
-    top:35px;
-    left:20px;
-    text-align: left;
-    justify-content: center;
-    
+    display: inline;
+    position: relative;
+    top: -110px;
+    text-align: left;    
 }
-
 .OF h1{
     font-weight:2;
     font-size: 66px;
     color:#4d4d4dff;
 }
 
-
-
-
-
-
-
-
-
 .GOAN{
-    position: absolute;
-    width:276.249px;
-    height: 88.960px;
-    top:60px;
-    left:100px;
+    display: inline;
+    position: relative;
+    top: -251px;
+    left: 3px;
 }
 
 .GOAN ul{
-    position: relative;
+    /* position: relative;
     right:30px;
-    bottom:10px;
+    bottom:10px; */
     justify-content: center;
 }
 
@@ -117,11 +77,11 @@ ul{
 
 
 .CREATIVITY{
-    position: absolute;
     width:368.439px;
     height: 70.291px;
+    /* position: absolute;
     top:110px;
-    left:15px;
+    left:15px; */
 
 }
 
@@ -134,17 +94,17 @@ ul{
 
 
 .STAND{
-    position: absolute;
+    /* position: absolute; */
     display: flex;
     flex-direction: column;
-    top:295px;
-    left: 80px;
+    /* top:295px;
+    left: 80px; */
     width:210px;
     height: 40px;
     transform: rotateZ(270deg);   
 }
 .VFL1{
-    position: relative;
+    /* position: relative; */
     min-width: 210px;
     width:100%;
     height: 20px;
@@ -155,7 +115,7 @@ ul{
 }
 
 .VFL2{
-    position: relative;
+    /* position: relative; */
     width:198.902px;
     height: 20px;
     min-width: 210px;
