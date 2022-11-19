@@ -19,22 +19,9 @@ main{
     background-size: cover;
     height:100%;
     width:100%;
-
-    display: grid;
-    /* grid-template-areas: 
-    'bar ad space space promo'
-    'bar ad space space promo'
-    'bar ad text space rimg'
-    'space door board space rimg'
-    'space door board space rimg'
-    'space door board space rimg'
-    'space door board space rimg'
-    'space door board space space'
-    'space door board space space'
-    'space door board space space'; */
-
-    grid-template-columns: 33% 33% 33%;
-    grid-template-rows: 33% 33% 33%;
+    display: grid;    
+    grid-template-columns: 31% 44% 22%;
+    grid-template-rows: 22% 33% 33%;
 }
 
 footer{
@@ -48,44 +35,27 @@ footer{
     width: 90%;
 }
 
-/* #HelpBar{
-    grid-area: bar;
-}
-#PromoAd{
-    grid-area: promo;
-}
-.RightImage{
-    grid-area: rimg;
-}
-.Board{
-    grid-area: board;
-}
-.doorSAFE_AREA{
-    grid-area: door;
-}
-.Advertise{
-    grid-area: ad;
-} */
-
 #HelpBar{
     grid-column: 1/2;
 }
 #PromoAd{
     grid-column: 3/4;
+    position: relative;
+    left: 17px;
 }
 .RightImage{
-    grid-area: 2/3/3/4;
+    grid-area: 2/3/4/4;
     position: relative;
-    top: -122px;
+    top: -30px;
 }
 .BOARD{
     grid-area: 2/2/4/3;
 }
-/* .doorSAFE_AREA{
-    grid-area: door;
+.doorSAFE_AREA{
+    grid-area: 2/1/4/2;
 }
-.Advertise{
-    grid-area: ad;
+/* .Advertise{
+    grid-area: 1/1/2/2;
 } */
 
 
@@ -108,8 +78,8 @@ h1 {
     width: 210px;
     color: #3d3d3dbc;
     opacity: 58;
-    position:relative;
-    top:0;
+    position:absolute;
+    top: 45px;
     visibility: hidden;
     animation: fade 8s ease-in infinite;
 }
@@ -117,8 +87,8 @@ h1 {
     width: 210px;
     color: #3d3d3dbc;
     opacity: 58;
-    position:relative;
-    top:-40;
+    position:absolute;
+    top: 45px;
     visibility: hidden;
     animation: fade 8s ease-in 2s infinite;
 }
@@ -126,8 +96,8 @@ h1 {
     width: 210px;
     color: #3d3d3dbc;
     opacity: 58;
-    position:relative;
-    top:-80;
+    position:absolute;
+    top: 45px;
     visibility: hidden;
     animation: fade 8s ease-in 4s infinite;
 }
@@ -135,8 +105,8 @@ h1 {
     width: 210px;
     color: #3d3d3dbc;
     opacity: 58;
-    position:relative;
-    top:-120;
+    position:absolute;
+    top: 45px;
     visibility: hidden;
     animation: fade 8s ease-in 6s infinite;
 }
@@ -150,9 +120,11 @@ h1 {
     }
 }
 
-.Board{
+.BOARD{
     width:363px;
     height: 244px;
+    position: relative;
+    top: -70px;
 }
 .Craftie{
     width:250px;
@@ -165,9 +137,9 @@ h1 {
 .doorSAFE_AREA{
     width:305px;
     height: 305px;
-    /* position:absolute;
+    position:relative;
     left: 45px;
-    top:400px; */
+    /* top:400px; */
 }
 
 /* #DecoSize{
@@ -219,46 +191,15 @@ h1 {
 }
 
 
-
-.DoorTEXT{
-    /* position: absolute; */
-    font-family: "century gothic";
-    color: rgb(35, 35, 35);
-    /* top: 112px;
-    left: 231px; */
-    width: 120px;
-    height: 70px;
-    opacity: 1;
-    transition: .3s;
-}
-
-/* #knock{
- position: absolute;
- top:20px;
-} */
-
-/* #meet{
-    position: absolute;
-    top:40px;
-} */
-
-#DoorTxt{
-    /* position: absolute;
-    top:60px; */
-    font-weight: 600;
-}
-
-
 .Advertise{
-    /* position: relative;
-    z-index: 2; */
+    /* position: absolute;
+    top: 19px;
+    left: -490px; */
+    /* z-index: 2; */
     font-family: "century gothic";
     color:rgb(35, 35, 35);
-    /* top:40px;
-    left:100px; */
+    top:40px;
+    left:100px;
     max-width:210px;
-    height: 150px;
-    
+    height: 150px;   
 }
-
-
