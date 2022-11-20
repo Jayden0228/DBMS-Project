@@ -1,10 +1,14 @@
 @import url("style.css");
 
+#DecoSize{
+    position: relative;
+    left:51.99px;
+}
 .MainDoor{
-    min-height: 210.890px;
+    height: 211px;
     width:204.020px;
     background-color:#fecc21ff; 
-    position: absolute;
+    position: relative;
     left:51.99px;
     bottom:0;
 }
@@ -13,9 +17,9 @@
     width: 204.020px;
     height: 94.707px;
     background-color:#fecc21ff;
-    position: absolute;
+    position: relative;
     left:51.99px;
-    top:0;
+    top:4px;
     border-top-left-radius: 204.020px;
     border-top-right-radius: 204.020px;
 
@@ -127,6 +131,34 @@
 
 .MainDoor:hover #RightDoor{
     transform: rotateY(-140deg); 
+}
+
+.DoorTEXT{
+    position: relative;
+    font-family: "century gothic";
+    color: rgb(35, 35, 35);
+    top: -52px;
+    left: 231px;
+    width: 120px;
+    height: 70px;
+    opacity: 1;
+    transition: .3s;
+}
+/* 
+#knock{
+ position: absolute;
+ top:20px;
+}
+
+#meet{
+    position: absolute;
+    top:40px;
+} */
+
+#DoorTxt{
+    /* position: absolute;
+    top:60px; */
+    font-weight: 600;
 }
 
 

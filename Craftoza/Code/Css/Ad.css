@@ -40,7 +40,7 @@
     width:200px;
     height: 140px;
     background-color:white;
-     animation-name: AdAnimation2; 
+    animation-name: AdAnimation2; 
     animation-iteration-count: infinite;
     animation-duration: 15s;
     border-top-left-radius:20px ;

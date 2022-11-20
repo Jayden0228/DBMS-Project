@@ -1,103 +1,85 @@
-h1{
-    font-family: "Century Gothic";
+.BOARD{
+    display: grid;
+    /* 274px 64.6px; */
+    /* 30px 63.6px; */
+    grid-template-columns: 276px 64.6px;
+    grid-template-rows: 30px 63.6px 70px 150px;
+    grid-template-areas: 'top top' 'top2 top2' 'midl midr' 'bottom bottom' '. last';
 }
-
 ul{
     list-style:none;
     display:flex;
 }
 
-.BOARD{
-
-    width:370.100px;
-    height:235.926px ;
-}
-
 .CRAFT{
-    position: absolute;
-    width:270px;
-    top:-20px;
-    left:20px;
+    grid-area: top;
+    /* position: relative;
+    left: 2px; */
+    /* width: 270px; */
     text-align: left;
-    justify-content: center;
-
 }
 
 .CRAFT h1{
+    margin: 0px;
     font-size: 25.38976097px;
     font-weight:2;
     color:#4d4d4dff;
 }
 
-
-
-
-
-
 .FOCALPOINT{
-    position: absolute;
-    top:-21px;
-    left:20px;
-    text-align: center;
-    justify-content: center;
-    
+    grid-area: top2;
+    /* position: relative;
+    top: -55px;
+    left: -2px; */
 }
 
-
 .FOCALPOINT h1{
+    margin: 0px;
     font-size: 63.38951874px;
     font-weight:2;
     color:#4d4d4dff;
-}
-
-
-
-
-
-
-.OF{
-    position: absolute;
-    width:70px;
-    top:35px;
-    left:20px;
-    text-align: left;
-    justify-content: center;
     
 }
 
+.OF{
+    grid-area: midl;
+    display: inline;
+    /* position: relative;
+    top: -110px; */
+    text-align: left; 
+    height: auto;   
+}
 .OF h1{
+    margin: 0px;
     font-weight:2;
     font-size: 66px;
     color:#4d4d4dff;
 }
 
-
-
-
-
-
-
-
-
 .GOAN{
-    position: absolute;
-    width:276.249px;
-    height: 88.960px;
-    top:60px;
-    left:100px;
+    grid-area: midr;
+    display: inline;
+    position: relative;
+    top: -15px;
+    left: -98px;
+    /* width: 10px;
+    height: 10px; */
+
 }
 
 .GOAN ul{
-    position: relative;
+    /* position: relative;
     right:30px;
-    bottom:10px;
+    bottom:10px; */
+    /* height: auto; */
+    margin: 0px;
+    padding: 0px;
     justify-content: center;
 }
 
 .GOAN ul li{
     font-family: Jokerman;
     font-size:80px;
-
 }
 
 .BLUE{
@@ -112,54 +94,48 @@ ul{
     color: #ffe118ff;
 }
 
-
-
-
-
 .CREATIVITY{
-    position: absolute;
-    width:368.439px;
-    height: 70.291px;
+    grid-area: bottom;
+    height: auto;
+    /* width:368.439px;
+    height: 70.291px; */
+    /* position: absolute;
     top:110px;
-    left:15px;
-
+    left:15px; */
 }
 
 .CREATIVITY h1{
+    margin: 0px;
     font-weight:2;
     font-size: 65.14629364px;
     color:#4d4d4dff;
 }
 
-
-
 .STAND{
-    position: absolute;
+    grid-area: last;
     display: flex;
     flex-direction: column;
-    top:295px;
-    left: 80px;
-    width:210px;
-    height: 40px;
+    position: relative;
+    top: -5px;
+    width: 0px;
+    height: 248px;
     transform: rotateZ(270deg);   
 }
 .VFL1{
-    position: relative;
+    /* position: relative; */
     min-width: 210px;
     width:100%;
     height: 20px;
-    font-family: "Century Gothic";
     font-size: 20.91184235px;
     color: #00000074;
 
 }
 
 .VFL2{
-    position: relative;
+    /* position: relative; */
     width:198.902px;
     height: 20px;
     min-width: 210px;
-    font-family: "Century Gothic";
     font-size: 20.91184235px;
     color: black;
 }

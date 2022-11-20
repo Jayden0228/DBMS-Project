@@ -4,6 +4,28 @@ body{
     margin: 0;
     padding: 0;
     font-family: "century gothic";
+    display: grid;
+    /* grid-template-rows: 17.7vh 100vh 10vh; */
+    grid-template-rows: 18% 82% 30%;
+    height: 100vh;
+}
+
+header{
+    grid-row: 1/2;
+}
+main{
+    grid-row: 2/3;
+    background-image: url(../Micro_Webpage_Elements/FrontPageElemts/BackgroundImg1.png);
+    background-size: 1519.2px 606.133px;
+    height:100%;
+    width:100%;
+    display: grid;    
+    grid-template-columns: 31% 44% 22%;
+    grid-template-rows: 22% 33% 33%;
+}
+
+footer{
+    grid-row: 3/4;
 }
 
 .center{
@@ -13,49 +35,40 @@ body{
     width: 90%;
 }
 
-/* input{
-    width:550px;
-    height: 30px;
-    font-family: "century gothic";
-} */
-
-
-
-
-.BackgroundIMG{
-    height: 630px;
-    width:100%;
-    position: absolute;
-    top:110px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-    z-index:-1;
+.col1{
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+#PromoAd{
+    grid-column: 3/4;
+    position: relative;
+    left: 17px;
+}
+.RightImage{
+    grid-area: 2/3/4/4;
+    position: relative;
+    top: -14px;
+}
+.BOARD{
+    grid-area: 2/2/4/3;
+}
+.doorSAFE_AREA{
+    grid-area: 2/1/4/2;
 }
 
 .RightImage{
-    position:absolute;
-    display: flex;
-    top:240px;
-    right: 25px;
     width:350px;
     height: 400px;
-    z-index: 1;
 }
 
 h1 {
     font-family: "Century Gothic";
     font-size: 38;
-   
 }
 
 #PromoAd1{
     color: #a8a8a896;
     opacity: 82.7;
-    position:absolute;
-    right:140px;
-    top:120px;
 }
 
 #PromoAd2{
@@ -63,8 +76,7 @@ h1 {
     color: #3d3d3dbc;
     opacity: 58;
     position:absolute;
-    right:140px;
-    top:160px;
+    top: 45px;
     visibility: hidden;
     animation: fade 8s ease-in infinite;
 }
@@ -73,8 +85,7 @@ h1 {
     color: #3d3d3dbc;
     opacity: 58;
     position:absolute;
-    right:140px;
-    top:160px;
+    top: 45px;
     visibility: hidden;
     animation: fade 8s ease-in 2s infinite;
 }
@@ -83,8 +94,7 @@ h1 {
     color: #3d3d3dbc;
     opacity: 58;
     position:absolute;
-    right:140px;
-    top:160px;
+    top: 45px;
     visibility: hidden;
     animation: fade 8s ease-in 4s infinite;
 }
@@ -93,8 +103,7 @@ h1 {
     color: #3d3d3dbc;
     opacity: 58;
     position:absolute;
-    right:140px;
-    top:160px;
+    top: 45px;
     visibility: hidden;
     animation: fade 8s ease-in 6s infinite;
 }
@@ -108,51 +117,49 @@ h1 {
     }
 }
 
-.Board{
-    width:370.1px;
-    height: 460.1px;
-    position:absolute;
-    left: 425px;
-    top:240px;
-   
+.BOARD{
+    width:363px;
+    height: 244px;
+    position: relative;
+    top: -34px;
 }
 .Craftie{
     width:250px;
     height:184px;
-    position:absolute;
+    /* position:absolute;
     left:40px;
-    top:520px;
+    top:520px; */
 }
 
 .doorSAFE_AREA{
     width:305px;
     height: 305px;
-    position:absolute;
+    position:relative;
     left: 45px;
-    top:400px;
+    top:33px;
 }
 
-#DecoSize{
+/* #DecoSize{
     position:absolute;
     left: 90px;
     top:320px;
-}
+} */
 
 #HelpBar1{
     width:20px;
     height: 40px;
-    position: relative;
+    /* position: relative;
     left:0px;
-    top:160px;
+    top:160px; */
     background-color: #5ea2ecfe;
     opacity: 86.9;
 }
 #HelpBar2{
     width:20px;
     height: 40px;
-    position: relative;
+    /* position: relative;
     left:0px;
-    top:180px;
+    top:180px; */
     background-color: #fd5353fe;
     opacity: 86.9;
 }
@@ -160,9 +167,9 @@ h1 {
 #HelpBar3{
     width:20px;
     height: 40px;
-    position: relative;
+    /* position: relative;
     left:0px;
-    top:200px;
+    top:200px; */
     background-color: #ffe951fe;
     opacity: 86.9;
 }
@@ -181,54 +188,16 @@ h1 {
 }
 
 
-
-
-
-
-
-.DoorTEXT{
-    position: absolute;
-    font-family: "century gothic";
-    color: rgb(35, 35, 35);
-    top: 112px;
-    left: 231px;
-    width: 120px;
-    height: 70px;
-    opacity: 1;
-    transition: .3s;
-}
-
-#knock{
- position: absolute;
- top:20px;
-}
-
-#meet{
-    position: absolute;
-    top:40px;
-}
-
-#DoorTxt{
-    position: absolute;
-    top:60px;
-    font-weight: 600;
-}
-
-
-
-
-
-
-
 .Advertise{
-    position: relative;       z-index: 2;
+    position: relative;
+    /* top: 19px;
+    left: -490px; */
+    /* z-index: 2; */
     font-family: "century gothic";
     color:rgb(35, 35, 35);
     top:40px;
     left:100px;
     max-width:210px;
-    height: 150px;
-    
+    height: 150px;  
+    top: -142px; 
 }
-
-

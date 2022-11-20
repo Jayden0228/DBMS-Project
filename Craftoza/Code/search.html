@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Goan Handicraft E-commerce site">
+    <meta name="keywords" content="Goa ,Goan, Handicraft">
+    <meta name="author" content="Jayden Viegas, LLoyd Aldrich Costa">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Css/nav.css">
+    <link rel="stylesheet" href="Css/search.css">
+
+    <style>
+        main{
+            position: absolute;
+            top: 158px;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+
+    <script>
+        function swap(i,j){
+            let a=document.getElementById(i).children[0];
+            let b=document.getElementById(j).children[0];
+            let c=a.src;
+            a.src=b.src
+            b.src=c;
+        }
+        function increment(){
+            let a=document.getElementById('pqnt');
+            let cnt=parseInt(a.value)+1
+            a.value=cnt.toString();
+        }
+        function decrement(){
+            let a=document.getElementById('pqnt');
+            if(a.value!=1){
+                let cnt=parseInt(a.value)-1
+                a.value=cnt.toString();
+            }
+        }
+        function show(id,arw){
+            if(document.getElementById(id).style.display=='block')
+            {
+                document.getElementById(id).style.display='none';
+            }
+            else{
+                document.getElementById('lv3cn1h').style.display='none';
+                document.getElementById('lv3cn2h').style.display='none';
+                document.getElementById('lv3cn3h').style.display='none';
+                document.getElementById(id).style.display='block';
+            }
+        }
+    </script>
+
+    <title>Craftoza</title>
+</head>
+
+<body>
+    <header style="box-shadow: 0px 5px 9px rgba(8, 8, 8, 0.2);">
+        <div id="logo"><img src="Images\Logo.png" alt="logo" id="logo"></div>
+
+        <input type="search" placeholder=" Search Products" id="searchvalue">
+
+        <div class="icons">
+            <ul>
+                <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons" onclick="displayBlock('login')"></li>
+                <li><img src="Micro_Webpage_Elements\icons\cart.png" class="Icons"></li>
+                <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
+            </ul>
+        </div>
+        <div class="lineBreaker"></div>
+        <nav>
+            <ul class="NavLinks">
+                <li>Explore
+                    <div class="dropdown">
+                        <a href="">Pottery</a>
+                        <a href="">Shells</a>
+                        <a href="">Jewellery</a>
+                        <a href="">Bag</a>
+                        <a href="">Coconut Item</a>
+                    </div>
+                </li>
+                <li>Community
+                    <div class="dropdown">
+                        <a href="">Craftie</a>
+                        <a href="">Craftoza Warriors</a>
+                    </div>
+                </li>
+                <li>About us
+                    <div class="dropdown">
+                        <a href="">Contact</a>
+                        <a href="">Social Media</a>
+                    </div>
+                </li>
+                <li>Be An Agent</li>
+
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="backgd">
+            <br><br><br>
+            <div class="item">
+
+
+                
+
+
+                <div class="simg">
+                    <div id="simg1">
+                        <img src="Images/item1.jpg" alt="" width="110%" height="100%" onclick="swap('simg1','image')">
+                    </div>
+                    <br>
+                    <div id="simg2">
+                        <img src="Images/item2.jpeg" alt="" width="110%" height="100%" onclick="swap('simg2','image')">
+                    </div>
+                    <br>
+                    <div id="simg3">
+                        <img src="Images/item3.jpeg" alt="" width="110%" height="100%" onclick="swap('simg3','image')">
+                    </div>
+                </div>
+                <div id="image">
+                    <img src="Images/card3.png" alt="" width="110%" height="100%">
+                </div>
+                <hr id="divider">
+            </div>
+
+
+
+
+            <div id="lv1">
+                <div id="text">
+                    <div class="text1">Proud Bardezkar Bamboo</div>
+                    <div class="text2">Basket</div>
+                </div>
+                <button id="buybtn">BUY NOW</button>
+            </div>
+
+            <hr>
+
+            <div id="lv2">
+                <div id="lv2cn1">
+                    <div class="text3" style="color: #fd5353fe;">-49% <span style="color: black;">Rs 299</span></div>
+                    <div class="text3">MRP <s>299</s></div>
+                    <div>Inclusive of all taxes</div>
+                <div class="text4"></div>
+                </div>
+                <div id="lv2cn2">
+                    <div class="text5">Qnt 
+                        <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button>
+                </div>
+                </div>
+                <div id="lv2cn3">
+                    <button class="btn1">Add To Cart</button>
+                    <button class="btn2">Add To Wish List</button>
+                </div>
+            </div>
+            
+            <hr>
+            
+            
+
+            <div id="lv3" style="display: block;">
+                <div id="lv3cn1" onclick="show('lv3cn1h','arw1')">
+                    <span>Product Description</span>
+                    <div class="plus"><span>&#65291;</span></div>
+                </div>
+                <div id="lv3cn1h">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est sint, maiores sapiente quo doloribus quia quam magnam minima quas accusantium repellat voluptatem ipsa? Voluptate veritatis molestiae, quod non blanditiis fugit, at necessitatibus numquam esse optio ipsa sint! Deleniti quis quidem nisi incidunt similique corrupti asperiores?
+                </div>
+
+
+                <div id="lv3cn2" onclick="show('lv3cn2h','arw2')">
+                    <span>Product Specification</span>
+                    <div class="plus"><span>&#65291;</span></div>
+                </div>
+                <div id="lv3cn2h">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est sint, maiores sapiente quo doloribus quia quam magnam minima quas accusantium repellat voluptatem ipsa? Voluptate veritatis molestiae, quod non blanditiis fugit, at necessitatibus numquam esse optio ipsa sint! Deleniti quis quidem nisi incidunt similique corrupti asperiores?
+                </div>
+
+                
+                <div id="lv3cn3" onclick="show('lv3cn3h','arw3')">
+                    <span>Customer Reviews</span>
+                    <div class="plus"><span>&#65291;</span></div>
+                </div>
+                <div id="lv3cn3h">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est sint, maiores sapiente quo doloribus quia quam magnam minima quas accusantium repellat voluptatem ipsa? Voluptate veritatis molestiae, quod non blanditiis fugit, at necessitatibus numquam esse optio ipsa sint! Deleniti quis quidem nisi incidunt similique corrupti asperiores?
+                </div>
+            </div>
+
+            <br><br><br>
+
+
+
+            <div id="billtable">
+                <p style="font-weight: bold;">Price Details</p>
+                <p>Price <span>Rs 2000</span></p>
+                <p>Discount <span>20%</span></p>
+                <p>Delivery Charges <span>Rs 40</span></p>
+                <hr>
+                <p style="font-weight: bold;">Total Amount <span>Rs 1640</span></p>
+            </div>
+            <br>
+            <button id="orderplc">Place Order</button>
+            <br><br><br>
+        </div>
+    </main>
+</body>
+</html>

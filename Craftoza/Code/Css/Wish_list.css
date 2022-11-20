@@ -129,3 +129,36 @@ hr{
 #orderplc:hover{
     background: #ff930f;
 } 
+
+
+
+#min, #max{
+    display: inline;
+    box-sizing: content-box;
+    background-color: #f9f9f9f0;
+    color: black;
+    width: 18px;
+    height: 21px;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    border: 3px solid #aeacac;
+}
+#pqnt{
+    width: 10%;
+    padding-top: 2.4px;
+    border: none;
+    border-top: 3px solid #aeacac;
+    border-bottom: 3px solid #aeacac;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance: textfield;
+}

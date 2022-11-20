@@ -26,6 +26,18 @@
         function move(){
             document.getElementById('craftie').style.left="85%";
         }
+        function increment(){
+            let a=document.getElementById('pqnt');
+            let cnt=parseInt(a.value)+1
+            a.value=cnt.toString();
+        }
+        function decrement(){
+            let a=document.getElementById('pqnt');
+            if(a.value!=1){
+                let cnt=parseInt(a.value)-1
+                a.value=cnt.toString();
+            }
+        }
     </script>
     
     <title>Craftoza</title>
@@ -35,7 +47,7 @@
     <header style="box-shadow: 0px 5px 9px rgba(8, 8, 8, 0.2);">
         <div id="logo"><img src="Images\Logo.png" alt="logo" id="logo"></div>
 
-        <input type="search" placeholder=" Search Products">
+        <input type="search" placeholder=" Search Products" id="searchvalue">
 
         <div class="icons">
             <ul>
@@ -92,7 +104,7 @@
                     <div class="text2">Basket</div>
                     <div class="text3" style="color: #fd5353fe;">Rs 299</div>
                     <div class="text4"></div>
-                    <div class="text5">Qnt <input type="number" id="pqnt"  min="1" value="1"></div>
+                    <div class="text5">Qnt <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button></div>
                 </div>
                 <div id="btn">
                     <button class="btn1">Add To Cart</button>
@@ -109,7 +121,7 @@
                     <div class="text2">Basket</div>
                     <div class="text3" style="color: #fd5353fe;">Rs 299</div>
                     <div class="text4"></div>
-                    <div class="text5">Qnt <input type="number" id="pqnt"  min="1" value="1"></div>
+                    <div class="text5">Qnt <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button></div>
                 </div>
                 <div id="btn">
                     <button class="btn1">Add To Cart</button>
