@@ -71,7 +71,7 @@ button{
 #buybtn{
     background: #FE981B;
     margin-left: auto;
-    width: 24%;
+    width: 22%;
 } 
 #buybtn:hover{
     background: #ff930f;
@@ -80,10 +80,6 @@ button{
 .text1, .text2, .text3, .text5, s{
     font-weight: bolder;
     font-size: large;
-}
-.text5 input[type="number"]{
-    width: 20%;
-    padding: 3px;
 }
 
 #lv2cn1,#lv2cn2,#lv2cn3{
@@ -99,6 +95,38 @@ button{
     display: flex;
     flex-direction: column;
 }
+
+#min, #max{
+    display: inline;
+    box-sizing: content-box;
+    background-color: #f9f9f9f0;
+    color: black;
+    width: 18px;
+    height: 19px;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    border: 3px solid #aeacac;
+}
+#pqnt{
+    width: 10%;
+    padding-top: 2.4px;
+    border: none;
+    border-top: 3px solid #aeacac;
+    border-bottom: 3px solid #aeacac;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance: textfield;
+}
+
 
 .btn1{
     background: #5ea2ecfe;
@@ -129,7 +157,6 @@ button{
 }
 #lv3cn2{
     background: #5ea2ecfe;
-
 }
 #lv3cn3{
     background: #ffd852ff;
@@ -144,24 +171,12 @@ button{
 #lv3cn3:hover{
     background: #f3c42d;
 }
-#plus{
+.plus{
     display: inline;
     float: right;
-    transform: rotate(0deg);
+    transform: rotate(-90deg);
 }
 
-
-/* #lv3cn1:hover #plus,
-#lv3cn2:hover #plus,
-#lv3cn3:hover #plus{
-    animation: spin 0.5s ease-in-out 0s 1;
-}*/
-
-/* @keyframes spin {
-    to{
-        transform: rotate(180deg);
-    }
-} */
 
 #lv3cn1h,#lv3cn2h,#lv3cn3h{
     display: none;
