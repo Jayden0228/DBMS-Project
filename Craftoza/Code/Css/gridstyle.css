@@ -6,7 +6,7 @@ body{
     font-family: "century gothic";
     display: grid;
     /* grid-template-rows: 17.7vh 100vh 10vh; */
-    grid-template-rows: 18% 100% 30%;
+    grid-template-rows: 18% 82% 30%;
     height: 100vh;
 }
 
@@ -16,7 +16,7 @@ header{
 main{
     grid-row: 2/3;
     background-image: url(../Micro_Webpage_Elements/FrontPageElemts/BackgroundImg1.png);
-    background-size: cover;
+    background-size: 1519.2px 606.133px;
     height:100%;
     width:100%;
     display: grid;    
@@ -35,8 +35,9 @@ footer{
     width: 90%;
 }
 
-#HelpBar{
+.col1{
     grid-column: 1/2;
+    grid-row: 1/2;
 }
 #PromoAd{
     grid-column: 3/4;
@@ -46,7 +47,7 @@ footer{
 .RightImage{
     grid-area: 2/3/4/4;
     position: relative;
-    top: -30px;
+    top: -14px;
 }
 .BOARD{
     grid-area: 2/2/4/3;
@@ -54,10 +55,6 @@ footer{
 .doorSAFE_AREA{
     grid-area: 2/1/4/2;
 }
-/* .Advertise{
-    grid-area: 1/1/2/2;
-} */
-
 
 .RightImage{
     width:350px;
@@ -124,7 +121,7 @@ h1 {
     width:363px;
     height: 244px;
     position: relative;
-    top: -70px;
+    top: -34px;
 }
 .Craftie{
     width:250px;
@@ -139,7 +136,7 @@ h1 {
     height: 305px;
     position:relative;
     left: 45px;
-    /* top:400px; */
+    top:33px;
 }
 
 /* #DecoSize{
@@ -192,8 +189,8 @@ h1 {
 
 
 .Advertise{
-    /* position: absolute;
-    top: 19px;
+    position: relative;
+    /* top: 19px;
     left: -490px; */
     /* z-index: 2; */
     font-family: "century gothic";
@@ -201,5 +198,6 @@ h1 {
     top:40px;
     left:100px;
     max-width:210px;
-    height: 150px;   
+    height: 150px;  
+    top: -142px; 
 }

@@ -1,3 +1,8 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "century gothic";
+}
 header{
     display: grid;
     grid-template-columns: 25% auto auto;
@@ -7,7 +12,7 @@ header{
     align-items: center;   
     width: 100%;
     position: fixed;
-    /* z-index:6; */
+    z-index:6;
 }
 
 #logo{
