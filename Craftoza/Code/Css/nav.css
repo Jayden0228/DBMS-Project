@@ -26,14 +26,15 @@ header{
 
 #searchvalue{
     grid-column: 2/3;
-    width:450px;
+    /* width:450px; */
+    width:29.296875vw;
     height: 30px;
     font-family: "century gothic";
     transition: width 1s;
 }
 
 #searchvalue:focus{
-    width:550px;
+    width: 35.80729167vw;
 }
 
 .Icons{

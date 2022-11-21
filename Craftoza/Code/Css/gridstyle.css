@@ -51,19 +51,31 @@ footer{
 }
 .BOARD{
     grid-area: 2/2/4/3;
+    width:363px;
+    height: 244px;
+    position: relative;
+    top: -4.60081vh;
 }
 .doorSAFE_AREA{
     grid-area: 2/1/4/2;
+    width:305px;
+    height: 305px;
+    position:relative;
+    left: 45px;
+    top:33px;
 }
 
 .RightImage{
-    width:350px;
-    height: 400px;
+    /* width:350px; */
+    width:22.786458333333332vw;
+    /* height: 400px; */
+    /* height: auto; */
+    /* height: 54.12719891745602vh; */
 }
 
 h1 {
-    font-family: "Century Gothic";
-    font-size: 38;
+    /* font-size: 38; */
+    font-size: 2.4739583333333335vw;
 }
 
 #PromoAd1{
@@ -117,37 +129,17 @@ h1 {
     }
 }
 
-.BOARD{
-    width:363px;
-    height: 244px;
-    position: relative;
-    top: -34px;
-}
 .Craftie{
     width:250px;
     height:184px;
-    /* position:absolute;
-    left:40px;
-    top:520px; */
 }
 
-.doorSAFE_AREA{
-    width:305px;
-    height: 305px;
-    position:relative;
-    left: 45px;
-    top:33px;
-}
-
-/* #DecoSize{
-    position:absolute;
-    left: 90px;
-    top:320px;
-} */
 
 #HelpBar1{
-    width:20px;
-    height: 40px;
+    /* width:20px; */
+    width:1.3020833333333333vw;
+    /* height: 40px; */
+    height: 5.412719891745602vh;
     /* position: relative;
     left:0px;
     top:160px; */
@@ -155,8 +147,10 @@ h1 {
     opacity: 86.9;
 }
 #HelpBar2{
-    width:20px;
-    height: 40px;
+    /* width:20px; */
+    width:1.3020833333333333vw;
+    /* height: 40px; */
+    height: 5.412719891745602vh;
     /* position: relative;
     left:0px;
     top:180px; */
@@ -165,8 +159,10 @@ h1 {
 }
 
 #HelpBar3{
-    width:20px;
-    height: 40px;
+    /* width:20px; */
+    width:1.3020833333333333vw;
+    /* height: 40px; */
+    height: 5.412719891745602vh;
     /* position: relative;
     left:0px;
     top:200px; */
