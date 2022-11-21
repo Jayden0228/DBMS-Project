@@ -17,7 +17,7 @@ button{
 #divider{
     width: 25%;
     position: absolute;
-    top: 21%;
+    top: 25.5%;
     left: 27%;
     transform: rotate(90deg);
 }
@@ -62,7 +62,7 @@ button{
 
 #lv1, #lv2, #lv3{
     display: flex;
-    margin: 20px auto;
+    margin: 40px auto;
     width: 75%;
 }
 /* #lv2{
@@ -72,14 +72,18 @@ button{
     background: #FE981B;
     margin-left: auto;
     width: 22%;
+    height: 10%;
 } 
 #buybtn:hover{
     background: #ff930f;
 } 
 
-.text1, .text2, .text3, .text5, s{
+.text1, .text3, s{
     font-weight: bolder;
     font-size: large;
+}
+.text1{
+    font-size: x-large;
 }
 
 #lv2cn1,#lv2cn2,#lv2cn3{
@@ -127,7 +131,6 @@ input[type=number] {
   appearance: textfield;
 }
 
-
 .btn1{
     background: #5ea2ecfe;
     width: 100%;
@@ -166,17 +169,16 @@ input[type=number] {
 }
 #lv3cn2:hover{
     background: #3e90e8fe;
-
 }
 #lv3cn3:hover{
     background: #f3c42d;
 }
+
 .plus{
     display: inline;
     float: right;
     transform: rotate(-90deg);
 }
-
 
 #lv3cn1h,#lv3cn2h,#lv3cn3h{
     display: none;
@@ -187,32 +189,6 @@ input[type=number] {
     margin-bottom: 30px;
     border-radius: 10px;
     background-color: white;
-    /* transform: rotate(0deg); */
-}
-
-
-
-
-
-
-
-
-
-
-
-#billtable{
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    background-color: #ffffff;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 15px;
-    padding: 10px 25px;
-}
-
-#billtable p span{
-    float: right;
+    max-height: 200px;
+    overflow-y: scroll;
 }
