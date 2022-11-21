@@ -10,7 +10,7 @@ button{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1.059vw;
+    font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
 }
@@ -65,9 +65,7 @@ button{
     margin: 40px auto;
     width: 75%;
 }
-/* #lv2{
-    justify-content: center;
-} */
+
 #buybtn{
     background: #FE981B;
     margin-left: auto;
@@ -78,11 +76,12 @@ button{
     background: #ff930f;
 } 
 
-.text1, .text3, s{
+.text2, .text3, s{
     font-weight: bolder;
     font-size: large;
 }
 .text1{
+    font-weight: bolder;
     font-size: x-large;
 }
 
