@@ -6,7 +6,9 @@
 }
 .MainDoor{
     height: 211px;
+    /* height: 28.552097428958053vh; */
     width:204.020px;
+    /* width:13.282552083333334vw; */
     background-color:#fecc21ff; 
     position: relative;
     left:51.99px;
@@ -15,13 +17,17 @@
 
 #DoorSemiCircle{
     width: 204.020px;
+    /* width: 13.282552083333334vw; */
     height: 94.707px;
+    /* height: 12.815561569688768vh; */
     background-color:#fecc21ff;
     position: relative;
     left:51.99px;
     top:4px;
     border-top-left-radius: 204.020px;
+    /* border-top-left-radius: 13.282552083333334vw; */
     border-top-right-radius: 204.020px;
+    /* border-top-right-radius: 13.282552083333334vw; */
 
 }
 
