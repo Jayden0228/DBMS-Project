@@ -1,5 +1,0 @@
-24px    1.579vw
-18px    1.184vw
-16px    1.059vw
-
-https://khaledkzy.github.io/pixel-vh-vw-converter/
