@@ -15,195 +15,20 @@
     <link rel="stylesheet" href="Css/Door.css">
     <link rel="stylesheet" href="Css/Ad.css">
     <link rel="stylesheet" href="Css/login_sign.css">
-
-    <script>
-        function displayNone(id) {
-            document.getElementById(id).style.display = "none";
-        }
-        function displayBlock(id) {
-            document.getElementById(id).style.display = "block";
-        }
-        function nextip(id) {
-            document.getElementById(id).next().focus();
-        }
-    </script>
     <title>Craftoza</title>
 </head>
 
 <body>
-    <div id="login">
-        <img id="back" src="Images/Back.png" alt="">
-        <div class="box center">
-            
-            <span class="arrow" onclick="displayNone('login')">&#8592;</span>
-            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
-
-
-            <p class="head bolder">LOGIN</p>
-
-            <form action="" method="post" class="center2">
-
-                <label for="Email">Email</label><br>
-                <input type="email" id="email" name="Email" value="" class="inp"><br>
-                <label for="Password">Password</label><br>
-                <input type="password" id="password" name="Password" value="" class="inp"><br>
-
-                <br>
-                <input type="checkbox" name="Remember_me" id="remember_me">
-                <label for="Remember_me" style="font-size: 14px;">Remember Me?</label>
-                <br>
-                <br>
-                <input type="submit" value="LOGIN" class="button2" onclick="displayNone('login')">
-
-                <p style="font-size: 14px; padding-left: 75px;"><span
-                        onclick="displayNone('login');displayBlock('fpwd')">Forgot Password</span></p>
-                <br>
-                <br>
-            </form>
-            <p style="font-size: 14px; padding-bottom: 40px;">Need an Account? <span style="font-size: 14px;"
-                    onclick="displayNone('login');displayBlock('sign')">SIGN UP</span></p>
-        </div>
-    </div>
-
-    <div id="sign">
-        <img id="back" src="Images/Back.png" alt="">
-
-        <div class="box center">
-            <span class="arrow" onclick="displayNone('sign')">&#8592;</span>
-            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
-
-            <p class="head bolder">SIGNUP</p>
-
-            <form action="" method="post" class="center2">
-                <label for="Email">Email</label><br>
-                <input type="email" id="email" name="Email" value="" class="inp"><br>
-                <label for="Password" class="bolder">Password</label><br>
-                <input type="password" id="password" name="Password" value="" class="inp"><br>
-                <label for="ConfirmPassword" class="bolder">Confirm Password</label><br>
-                <input type="password" id="confirmpassword" name="ConfirmPassword" value="" class="inp"><br>
-
-                <br>
-
-                <input type="submit" value="SIGNUP" class="button2" onclick="displayNone('sign')">
-                <br>
-                <br>
-            </form>
-            <p style="font-size: 14px; padding-bottom: 40px;">Already have an Account? <span
-                    style="font-size: 14px; display: inline-block;"
-                    onclick="displayNone('sign');displayBlock('login')">LOG IN</span></p>
-        </div>
-    </div>
-
-    <div id="fpwd">
-        <img id="back" src="Images/Back.png" alt="">
-
-        <div class="box center" style="top:23vh;">
-            <span class="arrow" onclick="displayNone('fpwd')">&#8592;</span>
-            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
-
-            <p class="head bolder" style="font-size: x-large;">FORGOT PASSWORD?</p>
-
-            <form action="" method="post" class="center2">
-
-                <br>
-                <label for="Email">Email</label><br>
-                <input type="email" id="email" name="Email" value="" class="inp"><br>
-                <!-- <label for="Password">Password</label><br>
-                <input type="password" id="password" name="Password"  value="" class="inp"><br>
-                
-                <br> -->
-                <!-- <input type="checkbox" name="Remember_me" id="remember_me">
-                <label for="Remember_me" style="font-size: 14px;">Remember Me?</label> -->
-                <br>
-
-                <input type="button" value="GET OTP" class="button2"
-                    onclick="displayNone('fpwd'); displayBlock('gotp')">
-                <br>
-                <br>
-            </form>
-            <p style="font-size: 14px; padding-bottom: 40px; padding-left: 75px;"><span onclick="displayNone('fpwd');displayBlock('login')">Back to Log In?</span></p>
-        </div>
-    </div>
-
-    <div id="gotp">
-        <img id="back" src="Images/Back.png" alt="">
-
-        <div class="box center">
-            <span class="arrow" onclick="displayNone('gotp')">&#8592;</span>
-            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
-
-            <img src="Images/VALIDATE.jpg" alt="Email icon" class="center" style="width:20%;height:20%">
-            <p style="font-size: large;">Please Enter The OTP To Verify Your Account</p>
-            <p style="font-size: medium; color: rgb(44, 43, 43);">An OPT Has Been Sent To <span
-                    id="putemail">(Email)</span></p>
-
-            <form action="" method="post" class="center2">
-                <br>
-                <br>
-
-                <input type="text" id="otp" name="num1" value="" maxlength="1"
-                    oninput="this.value=this.value.replace(/[^0-9]/g,''); nextip('otp');" class="otpinp">
-                <!-- error -->
-
-                <input type="text" id="otp2" name="num2" value="" maxlength="1"
-                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
-                <input type="text" id="otp2" name="num3" value="" maxlength="1"
-                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
-                <input type="text" id="otp2" name="num4" value="" maxlength="1"
-                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
-                <input type="text" id="otp2" name="num5" value="" maxlength="1"
-                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
-                <input type="text" id="otp2" name="num6" value="" maxlength="1"
-                    oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="otpinp">
-
-                <br>
-
-                <input type="button" value="VERIFY" class="button2" onclick="displayNone('gotp'); displayBlock('npwd')">
-                <br>
-                <br>
-            </form>
-
-            <p style="font-size: 14px; padding-bottom: 10px;"><span>RESEND OTP</span></p>
-
-            <p style="font-size: 14px; padding-bottom: 40px;"><span
-                    onclick="displayNone('gotp');displayBlock('fpwd')">INVALID EMAIL?</span></p>
-        </div>
-    </div>
-    <div id="npwd">
-        <img id="back" src="Images/Back.png" alt="">
-
-        <div class="box center" style="top:22vh;">
-            <span class="arrow" onclick="displayNone('sign')">&#8592;</span>
-            <img src="Images/Logo.png" alt="Craftoza" class="center logo">
-
-            <p class="head bolder">NEW PASSWORD</p>
-
-            <form action="" method="post" class="center2">
-                <label for="Password" class="bolder">Password</label><br>
-                <input type="password" id="password" name="Password" value="" class="inp"><br>
-                <label for="ConfirmPassword" class="bolder">Confirm Password</label><br>
-                <input type="password" id="confirmpassword" name="ConfirmPassword" value="" class="inp"><br>
-
-                <br>
-
-                <input type="button" value="SUBMIT" class="button2" onclick="displayNone('npwd')">
-                <br>
-                <br>
-                <br>
-                <br>
-            </form>
-        </div>
-    </div>
+    <div id="login"></div>
 
     <header>
-
         <div id="logo"><img src="Images\Logo.png" alt="logo" id="logo" height="auto" width="100%"></div>
 
         <input id="searchvalue" type="search" placeholder=" Search Products">
 
         <div class="icons">
             <ul>
-                <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons" onclick="displayBlock('login')"></li>
+                <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons" onclick="login()"></li>
                 <li><a href="cart.html"><img src="Micro_Webpage_Elements\icons\cart.png" class="Icons"></a></li>
                 <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
             </ul>
@@ -354,5 +179,6 @@
     </footer>
 
     <script src="JS/ADScript.js"></script>
+    <script src="JS/Login.js"></script>
 </body>
 </html>
