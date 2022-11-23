@@ -52,6 +52,8 @@ hr{
 }
 #image{
     width: 68%;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 
@@ -62,7 +64,8 @@ hr{
 
 .text1, .text2, .text3, .text5{
     font-weight: bolder;
-    font-size: large;
+    /* font-size: large; */
+    font-size: 1.171875vw;
 }
 .text5 input[type="number"]{
     width: 20%;
@@ -83,7 +86,8 @@ hr{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    /* font-size: 16px; */
+    font-size: 1.041vw;
     margin: 4px 2px;
     cursor: pointer;
 }
@@ -102,7 +106,7 @@ hr{
     background: #ff4545fe;
 }
 
-#billtable{
+/*#billtable{
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -128,7 +132,7 @@ hr{
 } 
 #orderplc:hover{
     background: #ff930f;
-} 
+}  */
 
 
 
@@ -137,15 +141,19 @@ hr{
     box-sizing: content-box;
     background-color: #f9f9f9f0;
     color: black;
-    width: 18px;
-    height: 21px;
+    /* width: 18px; */
+    width: 1.171875vw;
+    /* height: 21px; */
+    height: 2.841677vh;
     border-radius: 0;
     margin: 0;
     padding: 0;
     border: 3px solid #aeacac;
 }
 #pqnt{
-    width: 10%;
+    /* width: 10%; */
+    width: 1.7625vw;
+    height: 2.0297vh;
     padding-top: 2.4px;
     border: none;
     border-top: 3px solid #aeacac;

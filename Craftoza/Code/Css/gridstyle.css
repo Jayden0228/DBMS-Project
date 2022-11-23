@@ -16,7 +16,8 @@ header{
 main{
     grid-row: 2/3;
     background-image: url(../Micro_Webpage_Elements/FrontPageElemts/BackgroundImg1.png);
-    background-size: 1519.2px 606.133px;
+    /* background-size: 1519.2px 606.133px; */
+    background-size: 98.90625vw 82.02070365358593vh;
     height:100%;
     width:100%;
     display: grid;    
