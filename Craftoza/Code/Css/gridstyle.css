@@ -6,15 +6,12 @@ body{
     font-family: "century gothic";
     display: grid;
     /* grid-template-rows: 17.7vh 100vh 10vh; */
-    grid-template-rows: 18% 82% 30%;
-    height: 100vh;
+    /* grid-template-rows: 18% 82% 30%; */
+    height: 100%;
 }
 
-header{
-    grid-row: 1/2;
-}
 main{
-    grid-row: 2/3;
+
     background-image: url(../Micro_Webpage_Elements/FrontPageElemts/BackgroundImg1.png);
     /* background-size: 1519.2px 606.133px; */
     background-size: 98.90625vw 82.02070365358593vh;
@@ -25,16 +22,6 @@ main{
     grid-template-rows: 22% 33% 33%;
 }
 
-footer{
-    grid-row: 3/4;
-}
-
-.center{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-}
 
 .col1{
     grid-column: 1/2;
