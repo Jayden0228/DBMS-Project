@@ -27,6 +27,7 @@ hr{
 
 #top{
     position: relative;
+    top: 28px;
 }
 
 #backgd{
@@ -37,6 +38,8 @@ hr{
     width:70%;
     height:fit-content;
     padding: 0px 30px;
+    position: relative;
+    top: 10px;
 }
 
 .item{
