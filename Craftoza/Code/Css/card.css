@@ -8,7 +8,6 @@
     overflow: hidden;
 }
 
-
 .shade1{
     position: absolute;  
     width:100%;
@@ -82,14 +81,6 @@
     background-color: #507deaff;
 }
 
-
-
-
-
-
-
-
-
 .ProImage{
     border-radius: 50%;
     height: 150px;
@@ -111,12 +102,6 @@ transition: 0.5s;
 
 }
 
-
-
-
-
-
-
 .card .HeaderBOX{
     position: relative;
     top:32px;
@@ -135,13 +120,6 @@ transition: 0.5s;
     padding: 5px;
   
 }
-
-
-
-
-
-
-
 
 .Price{
     position:relative;
@@ -166,5 +144,3 @@ transition: 0.5s;
     transform: translate(-67px,0px);
     transition: 0.5s;
 }
-
-
