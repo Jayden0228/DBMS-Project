@@ -10,12 +10,13 @@ body{
     height: 100%;
 }
 
-main{
+#design{
 
     background-image: url(../Micro_Webpage_Elements/FrontPageElemts/BackgroundImg1.png);
+    background-repeat: no-repeat;
     /* background-size: 1519.2px 606.133px; */
     background-size: 98.90625vw 82.02070365358593vh;
-    height:100%;
+    height:60%;
     width:100%;
     display: grid;    
     grid-template-columns: 31% 44% 22%;
