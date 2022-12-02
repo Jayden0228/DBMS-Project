@@ -183,55 +183,60 @@
             <!-- DOOR END -->
         </div>
 
-        <div class="MapArea center">
+        <div class="MapArea">
 
-            <div class="MapSideBOX" id="LeftBox"> 
+            <div id="LeftBox"> 
                 <div class="TriColourContainer" id="leftTriColor">
-                <div id="BlueMapBox"></div>
-                <div id="RedMapBox"></div>
-                <div id="YellowMapBox"></div>
+                    <div id="BlueMapBox"></div>
+                    <div id="RedMapBox"></div>
+                    <div id="YellowMapBox"></div>
                 </div>
+                <div class="MapSideBOX"></div>
             </div>
 
 
-            <div id="leftQuote" class="MapFONT">"Craftoza believes in supporting local ambitions andf thus contribute in generating self relient employment"</div>
+            <div id="leftQuote" >"Craftoza believes in supporting local ambitions andf thus contribute in generating self relient employment"</div>
             
             
-            <div style="position: relative; top: -18%">
-                <div class="GoaMAP"><img src="Images/goaMap.png" width="75%" height="auto" ></div>
+            <!-- style="position: relative; top: -18%" -->
+            <div id="map">
+                <div class="GoaMAP">
+                    <img src="Images/goaMap.png" width="170%" height="auto">
+                    <div id="MidQuote" class="center"> <span>"Craftoza loves Goa and its People !!"</span></div>
+                </div>
                 <div class="textAreaMap">
-                    <div id="MapText1" class="MapFONT">Over 70+</div>
-                    <div id="MapText2" class="MapFONT">artistic</div>
-                    <div id="MapText3" class="MapFONT">conections</div>
-                    <div id="MapText4" class="MapFONT">across</div>
-                    <div id="MapText5" class="MapFONT">G</div>
-                    <div id="MapText6" class="MapFONT">O</div>
-                    <div id="MapText7" class="MapFONT">A</div>
+                    <div id="MapText1">Over 70+</div>
+                    <div id="MapText2">artistic</div>
+                    <div id="MapText3">conections</div>
+                    <div id="MapText4">across</div>
+                    <span id="MapText5">G</span>
+                    <span id="MapText6">O</span>
+                    <span id="MapText7">A</span>
                 </div>
-                <div id="MidQuote" class="MapFONT">"Craftoza loves Goa and its People !!"</div>
             </div>
             
             
-            <div id="RightQuote" class="MapFONT">"We at Craftoza brings to you the finest artistic work directly from the finest artists around Goa"</div>
+            <div id="RightQuote" >"We at Craftoza brings to you the finest artistic work directly from the finest artists around Goa"</div>
 
 
-            <div class="MapSideBOX" id="RightBox"> 
+            <div id="RightBox"> 
                 <div class="TriColourContainer" id="rightTriColor">
                     <div id="BlueMapBox"></div>
                     <div id="RedMapBox"></div>
                     <div id="YellowMapBox"></div>
                 </div>
+                <div class="MapSideBOX"></div>
             </div>
 
         </div>
 
         <div class="ProductSliderArea">
             <div class="AreaHeader">
-                <p style="Width:40%">Trending Products</p>
+                <p style="Width:40%;  text-shadow: 2px 2px 4px #000000;">Trending Products</p>
             </div>
             <div class="ProductSlider">
-                <div class="leftArrow" id="leftButton">
-                    <img src="leftArrow.png" height="100%" width="100%">
+                <div class="leftArrow" id="leftButton" onclick="slideLeft(0)">
+                    <img src="Images/leftArrow.png" height="100%" width="100%">
                 </div>
                 <div class="PRODUCTGALLERY ">
                     <div class="PRODUCT" >
@@ -361,10 +366,18 @@
                     </div>
                         
                 </div>
-                <div class="rightArrow" id="rightButton">
-                    <img src="rightArrows.png" height="100%" width="100%">
+                <div class="rightArrow" id="rightButton" onclick="slideRight(0)">
+                    <img src="Images/rightArrows.png" height="100%" width="100%">
                 </div>
             </div>
+            <script>
+                function slideRight(i){
+                    document.getElementsByClassName('PRODUCTGALLERY')[i].scrollBy(300,0)
+                }
+                function slideLeft(i){
+                    document.getElementsByClassName('PRODUCTGALLERY')[i].scrollBy(-300,0)
+                }
+            </script>
 
             
         </div>

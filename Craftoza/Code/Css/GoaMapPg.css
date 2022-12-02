@@ -1,118 +1,88 @@
-
-
 .MapArea{
-    position:relative;
-    /* display: flex; */
-    width: 40%;
-    /* height: 700px; */
+    /* position:relative; */
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    width: 98.8vw;
     height: 40%;
-    /* background-color: rgb(181, 181, 181); */
+    margin: 35px 0;
 }
-.GoaMap{
-    position: absolute;
-    left: 86px;
-    top: 26px;
-    height: 560px;
-    width: 500px;
-    /* height: 100%;
-    width: 100%; */
+
+#map{
+    display: flex;
+    flex-direction: row;
+}
+.GoaMAP{
+    height: 100px;
+    width: 275px;
 }
 
 .textAreaMap{
-    position: absolute;
-    right: 136px;
-    /* top: 150px; */
-    top: 25%;
+    position: relative;
+    top: 20%;
+    display: inline-block;
     width: 180px;
-    height: 280;
+    height: 250px;
 }
 
 #MapText1{
-    position: absolute;
-    left:0px;
     color:#4d4d4dff;
-    font-size: 40px;
-
+    font-size: 35px;
 }
 
 #MapText2{
-    position: absolute;
-    left: 0px;
-    top: 37px;
     color: #2a83e5ff;
-    font-size: 60px;
+    font-size: 55px;
 }
 
 #MapText3{
-    position: absolute;
-    left: 0px;
-    top: 83px;
     color: #fd5252ff;
-    font-size: 59px;
+    font-size: 54px;
 }
 
 #MapText4{
-    position: absolute;
-    left: 0px;
-    top: 135px;
     color: #4d4d4dff;
-    font-size: 45px;
+    font-size: 40px;
 }
 
 #MapText5{
-    position: absolute;
-    left: 0px;
-    top: 178px;
     color: #2a83e5ff;
-    font-size: 58px;
+    font-size: 53px;
 }
 
 #MapText6{
-    position: absolute;
-    left: 49px;
-    top: 178px;
     color: #fd5252ff;
-    font-size: 58px;
+    font-size: 53px;
 }
-
 
 #MapText7{
-    position: absolute;
-    left: 95px;
-    top: 178px;
     color: #fecc21ff;
-    font-size: 58px;
+    font-size: 53px;
 }
 
-#leftQuote{
+#leftQuote, #RightQuote{
+    align-self: flex-end;
+    margin-bottom: 5%;
+    margin-left: 3%;
     width: 283px;
-    position: absolute;
-    left: -160px;
-    color: #4d4d4dff;
-    font-size: 15px;
-    bottom: 15%;
-    opacity:90%;
-}
-
-#RightQuote{
-    width: 283px;
-    position: absolute;
-    right: -134px;
     color: #4d4d4dff;
     font-size: 15px;
     bottom: 15%;;
     opacity:90%;
 }
 #MidQuote{
-    width: 283px;
-    position: absolute;
-    right: 166px;
+    margin-left: 45%;
+    width: 100%;
+    height: 50%;
+    display: flex;
     color: #4d4d4dff;
     font-size: 15px;
-    bottom: -40px;
     opacity:90%;
+    
 }
-
+#MidQuote span{
+    align-self: flex-end;
+}
 
 
 .MapSideBOX{
@@ -121,51 +91,37 @@
     background-color: #f6f6f6ff;
 }
 
-#LeftBox{
-    position: relative;
-    left:-75%;
-    top: 40%;
-}
-
-#RightBox{
-    position: relative;
-    float: right;
-    right: -75%;
-    top: -50%;
+#LeftBox, #RightBox{
+    align-self: center;
 }
 
 .TriColourContainer{
     display: flex;
-    width: 90px;
+    width: 37%;
     height: 15px;  
 }
 
 #leftTriColor{
     flex-direction: row;
-    position: absolute;
-    top: -19px;
-    left: 0px;
 }
 
 #rightTriColor{
     flex-direction: row-reverse;
-    position: absolute;
-    top: -19px;
-    right: 0px;
+    position: relative;
+    right: -63.5%;
 }
-
 #BlueMapBox{
     background-color: #5ea2ebff;
-    width:30px;
-    height:15px;
+    width:34%;
+    height:100%;
 }
 #RedMapBox{
     background-color: #fd5252ff;
-    width:30px;
-    height:15px;
+    width:34%;
+    height:100%;
 }
 #YellowMapBox{
     background-color: #fecc21ff;
-    width:30px;
-    height:15px;
+    width:34%;
+    height:100%;
 }

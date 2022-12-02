@@ -12,12 +12,12 @@ body{
 
 #design{
 
-    background-image: url(../Micro_Webpage_Elements/FrontPageElemts/BackgroundImg1.png);
+    background-image: url(../Micro_Webpage_Elements/FrontPageElemts/BackgroundImg2.png);
     background-repeat: no-repeat;
     /* background-size: 1519.2px 606.133px; */
-    background-size: 100% 90%;
+    background-size: 100% 96%;
     /* background-size: 98.90625vw 82.02070365358593vh; */
-    height:40%;
+    height:44%;
     width:100%;
     display: grid;    
     grid-template-columns: 31% 44% 22%;
@@ -46,8 +46,8 @@ body{
     height: 244px;
     height: 33.01759133964817vh;
     position: relative;
-    top: -4.60081vh;
-    left: -100px;
+    top: -5.4vh;
+    left: 100px;
 }
 .doorSAFE_AREA{
     grid-area: 2/1/4/2;
