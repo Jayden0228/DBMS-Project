@@ -48,6 +48,11 @@
     opacity: 60%;
 }
 
+.AreaHeader{
+    font-size: x-large;
+    letter-spacing: .1cm;
+    margin: auto 10%;
+}
 .ProductSlider{
     /* position: relative; */
     display: flex;
