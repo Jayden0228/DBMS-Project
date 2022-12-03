@@ -1,0 +1,80 @@
+
+.container{
+    max-width: 1170px;
+    margin: auto;
+   
+}
+ui{
+    list-style: none;
+    font-family:"century gothic"; 
+}
+ui li a{
+    color: black; 
+    text-decoration: none;
+}
+.Footer{
+    background-color: #f4f4f4;
+    padding: 76px 0;
+    position: relative;
+    top: 230px;
+    height: 190px;
+    
+}
+.row{
+    display: flex;
+    flex-wrap:wrap;
+    row-gap: 20px;
+}
+
+.footer-cols{
+    width: 22%;
+    padding: 0 15px;
+    height:120px; 
+}
+
+h4{
+    font-family:"century gothic";
+}
+
+
+#footerInput{
+    position: relative;
+    top:10px;
+    width:275px;
+    border-radius: 5px;
+    background-color: white;
+    border-style: none;
+    padding :5px 7px;
+    box-shadow: 0 0 10px rgba(71, 71, 71, 0.5);
+    
+}
+
+#footerSubmit{
+    position: relative;
+    left: 67px;
+    top: 20px;
+    width: 140px;
+    border-radius: 10px;
+    background-color: #ff6600d3;
+    border-style: none;
+    color:white
+}
+
+.FootNewsletter{
+    padding: 0 15px;
+    width:264px;
+    padding: 0 15px;
+
+}
+.FooterLogo{
+    width: 232px;
+    height: 91px;
+    margin-left:auto
+}
+
+#NewletterLabel{
+    position: relative;
+    left: 0px;
+    top: 0px;
+    font-family:"century gothic";
+}

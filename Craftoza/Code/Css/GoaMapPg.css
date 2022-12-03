@@ -4,11 +4,12 @@
     flex-direction: row;
     /* flex-wrap: wrap; */
     width: 98.8vw;
-    height: 40%;
+    height: 14%;
     margin: 35px 0;
 }
 
 #map{
+    position: relative;
     display: flex;
     flex-direction: row;
 }
@@ -19,7 +20,7 @@
 
 .textAreaMap{
     position: relative;
-    top: 20%;
+    top: 22%;
     display: inline-block;
     width: 180px;
     height: 250px;

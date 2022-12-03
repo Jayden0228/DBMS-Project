@@ -80,7 +80,7 @@
     </header>
     <main>
         <div id="top">
-            <p id="Headtext">MY CARDS & WALLETS</p>
+            <p id="Headtext">MY ADDRESS</p>
             <div id="craftie">
                 <img src="Images/craftie-rbg.png" alt="" onload="setTimeout(move, 1880)">            
             </div>
@@ -89,20 +89,59 @@
         <div id="backgd">
             <br><br><br>
             <div id="addbox">
-                <p id="atext">Saved Address</p>
+                
+                <div id="box1">
+                    <p id="atext">Saved Address</p>
 
-                <div id="addr">
-                    <div class="center addarea">
-                        <span class="fulladd">
-                            <span>Name:</span><br>
-                            <span>Address:</span><br>
-                            <span>Mobile No:</span><br>
-                        </span>
-                        <span class="link">Remove</span>
+                    <div id="addr">
+                        <div class="center addarea">
+                            <span class="fulladd">
+                                <span>Name:</span><br>
+                                <span>Address:</span><br>
+                                <span>Mobile No:</span><br>
+                            </span>
+                            <span class="link">Remove</span>
+                        </div>
                     </div>
+                    <hr>
+                    <div style="margin-top: 20px; margin-bottom: 30px;"><span class="link">New Address</span></div>
                 </div>
-                <hr>
-                <div style="margin-top: 20px; margin-bottom: 30px;"><span class="link">New Address</span></div>
+
+                <div id="box2">
+                    <p id="atext">Enter the Details</p>
+                    <hr>
+                    <form action="" method="post" class="center2" style="width: 40%;">
+                        
+                        <label for="Hno/fno">H.No/Flat NO</label>
+                        <br>
+                        <input type="number" name="hfno" id="hfno">
+                        <br><br>
+                        <label for="Wname">Ward Name</label>
+                        <br>
+                        <input type="number" name="wname" id="wname">
+                        <br><br>
+                        <label for="vill/city">Village/City</label>
+                        <br>
+                        <input type="number" name="vill/city" id="vill/city">
+                        <br><br>
+                        <label for="Taluka">Taluka</label>
+                        <br>
+                        <input type="number" name="taluka" id="taluka">
+                        <br><br>
+                        <label for="state">State</label>
+                        <br>
+                        <input type="number" name="State" id="State">
+                        <br><br>
+
+
+
+                        <label for="pcode">Pincode</label>
+                        <br>
+                        <input type="number" name="pcode" id="pcode" oninput="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="6">
+                        <br><br>
+                        <input type="submit" value="Submit" style="width: 30%; padding: 4px 0;">
+                    </form>
+                </div>
 
             </div>
             <br><br><br>
