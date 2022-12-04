@@ -33,48 +33,23 @@
 </head>
 
 <body>
-    <div id="login"></div>
+    <div id="login">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";?>
+    </div>
+    <div id="signup">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";?>
+    </div>
+    <div id="fpwd">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>
+    </div>
+    <div id="gotp">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_getOTP.php";?>
+    </div>
+    <div id="npwd">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_newpassword.php";?>
+    </div>
 
-    <header>
-        <div id="logo"><img src="Images\Logo.png" alt="logo" id="logo" height="auto" width="100%"></div>
-
-        <input id="searchvalue" type="search" placeholder=" Search Products">
-
-        <div class="icons">
-            <ul>
-                <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons" onclick="login()"></li>
-                <li><a href="wish_list.html"><img src="Micro_Webpage_Elements\icons\cart.png" class="Icons"></a></li>
-                <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
-            </ul>
-
-        </div>
-        <nav>
-            <ul class="NavLinks">
-                <li>Explore
-                    <div class="dropdown">
-                        <a href="">Pottery</a>
-                        <a href="">Shells</a>
-                        <a href="">Jewellery</a>
-                        <a href="">Bag</a>
-                        <a href="">Coconut Item</a>
-                    </div>
-                </li>
-                <li>Community
-                    <div class="dropdown">
-                        <a href="">Craftie</a>
-                        <a href="">Craftoza Warriors</a>
-                    </div>
-                </li>
-                <li>About us
-                    <div class="dropdown">
-                        <a href="">Contact</a>
-                        <a href="">Social Media</a>
-                    </div>
-                </li>
-                <li>Be An Agent</li>
-            </ul>
-        </nav>
-    </header>
+    <?php include 'Php/_nav.php'?>
     <br>
     <main>
         <div id="design">
@@ -431,13 +406,7 @@
                 <div id="TraditonText">Conserved  </div>
          
                 <div id="OtherText1">Craftoza has exclusive deals with indeginous potters across the coastal state</div>
-            </div>
-    
-    
-            
-            
-        
-            
+            </div> 
     
         </div>
 
@@ -463,52 +432,8 @@
 
     </main>
 
-    <footer>
-        <div class="Footer">
-          <div class="container">
-          <div class="row">
-      
-              <div class="footer-cols">
-                  <h4>About Us</h4>
-                  <ui>
-                      <li> <a href="#">Owners</a> </li>
-                      <li> <a href="#">Developers</a> </li>
-                      <li> <a href="#">Partners</a> </li>
-                      <li> <a href="#">Connections</a> </li>
-                  </ui>
-              </div>
-      
-              <div class="footer-cols">
-                  <h4>Policy</h4>
-                  <ui>
-                      <li> <a href="#">Terms & Conditons</a></li>
-                      <li> <a href="#">Privacy Policies</a></li>
-                      <li> <a href="#">Purchase Policies</a></li>
-                      <li> <a href="#">Return Policies</a></li>
-                  </ui>
-              </div>
-      
-              <div class="footer-cols">
-                  <h4>Contact</h4>
-                  <ui>
-                      <li> <a href="#">enquiry@craftza.in</a></li>
-                      <li> <a href="#">+91 9999999999</a></li>
-                      <li> <a href="#">Farmagudi, Goa</a></li>
-                  </ui> 
-              </div>
-      
-              <div class="FootNewsletter">
-                  <div id="NewletterLabel">Subscribe to our newsletter</div>
-                  <input type="text" placeholder="Enter your email" id="footerInput">
-                  <input type="Button" value="Subscribe" id="footerSubmit">
-              </div>
-      
-              <div class="FooterLogo"><img src="Images/footerImage.png" height="100%" width="100%"></div>
-      
-          </div>
-        </div>
-        </div>
-      </footer>
+    <?php include 'Php/_footer.php'?>
+    
 
     <script src="JS/ADScript.js"></script>
     <script src="JS/Login.js"></script>

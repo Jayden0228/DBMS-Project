@@ -11,7 +11,7 @@
     padding-top: 30px;
 }
 
-#login{
+#login, #signup, #fpwd, #gotp, #npwd{
     display: none;
     position: fixed;
     min-width: 100%;

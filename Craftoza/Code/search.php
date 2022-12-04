@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="Css/nav.css">
     <link rel="stylesheet" href="Css/search.css">
     <link rel="stylesheet" href="Css/login_sign.css">
+    <link rel="stylesheet" href="Css/footer.css">
 
 
     <script>
@@ -52,48 +53,22 @@
 </head>
 
 <body>
-    <div id="login"></div>
-
-    <header style="box-shadow: 0px 5px 9px rgba(8, 8, 8, 0.2);position:sticky;top:0;">
-        <div id="logo"><img src="Images\Logo.png" alt="logo" id="logo"></div>
-
-        <input type="search" placeholder=" Search Products" id="searchvalue">
-
-        <div class="icons">
-            <ul>
-                <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons" onclick="login()"></li>
-                <li><a href="wish_list.html"><img src="Micro_Webpage_Elements\icons\cart.png" class="Icons"></a></li>
-                <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
-            </ul>
-        </div>
-        <nav>
-            <ul class="NavLinks">
-                <li>Explore
-                    <div class="dropdown">
-                        <a href="">Pottery</a>
-                        <a href="">Shells</a>
-                        <a href="">Jewellery</a>
-                        <a href="">Bag</a>
-                        <a href="">Coconut Item</a>
-                    </div>
-                </li>
-                <li>Community
-                    <div class="dropdown">
-                        <a href="">Craftie</a>
-                        <a href="">Craftoza Warriors</a>
-                    </div>
-                </li>
-                <li>About us
-                    <div class="dropdown">
-                        <a href="">Contact</a>
-                        <a href="">Social Media</a>
-                    </div>
-                </li>
-                <li>Be An Agent</li>
-
-            </ul>
-        </nav>
-    </header>
+<div id="login">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";?>
+    </div>
+    <div id="signup">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";?>
+    </div>
+    <div id="fpwd">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>
+    </div>
+    <div id="gotp">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_getOTP.php";?>
+    </div>
+    <div id="npwd">
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_newpassword.php";?>
+    </div>
+    <?php include 'Php/_nav.php'?>
     <main>
         <div id="backgd">
             <br><br><br>
@@ -182,6 +157,7 @@
             <br><br><br>
         </div>
     </main>
+    <?php include 'Php/_footer.php'?>
     <script src="JS/Login.js"></script>
 </body>
 </html>
