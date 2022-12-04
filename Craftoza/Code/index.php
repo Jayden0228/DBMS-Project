@@ -1,9 +1,10 @@
 <?php
     include "Php/_connectDatabase.php";
     
-
+    $num;
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
+        session_start();
         if(isset($_POST['login']))
         {
             $email=$_POST["Email"];
@@ -17,7 +18,7 @@
                 echo "NO Such User";
             }else{
                 $row=mysqli_fetch_assoc($res);
-                session_start();
+                // session_start();
                 $_SESSION['UserID']=$row["uid"];
             }
         }
@@ -35,38 +36,40 @@
                 echo "Record not updated";
             }
         }
-        else if(isset($_POST['forgotpwd']))
+        if(isset($_POST['forgotpwd']))
         {
-            $email=$_POST["Email"];
+            $email = isset($_POST['Email1']);
             $sql="SELECT * FROM `user` WHERE `email` = '$email'";
 
             $res=mysqli_query($db,$sql);
 
             if(mysqli_num_rows($res)==0)
             {
-                echo "NO Such User";
+                // echo "NO Such User";
             }else{
                 $row=mysqli_fetch_assoc($res);
-                $userid=$row['uid'];  //For new Password              
+                
+                $_SESSION['UserID']=$row["uid"];
+
                 // $num=rand(0,9)+(rand(0,9)*10)+(rand(0,9)*100)+(rand(0,9)*1000)+(rand(0,9)*10000)+(rand(0,9)*100000);
                 // $sub="Craft OPT";
                 // $msg="Your OTP is $num DONT'T SEND IT TO ANYONE";
                 // mail($email, $sub, $msg);
-                $num=111111;
-                $showOTP=true;
+                $_SESSION['otp']=111111;
             }
         }
         else if(isset($_POST['OTP']))
         {
             $otp=$_POST["otp"];
 
-            if($num!=$otp)
-            {
-                // echo "NO Such User";
-            }
+            // if($_SESSION['otp']!=$otp)
+            // {
+            //     // echo "NO Such User";
+            // }
         }
         else if(isset($_POST['newpwd']))
         {
+            $userid=$_SESSION['UserID'];
             $password=$_POST["Password"];
             $sql="UPDATE `user` SET `pwd` = '$password' WHERE `user`.`uid` = $userid;";
 
@@ -78,8 +81,17 @@
             }
         }
     }
-    mysqli_close($db)
+    mysqli_close($db);
 ?>
+<?php 
+    include "Php/_connectDatabase.php";
+
+    
+    
+    mysqli_close($db);
+
+?>
+
 
 
 <!DOCTYPE html>
@@ -124,17 +136,7 @@
     </div>
     <div id="fpwd">
         <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>
-    </div>
-    <?php
-        if($showOTP==true){
-            echo "<script>
-            setTimeout(displayBlock('gotp'), 3000)
-            </script>";
-            $showOTP=false;
-        }
-    ?>
-    
-    
+    </div> 
     <div id="gotp">
         <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_getOTP.php";?>
     </div>
