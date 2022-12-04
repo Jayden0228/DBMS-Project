@@ -66,7 +66,7 @@ function validateSignup(thisform)
         alert("Confirm Password Mismatch");
         return false;
     }
-    displayBlock('login');
+    // displayBlock('login');
     displayNone('signup')
     return true;
 }

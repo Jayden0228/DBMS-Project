@@ -1,3 +1,44 @@
+<?php
+    $login=0;
+    $signup=1;
+?>
+<?php
+    include "Php/_connectDatabase.php";
+    if($login==1)
+    {
+
+        if($_SERVER["REQUEST_METHOD"]=="POST")
+        {
+            $email=$_POST["Email"];
+            $password=$_POST["Password"];
+        }
+        $login=0;
+    }
+
+    if($signup==1)
+    {
+        if($_SERVER["REQUEST_METHOD"]=="POST")
+        {
+            $email=$_POST["Email"];
+            $password=$_POST["Password"];
+            // $cpassword=$_POST["CPassword"];
+
+            $sql="INSERT INTO `user` (`pwd`, `email`, `fname`, `mname`, `lname`, `pnum`, `credit`) VALUES ('$password', '$email', NULL, NULL, NULL, NULL, NULL)";
+
+            $res=mysqli_query($db,$sql);
+
+            if(!$res)
+            {
+                echo "Record not updated";
+            }
+        }
+        $signup=0;
+    }
+
+    mysqli_close($db)
+?>
+
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -29,15 +70,22 @@
     <link rel="stylesheet" href="Css/DeliveryAgentAdMain.css">
 
     <title>Craftoza</title>
-
+    
 </head>
 
 <body>
-    <div id="login">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";?>
+    <div id="login">    
+        <?php 
+            include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";
+            $login=1;
+        ?>
     </div>
     <div id="signup">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";?>
+        <?php 
+            $login=0;
+            include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";
+            $signup=1;
+        ?>
     </div>
     <div id="fpwd">
         <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>

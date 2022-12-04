@@ -3,7 +3,7 @@
     <span class="arrow" onclick="displayNone('login')">&#8592;</span>
     <img src="Images/Logo.png" alt="Craftoza" class="center logo">
     <p class="head bolder">LOGIN</p>
-    <form action="" method="post" class="center2" onsubmit="return validateLogin(this)">
+    <form action="index.php" method="post" class="center2" onsubmit="return validateLogin(this)">
         <label for="Email">Email</label><br>
         <input type="email" name="Email" value="" class="inp" required><br><br>
         <label for="Password">Password</label><br>
