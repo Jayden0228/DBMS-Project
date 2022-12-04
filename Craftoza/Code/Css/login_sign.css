@@ -57,7 +57,7 @@
     height: 22px;
     margin-top: 7px;
     margin-bottom: 23px;
-    transition: width .35s;
+    padding: 0px 10px;
 }
 
 .otpinp{
