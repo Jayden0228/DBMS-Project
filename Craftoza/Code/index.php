@@ -1,28 +1,31 @@
 <?php
-    $login=0;
-    $signup=1;
-?>
-<?php
     include "Php/_connectDatabase.php";
-    if($login==1)
-    {
+    
 
-        if($_SERVER["REQUEST_METHOD"]=="POST")
+    if($_SERVER["REQUEST_METHOD"]=="POST")
+    {
+        if(isset($_POST['login']))
         {
             $email=$_POST["Email"];
             $password=$_POST["Password"];
-        }
-        $login=0;
-    }
+            $sql="SELECT * FROM `user` WHERE `email` = '$email'";
 
-    if($signup==1)
-    {
-        if($_SERVER["REQUEST_METHOD"]=="POST")
+            $res=mysqli_query($db,$sql);
+
+            if(mysqli_num_rows($res)==0)
+            {
+                echo "NO Such User";
+            }else{
+                $row=mysqli_fetch_assoc($res);
+                session_start();
+                $_SESSION['UserID']=$row["uid"];
+            }
+        }
+        else if(isset($_POST['signup']))
         {
             $email=$_POST["Email"];
             $password=$_POST["Password"];
             // $cpassword=$_POST["CPassword"];
-
             $sql="INSERT INTO `user` (`pwd`, `email`, `fname`, `mname`, `lname`, `pnum`, `credit`) VALUES ('$password', '$email', NULL, NULL, NULL, NULL, NULL)";
 
             $res=mysqli_query($db,$sql);
@@ -32,9 +35,49 @@
                 echo "Record not updated";
             }
         }
-        $signup=0;
-    }
+        else if(isset($_POST['forgotpwd']))
+        {
+            $email=$_POST["Email"];
+            $sql="SELECT * FROM `user` WHERE `email` = '$email'";
 
+            $res=mysqli_query($db,$sql);
+
+            if(mysqli_num_rows($res)==0)
+            {
+                echo "NO Such User";
+            }else{
+                $row=mysqli_fetch_assoc($res);
+                $userid=$row['uid'];  //For new Password              
+                // $num=rand(0,9)+(rand(0,9)*10)+(rand(0,9)*100)+(rand(0,9)*1000)+(rand(0,9)*10000)+(rand(0,9)*100000);
+                // $sub="Craft OPT";
+                // $msg="Your OTP is $num DONT'T SEND IT TO ANYONE";
+                // mail($email, $sub, $msg);
+                $num=111111;
+                $showOTP=true;
+            }
+        }
+        else if(isset($_POST['OTP']))
+        {
+            $otp=$_POST["otp"];
+
+            if($num!=$otp)
+            {
+                // echo "NO Such User";
+            }
+        }
+        else if(isset($_POST['newpwd']))
+        {
+            $password=$_POST["Password"];
+            $sql="UPDATE `user` SET `pwd` = '$password' WHERE `user`.`uid` = $userid;";
+
+            $res=mysqli_query($db,$sql);
+
+            if(!$res)
+            {
+                echo "Record not updated";
+            }
+        }
+    }
     mysqli_close($db)
 ?>
 
@@ -57,7 +100,6 @@
     <link rel="stylesheet" href="Css/Ad.css">
     <link rel="stylesheet" href="Css/login_sign.css">
 
-
     <link rel="stylesheet" href="Css/productGallery.css">
     <link rel="stylesheet" href="Css/card.css">
     <link rel="stylesheet" href="Css/ProductDetails.css"><!-- not found -->
@@ -75,21 +117,24 @@
 
 <body>
     <div id="login">    
-        <?php 
-            include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";
-            $login=1;
-        ?>
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";?>
     </div>
     <div id="signup">
-        <?php 
-            $login=0;
-            include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";
-            $signup=1;
-        ?>
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";?>
     </div>
     <div id="fpwd">
         <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>
     </div>
+    <?php
+        if($showOTP==true){
+            echo "<script>
+            setTimeout(displayBlock('gotp'), 3000)
+            </script>";
+            $showOTP=false;
+        }
+    ?>
+    
+    
     <div id="gotp">
         <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_getOTP.php";?>
     </div>

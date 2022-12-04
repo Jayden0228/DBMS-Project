@@ -10,7 +10,7 @@
         <input type="password" id="ipwd" name="Password"  value="" class="inp" requried><br><br>
         <label for="ConfirmPassword"class="bolder">Confirm Password</label><br>
         <input type="password" name="CPassword" value="" class="inp" requried><br><br>
-        <input type="submit" value="SIGNUP" class="button2"><br><br>
+        <input type="submit" value="SIGNUP" class="button2" name="signup"><br><br>
     </form>
         <p style="font-size: 14px; padding-bottom: 40px;">Already have an Account? <span style="font-size: 14px; display: inline-block;" onclick="displayNone('signup');displayBlock('login')">LOG IN</span></p>
 </div>
