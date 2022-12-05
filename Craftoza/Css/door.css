@@ -1,0 +1,174 @@
+@import url("style.css");
+
+#DecoSize{
+    position: relative;
+    left:51.99px;
+}
+.MainDoor{
+    height: 211px;
+    /* height: 28.552097428958053vh; */
+    width:204.020px;
+    /* width:13.282552083333334vw; */
+    background-color:#fecc21ff; 
+    position: relative;
+    left:51.99px;
+    bottom:0;
+}
+
+#DoorSemiCircle{
+    width: 204.020px;
+    /* width: 13.282552083333334vw; */
+    height: 94.707px;
+    /* height: 12.815561569688768vh; */
+    background-color:#fecc21ff;
+    position: relative;
+    left:51.99px;
+    top:4px;
+    border-top-left-radius: 204.020px;
+    /* border-top-left-radius: 13.282552083333334vw; */
+    border-top-right-radius: 204.020px;
+    /* border-top-right-radius: 13.282552083333334vw; */
+
+}
+
+#INDoorSemiCircle{
+    width: 185.325px;
+    height: 85.353px;
+    background-color:#fde437df;
+    position:absolute;
+    bottom:0px;
+    border-top-left-radius: 185.325px;
+    border-top-right-radius: 185.325px;
+    left:8.413px;
+}
+
+.IMAGEBOX{
+    z-index: 0;
+    width:187.194px;
+    height: 196.636px;
+    position: relative;
+    left:8.413px;
+    bottom:-7.091px;
+
+
+}
+
+.Door{
+    z-index: 1;
+    width:93.597px;
+    height: 196.636px;
+}
+#LeftDoor{
+    background-color:#fd5252ff;
+    position: absolute;
+    top:0px;
+    left:0px;
+    transition: transform 0.5s;
+    transform-origin: left;
+} 
+
+#RightDoor{
+    background-color: #5ea2ecfe;
+    position: absolute;
+    top:0px;
+    right:0px;
+    transition: transform 0.5s;
+    transform-origin: right;
+} 
+
+#YellowL{
+    width:2px;
+    height: 196.636px;
+    background-color:#fecc21ff;
+    position: absolute;
+    right: 0px;
+}
+#YellowR{
+    width:2px;
+    height: 196.636px;
+    background-color:#fecc21ff;
+    position: absolute;
+    left: 0px;
+}
+
+.LeftIntieror{
+    width:57.084px;
+    height: 166.331px;
+    background-color:#fd6868ff ;
+    position: absolute;
+    left:18.25px;
+    top:15.1525px;
+}
+
+.RightIntieror{
+    width:57.084px;
+    height: 166.331px;
+    background-color:#75b0f0ff;
+    position: absolute;
+    left:18.25px;
+    top:15.1525px;
+}
+
+.DoorNOB{
+    width:10px;
+    height: 25px;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#LeftNOB{
+    position: absolute;
+    left:70px;
+    top:70px;
+}
+
+#RightNOB{
+    position: absolute;
+    right:70px;
+    top:70px;
+}
+
+.MainDoor:hover #LeftDoor{
+    transform: rotateY(-140deg); 
+}
+
+.MainDoor:hover #RightDoor{
+    transform: rotateY(-140deg); 
+}
+
+.DoorTEXT{
+    position: relative;
+    font-family: "century gothic";
+    color: rgb(35, 35, 35);
+    top: -52px;
+    left: 231px;
+    width: 120px;
+    height: 70px;
+    opacity: 1;
+    transition: .3s;
+}
+/* 
+#knock{
+ position: absolute;
+ top:20px;
+}
+
+#meet{
+    position: absolute;
+    top:40px;
+} */
+
+#DoorTxt{
+    /* position: absolute;
+    top:60px; */
+    font-weight: 600;
+}
+
+
+.MainDoor:hover .DoorTEXT{
+    left:238px;
+    opacity: 0;
+}
