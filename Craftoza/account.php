@@ -1,3 +1,14 @@
+<?php
+    session_start();
+    function printn(){
+        if(isset($_SESSION['Name'])){
+            echo "{$_SESSION['Name']}";
+         }
+         else{
+            echo "USER";
+         }
+    }
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -37,27 +48,13 @@
 </head>
 
 <body>
-<div id="login">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";?>
-    </div>
-    <div id="signup">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";?>
-    </div>
-    <div id="fpwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>
-    </div>
-    <div id="gotp">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_getOTP.php";?>
-    </div>
-    <div id="npwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_newpassword.php";?>
-    </div>
+    <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>
 
     <main>
         <div id="top">
-            <p id="Headtext">HELLO <span id="usrnm">USERNAME</span></p>
+            <p id="Headtext">HELLO <?php printn();?></p>
             <div id="craftie">
                 <img src="Images/craftie-rbg.png" alt="" onload="setTimeout(move, 1880)">            
             </div>
@@ -70,11 +67,11 @@
             <div id="accbox">
                 <p id="acctext">ACCOUNT SETTING</p>
                 <hr>
-                <div class="accopt center">Edit profile<span class="arrw">&#8680;</span></div>
+                <div class="accopt center">Edit profile<a href="profile.php"><span class="arrw">&#8680;</span></a></div>
                 <hr>
-                <div class="accopt center">Save Cards & Wallets<span class="arrw">&#8680;</span></div>
+                <div class="accopt center">Save Cards & Wallets<a href="credit.php"><span class="arrw">&#8680;</span></a></div>
                 <hr>
-                <div class="accopt center">Address<span class="arrw">&#8680;</span></div>
+                <div class="accopt center">Address<a href="address.php"><span class="arrw">&#8680;</span></a></div>
                 
             </div>
             <br><br><br>

@@ -20,13 +20,13 @@
                 $row=mysqli_fetch_assoc($res);
                 // session_start();
                 $_SESSION['UserID']=$row["uid"];
+                $_SESSION['Email']=$row["email"];
             }
         }
         else if(isset($_POST['signup']))
         {
             $email=$_POST["Email"];
             $password=$_POST["Password"];
-            // $cpassword=$_POST["CPassword"];
             $sql="INSERT INTO `user` (`pwd`, `email`, `fname`, `mname`, `lname`, `pnum`, `credit`) VALUES ('$password', '$email', NULL, NULL, NULL, NULL, NULL)";
 
             $res=mysqli_query($db,$sql);
@@ -35,6 +35,8 @@
             {
                 echo "Record not updated";
             }
+            $_SESSION['Email']=$row["email"];
+            header("Location: profile.php");
         }
         if(isset($_POST['forgotpwd']))
         {
@@ -128,21 +130,7 @@
 </head>
 
 <body>
-    <div id="login">    
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_login.php";?>
-    </div>
-    <div id="signup">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_signup.php";?>
-    </div>
-    <div id="fpwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_forgotpassword.php";?>
-    </div> 
-    <div id="gotp">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_getOTP.php";?>
-    </div>
-    <div id="npwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_newpassword.php";?>
-    </div>
+    <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>
     <br>

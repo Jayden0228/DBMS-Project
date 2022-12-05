@@ -34,7 +34,7 @@
       
               <div class="FootNewsletter">
                   <div id="NewletterLabel">Subscribe to our newsletter</div>
-                  <input type="text" placeholder="Enter your email" id="footerInput">
+                  <input type="text" placeholder="Enter your email" id="footerInput" value="<?php echo "{$_SESSION['Email']}"?>">
                   <input type="Button" value="Subscribe" id="footerSubmit">
               </div>
       
