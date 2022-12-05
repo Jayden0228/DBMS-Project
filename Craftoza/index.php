@@ -129,19 +129,19 @@
 
 <body>
     <div id="login">    
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";?>
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_login.php";?>
     </div>
     <div id="signup">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";?>
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_signup.php";?>
     </div>
     <div id="fpwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_forgotpassword.php";?>
     </div> 
     <div id="gotp">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_getOTP.php";?>
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_getOTP.php";?>
     </div>
     <div id="npwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_newpassword.php";?>
+        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_newpassword.php";?>
     </div>
 
     <?php include 'Php/_nav.php'?>
@@ -480,7 +480,7 @@
                     <div id="YellowMapBox"></div>
                 </div>
 
-                <img src="20221022_142453.jpg" height="100%" width="100%">
+                <img src="Images/20221022_142453.jpg" height="100%" width="100%">
             
                 <div id="ExtraIdeaText"> Extraordinary</div>
                 <div id="IdeaText"> Idea</div>
