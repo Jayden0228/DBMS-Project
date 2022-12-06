@@ -1,10 +1,10 @@
 <?php
+    session_start();
     include "Php/_connectDatabase.php";
     
     $num;
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
-        session_start();
         if(isset($_POST['login']))
         {
             $email=$_POST["Email"];
@@ -18,7 +18,6 @@
                 echo "NO Such User";
             }else{
                 $row=mysqli_fetch_assoc($res);
-                // session_start();
                 $_SESSION['UserID']=$row["uid"];
                 $_SESSION['Email']=$row["email"];
                 $_SESSION['Name']=$row["fname"];
@@ -32,8 +31,7 @@
 
             $res=mysqli_query($db,$sql);
 
-            if(!$res)
-            {
+            if(!$res){
                 echo "Record not updated";
             }
             $_SESSION['Email']=$row["email"];
@@ -86,16 +84,6 @@
     }
     mysqli_close($db);
 ?>
-<?php 
-    include "Php/_connectDatabase.php";
-
-    
-    
-    mysqli_close($db);
-
-?>
-
-
 
 <!DOCTYPE html>
 
@@ -303,8 +291,7 @@
                 </div>
                 <div class="MapSideBOX"></div>
             </div>
-
-            
+           
 
         </div>
         <br><br><br><br><br><br>
