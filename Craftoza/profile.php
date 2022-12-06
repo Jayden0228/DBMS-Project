@@ -1,8 +1,8 @@
 <?php
+    session_start();
     include "Php/_connectDatabase.php";
     if(isset($_POST['profile']))
     {
-        session_start();
         $fname=$_POST["fname"];
         $mname=$_POST["mname"];
         $lname=$_POST["lname"];
