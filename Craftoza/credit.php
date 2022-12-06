@@ -75,7 +75,6 @@
                         echo "<script>displayNone(`box2`);displayBlock(`box1`)</script>";
                     }
 
-                    echo "isset({$_SESSION['UserID']})";
                     if(isset($_SESSION['UserID']))
                     {
                         $userid=$_SESSION['UserID'];
@@ -87,11 +86,12 @@
                             echo "<div id='box1'>";
                                 echo "<p id='ctext'>Saved Cards</p>";
                                 echo "<div id='card'>";
+                                echo "<br>";
                                     echo "<p style='text-align:center'>No Card</p>";
-                                echo "<br><br>";
+                                echo "<br>";
                                 echo "</div>";
                                 echo "<hr>";
-                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='ncard' onclick='displayNone(`box1`);displayBlock(`box2`)'>New Card</span></div>";
+                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='ncard' >New Card</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`)'
                             echo "</div>";
                         }
                         else
@@ -108,32 +108,32 @@
                                 echo "</div>";
                             }
                                 echo "<hr>";
-                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='ncard' onclick='displayNone(`box1`);displayBlock(`box2`)'>New Card</span></div>";
+                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='ncard' >New Card</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`)'
                             echo "</div>";
                         }
                     }
-                    echo `<div id="box2">`;
-                    echo `<p id="ctext">Enter the Details</p>`;
-                    echo `<hr>`;
-                    echo `<form action="" method="post" class="center2" style="width: 40%;">`;
-                    echo `<label for="Card No">Card Number</label>`;
-                    echo `<br>`;
-                    echo `<input type="number" name="cardno" id="cardno" oninput="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="16" required>`;
-                    echo `<br><br>`;
-                    echo `<label for="CVV">CVV</label>`;
-                    echo `<br>`;
-                    echo `<input type="number" name="cvv" id="cvv" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>`;
-                    echo `<br><br>`;
-                    echo `<label for="Card No">Exp Date <span style="font-weight: 100;">(month-year)</span></label>`;
-                    echo `<br>`;
-                    echo `<input type="month" name="exptdate" id="exptdate" required>`;
-                    echo `<br><br>`;
-                    echo `<label for="Card Label">Card Label</label><br>`;
-                    echo `<input type="text" name="clabel" id="clabel" required>`;
-                    echo `<br>`;
-                    echo `<input type="submit" value="Submit" name="newcard" style="width: 30%; padding: 4px 0;">`;
-                    echo `</form>`;
-                    echo `</div>`;
+                    echo "<div id='box2'>";
+                    echo "<p id='ctext'>Enter the Details</p>";
+                    echo "<hr>";
+                    echo "<form action='' method='post' class='center2' style='width: 40%;'>";
+                    echo "<label for='Card No'>Card Number</label>";
+                    echo "<br>";
+                    echo "<input type='number' name='cardno' id='cardno' oninput='this.value=this.value.replace(/[^0-9]/g,``)' maxlength='16' required>";
+                    echo "<br><br>";
+                    echo "<label for='CVV'>CVV</label>";
+                    echo "<br>";
+                    echo "<input type='number' name='cvv' id='cvv' maxlength='3' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>";
+                    echo "<br><br>";
+                    echo "<label for='Card No'>Exp Date <span style='font-weight: 100;'>(month-year)</span></label>";
+                    echo "<br>";
+                    echo "<input type='month' name='exptdate' id='exptdate' required>";
+                    echo "<br><br>";
+                    echo "<label for='Card Label'>Card Label</label><br>";
+                    echo "<input type='text' name='clabel' id='clabel' required>";
+                    echo "<br>";
+                    echo "<input type='submit' value='Submit' name='newcard' style='width: 30%; padding: 4px 0;'>";
+                    echo "</form>";
+                    echo "</div>";
                 
                     mysqli_close($db);
                 ?>

@@ -78,8 +78,6 @@
                     echo "<script>displayNone(`box2`);displayBlock(`box1`)</script>";
                 }
 
-                echo "isset({$_SESSION['UserID']})";
-                // -------------------
                 if(isset($_SESSION['UserID']))
                 {
                     $userid=$_SESSION['UserID'];
@@ -96,6 +94,7 @@
                             echo "<p id='atext'>Saved Address</p>";
 
                             echo "<div id='addr'>";
+                                echo "<br>";
                                 // echo "<div class='center addarea'>";
                                     // echo "<span class='fulladd'>";
                                     //     echo "<span>Name:</span><br>";
@@ -105,7 +104,7 @@
                                     // echo "<span class='link'>Remove</span>";
                                 // echo "</div>";
                                 echo "<p style='text-align:center'>No Address</p>";
-                                echo "<br><br>";
+                                echo "<br>";
                             echo "</div>";
                             echo "<hr>";
                             echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
@@ -127,7 +126,7 @@
                                         echo "<span>Address: {$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}</span><br>";
                                         echo "<span>Mobile No: {$row2['pnum']}</span><br>";
                                     echo "</span>";
-                                    echo "<span class='link'>Remove</span>";
+                                    echo "<span class='link remove'>Remove</span>";
                                 echo "</div>";
                             echo "</div>";
                         }
