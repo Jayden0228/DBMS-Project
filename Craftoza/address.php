@@ -107,8 +107,9 @@
                                 echo "<br>";
                             echo "</div>";
                             echo "<hr>";
-                            echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
+                            echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
                         echo "</div>";
+                        
                     }
                     else
                     {
@@ -131,10 +132,16 @@
                             echo "</div>";
                         }
                             echo "<hr>";
-                            echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
+                            echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
                         echo "</div>";
                     }
                 }
+                echo "<script>
+                    document.getElementById('newaddr').onclick = function(){
+                        displayNone(`box1`);
+                        displayBlock(`box2`);
+                    }
+                </script>";
                 echo "<div id='box2'>";
                     echo "<p id='atext'>Enter the Details</p>";
                     echo "<hr>";
@@ -145,19 +152,19 @@
                         echo "<br><br>";
                         echo "<label for='Wname'>Ward Name</label>";
                         echo "<br>";
-                        echo "<input type='number' name='wname' id='wname' required>";
+                        echo "<input type='text' name='wname' id='wname' required>";
                         echo "<br><br>";
                         echo "<label for='vill/city'>Village/City</label>";
                         echo "<br>";
-                        echo "<input type='number' name='villcity' id='villcity' required>";
+                        echo "<input type='text' name='villcity' id='villcity' required>";
                         echo "<br><br>";
                         echo "<label for='Taluka'>Taluka</label>";
                         echo "<br>";
-                        echo "<input type='number' name='taluka' id='taluka' required>";
+                        echo "<input type='text' name='taluka' id='taluka' required>";
                         echo "<br><br>";
                         echo "<label for='state'>State</label>";
                         echo "<br>";
-                        echo "<input type='number' name='state' id='State' required>";
+                        echo "<input type='text' name='state' id='State' required>";
                         echo "<br><br>";
                         echo "<label for='pcode'>Pincode</label>";
                         echo "<br>";
@@ -219,6 +226,7 @@
                         <input type="submit" name="newaddr" value="Submit" style="width: 30%; padding: 4px 0;">
                     </form>
                 </div> -->
+                
 
             </div>
             <br><br><br>

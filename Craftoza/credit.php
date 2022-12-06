@@ -91,7 +91,7 @@
                                 echo "<br>";
                                 echo "</div>";
                                 echo "<hr>";
-                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='ncard' >New Card</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`)'
+                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newcd' class='ncard' >New Card</span></div>";
                             echo "</div>";
                         }
                         else
@@ -103,15 +103,21 @@
                                 echo "<div id='card'>";
                                     echo "<div class='center cardarea'>";
                                         echo `<span class='cardname'>{$row["label"]}</span>`;
-                                        echo "<span class='ncard'>Remove</span>";
+                                        echo "<span class='ncard remove'>Remove</span>";
                                     echo "</div>";
                                 echo "</div>";
                             }
                                 echo "<hr>";
-                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='ncard' >New Card</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`)'
+                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newcd' class='ncard' >New Card</span></div>";
                             echo "</div>";
                         }
                     }
+                    echo "<script>
+                        document.getElementById('newcd').onclick = function(){
+                            displayNone(`box1`);
+                            displayBlock(`box2`);
+                        }
+                    </script>";
                     echo "<div id='box2'>";
                     echo "<p id='ctext'>Enter the Details</p>";
                     echo "<hr>";
@@ -126,7 +132,7 @@
                     echo "<br><br>";
                     echo "<label for='Card No'>Exp Date <span style='font-weight: 100;'>(month-year)</span></label>";
                     echo "<br>";
-                    echo "<input type='month' name='exptdate' id='exptdate' required>";
+                    echo "<input type='date' name='exptdate' id='exptdate' required>";
                     echo "<br><br>";
                     echo "<label for='Card Label'>Card Label</label><br>";
                     echo "<input type='text' name='clabel' id='clabel' required>";
