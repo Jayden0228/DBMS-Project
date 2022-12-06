@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -52,7 +55,89 @@
         <div id="backgd">
             <br><br><br>
             <div id="creditbox">
-                <div id="box1">
+                <?php
+                    include "Php/_connectDatabase.php";
+                    
+                    if(isset($_POST['newcard']))
+                    {
+                        $cardno=$_POST["cardno"];
+                        $cvv=$_POST["cvv"];
+                        $exptdate=$_POST["exptdate"];
+                        $clabel=$_POST["clabel"];
+                        $sql="INSERT INTO `creditcard` (`uid`, `cardno`, `cvv`, `expdate`, `label`) VALUES ('{$_SESSION['UserID']}', '$cardno', '$cvv', '$exptdate', '$clabel');";
+
+                        $res=mysqli_query($db,$sql);
+
+                        if(!$res)
+                        {
+                            echo "Record not updated";
+                        }    
+                        echo "<script>displayNone(`box2`);displayBlock(`box1`)</script>";
+                    }
+
+                    echo "isset({$_SESSION['UserID']})";
+                    if(isset($_SESSION['UserID']))
+                    {
+                        $userid=$_SESSION['UserID'];
+                        $sql="SELECT * FROM `creditcard` WHERE `uid`='$userid'";
+                        $res=mysqli_query($db,$sql);
+
+                        if(mysqli_num_rows($res)==0)
+                        {
+                            echo "<div id='box1'>";
+                                echo "<p id='ctext'>Saved Cards</p>";
+                                echo "<div id='card'>";
+                                    echo "<p style='text-align:center'>No Card</p>";
+                                echo "<br><br>";
+                                echo "</div>";
+                                echo "<hr>";
+                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='ncard' onclick='displayNone(`box1`);displayBlock(`box2`)'>New Card</span></div>";
+                            echo "</div>";
+                        }
+                        else
+                        {
+                            echo "<div id='box1'>";
+                                echo "<p id='ctext'>Saved Cards</p>";
+                            while($row=mysqli_fetch_assoc($res))
+                            {
+                                echo "<div id='card'>";
+                                    echo "<div class='center cardarea'>";
+                                        echo `<span class='cardname'>{$row["label"]}</span>`;
+                                        echo "<span class='ncard'>Remove</span>";
+                                    echo "</div>";
+                                echo "</div>";
+                            }
+                                echo "<hr>";
+                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span class='ncard' onclick='displayNone(`box1`);displayBlock(`box2`)'>New Card</span></div>";
+                            echo "</div>";
+                        }
+                    }
+                    echo `<div id="box2">`;
+                    echo `<p id="ctext">Enter the Details</p>`;
+                    echo `<hr>`;
+                    echo `<form action="" method="post" class="center2" style="width: 40%;">`;
+                    echo `<label for="Card No">Card Number</label>`;
+                    echo `<br>`;
+                    echo `<input type="number" name="cardno" id="cardno" oninput="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="16">`;
+                    echo `<br><br>`;
+                    echo `<label for="CVV">CVV</label>`;
+                    echo `<br>`;
+                    echo `<input type="number" name="cvv" id="cvv" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'')">`;
+                    echo `<br><br>`;
+                    echo `<label for="Card No">Exp Date <span style="font-weight: 100;">(month-year)</span></label>`;
+                    echo `<br>`;
+                    echo `<input type="month" name="exptdate" id="exptdate">`;
+                    echo `<br><br>`;
+                    echo `<label for="Card Label">Card Label</label><br>`;
+                    echo `<input type="text" name="clabel" id="clabel">`;
+                    echo `<br>`;
+                    echo `<input type="submit" value="Submit" name="newcard" style="width: 30%; padding: 4px 0;">`;
+                    echo `</form>`;
+                    echo `</div>`;
+                
+                    mysqli_close($db);
+                ?>
+                <!-- <div id="box1">
                     <p id="ctext">Saved Cards</p>
                     <div id="card">
                         <div class="center cardarea">
@@ -62,15 +147,15 @@
                     </div>
                     <hr>
                     <div style="margin-top: 20px; margin-bottom: 30px;"><span class="ncard">New Card</span></div>
-                </div>
+                </div> -->
 
-                <div id="box2">
+                <!-- <div id="box2">
                     <p id="ctext">Enter the Details</p>
                     <hr>
                     <form action="" method="post" class="center2" style="width: 40%;">
                         <label for="Card No">Card Number</label>
                         <br>
-                        <input type="number" name="cardno" id="cardno" oninput="this.value=this.value.replace(/[^0-9]/g,'')" max="16">
+                        <input type="number" name="cardno" id="cardno" oninput="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="16">
                         <br><br>
                         <label for="CVV">CVV</label>
                         <br>
@@ -85,7 +170,7 @@
                         <br>
                         <input type="submit" value="Submit" style="width: 30%; padding: 4px 0;">
                     </form>
-                </div>
+                </div> -->
 
             </div>
             <br><br><br>

@@ -21,6 +21,7 @@
                 // session_start();
                 $_SESSION['UserID']=$row["uid"];
                 $_SESSION['Email']=$row["email"];
+                $_SESSION['Name']=$row["fname"];
             }
         }
         else if(isset($_POST['signup']))

@@ -40,8 +40,8 @@
     <link rel="stylesheet" href="Css/nav.css">
     <link rel="stylesheet" href="Css/style.css">
     <link rel="stylesheet" href="Css/profile.css">
-    <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/footer.css">
+    <link rel="stylesheet" href="Css/login_sign.css">
 
     <script>
         function move(){
@@ -82,27 +82,28 @@
             <div id="pfbox">
                 <form action="" method="POST">
                     <label class="center" for="fname">First Name</label><br>
-                    <input type="text" class="inpbiline center" id="fname" name="fname"><br>
+                    <input type="text" class="inpbiline center" id="fname" name="fname" required><br>
                     <label class="center" for="mname">Middle Name</label><br>
-                    <input type="text" class="inpbiline center" id="mname" name="mname"><br>
+                    <input type="text" class="inpbiline center" id="mname" name="mname" required><br>
                     <label class="center" for="lname">Last Name</label><br>
-                    <input type="text" class="inpbiline center" id="lname" name="lname"><br>
+                    <input type="text" class="inpbiline center" id="lname" name="lname" required><br>
                     <label class="center" for="mnbr">Mobile Number</label><br>
-                    <input type="text" class="inpbiline center" id="mnum" name="mnum"><br>
+                    <input type="text" class="inpbiline center" id="mnum" name="mnum" required><br>
                     <label class="center" for="email">Email</label><br>
-                    <input type="text" class="inpbiline center" id="email" name="email" value=""><br> <?php //echo "{$_SESSION['Email']}"?>
-                    <input type="submit" class="center" value="Submit" name="profile">
+                    <input type="text" class="inpbiline center" id="email" name="email" value="" required><br> <?php //echo "{$_SESSION['Email']}"?>
+                    <input type="submit" id="subbtn" class="center" value="Submit" name="profile">
                 </form>
             </div>
             <br><br><br>
-            <button class="obtn">Set Password</button>
+            <button class="obtn" onclick="displayBlock('fpwd')">Set Password</button>
             <br><br>
-            <!-- <a href="Php/_logout.php"><button class="obtn">Deactivate Account</button></a> -->
+            <a href="Php/_logout.php"><button class="obtn">Deactivate Account</button></a>
             <!-- <button class="obtn" onclick="<?php //header("Location: Php/_logout.php");?>">Deactivate Account</button> -->
-            <button class="obtn" onclick="displayBlock('logout')">Deactivate Account</button>
+            <!-- <button class="obtn" onclick="displayBlock('logout')">Deactivate Account</button> -->
             <br><br><br>
             <div id="logout" style="display: none;">
-                <?php include 'Php/_logout.php'?>
+                <!-- <?php //include 'Php/_logout.php'?> -->
+                <?php //header("Location: Php/_logout.php");?>
             </div>
         </div>
     </main>
