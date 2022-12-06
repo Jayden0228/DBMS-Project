@@ -105,6 +105,9 @@ input:focus{
     padding: 15px 0;
 }
 #box1{
+    display: block;
+}
+#box2{
     display: none;
 }
 input[type=submit]
