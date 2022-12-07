@@ -114,7 +114,7 @@
                     <input type="text" class="inpbiline center" name="mnum" value="<?php if(isset($mnum)) {echo "$mnum";}else{echo "";}?>" required><br>
                     <label class="center" for="email">Email</label><br>
                     <input type="text" class="inpbiline center" name="email" value="<?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "";}?>" required><br>
-                    <input type="submit" id="subbtn" class="center" value="Submit" name="profile">
+                    <input type="submit" class="center" value="Submit" name="profile">
                 </form>
             </div>
             <br><br><br>

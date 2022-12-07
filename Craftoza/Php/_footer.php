@@ -26,7 +26,7 @@
               <div class="footer-cols">
                   <h4>Contact</h4>
                   <ui>
-                      <li> <a href="#">enquiry@craftza.in</a></li>
+                      <li> <a href="#">enquiry@craftoza.in</a></li>
                       <li> <a href="#">+91 9999999999</a></li>
                       <li> <a href="#">Farmagudi, Goa</a></li>
                   </ui> 
