@@ -1,10 +1,10 @@
 <?php
+    session_start();
     include "Php/_connectDatabase.php";
     
     $num;
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
-        session_start();
         if(isset($_POST['login']))
         {
             $email=$_POST["Email"];
@@ -18,23 +18,24 @@
                 echo "NO Such User";
             }else{
                 $row=mysqli_fetch_assoc($res);
-                // session_start();
                 $_SESSION['UserID']=$row["uid"];
+                $_SESSION['Email']=$row["email"];
+                $_SESSION['Name']=$row["fname"];
             }
         }
         else if(isset($_POST['signup']))
         {
             $email=$_POST["Email"];
             $password=$_POST["Password"];
-            // $cpassword=$_POST["CPassword"];
             $sql="INSERT INTO `user` (`pwd`, `email`, `fname`, `mname`, `lname`, `pnum`, `credit`) VALUES ('$password', '$email', NULL, NULL, NULL, NULL, NULL)";
 
             $res=mysqli_query($db,$sql);
 
-            if(!$res)
-            {
+            if(!$res){
                 echo "Record not updated";
             }
+            $_SESSION['Email']=$row["email"];
+            header("Location: profile.php");
         }
         if(isset($_POST['forgotpwd']))
         {
@@ -83,16 +84,6 @@
     }
     mysqli_close($db);
 ?>
-<?php 
-    include "Php/_connectDatabase.php";
-
-    
-    
-    mysqli_close($db);
-
-?>
-
-
 
 <!DOCTYPE html>
 
@@ -128,21 +119,7 @@
 </head>
 
 <body>
-    <div id="login">    
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";?>
-    </div>
-    <div id="signup">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";?>
-    </div>
-    <div id="fpwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>
-    </div> 
-    <div id="gotp">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_getOTP.php";?>
-    </div>
-    <div id="npwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_newpassword.php";?>
-    </div>
+    <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>
     <br>
@@ -314,8 +291,7 @@
                 </div>
                 <div class="MapSideBOX"></div>
             </div>
-
-            
+           
 
         </div>
         <br><br><br><br><br><br>
@@ -480,7 +456,7 @@
                     <div id="YellowMapBox"></div>
                 </div>
 
-                <img src="20221022_142453.jpg" height="100%" width="100%">
+                <img src="Images/20221022_142453.jpg" height="100%" width="100%">
             
                 <div id="ExtraIdeaText"> Extraordinary</div>
                 <div id="IdeaText"> Idea</div>

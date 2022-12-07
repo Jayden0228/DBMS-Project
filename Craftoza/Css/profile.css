@@ -82,7 +82,7 @@ label{
 input:focus{
     outline: none;
 }
-input[type=submit] {
+#subbtn {
     background: #FE981B;
     width: 20%;
     color: white;

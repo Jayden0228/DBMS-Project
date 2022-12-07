@@ -1,3 +1,31 @@
+<?php
+    session_start();
+    include "Php/_connectDatabase.php";
+    if(isset($_POST['profile']))
+    {
+        $fname=$_POST["fname"];
+        $mname=$_POST["mname"];
+        $lname=$_POST["lname"];
+        $mnum=$_POST["mnum"];
+        $email=$_POST["email"];
+
+        // $sql="SELECT * FROM `user` WHERE `email` = '$email'";
+        // $res=mysqli_query($db,$sql);
+        // $row=mysqli_fetch_assoc($res);
+        $sql="UPDATE `user` SET `fname` = '$fname', `mname` = '$mname', `lname` = '$lname', `pnum` = '$num' WHERE `user`.`email` = '$email';";
+        $res=mysqli_query($db,$sql);
+
+        if(!$res)
+        {
+            echo "Record not updated";
+        }
+        // $_SESSION['Email']=$row["email"];
+        $_SESSION['Name']=$fname;
+        header("Location: index.php");
+    }
+    mysqli_close($db);
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -12,8 +40,8 @@
     <link rel="stylesheet" href="Css/nav.css">
     <link rel="stylesheet" href="Css/style.css">
     <link rel="stylesheet" href="Css/profile.css">
-    <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/footer.css">
+    <link rel="stylesheet" href="Css/login_sign.css">
 
     <script>
         function move(){
@@ -37,21 +65,7 @@
 </head>
 
 <body>
-<div id="login">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_login.php";?>
-    </div>
-    <div id="signup">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_signup.php";?>
-    </div>
-    <div id="fpwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_forgotpassword.php";?>
-    </div>
-    <div id="gotp">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_getOTP.php";?>
-    </div>
-    <div id="npwd">
-        <?php include "C:/xampp/htdocs/DBProject/Craftoza/Code/Php/_newpassword.php";?>
-    </div>
+    <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>
 
@@ -66,23 +80,31 @@
         <div id="backgd">
             <br><br><br>
             <div id="pfbox">
-                <form action="">
+                <form action="" method="POST">
                     <label class="center" for="fname">First Name</label><br>
-                    <input type="text" class="inpbiline center" id="fname" name="fname"><br>
-                    <label class="center" for="fname">Last Name</label><br>
-                    <input type="text" class="inpbiline center" id="fname" name="fname"><br>
+                    <input type="text" class="inpbiline center" id="fname" name="fname" required><br>
+                    <label class="center" for="mname">Middle Name</label><br>
+                    <input type="text" class="inpbiline center" id="mname" name="mname" required><br>
+                    <label class="center" for="lname">Last Name</label><br>
+                    <input type="text" class="inpbiline center" id="lname" name="lname" required><br>
                     <label class="center" for="mnbr">Mobile Number</label><br>
-                    <input type="number" class="inpbiline center" id="mnbr" name="mnbr"><br>
+                    <input type="text" class="inpbiline center" id="mnum" name="mnum" required><br>
                     <label class="center" for="email">Email</label><br>
-                    <input type="text" class="inpbiline center" id="email" name="email"><br>
-                    <input type="submit" class="center" value="Submit">
+                    <input type="text" class="inpbiline center" id="email" name="email" value="" required><br> <?php //echo "{$_SESSION['Email']}"?>
+                    <input type="submit" id="subbtn" class="center" value="Submit" name="profile">
                 </form>
             </div>
             <br><br><br>
-            <button class="obtn">Set Password</button>
+            <button class="obtn" onclick="displayBlock('fpwd')">Set Password</button>
             <br><br>
-            <button class="obtn">Deactivate Account</button>
+            <a href="Php/_logout.php"><button class="obtn">Deactivate Account</button></a>
+            <!-- <button class="obtn" onclick="<?php //header("Location: Php/_logout.php");?>">Deactivate Account</button> -->
+            <!-- <button class="obtn" onclick="displayBlock('logout')">Deactivate Account</button> -->
             <br><br><br>
+            <div id="logout" style="display: none;">
+                <!-- <?php //include 'Php/_logout.php'?> -->
+                <?php //header("Location: Php/_logout.php");?>
+            </div>
         </div>
     </main>
     <?php include 'Php/_footer.php'?>

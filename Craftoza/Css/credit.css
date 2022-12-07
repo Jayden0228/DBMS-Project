@@ -105,6 +105,9 @@ input:focus{
     padding: 15px 0;
 }
 #box1{
+    display: block;
+}
+#box2{
     display: none;
 }
 input[type=submit]
@@ -117,4 +120,8 @@ input[type=submit]
     margin-top: 7%;
     margin-bottom: 10px;
     cursor: pointer;
+}
+.remove{
+    position: relative;
+    top: -10px;
 }

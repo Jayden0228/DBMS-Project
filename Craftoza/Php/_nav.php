@@ -7,8 +7,21 @@
 
     <div class="icons">
         <ul>
-            <li><img src="Micro_Webpage_Elements\icons\admin.png" class="Icons" onclick="displayBlock('login')"></li>
-            <li><a href="wish_list.php"><img src="Micro_Webpage_Elements\icons\cart.png" class="Icons"></a></li>
+            <?php
+                // session_start();
+                if(isset($_SESSION['UserID']))
+                {
+                    echo "<li><a href='account.php'><img src='Micro_Webpage_Elements\icons\admin.png' class='Icons'><a></li>";
+                    echo "<li><a href='wish_list.php'><img src='Micro_Webpage_Elements\icons\cart.png' class='Icons'></a></li>";
+
+                }
+                else{
+                    echo "<li><img src='Micro_Webpage_Elements\icons\admin.png' class='Icons' onclick='displayBlock(`login`)'></li>";
+                    echo "<li><img src='Micro_Webpage_Elements\icons\cart.png' class='Icons' onclick='displayBlock(`login`)'></li>";
+
+                }
+            ?>
+            
             <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
         </ul>
 
