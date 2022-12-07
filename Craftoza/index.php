@@ -1,90 +1,7 @@
 <?php
     session_start();
-    include "Php/_connectDatabase.php";
-    
-    $num;
-    if($_SERVER["REQUEST_METHOD"]=="POST")
-    {
-        if(isset($_POST['login']))
-        {
-            $email=$_POST["Email"];
-            $password=$_POST["Password"];
-            $sql="SELECT * FROM `user` WHERE `email` = '$email'";
-
-            $res=mysqli_query($db,$sql);
-
-            if(mysqli_num_rows($res)==0)
-            {
-                echo "NO Such User";
-            }else{
-                $row=mysqli_fetch_assoc($res);
-                $_SESSION['UserID']=$row["uid"];
-                $_SESSION['Email']=$row["email"];
-                $_SESSION['Name']=$row["fname"];
-            }
-        }
-        else if(isset($_POST['signup']))
-        {
-            $email=$_POST["Email"];
-            $password=$_POST["Password"];
-            $sql="INSERT INTO `user` (`pwd`, `email`, `fname`, `mname`, `lname`, `pnum`, `credit`) VALUES ('$password', '$email', NULL, NULL, NULL, NULL, NULL)";
-
-            $res=mysqli_query($db,$sql);
-
-            if(!$res){
-                echo "Record not updated";
-            }
-            $_SESSION['Email']=$row["email"];
-            header("Location: profile.php");
-        }
-        if(isset($_POST['forgotpwd']))
-        {
-            $email = isset($_POST['Email1']);
-            $sql="SELECT * FROM `user` WHERE `email` = '$email'";
-
-            $res=mysqli_query($db,$sql);
-
-            if(mysqli_num_rows($res)==0)
-            {
-                // echo "NO Such User";
-            }else{
-                $row=mysqli_fetch_assoc($res);
-                
-                $_SESSION['UserID']=$row["uid"];
-
-                // $num=rand(0,9)+(rand(0,9)*10)+(rand(0,9)*100)+(rand(0,9)*1000)+(rand(0,9)*10000)+(rand(0,9)*100000);
-                // $sub="Craft OPT";
-                // $msg="Your OTP is $num DONT'T SEND IT TO ANYONE";
-                // mail($email, $sub, $msg);
-                $_SESSION['otp']=111111;
-            }
-        }
-        else if(isset($_POST['OTP']))
-        {
-            $otp=$_POST["otp"];
-
-            if($_SESSION['otp']!=$otp)
-            {
-                // echo "NO Such User";
-            }
-        }
-        else if(isset($_POST['newpwd']))
-        {
-            $userid=$_SESSION['UserID'];
-            $password=$_POST["Password"];
-            $sql="UPDATE `user` SET `pwd` = '$password' WHERE `user`.`uid` = $userid;";
-
-            $res=mysqli_query($db,$sql);
-
-            if(!$res)
-            {
-                echo "Record not updated";
-            }
-        }
-    }
-    mysqli_close($db);
+    $msg="";
 ?>
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -119,6 +36,103 @@
 </head>
 
 <body>
+    <?php
+        include "Php/_connectDatabase.php";
+        
+        $num;
+        if($_SERVER["REQUEST_METHOD"]=="POST")
+        {
+            if(isset($_POST['login']))
+            {
+                $msg="";
+                $email=$_POST["Email"];
+                $password=$_POST["Password"];
+                $sql="SELECT * FROM `user` WHERE `email` = '$email'";
+    
+                $res=mysqli_query($db,$sql);
+    
+                if(mysqli_num_rows($res)==0)
+                {
+                    $msg="** Incorrect Email Or Password **";
+                    echo "<script>displayBlock('login');</script>";
+                }
+                else
+                {
+                    $row=mysqli_fetch_assoc($res);
+                    $hashed_password=$row['pwd'];
+                    if(password_verify($password, $hashed_password)){
+                        $_SESSION['UserID']=$row["uid"];
+                        $_SESSION['Email']=$row["email"];
+                        $_SESSION['Name']=$row["fname"];
+                    }
+                    else{
+                        $msg="** Incorrect Email Or Password **";
+                        echo "<script>displayBlock('login');</script>";
+                    }
+                }
+            }
+            else if(isset($_POST['signup']))
+            {
+                $email=$_POST["Email"];
+                $password=$_POST["Password"];
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $sql="INSERT INTO `user` (`pwd`, `email`, `fname`, `mname`, `lname`, `pnum`, `credit`) VALUES ('$hashed_password', '$email', NULL, NULL, NULL, NULL, NULL)";
+    
+                $res=mysqli_query($db,$sql);
+    
+                if(!$res){
+                    echo "Record not updated";
+                }
+                $_SESSION['Email']=$row["email"];
+                header("Location: profile.php");
+            }
+            if(isset($_POST['forgotpwd']))
+            {
+                $email = isset($_POST['Email1']);
+                $sql="SELECT * FROM `user` WHERE `email` = '$email'";
+    
+                $res=mysqli_query($db,$sql);
+    
+                if(mysqli_num_rows($res)==0)
+                {
+                    // echo "NO Such User";
+                }else{
+                    $row=mysqli_fetch_assoc($res);
+                    
+                    $_SESSION['UserID']=$row["uid"];
+    
+                    // $num=rand(0,9)+(rand(0,9)*10)+(rand(0,9)*100)+(rand(0,9)*1000)+(rand(0,9)*10000)+(rand(0,9)*100000);
+                    // $sub="Craft OPT";
+                    // $msg="Your OTP is $num DONT'T SEND IT TO ANYONE";
+                    // mail($email, $sub, $msg);
+                    $_SESSION['otp']=111111;
+                }
+            }
+            else if(isset($_POST['OTP']))
+            {
+                $otp=$_POST["otp"];
+    
+                if($_SESSION['otp']!=$otp)
+                {
+                    // echo "NO Such User";
+                }
+            }
+            else if(isset($_POST['newpwd']))
+            {
+                $userid=$_SESSION['UserID'];
+                $password=$_POST["Password"];
+                $sql="UPDATE `user` SET `pwd` = '$password' WHERE `user`.`uid` = $userid;";
+    
+                $res=mysqli_query($db,$sql);
+    
+                if(!$res)
+                {
+                    echo "Record not updated";
+                }
+            }
+        }
+        mysqli_close($db);
+    ?>
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>

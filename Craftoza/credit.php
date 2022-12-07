@@ -102,7 +102,7 @@
                             {
                                 echo "<div id='card'>";
                                     echo "<div class='center cardarea'>";
-                                        echo `<span class='cardname'>{$row["label"]}</span>`;
+                                        echo "<span class='cardname'>{$row['label']}</span>";
                                         echo "<span class='ncard remove'>Remove</span>";
                                     echo "</div>";
                                 echo "</div>";

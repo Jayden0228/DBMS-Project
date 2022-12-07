@@ -121,7 +121,3 @@ input[type=submit]
     margin-bottom: 10px;
     cursor: pointer;
 }
-.remove{
-    position: relative;
-    top: -10px;
-}

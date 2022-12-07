@@ -8,10 +8,10 @@
     <!-- onsubmit="return validateFgtpwd(this)" -->
     <form action="index.php" method="post" class="center2" ><br>
         <label for="Email">Email</label><br>
-        <input type="email" id="email1" name="Email1" class="inp" required><br><br>
+        <input type="email" id="email1" name="Email1" class="inp" value="<?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "";}?>" required><br><br>
         <input type="submit" value="GET OTP" class="button2"  onclick="return clickButton();"><br><br><!-- name="forgotpwd" -->
     </form>
-    <p style="font-size: 14px; padding-bottom: 40px; padding-left: 75px;"><span onclick="displayNone('fpwd');displayBlock('login')">Back to Log In?</span></p>
+    <p id="backToLogin" style="font-size: 14px; padding-bottom: 40px; padding-left: 75px;"><span onclick="displayNone('fpwd');displayBlock('login')">Back to Log In?</span></p>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

@@ -95,14 +95,6 @@
 
                             echo "<div id='addr'>";
                                 echo "<br>";
-                                // echo "<div class='center addarea'>";
-                                    // echo "<span class='fulladd'>";
-                                    //     echo "<span>Name:</span><br>";
-                                    //     echo "<span>Address:</span><br>";
-                                    //     echo "<span>Mobile No:</span><br>";
-                                    // echo "</span>";
-                                    // echo "<span class='link'>Remove</span>";
-                                // echo "</div>";
                                 echo "<p style='text-align:center'>No Address</p>";
                                 echo "<br>";
                             echo "</div>";
@@ -114,6 +106,8 @@
                     else
                     {
                         $row2=mysqli_fetch_assoc($res2);
+                        $fname=$row2["fname"];
+                        $mnum=$row2["pnum"];
                         
                         echo "<div id='box1'>";
                         echo "<p id='atext'>Saved Address</p>";
@@ -123,9 +117,9 @@
                             echo "<div id='addr'>";
                                 echo "<div class='center addarea'>";
                                     echo "<span class='fulladd'>";
-                                        echo "<span>Name: {$row2['fname']}</span><br>";
+                                        echo "<span>Name: $fname</span><br>";
                                         echo "<span>Address: {$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}</span><br>";
-                                        echo "<span>Mobile No: {$row2['pnum']}</span><br>";
+                                        echo "<span>Mobile No: $mnum</span><br>";
                                     echo "</span>";
                                     echo "<span class='link remove'>Remove</span>";
                                 echo "</div>";
@@ -148,7 +142,7 @@
                     echo "<form action='' method='post' class='center2' style='width: 40%;'>";
                         echo "<label for='Hno/fno'>H.No/Flat NO</label>";
                         echo "<br>";
-                        echo "<input type='number' name='hfno' id='hfno' required>";
+                        echo "<input type='text' name='hfno' id='hfno' required>";
                         echo "<br><br>";
                         echo "<label for='Wname'>Ward Name</label>";
                         echo "<br>";

@@ -12,7 +12,7 @@
         // $sql="SELECT * FROM `user` WHERE `email` = '$email'";
         // $res=mysqli_query($db,$sql);
         // $row=mysqli_fetch_assoc($res);
-        $sql="UPDATE `user` SET `fname` = '$fname', `mname` = '$mname', `lname` = '$lname', `pnum` = '$num' WHERE `user`.`email` = '$email';";
+        $sql="UPDATE `user` SET `fname` = '$fname', `mname` = '$mname', `lname` = '$lname', `pnum` = '$mnum' WHERE `user`.`email` = '$email';";
         $res=mysqli_query($db,$sql);
 
         if(!$res)
@@ -62,6 +62,9 @@
     </script>
     
     <title>Craftoza</title>
+    <?php
+        echo "<script>displayNone('backToLogin');</script>";
+    ?>
 </head>
 
 <body>
@@ -81,16 +84,36 @@
             <br><br><br>
             <div id="pfbox">
                 <form action="" method="POST">
+                    <?php
+                        
+                        include "Php/_connectDatabase.php";
+                        $sql="SELECT * FROM `user` WHERE `email` = '{$_SESSION['Email']}'";
+                        $res=mysqli_query($db,$sql);
+            
+                        if(mysqli_num_rows($res)==0)
+                        {
+                            echo "Invalid Email";
+                        }
+                        else
+                        {
+                            $row=mysqli_fetch_assoc($res);
+                            $fname=$row["fname"];
+                            $mname=$row["mname"];
+                            echo"";
+                            $lname=$row["lname"];
+                            $mnum=$row["pnum"];
+                        }
+                    ?>
                     <label class="center" for="fname">First Name</label><br>
-                    <input type="text" class="inpbiline center" id="fname" name="fname" required><br>
+                    <input type="text" class="inpbiline center" name="fname" value="<?php if(isset($fname)) {echo "$fname";}else{echo "";}?>" required><br>
                     <label class="center" for="mname">Middle Name</label><br>
-                    <input type="text" class="inpbiline center" id="mname" name="mname" required><br>
+                    <input type="text" class="inpbiline center" name="mname" value="<?php if(isset($mname)) {echo "$mname";}else{echo "";}?>" required><br>
                     <label class="center" for="lname">Last Name</label><br>
-                    <input type="text" class="inpbiline center" id="lname" name="lname" required><br>
+                    <input type="text" class="inpbiline center" name="lname" value="<?php if(isset($lname)) {echo "$lname";}else{echo "";}?>" required><br>
                     <label class="center" for="mnbr">Mobile Number</label><br>
-                    <input type="text" class="inpbiline center" id="mnum" name="mnum" required><br>
+                    <input type="text" class="inpbiline center" name="mnum" value="<?php if(isset($mnum)) {echo "$mnum";}else{echo "";}?>" required><br>
                     <label class="center" for="email">Email</label><br>
-                    <input type="text" class="inpbiline center" id="email" name="email" value="" required><br> <?php //echo "{$_SESSION['Email']}"?>
+                    <input type="text" class="inpbiline center" name="email" value="<?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "";}?>" required><br>
                     <input type="submit" id="subbtn" class="center" value="Submit" name="profile">
                 </form>
             </div>
@@ -98,13 +121,7 @@
             <button class="obtn" onclick="displayBlock('fpwd')">Set Password</button>
             <br><br>
             <a href="Php/_logout.php"><button class="obtn">Deactivate Account</button></a>
-            <!-- <button class="obtn" onclick="<?php //header("Location: Php/_logout.php");?>">Deactivate Account</button> -->
-            <!-- <button class="obtn" onclick="displayBlock('logout')">Deactivate Account</button> -->
             <br><br><br>
-            <div id="logout" style="display: none;">
-                <!-- <?php //include 'Php/_logout.php'?> -->
-                <?php //header("Location: Php/_logout.php");?>
-            </div>
         </div>
     </main>
     <?php include 'Php/_footer.php'?>
