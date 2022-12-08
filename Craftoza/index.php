@@ -88,7 +88,7 @@
             }
             if(isset($_POST['forgotpwd']))
             {
-                $email = isset($_POST['Email1']);
+                $email = $_POST['Email1'];
                 $sql="SELECT * FROM `user` WHERE `email` = '$email'";
     
                 $res=mysqli_query($db,$sql);
