@@ -29,11 +29,14 @@
         <ul class="NavLinks">
             <li>Explore
                 <div class="dropdown">
-                    <a href="">Pottery</a>
-                    <a href="">Shells</a>
-                    <a href="">Jewellery</a>
-                    <a href="">Bag</a>
-                    <a href="">Coconut Item</a>
+                    <a href="search.php" onclick="<?php $_SESSION['material']='A'?>">Bamboo</a>
+                    <a href="search.php" onclick="<?php $_SESSION['material']='B'?>">Coconut</a>
+                    <a href="search.php" onclick="<?php $_SESSION['material']='C'?>">Clay</a>
+                    <a href="search.php" onclick="<?php $_SESSION['material']='D'?>">Shells</a>
+                    <a href="search.php" onclick="<?php $_SESSION['type']=1?>">Bag</a>
+                    <a href="search.php" onclick="<?php $_SESSION['type']=2?>">Home Deco</a>
+                    <a href="search.php" onclick="<?php $_SESSION['type']=3?>">Earthen Pots</a>
+                    <a href="search.php" onclick="<?php $_SESSION['type']=4?>">Jewellery</a>
                 </div>
             </li>
             <li>Community
