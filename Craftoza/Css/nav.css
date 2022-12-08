@@ -122,3 +122,18 @@ nav{
     display: block;
     font-weight: normal;
 }
+#dpbutton{
+    background: #f1f1f1;
+    min-width: 160px;
+    border: none;
+}
+
+#dpbutton:hover{
+    background: #ddd;
+    cursor:pointer;
+}
+input[type=submit]{
+    font-family: 'century gothic';
+    text-align: left;
+    padding: 15px 15px;
+}

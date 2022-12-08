@@ -1,5 +1,48 @@
 <?php
     session_start();
+    if($_SERVER["REQUEST_METHOD"]=="POST")
+    {
+        if(isset($_POST['Bamboo']))
+        {
+            $_SESSION['material']='A';
+            $_SESSION['type']="";  
+        }
+        if(isset($_POST['Coconut']))
+        {
+            $_SESSION['material']='B';
+            $_SESSION['type']="";  
+        }
+        if(isset($_POST['Clay']))
+        {
+            $_SESSION['material']='C';
+            $_SESSION['type']="";  
+        }
+        if(isset($_POST['Shells']))
+        {
+            $_SESSION['material']='D';
+            $_SESSION['type']="";  
+        }
+        if(isset($_POST['Bag']))
+        {
+            $_SESSION['type']=1;
+            $_SESSION['material']='';
+        }
+        if(isset($_POST['HomeDeco']))
+        {
+            $_SESSION['type']=2;
+            $_SESSION['material']='';
+        }
+        if(isset($_POST['EarthenPots']))
+        {
+            $_SESSION['type']=3;
+            $_SESSION['material']='';
+        }
+        if(isset($_POST['Jewellery']))
+        {
+            $_SESSION['type']=4;
+            $_SESSION['material']='';
+        }
+    }
     if(isset($_SESSION['material']))
     {
         echo "{$_SESSION['material']}";

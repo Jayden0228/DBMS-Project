@@ -29,14 +29,30 @@
         <ul class="NavLinks">
             <li>Explore
                 <div class="dropdown">
-                    <a href="search.php" onclick="<?php $_SESSION['material']='A'?>">Bamboo</a>
-                    <a href="search.php" onclick="<?php $_SESSION['material']='B'?>">Coconut</a>
-                    <a href="search.php" onclick="<?php $_SESSION['material']='C'?>">Clay</a>
-                    <a href="search.php" onclick="<?php $_SESSION['material']='D'?>">Shells</a>
-                    <a href="search.php" onclick="<?php $_SESSION['type']=1?>">Bag</a>
-                    <a href="search.php" onclick="<?php $_SESSION['type']=2?>">Home Deco</a>
-                    <a href="search.php" onclick="<?php $_SESSION['type']=3?>">Earthen Pots</a>
-                    <a href="search.php" onclick="<?php $_SESSION['type']=4?>">Jewellery</a>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Bamboo" value="Bamboo" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Coconut" value="Coconut" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Clay" value="Clay" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Shells" value="Shells" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Bag" value="Bag" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="HomeDeco" value="Home Deco" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="EarthenPots" value="Earthen Pots" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Jewellery" value="Jewellery" id="dpbutton">
+                </form>
                 </div>
             </li>
             <li>Community
