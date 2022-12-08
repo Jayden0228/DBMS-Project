@@ -51,23 +51,6 @@ hr{
     margin: 0 auto;
     padding: 27px;
 }
-
-.obtn{
-    width: 100%;
-    border: none;
-    /* border-radius: 30px; */
-    color: white;
-    padding: 10px 24px;
-    display: inline-block;
-    /* font-size: 16px; */
-    font-size: 1.41vw;
-    margin: 4px 2px;
-    cursor: pointer;
-    background: #fd5353fe;
-} 
-.obtn:hover{
-    background: #ff4545fe;
-}
 label{
     font-size: 18px;
 }

@@ -114,13 +114,9 @@
                     <input type="text" class="inpbiline center" name="mnum" value="<?php if(isset($mnum)) {echo "$mnum";}else{echo "";}?>" required><br>
                     <label class="center" for="email">Email</label><br>
                     <input type="text" class="inpbiline center" name="email" value="<?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "";}?>" required><br>
-                    <input type="submit" class="center" value="Submit" name="profile">
+                    <input type="submit" class="center" value="Submit" name="profile" id="subbtn">
                 </form>
             </div>
-            <br><br><br>
-            <button class="obtn" onclick="displayBlock('fpwd')">Set Password</button>
-            <br><br>
-            <a href="Php/_logout.php"><button class="obtn">Deactivate Account</button></a>
             <br><br><br>
         </div>
     </main>

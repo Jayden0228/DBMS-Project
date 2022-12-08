@@ -8,11 +8,10 @@
     <div class="icons">
         <ul>
             <?php
-                // session_start();
                 if(isset($_SESSION['UserID']))
                 {
                     echo "<li><a href='account.php'><img src='Micro_Webpage_Elements\icons\admin.png' class='Icons'><a></li>";
-                    echo "<li><a href='wish_list.php'><img src='Micro_Webpage_Elements\icons\cart.png' class='Icons'></a></li>";
+                    echo "<li><a href='cart.php'><img src='Micro_Webpage_Elements\icons\cart.png' class='Icons'></a></li>";
 
                 }
                 else{

@@ -22,8 +22,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Css/nav.css">
     <link rel="stylesheet" href="Css/style.css">
-    <link rel="stylesheet" href="Css/account.css">
     <link rel="stylesheet" href="Css/login_sign.css">
+    <link rel="stylesheet" href="Css/account.css">
     <link rel="stylesheet" href="Css/footer.css">
 
     <script>
@@ -62,8 +62,6 @@
         </div>
         <div id="backgd">
             <br><br><br>
-                <button class="obtn">Your Order</button>
-            <br><br><br>
             <div id="accbox">
                 <p id="acctext">ACCOUNT SETTING</p>
                 <hr>
@@ -74,6 +72,14 @@
                 <div class="accopt center">Address<a href="address.php"><span class="arrw">&#8680;</span></a></div>
                 
             </div>
+            <br><br><br>
+            <button class="obtn">Your Order</button>
+            <br><br>
+            <a href="wish_list.php"><button class="obtn">Your Wish List</button></a>
+            <br><br>
+            <button class="obtn" onclick="displayBlock('fpwd')">Change Password</button>
+            <br><br>
+            <a href="Php/_logout.php"><button class="obtn">Log Out</button></a>
             <br><br><br>
         </div>
     </main>

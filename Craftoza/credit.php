@@ -119,6 +119,8 @@
                         }
                     </script>";
                     echo "<div id='box2'>";
+                    echo "<span class='arrow' onclick='displayNone(`box2`);displayBlock(`box1`);' style='position: relative;
+                    cursor: pointer;'>&#8592;</span>";
                     echo "<p id='ctext'>Enter the Details</p>";
                     echo "<hr>";
                     echo "<form action='' method='post' class='center2' style='width: 40%;'>";
