@@ -122,6 +122,7 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
+                                echo "<form action='item.php' method='POST'>";
                                 echo "<div id='search'>";
                                 echo "<div id='image'>";
                                 echo "<img src='Images/card3.png' alt='' width='110%' height='auto'>";
@@ -132,9 +133,11 @@
                                 echo "<div class='text3'>{$row['discnt']} %OFF</div>";
                                 echo "</div>";
                                 echo "<div id='btn'>";
-                                echo "<button class='btn1' type='button' formaction='item.php' formmethod='POST' value='{$row['pid']}'>View Product</button>";
+                                echo "<input type='hidden' name='pid' value='{$row['pid']}' >";
+                                echo "<input class='btn1' type='submit' value='View Product' style='text-align: center;'>";
                                 echo "</div>";
                                 echo "</div>";
+                                echo "</form>";
                             }
                         }
                     }
@@ -153,6 +156,7 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
+                                echo "<form action='item.php' method='POST'>";
                                 echo "<div id='search'>";
                                 echo "<div id='image'>";
                                 echo "<img src='Images/card3.png' alt='' width='110%' height='auto'>";
@@ -163,15 +167,16 @@
                                 echo "<div class='text3'>{$row['discnt']} %OFF</div>";
                                 echo "</div>";
                                 echo "<div id='btn'>";
-                                echo "<button class='btn1' type='button' formaction='item.php' formmethod='POST' value='{$row['pid']}'>View Product</button>";
+                                //echo "<button class='btn1' type='button' value='{$row['pid']}'>View Product</button>";
+                                echo "<input type='hidden' name='pid' value='{$row['pid']}' >";
+                                echo "<input class='btn1' type='submit' value='View Product' style='text-align: center;'>";
                                 echo "</div>";
                                 echo "</div>";
+                                echo "</form>";
                             }
                         }
-                    }
-                    
+                    }  
                 ?>
-                
             <br><br><br>
         </div>
     </main>
