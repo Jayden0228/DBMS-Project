@@ -1,0 +1,75 @@
+#backgd{
+    background-image: url(../Images/background.png);
+    background-size: cover;
+    border-radius: 40px;
+    margin: 40px auto;
+    width:70%;
+    height:fit-content;
+    padding: 0px 30px;
+    position: relative;
+    top: 10px;
+}
+
+#search{
+    display: grid;
+    grid-template-columns: 33.3% 31.6% 31.8%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    border-style: solid;
+    border-width: 1px;
+    width: 73%;
+    margin: 0 auto;
+    padding: 27px;
+}
+#image{
+    width: 68%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+#text{
+    display: grid;   
+}
+
+
+.text1, .text2, .text3{
+    font-weight: bolder;
+    /* font-size: large; */
+    font-size: 1.171875vw;
+}
+
+
+#btn{
+    height: 100px;
+    margin-top: auto;
+}
+
+.btn1,.btn2, #orderplc{
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    /* font-size: 16px; */
+    font-size: 1.041vw;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+
+.btn1{
+    background: #5ea2ecfe;
+} 
+.btn2{
+    background: #fd5353fe;
+}
+.btn1:hover{
+    background: #4b98eafe;
+} 
+.btn2:hover{
+    background: #ff4545fe;
+}
