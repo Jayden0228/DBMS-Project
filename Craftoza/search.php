@@ -106,7 +106,6 @@
         </div> -->
         <div id="backgd">
             <br><br><br>
-            <div id="search">
                 <?php
                     include "Php/_connectDatabase.php";
                     if(isset($_SESSION['material']))
@@ -123,6 +122,7 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
+                                echo "<div id='search'>";
                                 echo "<div id='image'>";
                                 echo "<img src='Images/card3.png' alt='' width='110%' height='auto'>";
                                 echo "</div>";
@@ -133,6 +133,7 @@
                                 echo "</div>";
                                 echo "<div id='btn'>";
                                 echo "<button class='btn1' type='button' formaction='item.php' formmethod='POST' value='{$row['pid']}'>View Product</button>";
+                                echo "</div>";
                                 echo "</div>";
                             }
                         }
@@ -152,6 +153,7 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
+                                echo "<div id='search'>";
                                 echo "<div id='image'>";
                                 echo "<img src='Images/card3.png' alt='' width='110%' height='auto'>";
                                 echo "</div>";
@@ -163,13 +165,13 @@
                                 echo "<div id='btn'>";
                                 echo "<button class='btn1' type='button' formaction='item.php' formmethod='POST' value='{$row['pid']}'>View Product</button>";
                                 echo "</div>";
+                                echo "</div>";
                             }
                         }
                     }
                     
                 ?>
                 
-            </div>
             <br><br><br>
         </div>
     </main>

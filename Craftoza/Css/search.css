@@ -34,18 +34,20 @@
 
 
 .text1, .text2, .text3{
+    margin-top: 15px;
     font-weight: bolder;
-    /* font-size: large; */
-    font-size: 1.171875vw;
+    /* font-size: x-large; */
+    font-size: 1.502vw;;
 }
 
 
 #btn{
-    height: 100px;
+    height: auto;
     margin-top: auto;
+    margin-bottom: auto;
 }
 
-.btn1,.btn2, #orderplc{
+.btn1{
     width: 100%;
     border: none;
     border-radius: 30px;
