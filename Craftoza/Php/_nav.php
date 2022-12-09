@@ -1,8 +1,8 @@
 <header>
     <div id="logo"><img src="Images\Logo.png" alt="logo" id="logo" height="auto" width="100%"></div>
 
-    <form action="">
-        <input id="searchvalue" type="search" placeholder=" Search Products">
+    <form action="search.php" method="POST">
+        <input id="searchvalue" name="search" type="search" placeholder=" Search Products">
     </form>
 
     <div class="icons">

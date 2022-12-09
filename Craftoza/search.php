@@ -42,6 +42,11 @@
             $_SESSION['type']=4;
             unset($_SESSION['material']);
         }
+        // if(isset($_POST['search']))
+        // {
+        //     $searchstr=$_POST['search'];
+
+        // }
     }
     if(isset($_SESSION['material']))
     {

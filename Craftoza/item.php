@@ -69,8 +69,6 @@
         <div id="backgd">
             <br><br><br>
             <div class="item">
-
-
                 <div class="simg">
                     <div id="simg1">
                         <img src="Images/item1.jpg" alt="" width="110%" height="100%" onclick="swap('simg1','image')">
