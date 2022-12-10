@@ -48,14 +48,14 @@
 
         // }
     }
-    if(isset($_SESSION['material']))
-    {
-        echo "{$_SESSION['material']}";
-    }
-    if(isset($_SESSION['type']))
-    {
-        echo "{$_SESSION['type']}";
-    }
+    // if(isset($_SESSION['material']))
+    // {
+    //     echo "{$_SESSION['material']}";
+    // }
+    // if(isset($_SESSION['type']))
+    // {
+    //     echo "{$_SESSION['type']}";
+    // }
 ?>
 
 <!DOCTYPE html>
@@ -127,6 +127,7 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
+                                $dprice=$row['price']-$row['price']*$row['discnt']*0.01;
                                 echo "<form action='item.php' method='POST'>";
                                 echo "<div id='search'>";
                                 echo "<div id='image'>";
@@ -134,8 +135,8 @@
                                 echo "</div>";
                                 echo "<div id='text'>";
                                 echo "<div class='text1'>{$row['pname']}</div>";
-                                echo "<div class='text2' style='color: #fd5353fe;'>{$row['price']}</div>";
-                                echo "<div class='text3'>{$row['discnt']} %OFF</div>";
+                                echo "<div class='text2' style='color: #fd5353fe;'>RS. $dprice</div>";
+                                echo "<div class='text3'>-{$row['discnt']} %OFF</div>";
                                 echo "</div>";
                                 echo "<div id='btn'>";
                                 echo "<input type='hidden' name='pid' value='{$row['pid']}' >";
