@@ -1,7 +1,7 @@
 hr{
     width: 96%;
 }
-button{
+button, input[type=submit]{
     width: 100%;
     border: none;
     border-radius: 30px;
@@ -190,4 +190,15 @@ input[type=number] {
     background-color: white;
     max-height: 200px;
     overflow-y: scroll;
+}
+.comments{
+    margin: 2%;
+}
+.name{
+    margin: 2%;
+    font-weight: 500;
+}
+.cmt{
+    margin: 0.5% 0;
+    font-weight: 400;
 }
