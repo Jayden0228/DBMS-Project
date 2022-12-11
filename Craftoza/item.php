@@ -51,7 +51,7 @@
             $res4=mysqli_query($db,$sql4);
             if(mysqli_num_rows($res4)==0)
             {
-                echo"Wishlist";
+                // echo"Wishlist";
                 $sql4="INSERT INTO `view` (`uid`, `pid`, `status`) VALUES ('{$_SESSION['UserID']}', '{$_SESSION['pid']}', 'wishlist')";
                 mysqli_query($db,$sql4);
             }
@@ -170,8 +170,6 @@
                 <div id="lv2cn3">
                     <form action="" method="POST">
                         <input type="submit" value="Add To Cart" name="cart" class="btn1">
-                    </form>
-                    <form action="" method="post">
                         <input type="submit" value="Add To Wish List" name="wishlist" class="btn2">
                     </form>
                 </div>
