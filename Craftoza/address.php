@@ -1,5 +1,13 @@
 <?php
     session_start();
+    include "Php/_connectDatabase.php";
+    if($_SERVER["REQUEST_METHOD"]=="POST")
+    {
+        if(isset($_POST['raddr'])){
+            $sql="DELETE FROM `address` WHERE `hno/fno` = '{$_POST['removeaddr']}' AND `uid` = '{$_SESSION['UserID']}'";
+            mysqli_query($db,$sql);
+        }
+    }
 ?>
 <!DOCTYPE html>
 
@@ -57,7 +65,6 @@
             <div id="addbox">
 
             <?php
-                include "Php/_connectDatabase.php";
                 
                 if(isset($_POST['newaddr']))
                 {
@@ -114,16 +121,24 @@
 
                         while($row=mysqli_fetch_assoc($res))
                         {
-                            echo "<div id='addr'>";
-                                echo "<div class='center addarea'>";
-                                    echo "<span class='fulladd'>";
-                                        echo "<span>Name: $fname</span><br>";
-                                        echo "<span>Address: {$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}</span><br>";
-                                        echo "<span>Mobile No: $mnum</span><br>";
-                                    echo "</span>";
-                                    echo "<span class='link remove'>Remove</span>";
-                                echo "</div>";
-                            echo "</div>";
+                            ?>
+                                <div id='addr'>
+                                    <div class='center addarea'>
+                                        <span class='fulladd'>
+                                            <span>Name: <?php $fname?></span><br>
+                                            <span>Address: <?php echo "{$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                            <span>Mobile No: <?php $mnum?></span><br>
+                                        </span>
+                                        <span class='link remove'>
+                                            <form action="#" method="post" style="margin:0;">
+                                                <input type="hidden" name="removeaddr" value=<?php echo $row['hno/fno']?>>
+                                                <input type="submit" name="raddr" value="Remove" style="color: #FE981B;
+background: white; border:none; margin:0; padding:0">
+                                            </form >
+                                        </span>
+                                    </div>
+                                </div>
+                            <?php
                         }
                             echo "<hr>";
                             echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
