@@ -65,12 +65,12 @@ hr{
 }
 
 
-.text1, .text2, .text3, .text5{
+.text1, .text2, .text4{
     font-weight: bolder;
     /* font-size: large; */
     font-size: 1.171875vw;
 }
-.text5 input[type="number"]{
+.text4 input[type="number"]{
     width: 20%;
     padding: 3px;
 }
@@ -80,13 +80,12 @@ hr{
     margin-top: auto;
 }
 
-.btn1,.btn2, #orderplc{
+.btn1,.btn2{
     width: 100%;
     border: none;
     border-radius: 30px;
     color: white;
     padding: 10px 24px;
-    text-align: center;
     text-decoration: none;
     display: inline-block;
     /* font-size: 16px; */
