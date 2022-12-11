@@ -4,18 +4,21 @@ from tkinter import *
 from tkinter import ttk
 from typing import ItemsView
 from PIL import ImageTk, Image
-from openpyxl import Workbook,load_workbook
-from openpyxl.utils import get_column_letter 
 from tkinter import filedialog
 import tkinter as tk
 import time  
 import matplotlib, numpy, sys
 import mysql.connector as mysql
-
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import mm
+from reportlab_qrcode import QRCodeImage
+import os
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import ( FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
+import webbrowser as wb
+import threading
      
 class temp:
             
@@ -1974,6 +1977,82 @@ class temp:
             self.EMAIL_DELIVERY_AGENTScover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE12.place(y=self.SideStart3+90,width=200,x=235,height=35)
       
+class invoiceDesign:
+    
+    img1="C:/Users/Lloyd/Desktop/Craftoza/Invoice/Final Non Tested Invoice/Main Template.png"
+    img2="C:/Users/Lloyd/Desktop/Craftoza/Invoice/3.png"
+    img3="C:/Users/Lloyd\Desktop/Craftoza/Invoice/2.png"
+    img4="C:/Users/Lloyd/Desktop/Craftoza/Invoice/1.png"
+    GrandTotal=0
+    GrandTaxTotal=0
+    
+
+    def __init__(self,x):  
+        self.ParentPath="C:/Invoice PDFs Craftoza"
+        self.ChildPath=str(self.ParentPath)+"/"+str(x)+".pdf"
+        self.c=canvas.Canvas( self.ChildPath)
+        self.d=canvas.Canvas( self.ChildPath)
+        self.c.drawImage(self.img1,0,-140,width=210*mm,preserveAspectRatio=True,mask='auto')
+    
+
+    def QR(self,UDC):
+        qr=QRCodeImage(UDC,size=30*mm)
+        qr.drawOn(self.c,35,415)
+    
+
+    def Seller(self,Name,Ward,Village_City,Taluka_State):
+        self.c.drawString(28,700,Name)
+        self.c.drawString(28,685,Ward)
+        self.c.drawString(28,670,Village_City)
+        self.c.drawString(28,655,Taluka_State)
+    
+        
+
+    def BillingAddress(self,Name,Ward,Village_City,Taluka_State,Pincode):
+        self.c.drawRightString(560,700,Name)
+        self.c.drawRightString(560,685,Ward)
+        self.c.drawRightString(560,670,Village_City)
+        self.c.drawRightString(560,655,Taluka_State)
+        self.c.drawRightString(560,640,Pincode)
+       
+
+    def ShippingAddress(self,Name,Ward,Village_City,Taluka_State,Pincode):
+        self.c.drawRightString(560,560,Name)
+        self.c.drawRightString(560,545,Ward)
+        self.c.drawRightString(560,530,Village_City)
+        self.c.drawRightString(560,515,Taluka_State)
+        self.c.drawRightString(560,500,Pincode)
+      
+
+    def OrderDeets(self,OrderDate,Customer_ID,UDC):
+        self.c.drawString(180,575,OrderDate)
+        self.c.drawString(107,553,Customer_ID)
+        self.c.drawString(158,526,UDC)
+
+
+    def TableTitle(self):
+        self.c.drawImage(self.img2,28,375,width=190.544*mm,preserveAspectRatio=True,mask='auto')
+
+
+    def UpdateTableNew(self,ProductName,UnitPrice,Discount,Qty,NetAmount,TaxRate,TaxAmount,TotalAmount):
+            i=325
+            z=i+28
+            self.c.setFont('Helvetica', 8)
+            self.c.drawImage(self.img3,28,i,width=190.544*mm,preserveAspectRatio=True,mask='auto')
+            self.c.drawString(37,z,str("1"))
+            self.c.drawString(60,z,str(ProductName))
+            self.c.drawString(315,z,str(UnitPrice))
+            self.c.drawString(370,z,str(Discount))
+            self.c.drawString(409,z,str(Qty))
+            self.c.drawRightString(449,z,str(NetAmount))
+            self.c.drawRightString(472,z,str(TaxRate))
+            self.c.drawRightString(505,z,str(TaxAmount))
+            self.c.drawRightString(560,z,str(TotalAmount))
+            i=i-50
+        
+    def update(self):
+        self.c.showPage()
+        self.c.save()
 
 
 
@@ -1981,13 +2060,14 @@ class OrderPool:
           
     def __init__(self):
             self.OP=Tk()
+            self.MYSQLconnection2=mysql.connect(host="localhost",user="root",password="",database="craftozalloyd")
             self.OP.title('CRAFTOZA Admin Panel')
             self.OP.configure(bg='whitesmoke')
             self.OP.geometry('1366x768')
             self.OP.state('zoomed')
             self.tabControl = ttk.Notebook(self.OP)
             self.tab1 = Frame(self.tabControl,width=1600,height=710,bg="whitesmoke")
-            self.tab2 = Frame(self.tabControl)
+            self.tab2 = Frame(self.tabControl,width=1600,height=710,bg="whitesmoke")
             self.tabControl.add(self.tab1, text='Order Pool')
             self.tabControl.add(self.tab2, text='Order Invoice')
             self.tabControl.place(y=90,x=0)
@@ -2016,21 +2096,26 @@ class OrderPool:
             self.OPENWEBOP=Label(self.Main_TitleOP,bg="#CD3333",text="Open Website",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.OPENWEBOP.place(y=25,width=120,x=1145,height=70)
 
+ 
+            self.TreeviewTAG=Label(self.tab1,bg="whitesmoke",text="ORDER POOL",fg='black' ,font=('century gothic',14),justify=CENTER)
+            self.TreeviewTAG.place(y=20,width=126,x=59,height=70)
 
+     
             self.OrderPOOLTable=ttk.Style()
-            self. OrderPOOLTable.configure("mystyle.Treeview.Heading",font=('Microsoft JhengHei',10,'bold'))
-            self.OrderPOOLTable.configure("mystyle.Treeview",font=('Microsoft JhengHei',9))
-            self.iteamSectionOP=ttk.Treeview(self.tab1,style="myPRODdisp.Treeview")
-            self.iteamSectionOP['columns']=("UDC","Pid","Did","Uid","Quantity","Status","Delivery Address","Invoice Print Status")
+            self. OrderPOOLTable.configure("mystyle.Treeview.Heading",font=('century gothic',11,),background="#EE3B3B",foreground="white")
+            self.OrderPOOLTable.configure("mystyle.Treeview",font=('Microsoft JhengHei',9),background="white",foreground="black")
+            self.iteamSectionOP=ttk.Treeview(self.tab1,style="mystyle.Treeview")
+            self.OrderPOOLTable.map("Treeview",background=[('selected','light blue')])
+            self.iteamSectionOP['columns']=("UDC","Pid","Did","Uid","Quantity","Status","Delivery Address","Invoice Generated Status")
             self.iteamSectionOP.column("#0",anchor=W,width=0,stretch=NO)
             self.iteamSectionOP.column("UDC",anchor=W,width=90)
-            self.iteamSectionOP.column("Pid",anchor=W,width=60)
-            self.iteamSectionOP.column("Did",anchor=W,width=60)
-            self.iteamSectionOP.column("Uid",anchor=W,width=60)
-            self.iteamSectionOP.column("Quantity",anchor=W,width=60)
-            self.iteamSectionOP.column("Status",anchor=W,width=60)
-            self.iteamSectionOP.column("Delivery Address",anchor=W,width=80)
-            self.iteamSectionOP.column("Invoice Print Status",anchor=W,width=80)
+            self.iteamSectionOP.column("Pid",anchor=W,width=30)
+            self.iteamSectionOP.column("Did",anchor=W,width=30)
+            self.iteamSectionOP.column("Uid",anchor=W,width=30)
+            self.iteamSectionOP.column("Quantity",anchor=W,width=30)
+            self.iteamSectionOP.column("Status",anchor=W,width=30)
+            self.iteamSectionOP.column("Delivery Address",anchor=W,width=130)
+            self.iteamSectionOP.column("Invoice Generated Status",anchor=W,width=80)
        
             self.iteamSectionOP.heading("UDC",text="Unique Delivery Code",anchor=W)
             self.iteamSectionOP.heading("Pid",text="Product ID",anchor=W)
@@ -2039,9 +2124,117 @@ class OrderPool:
             self.iteamSectionOP.heading("Quantity",text="Quantity",anchor=W)
             self.iteamSectionOP.heading("Status",text="Status",anchor=W)
             self.iteamSectionOP.heading("Delivery Address",text="Delivery Address",anchor=W)
-            self.iteamSectionOP.heading("Invoice Print Status",text="Invoice Print Status",anchor=W)
-            self.iteamSectionOP.place(x=65,y=70,width=1400,height=500)
+            self.iteamSectionOP.heading("Invoice Generated Status",text="Invoice Generated Status",anchor=W)
+            self.iteamSectionOP.place(x=65,y=76,width=1400,height=500)
+
+            self.x=threading.Thread(target=self.Update_OrderPOOL)
+            self.x.start()
+
+            self.OPRefresh=Button(self.tab1,text='Refresh',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.Update_OrderPOOL)
+            self.OPRefresh.place(x=1300,y=600,width=130,height=30)
+
+            self.OPRefresh=Button(self.tab1,text='Update Invoice Folder',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.Update_PDFfolderInvoice)
+            self.OPRefresh.place(x=1140,y=600,width=130,height=30)
+
+
+            self.TAB2FRAME=LabelFrame(self.tab2,bg="white",labelanchor="n",borderwidth=0)
+            self.TAB2FRAME.place(x=210,y=100,width=1090,height=425)
+
+            self.OPUpdateFolderViewLIst=Button(self.TAB2FRAME,text='Update List',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.UpdateFolderLIST)
+            self.OPUpdateFolderViewLIst.place(x=350,y=50,width=130,height=30)
+            
+            self.OPUpdateFolderViewLIst1=Button(self.TAB2FRAME,text='Open PDF',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.UpdateFolderShowPDF)
+            self.OPUpdateFolderViewLIst1.place(x=350,y=100,width=130,height=30)
+
+            self.OPUpdateFolderViewLIst2=Button(self.TAB2FRAME,text='Print PDF',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.UpdateFolderLIST)
+            self.OPUpdateFolderViewLIst2.place(x=350,y=150,width=130,height=30)
+
+            self.PdfFolderViewTAG=Label(self.TAB2FRAME,bg="whitesmoke",text="Invoice PDF Directory View",fg='black' ,font=('Century gothic',12),justify=CENTER)
+            self.PdfFolderViewTAG.place(x=46,y=50,width=260,height=35)
+            self.PdfFolderView=Listbox(self.TAB2FRAME,bg="#FCFCFC",borderwidth=0,fg='black',highlightthickness=0,font=('roboto',10),activestyle=None,selectborderwidth=0,relief=FLAT)
+            self.PdfFolderView.place(x=46,y=90,width=260,height=280)
+
+            for Directory in os.walk(r"C:\Invoice PDFs Craftoza"):
+                content=Directory[2]
+            
+            for i in content:
+                self.PdfFolderView.insert(END,str(i))
+            
+     
+       
             self.OP.mainloop()
+            
+    def UpdateFolderLIST(self):
+         self.PdfFolderView.delete(0,END)
+         for Directory in os.walk(r"C:\Invoice PDFs Craftoza"):
+                content=Directory[2]
+            
+         for i in content:
+                self.PdfFolderView.insert(END,str(i))
+
+    def UpdateFolderShowPDF(self):
+        self.PATHPDF="C:/Invoice PDFs Craftoza/"+str(self.PdfFolderView.get(ACTIVE))
+        wb.open_new(self.PATHPDF)
+
+
+
+
+
+    def Update_OrderPOOL(self):
+
+            while True:
+                for item in  self.iteamSectionOP.get_children():
+                    self.iteamSectionOP.delete(item)
+                self.UpdateOrderPool_mySQL=self.MYSQLconnection2.cursor()
+                self.UpdateOrderPool_mySQL.execute("SET global TRANSACTION ISOLATION LEVEL READ COMMITTED")
+                self.UpdateOrderPool_mySQL.execute("select *from orders natural join address;")
+                self.UpdateOrderPool_mySQL_OrderTableAddress=self.UpdateOrderPool_mySQL.fetchall()
+        
+
+                self.OPcount=0
+                for x in self.UpdateOrderPool_mySQL_OrderTableAddress:
+                    self.NewAddress=str(x[7])+" "+str(x[8])+" "+str(x[9])+" "+str(x[10])+" "+str(x[11])+" "+str(x[12]) 
+                    self.iteamSectionOP.insert("",'end',iid= self.OPcount,values=(x[0],x[1],x[2],x[6],x[3],x[4],self.NewAddress,x[5]))
+                    self.OPcount= self.OPcount+1
+                self.UpdateOrderPool_mySQL.close()
+                time.sleep(5)
+    
+    def Update_PDFfolderInvoice(self):
+        UpdatePDF_mySQL=self.MYSQLconnection2.cursor()
+        UpdatePDF_mySQL.execute("select udc,pid,did,qnt,status,PrintStatus,fname,mname,lname,hno,wname,villageCity,taluka,state,pincode,pnum,uid from(select *from orders natural join address natural join user)as k where k.PrintStatus like '0'")
+        UpdatePDFdata_mySQL=UpdatePDF_mySQL.fetchall()
+        
+       
+        for x in UpdatePDFdata_mySQL:
+            NewInstance=invoiceDesign(x[0])   
+            name=str(x[6])+" "+str(x[7])+" "+str(x[8])
+            addr=str(x[10])+" "+str(x[11])
+            UpdatePDF_mySQL.execute(" select *from seller where sid = (select sid from product where pid like '"+str(x[1])+"')")
+            currentseller=UpdatePDF_mySQL.fetchall()
+            NewInstance.Seller(str(currentseller[0][1]),str(currentseller[0][6]),str(currentseller[0][5]),str(currentseller[0][4]))
+            NewInstance.BillingAddress(name,x[9],addr,str(x[12])+" "+str(x[13]),str(x[14]))
+            NewInstance.ShippingAddress("Craftoza Warehouse","Reg-2365","Alto-Panjim","Bardez Goa","403604")
+            NewInstance.OrderDeets("2-2-2002",str(x[16]),str(x[0]))
+            NewInstance.QR(str(x[0]))
+            UpdatePDF_mySQL.execute("select pname,price,discnt from product where pid like '"+str(x[1])+"'")
+            ProductPrice_mySQL=UpdatePDF_mySQL.fetchall()
+            NetAMount=int(ProductPrice_mySQL[0][1])*int(x[3])
+            discount=NetAMount-(NetAMount*int(ProductPrice_mySQL[0][2]))
+            TaxAMount=discount*(8/100)
+            TotalAmount=discount+TaxAMount
+            NewInstance.UpdateTableNew(ProductPrice_mySQL[0][0], ProductPrice_mySQL[0][1],ProductPrice_mySQL[0][2],x[3], str(NetAMount),"8",str(TaxAMount),str(TotalAmount))
+            UpdatePDF_mySQL.execute("update orders set PrintStatus ='1' where udc ="+str(x[0]))
+            NewInstance.TableTitle()
+            NewInstance.update()
+            UpdatePDF_mySQL.execute('commit')
+       
+
+
+           
+            
+
+
+           
  
 
             
