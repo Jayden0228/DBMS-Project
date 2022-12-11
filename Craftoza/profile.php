@@ -83,7 +83,7 @@
         <div id="backgd">
             <br><br><br>
             <div id="pfbox">
-                <form action="" method="POST">
+                <form action="" method="POST" onsubmit="return validateProfile(this)">
                     <?php
                         
                         include "Php/_connectDatabase.php";
@@ -107,11 +107,11 @@
                     <label class="center" for="fname">First Name</label><br>
                     <input type="text" class="inpbiline center" name="fname" value="<?php if(isset($fname)) {echo "$fname";}else{echo "";}?>" required><br>
                     <label class="center" for="mname">Middle Name</label><br>
-                    <input type="text" class="inpbiline center" name="mname" value="<?php if(isset($mname)) {echo "$mname";}else{echo "";}?>" required><br>
+                    <input type="text" class="inpbiline center" name="mname" value="<?php if(isset($mname)) {echo "$mname";}else{echo "";}?>"><br>
                     <label class="center" for="lname">Last Name</label><br>
                     <input type="text" class="inpbiline center" name="lname" value="<?php if(isset($lname)) {echo "$lname";}else{echo "";}?>" required><br>
                     <label class="center" for="mnbr">Mobile Number</label><br>
-                    <input type="text" class="inpbiline center" name="mnum" value="<?php if(isset($mnum)) {echo "$mnum";}else{echo "";}?>" required><br>
+                    <input type="text" class="inpbiline center" name="mnum" value="<?php if(isset($mnum)) {echo "$mnum";}else{echo "";}?>" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required><br>
                     <label class="center" for="email">Email</label><br>
                     <input type="text" class="inpbiline center" name="email" value="<?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "";}?>" required><br>
                     <input type="submit" class="center" value="Submit" name="profile" id="subbtn">
@@ -123,6 +123,8 @@
     <?php include 'Php/_footer.php'?>
 
     <script src="JS/Login.js"></script>
+    <script src="JS/account.js"></script>
+
 
 </body>
 </html>
