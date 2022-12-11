@@ -1,5 +1,13 @@
 <?php
     session_start();
+    include "Php/_connectDatabase.php";
+    if($_SERVER["REQUEST_METHOD"]=="POST")
+    {
+        if(isset($_POST['rcard'])){
+            $sql="DELETE FROM `creditcard` WHERE `cardno` = {$_POST['removecard']} AND `uid` = {$_SESSION['UserID']} ";
+            mysqli_query($db,$sql);
+        }
+    }
 ?>
 <!DOCTYPE html>
 
@@ -55,9 +63,7 @@
         <div id="backgd">
             <br><br><br>
             <div id="creditbox">
-                <?php
-                    include "Php/_connectDatabase.php";
-                    
+                <?php                    
                     if(isset($_POST['newcard']))
                     {
                         $cardno=$_POST["cardno"];
@@ -100,12 +106,31 @@
                                 echo "<p id='ctext'>Saved Cards</p>";
                             while($row=mysqli_fetch_assoc($res))
                             {
-                                echo "<div id='card'>";
-                                    echo "<div class='center cardarea'>";
-                                        echo "<span class='cardname'>{$row['label']}</span>";
-                                        echo "<span class='ncard remove'>Remove</span>";
-                                    echo "</div>";
-                                echo "</div>";
+
+                                ?>
+
+                                    <div id='card'>
+                                        <div class='center cardarea'>
+            
+                                            <span class='cardname'><?php echo "{$row['label']}"?></span>
+                                            
+                                            <span class='ncard'>
+                                                <form action="#" method="post" style="margin:0;">
+                                                    <input type="hidden" name="removecard" value=<?php echo $row['cardno']?>>
+                                                    <input type="submit" name="rcard" value="Remove" style="color: #FE981B;
+background: white; border:none; margin:0; padding:0">
+                                                </form >
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                // echo "<div id='card'>";
+                                //     echo "<div class='center cardarea'>";
+                                //         echo "<span class='cardname'>{$row['label']}</span>";
+                                //         echo "<span class='ncard remove'>Remove</span>";
+                                //     echo "</div>";
+                                // echo "</div>";
                             }
                                 echo "<hr>";
                                 echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newcd' class='ncard' >New Card</span></div>";
@@ -123,7 +148,7 @@
                     cursor: pointer;'>&#8592;</span>";
                     echo "<p id='ctext'>Enter the Details</p>";
                     echo "<hr>";
-                    echo "<form action='' method='post' class='center2' style='width: 40%;'>";
+                    echo "<form action='' method='post' class='center2' style='width: 40%;' onsubmit='return validateCard(this)'>";
                     echo "<label for='Card No'>Card Number</label>";
                     echo "<br>";
                     echo "<input type='number' name='cardno' id='cardno' oninput='this.value=this.value.replace(/[^0-9]/g,``)' maxlength='16' required>";
@@ -145,40 +170,6 @@
                 
                     mysqli_close($db);
                 ?>
-                <!-- <div id="box1">
-                    <p id="ctext">Saved Cards</p>
-                    <div id="card">
-                        <div class="center cardarea">
-                            <span class="cardname">lorem</span>
-                            <span class="ncard">Remove</span>
-                        </div>
-                    </div>
-                    <hr>
-                    <div style="margin-top: 20px; margin-bottom: 30px;"><span class="ncard">New Card</span></div>
-                </div> -->
-
-                <!-- <div id="box2">
-                    <p id="ctext">Enter the Details</p>
-                    <hr>
-                    <form action="" method="post" class="center2" style="width: 40%;">
-                        <label for="Card No">Card Number</label>
-                        <br>
-                        <input type="number" name="cardno" id="cardno" oninput="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="16">
-                        <br><br>
-                        <label for="CVV">CVV</label>
-                        <br>
-                        <input type="number" name="cvv" id="cvv" maxlength="3" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
-                        <br><br>
-                        <label for="Card No">Exp Date <span style="font-weight: 100;">(month-year)</span></label>
-                        <br>
-                        <input type="month" name="exptdate" id="exptdate">
-                        <br><br>
-                        <label for="Card Label">Card Label</label><br>
-                        <input type="text" name="clabel" id="clabel">
-                        <br>
-                        <input type="submit" value="Submit" style="width: 30%; padding: 4px 0;">
-                    </form>
-                </div> -->
 
             </div>
             <br><br><br>
@@ -187,6 +178,7 @@
     <?php include 'Php/_footer.php'?>
 
     <script src="JS/Login.js"></script>
+    <script src="JS/account.js"></script>
 
 </body>
 </html>
