@@ -1,10 +1,64 @@
 <?php
     session_start();
+    // if($_SERVER["REQUEST_METHOD"]=="POST")
+    // {
+    //     if(isset($_POST['pid']))
+    //     {
+    //         echo "{$_POST['pid']}";
+    //     }
+    // }
+    include "Php/_connectDatabase.php";
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
         if(isset($_POST['pid']))
         {
-            echo "{$_POST['pid']}";
+            $_SESSION['pid']=$_POST['pid'];
+        }    
+        $sql1="SELECT * FROM `product` WHERE `pid`='{$_SESSION['pid']}'";
+        $res1=mysqli_query($db,$sql1);
+        $sql2="SELECT `fname`,`mname`,`lname`, `comment` FROM `user` NATURAL JOIN `reviews` WHERE `pid`='{$_SESSION['pid']}';";
+        $res2=mysqli_query($db,$sql2);
+
+        $row1=mysqli_fetch_assoc($res1);
+        
+
+        if(isset($_POST['cart']))
+        {
+
+            $sql3="SELECT * FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_SESSION['pid']}'";
+            $res3=mysqli_query($db,$sql3);
+            if(mysqli_num_rows($res3)==0)
+            {
+                $sql3="INSERT INTO `view` (`uid`, `pid`, `status`) VALUES ('{$_SESSION['UserID']}', '{$_SESSION['pid']}', 'cart')";
+                mysqli_query($db,$sql3);
+            }
+            else{
+                $row3=mysqli_fetch_assoc($res3);
+                if($row3['status']=="wishlist")
+                {
+                    $sql3="UPDATE `view` SET `status`='cart' WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_SESSION['pid']}'";
+                    mysqli_query($db,$sql3);
+                }
+            }
+
+
+            // $row3=mysqli_fetch_assoc($res1);
+        }
+        if(isset($_POST['wishlist']))
+        {
+            
+            $sql4="SELECT * FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_SESSION['pid']}'";
+            $res4=mysqli_query($db,$sql4);
+            if(mysqli_num_rows($res4)==0)
+            {
+                echo"Wishlist";
+                $sql4="INSERT INTO `view` (`uid`, `pid`, `status`) VALUES ('{$_SESSION['UserID']}', '{$_SESSION['pid']}', 'wishlist')";
+                mysqli_query($db,$sql4);
+            }
+
+            // $sql4="INSERT INTO `view` (`uid`, `pid`, `status`) VALUES ('{$_SESSION['UserID']}', '{$_SESSION['pid']}', 'wishlist')";
+            // mysqli_query($db,$sql4);
+            // $row4=mysqli_fetch_assoc($res1);
         }
     }
 ?>
@@ -91,8 +145,8 @@
 
             <div id="lv1">
                 <div id="text">
-                    <div class="text1">Proud Bardezkar Bamboo</div>
-                    <div class="text1">Basket</div>
+                    <div class="text1"><?php echo $row1['pname']?></div>
+                    <!-- <div class="text1">Basket</div> -->
                 </div>
                 <button id="buybtn">BUY NOW</button>
             </div>
@@ -101,8 +155,11 @@
 
             <div id="lv2">
                 <div id="lv2cn1">
-                    <div class="text1" style="color: #fd5353fe;">-49% <span style="color: black;">Rs 299</span></div>
-                    <div class="text1">MRP <s>599</s></div>
+                    <?php
+                        $dprice=$row1['price']-$row1['price']*$row1['discnt']*0.01;
+                    ?>
+                    <div class="text1" style="color: #fd5353fe;">-<?php echo $row1['discnt']?>% <span style="color: black;">Rs <?php echo $dprice?></span></div>
+                    <div class="text1">MRP <s><?php echo $row1['price']?></s></div>
                     <div class="text2" style="font-weight: normal;">Inclusive of all taxes</div>
                 </div>
                 <div id="lv2cn2">
@@ -111,8 +168,12 @@
                 </div>
                 </div>
                 <div id="lv2cn3">
-                    <button class="btn1">Add To Cart</button>
-                    <button class="btn2">Add To Wish List</button>
+                    <form action="" method="POST">
+                        <input type="submit" value="Add To Cart" name="cart" class="btn1">
+                    </form>
+                    <form action="" method="post">
+                        <input type="submit" value="Add To Wish List" name="wishlist" class="btn2">
+                    </form>
                 </div>
             </div>
             
@@ -125,7 +186,7 @@
                     <div class="plus"><span>&#65291;</span></div>
                 </div>
                 <div id="lv3cn1h">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est sint, maiores sapiente quo doloribus quia quam magnam minima quas accusantium repellat voluptatem ipsa? Voluptate veritatis molestiae, quod non blanditiis fugit, at necessitatibus numquam esse optio ipsa sint! Deleniti quis quidem nisi incidunt similique corrupti asperiores?
+                    <?php echo $row1['des']?>
                 </div>
 
 
@@ -134,7 +195,7 @@
                     <div class="plus"><span>&#65291;</span></div>
                 </div>
                 <div id="lv3cn2h">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est sint, maiores sapiente quo doloribus quia quam magnam minima quas accusantium repellat voluptatem ipsa? Voluptate veritatis molestiae, quod non blanditiis fugit, at necessitatibus numquam esse optio ipsa sint! Deleniti quis quidem nisi incidunt similique corrupti asperiores?
+                    <?php echo $row1['spec']?>
                 </div>
 
                 
@@ -143,14 +204,39 @@
                     <div class="plus"><span>&#65291;</span></div>
                 </div>
                 <div id="lv3cn3h">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est sint, maiores sapiente quo doloribus quia quam magnam minima quas accusantium repellat voluptatem ipsa? Voluptate veritatis molestiae, quod non blanditiis fugit, at necessitatibus numquam esse optio ipsa sint! Deleniti quis quidem nisi incidunt similique corrupti asperiores?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor autem iste magni nisi, numquam in, non doloribus accusamus impedit omnis cumque. Aperiam ea recusandae incidunt, aspernatur, numquam reiciendis facilis quidem placeat velit ipsam, natus temporibus illum nihil quod dicta doloribus. Natus eos eligendi maxime, maiores mollitia eaque labore nisi qui! Est reiciendis sit atque inventore mollitia consectetur minima harum ducimus ullam ipsum blanditiis autem voluptas velit eos dolore quae assumenda quos quaerat, modi omnis recusandae eaque officiis! Quibusdam delectus, eum adipisci, corrupti recusandae atque excepturi ex odit deleniti vitae dolore. Perspiciatis fugiat delectus sit ipsam incidunt reprehenderit laborum numquam repudiandae molestiae officia quisquam, esse aperiam ea quod laboriosam maiores facilis sapiente natus itaque rem similique nemo assumenda iste. Facere, quas dolorem. Nesciunt ad eius aliquid eligendi corrupti culpa itaque alias? Architecto, veniam natus, porro a commodi aspernatur eveniet mollitia libero magnam expedita in reprehenderit nobis maxime animi quis aut enim voluptas eligendi minima laudantium? Illo aperiam id veritatis, soluta eos esse a dignissimos est deleniti nihil, sint, dolorum voluptatibus consectetur nesciunt nemo? Ea quo porro, iusto odio neque excepturi aperiam soluta nam? Sapiente alias rem quo deserunt id cum dolor autem modi aliquam, quia adipisci eligendi magnam recusandae dignissimos? Necessitatibus quis obcaecati minus, adipisci autem ab. Itaque hic id tempore mollitia fugit quidem ipsam! Fugit nihil iure culpa ex eveniet saepe aperiam. Aperiam esse cum, neque aliquid eligendi, molestiae sunt in doloremque incidunt unde perferendis ad totam mollitia voluptates quo repudiandae! Accusamus ex dolorum deleniti itaque eius, quos nisi eos blanditiis delectus, neque soluta id dolores maiores dolore aliquam rem molestias maxime praesentium consequatur tempora iste! Commodi molestias, vel voluptates reiciendis culpa illum molestiae animi dolores aliquam, dolorem fugiat cumque numquam tenetur, laborum eaque quisquam! Ab asperiores accusantium veritatis deserunt beatae iure sit laboriosam ratione fugit ipsum, atque aut natus nisi odit veniam iste, labore numquam in eligendi rem ex eius adipisci, earum dolor.
+                    <?php
+                        if(mysqli_num_rows($res2)==0)
+                        {
+                            echo "<div class='comments'>";
+                            echo "NO REVIEWS";
+                            echo "</div>";
+                        }
+                        else
+                        {
+                            $i=0;
+                            while($row2=mysqli_fetch_assoc($res2))
+                            {
+                                echo "<div class='comments'>";
+                                echo "<div class='name'>";
+                                echo ++$i;
+                                echo ") {$row2['fname']} {$row2['mname']} {$row2['lname']}";
+                                echo "</div>";
+                                echo "<div class='cmt'>";
+                                echo "> {$row2['comment']}";
+                                echo "</div>";
+                                echo "</div>";
+                            }
+                        }
+                    ?>
                 </div>
             </div>
 
             <br><br><br>
         </div>
     </main>
+    <?php
+        mysqli_close($db);
+    ?>
     <?php include 'Php/_footer.php'?>
     <script src="JS/Login.js"></script>
 </body>
