@@ -82,7 +82,7 @@
         <div id="backgd">
             <br><br><br>
             <?php
-                $sql="SELECT * FROM `view` NATURAL JOIN `product` WHERE `uid`='{$_SESSION['UserID']}' AND `status`='wishlist'";
+                $sql="SELECT * FROM `view` NATURAL JOIN `product` WHERE `uid`='{$_SESSION['UserID']}' AND `status`='cart'";
                 $res=mysqli_query($db,$sql);
                 ?>
                 <?php
@@ -111,8 +111,8 @@
                             <div id="btn">
                                 <form action="" method="POST">
                                     <input type="hidden" name="pid" value=<?php echo $row['pid']?>>
-                                    <input type="submit" value="Buy now" name="cart" class="btn1" style="text-align: center;">
-                                    <input type="submit" value="Remove From Cart" name="wishlist" class="btn2" style="text-align: center;">
+                                    <input type="submit" value="Buy now" name="order" class="btn1" style="text-align: center;">
+                                    <input type="submit" value="Remove From Cart" name="cart" class="btn2" style="text-align: center;">
                                 </form>
                             </div>
                         </div>

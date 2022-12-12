@@ -24,7 +24,6 @@
 
         if(isset($_POST['cart']))
         {
-
             $sql3="SELECT * FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_SESSION['pid']}'";
             $res3=mysqli_query($db,$sql3);
             if(mysqli_num_rows($res3)==0)
@@ -40,18 +39,14 @@
                     mysqli_query($db,$sql3);
                 }
             }
-
-
-            // $row3=mysqli_fetch_assoc($res1);
         }
         if(isset($_POST['wishlist']))
         {
-            
             $sql4="SELECT * FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_SESSION['pid']}'";
             $res4=mysqli_query($db,$sql4);
             if(mysqli_num_rows($res4)==0)
             {
-                // echo"Wishlist";
+                echo"Wishlist";
                 $sql4="INSERT INTO `view` (`uid`, `pid`, `status`) VALUES ('{$_SESSION['UserID']}', '{$_SESSION['pid']}', 'wishlist')";
                 mysqli_query($db,$sql4);
             }
@@ -168,7 +163,7 @@
                 </div>
                 </div>
                 <div id="lv2cn3">
-                    <form action="" method="POST">
+                    <form action="#" method="POST">
                         <input type="submit" value="Add To Cart" name="cart" class="btn1">
                         <input type="submit" value="Add To Wish List" name="wishlist" class="btn2">
                     </form>
