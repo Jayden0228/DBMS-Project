@@ -274,6 +274,8 @@ class temp:
             self.MidContainer5.place(x=self.flexX+350,y=self.flexY+240,width=555,height=130)
 
 
+            
+
             self.style3=ttk.Style()
             self. style3.configure("mystyle.Treeview.Heading",font=('Microsoft JhengHei',10,'bold'))
             self.style3.configure("mystyle.Treeview",font=('Microsoft JhengHei',9),labelanchor="n")
@@ -334,6 +336,8 @@ class temp:
                   self.itemSection1.insert("",'end',iid=self.loopCount8,values=(X[0],X[1],X[3],X[2]))
                   self.loopCount8=self.loopCount8+1
             self.dASHBOARD_mySQL.close()
+
+
                    
 
         def selectedReview(self,a):

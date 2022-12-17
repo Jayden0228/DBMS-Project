@@ -25,6 +25,11 @@ matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import ( FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
 
+
+
+#Craftoza Modules
+from CraftozaStatisticsHandler import General_CraftozaDeets
+from CraftozaStatisticsHandler import CategoryWiseGRAPH
 AdminInformation=["ADMIN1234","JAYLLO"]
 OPPInformation=["ADMIN1234","RENSAL"]
 USER_STATUS_INFO=("LOGGED IN","NOT LOGGED IN")
@@ -363,38 +368,33 @@ class mainAdmin:
             self.DASHBOARDcover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE1.place(y=self.SideStart1,width=235,x=236,height=35)
             self.dASHBOARD_mySQL=self.MYSQLconnection.cursor()
-            self.dASHBOARD_mySQL.execute("select COUNT(uid) from user") 
-            self.dASHBOARD_mySQLDATA1=self.dASHBOARD_mySQL.fetchall()
-            self.dASHBOARD_mySQL.execute("select orders.qnt,price,discnt from orders join product on orders.pid=product.pid") 
-            self.dASHBOARD_mySQLDATA3=self.dASHBOARD_mySQL.fetchall()
-    
-            Revenue=0
-            for x in self.dASHBOARD_mySQLDATA3:
-                discount=(x[1]*x[2])/100
-                Revenue+=(x[0]*x[1])-discount
+            
+            self.getDataFromCraftozaModule=General_CraftozaDeets()
+            self.R52=self.getDataFromCraftozaModule.get_Revenue()
+            self.getUsercnt=self.getDataFromCraftozaModule.get_UserCOUNT()
+            self.getProductCNT=self.getDataFromCraftozaModule.get_ProductCOUNT()
            
          
             self.TotalRevenueContainer=LabelFrame(self.DASHBOARDcover,bg="#3A5FCD",labelanchor="n",borderwidth=0)
             self.TotalRevenueContainer.place(y=self.flexY,x=self.flexX+900+30,width=250,height=165)
             self.TotalRevenueTitle=Label(self.TotalRevenueContainer,bg="#3A5FCD",text="Total Revenue",fg='white' ,font=('Century gothic',13),justify=CENTER)
             self.TotalRevenueTitle.place(y=120,x=22,width=200,height=50)
-            self.TotalRevenueNumber=Label(self.TotalRevenueContainer,bg="#3A5FCD",text="Rs. "+str(Revenue),fg='white' ,font=('Century gothic',32),justify=CENTER)
+            self.TotalRevenueNumber=Label(self.TotalRevenueContainer,bg="#3A5FCD",text="Rs. "+str(self.R52),fg='white' ,font=('Century gothic',32),justify=CENTER)
             self.TotalRevenueNumber.place(y=20,x=10,width=240,height=100)
 
             self.NOUsers=LabelFrame(self.DASHBOARDcover,bg="#FF3030",labelanchor="n",borderwidth=0)
             self.NOUsers.place(y=self.flexY+200,x=self.flexX+900+30,width=250,height=165)
             self.PendingOrdersTitle=Label(self.NOUsers,bg="#FF3030",text="Users",fg='white' ,font=('Century gothic',13),justify=CENTER)
             self.PendingOrdersTitle.place(y=120,x=22,width=200,height=50)
-            self.PendingOrdersNumber=Label(self.NOUsers,bg="#FF3030",text=str(self.dASHBOARD_mySQLDATA1[0][0]),fg='white' ,font=('Century gothic',60),justify=CENTER)
+            self.PendingOrdersNumber=Label(self.NOUsers,bg="#FF3030",text=str(self.getUsercnt),fg='white' ,font=('Century gothic',60),justify=CENTER)
             self.PendingOrdersNumber.place(y=20,x=47,width=150,height=100)
 
-            self.dASHBOARD_mySQL.execute("select COUNT(pid) from product") 
-            self.dASHBOARD_mySQLDATA2=self.dASHBOARD_mySQL.fetchall()
+            
             self.NOProducts=LabelFrame(self.DASHBOARDcover,bg="#FFC125",labelanchor="n",borderwidth=0)
             self.NOProducts.place(y=self.flexY+400,x=self.flexX+900+30,width=250,height=165)
             self.OrdersTodayTitle=Label(self.NOProducts,bg="#FFC125",text="Products",fg='white' ,font=('Century gothic',13),justify=CENTER)
             self.OrdersTodayTitle.place(y=120,x=22,width=200,height=50)
-            self.OrdersTodayNumber=Label(self.NOProducts,bg="#FFC125",text=self.dASHBOARD_mySQLDATA2[0][0],fg='white' ,font=('Century gothic',60),justify=CENTER)
+            self.OrdersTodayNumber=Label(self.NOProducts,bg="#FFC125",text=str(self.getProductCNT),fg='white' ,font=('Century gothic',60),justify=CENTER)
             self.OrdersTodayNumber.place(y=20,x=47,width=150,height=100)
 
    
@@ -433,7 +433,7 @@ class mainAdmin:
 
             self.CommentDisplay=Label(self.DASHBOARDcover,text="Comment Display",bg="mistyrose1",font=('Century gothic',13),justify=CENTER,fg="black")
             self.CommentDisplay.place(y=self.flexY+390,x=self.flexX+673,width=235,height=35)
-            self.textarea2=Text( self.DASHBOARDcover,relief=FLAT)
+            self.textarea2=Text( self.DASHBOARDcover,relief=FLAT,wrap="word")
             self.textarea2.place(y=self.flexY+430,x=self.flexX+673,width=235,height=200)
             
 
@@ -795,17 +795,14 @@ class mainAdmin:
              self.GraphTitle.place(x=self.flexX,y=self.flexY,width=400,height=30)
              self.f = Figure(figsize=(3,3), dpi=70)
              self.a = self.f.add_subplot(111)
-             self.a.set_xlabel('Sales')
-             self.a.set_ylabel('Days')
+             self.a.set_xlabel('Days')
+             self.a.set_ylabel('Sales')
              self.a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
              self.canvasMonthlyRevenue = FigureCanvasTkAgg(self.f, self.STATISTICScover)
              self.canvasMonthlyRevenue .draw()
              self.canvasMonthlyRevenue .get_tk_widget().place(height=300,width=400,x=self.flexX,y=self.flexY+30)
 
-            #  self.toolbar = NavigationToolbar2Tk(self.canvas, self.AC)
-            #  self.toolbar.update()
-            #  self.canvas._tkcanvas.place(height=300,width=400,x=600,y=400)
-
+      
 
              self.PieChartTitle=Label( self.STATISTICScover,bg="white",text="Top 5 Popular Brands",fg='Black' ,font=('Century gothic',13),justify=CENTER)
              self.PieChartTitle.place(x=self.flexX+428,y=self.flexY,width=250,height=30)
@@ -816,43 +813,70 @@ class mainAdmin:
              self.chart1.get_tk_widget().place(x=self.flexX+428,y=self.flexY+30,width=250,height=210)
             
 
+          
+             self.GraphData=CategoryWiseGRAPH()
+             self.CAT1Dict=self.GraphData.Algorithm_forCAT1()
+           
+
+             catLIST1=[]
+             for X in self.CAT1Dict.values():
+                    catLIST1.append(X)
+          
              self.T1GraphTitle=Label( self.STATISTICScover,bg="white",text="Category Type-1 Sale",fg='Black' ,font=('Century gothic',13),justify=CENTER)
              self.T1GraphTitle.place(x=self.flexX,y=self.flexY+350,width=440,height=30)
              self.f2 = Figure(figsize=(5,4), dpi=100)
              self.AX2 = self.f2.add_subplot(111)
-             self.data = (20, 35, 30, 35, 27)
-             self.ind1 = numpy.arange(5)  # the x locations for the groups
-             self.widthG1 = .5
-             self.rects1 = self.AX2.bar(self.ind1, self.data, self.widthG1)
+             self.dataTAG1=["A","B","C","D","E","F","G","H","I","J"]
+             self.data1 = list(catLIST1)
+             self.ind1 = numpy.arange(len(self.dataTAG1))  # the x locations for the groups
+             self.widthG1 = .05
+             self.rects1 = self.AX2.bar(self.dataTAG1, self.data1)  
+            #  , self.ind1,0.4
+       
              self.canvas = FigureCanvasTkAgg(self.f2,self.STATISTICScover)
              self.canvas.draw()
              self.canvas.get_tk_widget().place(height=250,width=440,x=self.flexX,y=self.flexY+374)
 
-             
+  
+             self.dataTAG2=["1","2","3","4","5","6","7","8","9"]
+             self.CAT2Dict=self.GraphData.Algorithm_forCAT2()
+
+             catLIST=[]
+             for X in self.CAT2Dict.values():
+                    catLIST.append(X)
+
              self.T2GraphTitle=Label( self.STATISTICScover,bg="white",text="Category Type-2 Sale",fg='Black' ,font=('Century gothic',13),justify=CENTER)
              self.T2GraphTitle.place(x=self.flexX+462,y=self.flexY+350,width=440,height=30)
              self.f3 = Figure(figsize=(5,4), dpi=100)
              self.AX3 = self.f3.add_subplot(111)
-             self.data = (20, 35, 30, 35, 27,35,45,68)
-             self.ind2 = numpy.arange(8)  # the x locations for the groups
-             self.widthG2 = .5
-             self.rects2 = self.AX2.bar(self.ind2, self.data, self.widthG2)
-             self.canvas = FigureCanvasTkAgg(self.f2,self.STATISTICScover)
+             self.data2 =  list( catLIST)
+             self.ind2 = numpy.arange(len(self.dataTAG2))  # the x locations for the groups
+             self.widthG2 = .05
+             self.rects2 = self.AX3.bar(self.dataTAG2,self.data2)
+            #  , self.ind2, self.widthG2
+             self.canvas = FigureCanvasTkAgg(self.f3,self.STATISTICScover)
              self.canvas.draw()
              self.canvas.get_tk_widget().place(height=250,width=440,x=self.flexX+462,y=self.flexY+374)
+            
+
+
+           
+             self.getDataFromCraftozaModule=General_CraftozaDeets()
+             self.R5=self.getDataFromCraftozaModule.get_Revenue()
+             self.TodaySale=self.getDataFromCraftozaModule.get_TodaySales()
 
              self.TotalRevenueContainerStats=LabelFrame(self.STATISTICScover,bg="darkseagreen1",labelanchor="n",borderwidth=0)
              self.TotalRevenueContainerStats.place(y=self.flexY,x=self.flexX+900+30,width=250,height=165)
              self.TotalRevenueTitleStats=Label( self.TotalRevenueContainerStats,bg="darkseagreen1",text="Total Revenue",fg='black' ,font=('Century gothic',13),justify=CENTER)
              self.TotalRevenueTitleStats.place(y=110,x=22,width=200,height=50)
-             self.TotalRevenueNumberStats=Label( self.TotalRevenueContainerStats,bg="darkseagreen1",text="Rs. 0",fg='black' ,font=('Century gothic',35),justify=CENTER)
+             self.TotalRevenueNumberStats=Label( self.TotalRevenueContainerStats,bg="darkseagreen1",text="Rs "+str(self.R5),fg='black' ,font=('Century gothic',25),justify=CENTER)
              self.TotalRevenueNumberStats.place(y=20,x=10,width=240,height=100)
 
              self.TodayRevenueContainerStats=LabelFrame(self.STATISTICScover,bg="darkslategray1",labelanchor="n",borderwidth=0)
              self.TodayRevenueContainerStats.place(y=self.flexY+200,x=self.flexX+900+30,width=250,height=165)
              self.TodayRevenueTitleStats=Label( self.TodayRevenueContainerStats,bg="darkslategray1",text="Sales Today",fg='black' ,font=('Century gothic',13),justify=CENTER)
              self.TodayRevenueTitleStats.place(y=110,x=22,width=200,height=50)
-             self.TodayRevenueNumberStats=Label( self.TodayRevenueContainerStats,bg="darkslategray1",text="Rs. 0",fg='black' ,font=('Century gothic',35),justify=CENTER)
+             self.TodayRevenueNumberStats=Label( self.TodayRevenueContainerStats,bg="darkslategray1",text="Rs."+str(self.TodaySale),fg='black' ,font=('Century gothic',25),justify=CENTER)
              self.TodayRevenueNumberStats.place(y=20,x=10,width=240,height=100)
 
              self.LastMonthRevenueContainerStats=LabelFrame(self.STATISTICScover,bg="lightpink",labelanchor="n",borderwidth=0)
@@ -862,6 +886,7 @@ class mainAdmin:
              self.LastMonthNumberStats=Label( self.LastMonthRevenueContainerStats,bg="lightpink",text="Rs. 0",fg='black' ,font=('Century gothic',35),justify=CENTER)
              self.LastMonthNumberStats.place(y=20,x=10,width=240,height=100)
 
+             self.Statistics_mySQL.execute("commit")
              self.Statistics_mySQL.execute("select pname from product where pid like (select pid from (select pid,count(pid) as cnt from orders group by pid)as k4 where k4.cnt = (select MAX(cnt) as BESTSELLINGproduct from (select pid,count(pid) as cnt from orders group by pid)as K))")
              self.Frequently_Ordered_product=self.Statistics_mySQL.fetchall()
              self.MostSoldTitle=Label( self.STATISTICScover,bg="darkslategray1",text="Most Sold Product",fg='Black' ,font=('Century gothic',12),justify=CENTER)
@@ -869,23 +894,26 @@ class mainAdmin:
              self.MostSoldFigure=Label( self.STATISTICScover,bg="white",text=str(self.Frequently_Ordered_product[0][0]),fg='Black' ,font=('calibri',9),justify=CENTER)
              self.MostSoldFigure.place(x=self.flexX+705,y=self.flexY+30,width=200,height=50)
 
-           
+             self.Statistics_mySQL.execute("commit")
+             self.Statistics_mySQL.execute("select pname from product where pid like ( select pid from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3)as H where AVG = (select MAX(AVG) as MAX from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3)as Y));")
+             self.HightProductAVG=self.Statistics_mySQL.fetchall()
              self.HighestRatedTitle=Label( self.STATISTICScover,bg="darkseagreen1",text="Highest Rated Product",fg='Black' ,font=('Century gothic',12),justify=CENTER)
              self.HighestRatedTitle.place(x=self.flexX+705,y=self.flexY+100,width=200,height=30)
-             self.HighestRatedFigure=Label( self.STATISTICScover,bg="white",text="Bardezkar Bamboo Bags",fg='Black' ,font=('calibri',9),justify=CENTER)
+             
+             self.HighestRatedFigure=Label( self.STATISTICScover,bg="white",text=str(self.HightProductAVG[0][0]),fg='Black' ,font=('calibri',9),justify=CENTER)
              self.HighestRatedFigure.place(x=self.flexX+705,y=self.flexY+130,width=200,height=50)
-
-
+             
+             self.Statistics_mySQL.execute("commit")
+             self.Statistics_mySQL.execute(" select pname from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3 and AVG<0)as S natural join product;")
+             self.NegativeRated=self.Statistics_mySQL.fetchall()
              self.NegativeListTitle=Label( self.STATISTICScover,bg="#FCE6C9",text="Negative Feedback",fg='Black' ,font=('Century gothic',12),justify=CENTER)
              self.NegativeListTitle.place(x=self.flexX+705,y=self.flexY+200,width=200,height=30)
              self.NegativeList=Listbox(self.STATISTICScover,bg="white",borderwidth=0,fg='black',highlightthickness=0,font=('calibri',9),activestyle=None,selectborderwidth=0,relief=FLAT)
              self.NegativeList.place(x=self.flexX+705,y=self.flexY+230,width=200,height=100)
-             self.NegativeList.insert(END,"  CRAF-01-1#A")
-             self.NegativeList.insert(END,"  CRAF-05-7#B")
-             self.NegativeList.insert(END,"  CRAF-04-2#D")
-             self.NegativeList.insert(END,"  CRAF-03-1#A")
-             self.NegativeList.insert(END,"  CRAF-08-5#C")
-             self.NegativeList.insert(END,"  CRAF-10-3#A")
+
+             for X in self.NegativeRated:     
+                self.NegativeList.insert(END,str(X[0]))
+
 
              self.CFPTitle=Label( self.STATISTICScover,bg="#FCE6C9",text="Current Financial Year Profit",fg='Black' ,font=('Century gothic',13),justify=CENTER)
              self.CFPTitle.place(x=self.flexX+428,y=self.flexY+260,width=250,height=30)
@@ -2533,8 +2561,9 @@ class OrderPool:
 
 if __name__ == '__main__':
 
-    SPLASHscreen=Splashscreen()
-    OV=OPTION_VERIFICATION()
+    # SPLASHscreen=Splashscreen()
+    # OV=OPTION_VERIFICATION()
+    x=mainAdmin()
  
 
     
