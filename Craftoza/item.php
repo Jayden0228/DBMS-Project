@@ -14,7 +14,7 @@
         {
             $_SESSION['pid']=$_POST['pid'];
         }    
-        $sql1="SELECT * FROM `product` WHERE `pid`='{$_SESSION['pid']}'";
+        $sql1="SELECT * FROM `product` NATURAL JOIN `seller` WHERE `pid`='{$_SESSION['pid']}'";
         $res1=mysqli_query($db,$sql1);
         $sql2="SELECT `fname`,`mname`,`lname`, `comment` FROM `user` NATURAL JOIN `reviews` WHERE `pid`='{$_SESSION['pid']}';";
         $res2=mysqli_query($db,$sql2);
@@ -141,7 +141,7 @@
             <div id="lv1">
                 <div id="text">
                     <div class="text1"><?php echo $row1['pname']?></div>
-                    <!-- <div class="text1">Basket</div> -->
+                    <div class="text1"><?php echo $row1['company_name']?></div>
                 </div>
                 <button id="buybtn" onclick="load()">BUY NOW</button>
                 <script>
