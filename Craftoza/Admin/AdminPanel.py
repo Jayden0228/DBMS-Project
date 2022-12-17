@@ -4,15 +4,22 @@ from tkinter import *
 from tkinter import ttk
 from typing import ItemsView
 from PIL import ImageTk, Image
-from openpyxl import Workbook,load_workbook
-from openpyxl.utils import get_column_letter 
 from tkinter import filedialog
 import tkinter as tk
 import time  
 import matplotlib, numpy, sys
 import mysql.connector as mysql
-
-
+import webbrowser as wb
+import threading
+import os
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import mm
+from reportlab_qrcode import QRCodeImage
+import imaplib
+import email
+from tkinter import messagebox
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import schedule
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import ( FigureCanvasTkAgg, NavigationToolbar2Tk)
@@ -124,18 +131,14 @@ class OPTION_VERIFICATION:
                     t=mainAdmin()
      
                 else:
-                    self.ACusername.delete(0,END)
-                    self.ACpassword.delete(0,END)
+                    if str(self.username.get()) == AdminInformation[0] and str(self.password.get()) == AdminInformation[1] and self.r.get()==2:
+                        self.verificationPAGE.destroy()
+                        s=OrderPool()
+                    # self.ACusername.delete(0,END)
+                    # self.ACpassword.delete(0,END)
 
        def QUIT(self):
             quit()
-
-
-
-
-
-
-
 
 
 
@@ -154,7 +157,13 @@ class mainAdmin:
             self.FlexXD=10
             self.FlexYD=10
 
-            self.MYSQLconnection=mysql.connect(host="localhost",user="root",password="",database="craftozalloyd")
+            self.SERVER="imap.gmail.com"
+            self.EMAIL_ADDRESS="lloydcosta2002@gmail.com"
+            self.PASSWORD="aayzraadrkxfsixk"
+
+            self.MYSQLconnection=mysql.connect(host="localhost",user="root",password="",database="craftozalloyd",port=3307)
+            self.cat1={"Bamboo":"A","Clay":"B","Coconut":"C","Shells":"D","Wood":"E","Glass":"F","Ceramic":"G","Cloth":"H","Plastic":"I","General":"J"}
+            self.cat2={"Bag":"1","Home Deco":"2","Earthen pots":"3","Juwellry":"4","Funiture":"5","Fashion":"6","Keychain":"7","Cups":"8","General":"9"}
          
       
             self.Main_Title=Frame(self.AC,height=90,bg="#CD3333")
@@ -168,6 +177,7 @@ class mainAdmin:
             
             self.LOGOUT=Label(self.Main_Title,bg="#CD3333",text="Log Out",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.LOGOUT.place(y=25,width=120,x=1400,height=70)
+            self.LOGOUT.bind("<Button-1>",lambda event:self.ENDPROG)
             self.SITE=Label(self.Main_Title,bg="#CD3333",text="Change Password",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.SITE.place(y=25,width=120,x=1280,height=70)
             self.OPENWEB=Label(self.Main_Title,bg="#CD3333",text="Open Website",fg='white' ,font=('century gothic',10),justify=CENTER)
@@ -202,7 +212,7 @@ class mainAdmin:
             self.EditDeliveryAgents.place(y=self.SideStart2+135,width=235,x=13,height=35)
             self.PolicySELLER=Label(self.SideMenu,bg="#FF3030",text="Add Seller",fg='white' ,font=('roboto',11),justify=CENTER)
             self.PolicySELLER.place(y=self.SideStart2+180,width=235,x=13,height=35)
-            self.AdUpdate=Label(self.SideMenu,bg="#FF3030",text="Update Advertisement",fg='white' ,font=('roboto',11),justify=CENTER)
+            self.AdUpdate=Label(self.SideMenu,bg="#FF3030",text="Ads & Desc",fg='white' ,font=('roboto',11),justify=CENTER)
             self.AdUpdate.place(y=self.SideStart2+225,width=235,x=13,height=35)
 
             self.SideStart3=553
@@ -284,14 +294,33 @@ class mainAdmin:
             self.NewsLetter.bind("<Button-1>",lambda event:self.MENU_LIST(10))
             self.EmailDeliveryAgent.bind("<Button-1>",lambda event:self.MENU_LIST(11))
 
+        
+           
             # self.PRODUCT_INFO(0)
             self.DASHBOARD()
+            
             # self.Statistics()
             # self.DELIVERY_AGENT()
             # self.EDIT_PRODUCT()
             # self.ADD_DELIVER_AGENT()
 
             self.AC.mainloop()
+
+
+
+        def updateCompoundValue(self):
+            self.NLTK_value=self.MYSQLconnection.cursor()
+            self.NLTK_value.execute("commit")
+            self.NLTK_value.execute("select *FROM REVIEWS where CommentCOMPUNDvalue is null")
+            self.NLTK_valueX=self.NLTK_value.fetchall()
+            self.NLTK=SentimentIntensityAnalyzer()
+
+            for Z in self.NLTK_valueX:
+                 score=self.NLTK.polarity_scores(Z[3])
+                 self.NLTK_value.execute("update reviews set CommentCOMPUNDvalue="+str(score['compound'])+"where ReviewID ="+str(Z[4]))
+                 self.NLTK_value.execute("Commit")
+            self.NLTK_value.close()
+
 
         def MENU_LIST(self,next):
             self.FRAMES[self.current].place_forget()
@@ -323,48 +352,55 @@ class mainAdmin:
                 self.SEND_MAIL_DELIVERYagent()
       
 
+        def ENDPROG(self,A):
+            self.AC.destroy()
 
 
         def DASHBOARD(self):
             self.current=0
+           
 
             self.DASHBOARDcover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE1.place(y=self.SideStart1,width=235,x=236,height=35)
+            self.dASHBOARD_mySQL=self.MYSQLconnection.cursor()
+            self.dASHBOARD_mySQL.execute("select COUNT(uid) from user") 
+            self.dASHBOARD_mySQLDATA1=self.dASHBOARD_mySQL.fetchall()
+            self.dASHBOARD_mySQL.execute("select orders.qnt,price,discnt from orders join product on orders.pid=product.pid") 
+            self.dASHBOARD_mySQLDATA3=self.dASHBOARD_mySQL.fetchall()
+    
+            Revenue=0
+            for x in self.dASHBOARD_mySQLDATA3:
+                discount=(x[1]*x[2])/100
+                Revenue+=(x[0]*x[1])-discount
+           
          
             self.TotalRevenueContainer=LabelFrame(self.DASHBOARDcover,bg="#3A5FCD",labelanchor="n",borderwidth=0)
             self.TotalRevenueContainer.place(y=self.flexY,x=self.flexX+900+30,width=250,height=165)
             self.TotalRevenueTitle=Label(self.TotalRevenueContainer,bg="#3A5FCD",text="Total Revenue",fg='white' ,font=('Century gothic',13),justify=CENTER)
             self.TotalRevenueTitle.place(y=120,x=22,width=200,height=50)
-            self.TotalRevenueNumber=Label(self.TotalRevenueContainer,bg="#3A5FCD",text="Rs. 0",fg='white' ,font=('Century gothic',35),justify=CENTER)
+            self.TotalRevenueNumber=Label(self.TotalRevenueContainer,bg="#3A5FCD",text="Rs. "+str(Revenue),fg='white' ,font=('Century gothic',32),justify=CENTER)
             self.TotalRevenueNumber.place(y=20,x=10,width=240,height=100)
 
             self.NOUsers=LabelFrame(self.DASHBOARDcover,bg="#FF3030",labelanchor="n",borderwidth=0)
             self.NOUsers.place(y=self.flexY+200,x=self.flexX+900+30,width=250,height=165)
             self.PendingOrdersTitle=Label(self.NOUsers,bg="#FF3030",text="Users",fg='white' ,font=('Century gothic',13),justify=CENTER)
             self.PendingOrdersTitle.place(y=120,x=22,width=200,height=50)
-            self.PendingOrdersNumber=Label(self.NOUsers,bg="#FF3030",text="0",fg='white' ,font=('Century gothic',60),justify=CENTER)
+            self.PendingOrdersNumber=Label(self.NOUsers,bg="#FF3030",text=str(self.dASHBOARD_mySQLDATA1[0][0]),fg='white' ,font=('Century gothic',60),justify=CENTER)
             self.PendingOrdersNumber.place(y=20,x=47,width=150,height=100)
 
+            self.dASHBOARD_mySQL.execute("select COUNT(pid) from product") 
+            self.dASHBOARD_mySQLDATA2=self.dASHBOARD_mySQL.fetchall()
             self.NOProducts=LabelFrame(self.DASHBOARDcover,bg="#FFC125",labelanchor="n",borderwidth=0)
             self.NOProducts.place(y=self.flexY+400,x=self.flexX+900+30,width=250,height=165)
             self.OrdersTodayTitle=Label(self.NOProducts,bg="#FFC125",text="Products",fg='white' ,font=('Century gothic',13),justify=CENTER)
             self.OrdersTodayTitle.place(y=120,x=22,width=200,height=50)
-            self.OrdersTodayNumber=Label(self.NOProducts,bg="#FFC125",text="0",fg='white' ,font=('Century gothic',60),justify=CENTER)
+            self.OrdersTodayNumber=Label(self.NOProducts,bg="#FFC125",text=self.dASHBOARD_mySQLDATA2[0][0],fg='white' ,font=('Century gothic',60),justify=CENTER)
             self.OrdersTodayNumber.place(y=20,x=47,width=150,height=100)
 
-            self.EmailInbox=Label(self.DASHBOARDcover,bg="mistyrose1",text="Email Inbox",fg='black' ,font=('Century gothic',12),justify=CENTER)
-            self.EmailInbox.place(x=self.flexX+350,y=self.flexY,width=260,height=35)
-            self.CustomerMails=Listbox(self.DASHBOARDcover,bg="white",borderwidth=0,fg='black',highlightthickness=0,font=('roboto',10),activestyle=None,selectborderwidth=0,relief=FLAT)
-            self.CustomerMails.place(x=self.flexX+350,y=self.flexY+40,width=260,height=175)
-            self.CustomerMails.insert(END,"    Message From: Ashlan Crastro")
-            self.CustomerMails.insert(END,"    Message From: Edrich Cardozo")
-            self.CustomerMails.insert(END,"    Message From: Renza Vas")
-            self.CustomerMails.insert(END,"    Message From: Salrima Fernandes")
-
-            
+   
             self.EmailMsgBoxTitle=Label(self.DASHBOARDcover,bg="mistyrose1",text="Message Display",fg='black' ,font=('Century gothic',12),justify=CENTER)
             self.EmailMsgBoxTitle.place(x=self.flexX+635,y=self.flexY,width=270,height=35)
-            self.textarea=Text( self.DASHBOARDcover,relief=FLAT)
+            self.textarea=Text( self.DASHBOARDcover,relief=FLAT,wrap="word")
             self.textarea.place(x=self.flexX+635,y=self.flexY+40,width=270,height=175)
 
  
@@ -381,17 +417,19 @@ class mainAdmin:
             self.MidContainer5.place(x=self.flexX+350,y=self.flexY+240,width=555,height=130)
 
 
+            self.updateCompoundValue()   
+
+
             self.style3=ttk.Style()
             self. style3.configure("mystyle.Treeview.Heading",font=('Microsoft JhengHei',10,'bold'))
             self.style3.configure("mystyle.Treeview",font=('Microsoft JhengHei',9),labelanchor="n")
             self.itemSection1=ttk.Treeview(self.DASHBOARDcover,style="mystyle.Treeview")
-            self.itemSection1['columns']=("PRODUCT ID","PRODUCT NAME","COMMENT","USER NAME","USER ID")
+            self.itemSection1['columns']=("PRODUCT ID","USER ID","COMMENT","COMPOUND VALUE")
             self.itemSection1.column("#0",anchor=W,width=0,stretch=NO)
             self.itemSection1.column("PRODUCT ID",anchor=W,width=80)
-            self.itemSection1.column("PRODUCT NAME",anchor=W,width=120)
-            self.itemSection1.column("COMMENT",anchor=W,width=180)
-            self.itemSection1.column("USER NAME",anchor=W,width=100)
+            self.itemSection1.column("COMMENT",anchor=W,width=120)
             self.itemSection1.column("USER ID",anchor=W,width=100)
+            self.itemSection1.column("COMPOUND VALUE",anchor=W,width=110)
 
             self.CommentDisplay=Label(self.DASHBOARDcover,text="Comment Display",bg="mistyrose1",font=('Century gothic',13),justify=CENTER,fg="black")
             self.CommentDisplay.place(y=self.flexY+390,x=self.flexX+673,width=235,height=35)
@@ -399,11 +437,12 @@ class mainAdmin:
             self.textarea2.place(y=self.flexY+430,x=self.flexX+673,width=235,height=200)
             
 
-            self.itemSection1.heading("PRODUCT ID",text="ID",anchor=W)
-            self.itemSection1.heading("PRODUCT NAME",text="PRODUCT NAME",anchor=W)
+
+            self.itemSection1.heading("PRODUCT ID",text="PRODUCT ID",anchor=W)
             self.itemSection1.heading("COMMENT",text="COMMENT",anchor=W)
-            self.itemSection1.heading("USER NAME",text="USER NAME",anchor=W)
             self.itemSection1.heading("USER ID",text="USER ID",anchor=W)
+            self.itemSection1.heading("COMPOUND VALUE",text="COMPOUND VALUE",anchor=W)
+            self.itemSection1.bind('<Button-1>',self.selectedReview)
             self.itemSection1.place(y=self.flexY+430,x=self.flexX,width=650,height=200)
 
             self.AdminProfile=LabelFrame(self.DASHBOARDcover,bg="white",labelanchor="n",borderwidth=0)
@@ -428,9 +467,67 @@ class mainAdmin:
             self.LinkJAYDEN=Label(self.AdminProfile,text="View More",bg="white",font=('Century gothic',8),justify=CENTER,fg="blue")
             self.LinkJAYDEN.place(x=82,y=112,height=10,width=80)
 
-            self.Refresh33=Button(self.DASHBOARDcover,text='Refresh Page',padx=10,pady=8,font=('century gothic',10,),bg='white',fg='black',relief=FLAT)
+            self.Refresh33=Button(self.DASHBOARDcover,text='Refresh Page',padx=10,pady=8,font=('century gothic',10,),bg='white',fg='black',relief=FLAT,command=self.DASHBOARD)
             self.Refresh33.place(x=self.flexX+975,y=self.flexY+590,width=160,height=30)
 
+            self.x1=threading.Thread(target=self.CUST_EMAIL)
+            self.x1.start()
+
+            self.dASHBOARD_mySQL.execute("select *from reviews") 
+            self.dASHBOARD_mySQLDATA4=self.dASHBOARD_mySQL.fetchall()
+            self.loopCount8=0
+            for X in self.dASHBOARD_mySQLDATA4:
+                  self.itemSection1.insert("",'end',iid=self.loopCount8,values=(X[0],X[1],X[3],X[2]))
+                  self.loopCount8=self.loopCount8+1
+            self.dASHBOARD_mySQL.close()
+                   
+
+        def selectedReview(self,a):
+            self.CurItem6=self.itemSection1.focus()
+            self.D6=self.itemSection1.item(self.CurItem6)
+            self.textarea2.delete(1.0,END)
+            self.textarea2.insert(END,str(self.D6.get('values')[2]))
+
+        def selectedEmail(self,a):
+            self.selectedEML=self.CustomerMails.get(ACTIVE)
+            MSGG=self.selectedEML.split('"')
+            self.textarea.delete(1.0,END)
+            self.textarea.insert(1.0,str(MSGG[2]))
+
+            
+
+            
+         
+
+
+        def CUST_EMAIL(self):
+            self.EmailInbox=Label(self.DASHBOARDcover,bg="mistyrose1",text="Email Inbox",fg='black' ,font=('Century gothic',12),justify=CENTER)
+            self.EmailInbox.place(x=self.flexX+350,y=self.flexY,width=260,height=35)
+            self.CustomerMails=Listbox(self.DASHBOARDcover,bg="white",borderwidth=0,fg='black',highlightthickness=0,font=('roboto',10),activestyle=None,selectborderwidth=0,relief=FLAT)
+            self.CustomerMails.place(x=self.flexX+350,y=self.flexY+40,width=260,height=175)
+            self.CustomerMails.bind('<Button-1>',self.selectedEmail)
+      
+            try:
+                self.imap=imaplib.IMAP4_SSL(self.SERVER,993)
+                self.imap.login(self.EMAIL_ADDRESS,self.PASSWORD)
+                self.imap.select('"[Gmail]/All Mail"')
+                result, data = self.imap.uid('search', None, "ALL") # search all email and return uids
+                if result == 'OK':
+                    for num in data[0].split():
+                        S=str()
+                        result, data = self.imap.uid('fetch', num, '(RFC822)')
+                        if result == 'OK':
+                            email_message = email.message_from_bytes(data[0][1])    # raw email text including headers
+                            for part in email_message.walk():
+                                if part.get_content_type()=="text/plain":
+                                    S=S+part.as_string()
+                            S=S.split(";")
+                            self.CustomerMails.insert(END,"  From    "+email_message['From']+","+str(S[1]))
+            
+            except:
+                messagebox.showinfo("Customer Email","Please check your internet connection")
+
+           
 
         def selectedProductView(self,a):
             self.CurItem=self.itemSectionp.focus()
@@ -447,11 +544,55 @@ class mainAdmin:
             self.ProductName.insert(END,str(self.D.get('values')[1]))
             self.ProductType1.insert(END,str(self.D.get('values')[2]))
             self.ProductType2.insert(END,str(self.D.get('values')[3]))
-            self.ProductSeller.insert(END,str(self.D.get('values')[4]))
-            self.ProductPrice.insert(END,str(self.D.get('values')[5]))
+            self.ProductSeller.insert(END,str(self.D.get('values')[5]))
+            self.ProductPrice.insert(END,str(self.D.get('values')[4]))
             self.ProductQTY.insert(END,str(self.D.get('values')[6]))
+
+            self.ProductImage=Image.open(str(self.D.get('values')[7]))
+            self.resizeproductIMG= self.ProductImage.resize((160,160))
+            self.ProdImgObj=ImageTk.PhotoImage( self.resizeproductIMG)
+            self.ProImageContainer=Label(self.ProductDisplay,image=self.ProdImgObj,bg=self.PrdouctContainerColor)
+            self.ProImageContainer.place(x=135,y=100,anchor=CENTER)
          
-            
+        def SearchProducttreeview(self):
+             self.Display_Products_mySQL=self.MYSQLconnection.cursor()
+             if(len(self.userSearchIDPRODUCT.get())!=0):
+                self.Display_Products_mySQL.execute("select *from product where pid like "+"'"+str(self.userSearchIDPRODUCT.get())+"'")
+                self.SEARCHid=self.Display_Products_mySQL.fetchall()  
+
+                if self.SEARCHid==[]:
+                    self.textareaProduct.delete(1.0,END)
+                    self.textareaProduct.insert(END,"Record Doesnt Exist")
+                    return
+                self.selections=[]
+                for x in self.SEARCHid:
+                    for i in range(len(self.itemSectionp.get_children())):
+                        if x[0] ==self.itemSectionp.item(i)['values'][0]:
+                            self.selections.append(i)
+                self.itemSectionp.selection_set(self.selections)
+               
+
+             if(len(self.userSearchNAMEPRODUCT.get())!=0):
+                self.Display_Products_mySQL.execute("select *from product where pname like "+"'%"+str(self.userSearchNAMEPRODUCT.get())+"%'")
+                self.SEARCHid=self.Display_Products_mySQL.fetchall()  
+                
+                if self.SEARCHid==[]:
+                    self.textareaProduct.delete(1.0,END)
+                    self.textareaProduct.insert(END,"Record Doesnt Exist")
+                    return
+                self.selections=[]
+                for x in self.SEARCHid:
+                    for i in range(len(self.itemSectionp.get_children())):
+                        if x[0] ==self.itemSectionp.item(i)['values'][0]:
+                            self.selections.append(i)
+                self.itemSectionp.selection_set(self.selections)
+                        
+
+
+   
+    
+
+
 
         def PRODUCT_INFO(self):
             self.current=1
@@ -464,6 +605,8 @@ class mainAdmin:
             self.Display_Products_mySQL.execute("select *from product") 
             self.FetchedProductsDisplay=self.Display_Products_mySQL.fetchall()  
 
+            self.textareaProduct=Text(self.PRODUCT_INFOcover,bg="white",fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
+            self.textareaProduct.place(y=470,x=1060,width=175,height=50)
 
             self.style=ttk.Style()
             self. style.configure("mystyle.Treeview.Heading",font=('Microsoft JhengHei',10,'bold'))
@@ -474,7 +617,7 @@ class mainAdmin:
             self.ProdDispcroll.place(x=905,y=self.flexX,height=400)
             self.itemSectionp.configure(yscrollcommand=self.ProdDispcroll.set)
 
-            self.itemSectionp['columns']=("ID","PRODUCT NAME","TYPE1","TYPE2","PRICE","SELLER","QTY")
+            self.itemSectionp['columns']=("ID","PRODUCT NAME","TYPE1","TYPE2","PRICE","SELLER","QTY","LINK")
             self.itemSectionp.column("#0",anchor=W,width=0,stretch=NO)
             self.itemSectionp.column("ID",anchor=W,width=80)
             self.itemSectionp.column("PRODUCT NAME",anchor=W,width=250)
@@ -483,6 +626,7 @@ class mainAdmin:
             self.itemSectionp.column("PRICE",anchor=W,width=80)
             self.itemSectionp.column("SELLER",anchor=W,width=100)
             self.itemSectionp.column("QTY",anchor=W,width=50)
+            self.itemSectionp.column("LINK",anchor=W,width=0)
 
 
             self.itemSectionp.heading("ID",text="ID",anchor=W)
@@ -492,12 +636,13 @@ class mainAdmin:
             self.itemSectionp.heading("PRICE",text="PRICE",anchor=W)
             self.itemSectionp.heading("SELLER",text="SELLER",anchor=W)
             self.itemSectionp.heading("QTY",text="QTY",anchor=W)
+            self.itemSectionp.heading("LINK",text="LINK",anchor=W)
             self.itemSectionp.bind('<Button-1>',self.selectedProductView)
             self.itemSectionp.place(x=self.flexX-10,y=self.flexX,width=880,height=400)
 
             
             for X in self.FetchedProductsDisplay:
-              self.itemSectionp.insert("",'end',iid=self.loopCount1,values=(X[0],X[2],X[8],X[9],X[3],X[1],X[4]))
+              self.itemSectionp.insert("",'end',iid=self.loopCount1,values=(X[0],X[2],X[8],X[9],X[3],X[1],X[4],X[12]))
               self.loopCount1=self.loopCount1+1
 
             
@@ -507,11 +652,7 @@ class mainAdmin:
             self.ProductDisplay=LabelFrame( self.PRODUCT_INFOcover,bg=self.PrdouctContainerColor,labelanchor="n",borderwidth=0)
             self.ProductDisplay.place(x=self.flexX+900,y=self.flexY,width=290,height=400)
             #Product Image
-            self.ProductImage=Image.open("C:/Users/Lloyd/Desktop/CLLoyd/Cropped Prod Images/BAG.png")
-            self.resizeproductIMG= self.ProductImage.resize((160,160))
-            self.ProdImgObj=ImageTk.PhotoImage( self.resizeproductIMG)
-            self.ProImageContainer=Label(self.ProductDisplay,image=self.ProdImgObj,bg=self.PrdouctContainerColor)
-            self.ProImageContainer.place(x=135,y=100,anchor=CENTER)
+         
 
             #Product ID
             self.ProductIDTAG=Label(self.ProductDisplay,bg=self.PrdouctContainerColor,fg='black' ,font=('Century gothic',11,'bold'),relief=FLAT,text="ID: ")
@@ -570,17 +711,17 @@ class mainAdmin:
             #Product Search by ID
             self.userSearchTAG=Label( self.PRODUCT_INFOcover,text='Search by ID :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
             self.userSearchTAG.place(x=self.flexX,y=self.flexY+420)
-            self.userSearch=Entry(self.PRODUCT_INFOcover,width=25,relief=SUNKEN)
-            self.userSearch.place(x=self.flexX+120,y=self.flexY+430,height=30)
+            self.userSearchIDPRODUCT=Entry(self.PRODUCT_INFOcover,width=25,relief=SUNKEN)
+            self.userSearchIDPRODUCT.place(x=self.flexX+120,y=self.flexY+430,height=30)
 
              #Product Search by Name
             self.userSearchTAG=Label( self.PRODUCT_INFOcover,text='Search by Product Name :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
             self.userSearchTAG.place(x=self.flexX+290,y=self.flexY+420)
-            self.userSearch=Entry(self.PRODUCT_INFOcover,width=45,relief=SUNKEN)
-            self.userSearch.place(x=self.flexX+500,y=self.flexY+430,height=30)
+            self.userSearchNAMEPRODUCT=Entry(self.PRODUCT_INFOcover,width=45,relief=SUNKEN)
+            self.userSearchNAMEPRODUCT.place(x=self.flexX+500,y=self.flexY+430,height=30)
 
              #Search Button
-            self.Search1=Button( self.PRODUCT_INFOcover,text='Search',padx=10,pady=8,font=('century gothic',10,),bg='snow1',fg='black',relief=RAISED,)
+            self.Search1=Button( self.PRODUCT_INFOcover,text='Search',padx=10,pady=8,font=('century gothic',10,),bg='snow1',fg='black',relief=RAISED,command=self.SearchProducttreeview)
             self.Search1.place(x=self.flexX+810,y=self.flexY+420,width=80)
 
                  #Refresh Button
@@ -629,7 +770,6 @@ class mainAdmin:
      
 
 
-            
             self.Display_Products_mySQL.execute("select count(pid) from (select pid from product where qnt<50) as k") 
             self.InventoryTOPup=self.Display_Products_mySQL.fetchall() 
             self.TopUPContainer=LabelFrame( self.PRODUCT_INFOcover,bg="#3A5FCD",labelanchor="n",borderwidth=0)
@@ -641,9 +781,12 @@ class mainAdmin:
             self.Display_Products_mySQL.close()
 
 
+
+
         def Statistics(self):
              self.current=2
-           
+             self.Statistics_mySQL=self.MYSQLconnection.cursor()
+             self.updateCompoundValue()  
              self.STATISTICScover.place(y=90,x=267,width=1300,height=710)
 
              self.DashBoardSIDE3.place(y=self.SideStart1+90,width=200,x=236,height=35)
@@ -719,11 +862,14 @@ class mainAdmin:
              self.LastMonthNumberStats=Label( self.LastMonthRevenueContainerStats,bg="lightpink",text="Rs. 0",fg='black' ,font=('Century gothic',35),justify=CENTER)
              self.LastMonthNumberStats.place(y=20,x=10,width=240,height=100)
 
+             self.Statistics_mySQL.execute("select pname from product where pid like (select pid from (select pid,count(pid) as cnt from orders group by pid)as k4 where k4.cnt = (select MAX(cnt) as BESTSELLINGproduct from (select pid,count(pid) as cnt from orders group by pid)as K))")
+             self.Frequently_Ordered_product=self.Statistics_mySQL.fetchall()
              self.MostSoldTitle=Label( self.STATISTICScover,bg="darkslategray1",text="Most Sold Product",fg='Black' ,font=('Century gothic',12),justify=CENTER)
              self.MostSoldTitle.place(x=self.flexX+705,y=self.flexY,width=200,height=30)
-             self.MostSoldFigure=Label( self.STATISTICScover,bg="white",text="Sea Shell Union Braceletts",fg='Black' ,font=('calibri',9),justify=CENTER)
+             self.MostSoldFigure=Label( self.STATISTICScover,bg="white",text=str(self.Frequently_Ordered_product[0][0]),fg='Black' ,font=('calibri',9),justify=CENTER)
              self.MostSoldFigure.place(x=self.flexX+705,y=self.flexY+30,width=200,height=50)
 
+           
              self.HighestRatedTitle=Label( self.STATISTICScover,bg="darkseagreen1",text="Highest Rated Product",fg='Black' ,font=('Century gothic',12),justify=CENTER)
              self.HighestRatedTitle.place(x=self.flexX+705,y=self.flexY+100,width=200,height=30)
              self.HighestRatedFigure=Label( self.STATISTICScover,bg="white",text="Bardezkar Bamboo Bags",fg='Black' ,font=('calibri',9),justify=CENTER)
@@ -748,11 +894,65 @@ class mainAdmin:
 
              self.Refresh44=Button(self.STATISTICScover,text='Refresh Page',padx=10,pady=8,font=('century gothic',10,),bg='white',fg='black',relief=FLAT)
              self.Refresh44.place(x=self.flexX+975,y=self.flexY+590,width=160,height=30)
+        
 
 
+        def SearchDeliveryAgenttreeview(self):
+             self.ViewDELIVERY_mySQL=self.MYSQLconnection.cursor()
+             if(len(self.DeliveryByIDSearch.get())!=0):
+                self.ViewDELIVERY_mySQL.execute("select *from deliverymember where did ="+str(self.DeliveryByIDSearch.get()))
+                self.SEARCHid2=self.ViewDELIVERY_mySQL.fetchall()  
+
+                if self.SEARCHid2==[]:
+                    self.textareaDelivery.delete(1.0,END)
+                    self.textareaDelivery.insert(END,"Record Doesnt Exist")
+                    return
+                self.selections=[]
+                for x in self.SEARCHid2:
+                    for i in range(len( self.itemSectionDelivery.get_children())):
+                        if x[0] == self.itemSectionDelivery.item(i)['values'][0]:
+                            self.selections.append(i)
+                self.itemSectionDelivery.selection_set(self.selections)
+                
+               
+
+             if(len(self.DeliveryByNameSearch.get())!=0):
+                self.ViewDELIVERY_mySQL.execute("select *from deliverymember where fname like "+"'%"+str(self.DeliveryByNameSearch.get())+"%'")
+                self.SEARCHid2=self.ViewDELIVERY_mySQL.fetchall()  
+                if self.SEARCHid2==[]:
+                    self.textareaDelivery.delete(1.0,END)
+                    self.textareaDelivery.insert(END,"Record Doesnt Exist")
+                    return
+                self.selections=[]
+                for x in self.SEARCHid2:
+                    for i in range(len( self.itemSectionDelivery.get_children())):
+                        if x[0] == self.itemSectionDelivery.item(i)['values'][0]:
+                            self.selections.append(i)
+                self.itemSectionDelivery.selection_set(self.selections)
+                
+                        
+        def selectedDeliveryAgentView(self,a):
+            self.CurItem=self.itemSectionDelivery.focus()
+            self.D=self.itemSectionDelivery.item(self.CurItem)
+    
+            self.DeliveryID.delete(1.0,END)
+            self.DeliveryName.delete(1.0,END)
+            self.DeliveryPlocation.delete(1.0,END)
+            self.DeliveryHno.delete(1.0,END)
+            self.DeliveryPH.delete(1.0,END)
+            self.DeliveryMail.delete(1.0,END)
+
+            self.DeliveryID.insert(END,str(self.D.get('values')[0]))
+            self.DeliveryName.insert(END,str(self.D.get('values')[1]))
+            self.DeliveryPlocation.insert(END,str(self.D.get('values')[2]))
+            self.DeliveryHno.insert(END,str(self.D.get('values')[3]))
+            self.DeliveryPH.insert(END,str(self.D.get('values')[4]))
+            self.DeliveryMail.insert(END,str(self.D.get('values')[5]))
+        
 
         def DELIVERY_AGENT(self): 
             self.current=3
+            self.loopCount3=0
            
             self.DELIVERY_AGENTcover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE4.place(y=self.SideStart1+135,width=235,x=236,height=35)
@@ -760,26 +960,27 @@ class mainAdmin:
             self.style1=ttk.Style()
             self. style1.configure("mystyle.Treeview.Heading",font=('Microsoft JhengHei',10,'bold'))
             self.style1.configure("mystyle.Treeview",font=('Microsoft JhengHei',9),labelanchor="n")
-            self.itemSection=ttk.Treeview( self.DELIVERY_AGENTcover,style="mystyle.Treeview")
-            self.itemSection['columns']=("SSN","NAME","POSTING LOCATION","ADDRESS","PHONE NUMBER","EMAIL","PASSWORD")
-            self.itemSection.column("#0",anchor=W,width=0,stretch=NO)
-            self.itemSection.column("SSN",anchor=W,width=20)
-            self.itemSection.column("NAME",anchor=W,width=70)
-            self.itemSection.column("POSTING LOCATION",anchor=W,width=120)
-            self.itemSection.column("ADDRESS",anchor=W,width=70)
-            self.itemSection.column("PHONE NUMBER",anchor=W,width=70)
-            self.itemSection.column("EMAIL",anchor=W,width=50)
-            self.itemSection.column("PASSWORD",anchor=W,width=100)
+            self.itemSectionDelivery=ttk.Treeview( self.DELIVERY_AGENTcover,style="mystyle.Treeview")
+            self.itemSectionDelivery['columns']=("SSN","NAME","POSTING LOCATION","ADDRESS","PHONE NUMBER","EMAIL")
+            self.itemSectionDelivery.column("#0",anchor=W,width=0,stretch=NO)
+            self.itemSectionDelivery.column("SSN",anchor=W,width=20)
+            self.itemSectionDelivery.column("NAME",anchor=W,width=120)
+            self.itemSectionDelivery.column("POSTING LOCATION",anchor=W,width=70)
+            self.itemSectionDelivery.column("ADDRESS",anchor=W,width=70)
+            self.itemSectionDelivery.column("PHONE NUMBER",anchor=W,width=70)
+            self.itemSectionDelivery.column("EMAIL",anchor=W,width=50)
+            self.itemSectionDelivery.bind('<Button-1>',self.selectedDeliveryAgentView)
+       
 
 
-            self.itemSection.heading("SSN",text="SSN",anchor=W)
-            self.itemSection.heading("NAME",text="NAME",anchor=W)
-            self.itemSection.heading("POSTING LOCATION",text="POSTING LOCATION",anchor=W)
-            self.itemSection.heading("ADDRESS",text="ADDRESS",anchor=W)
-            self.itemSection.heading("PHONE NUMBER",text="PHONE NUMBER",anchor=W)
-            self.itemSection.heading("EMAIL",text="EMAIL",anchor=W)
-            self.itemSection.heading("PASSWORD",text="ACCOUNT PASSWORD",anchor=W)
-            self.itemSection.place(x=self.flexX-10,y=self.flexX,width=900,height=400)
+            self.itemSectionDelivery.heading("SSN",text="SSN",anchor=W)
+            self.itemSectionDelivery.heading("NAME",text="NAME",anchor=W)
+            self.itemSectionDelivery.heading("POSTING LOCATION",text="POSTING LOCATION",anchor=W)
+            self.itemSectionDelivery.heading("ADDRESS",text="ADDRESS",anchor=W)
+            self.itemSectionDelivery.heading("PHONE NUMBER",text="PHONE NUMBER",anchor=W)
+            self.itemSectionDelivery.heading("EMAIL",text="EMAIL",anchor=W)
+          
+            self.itemSectionDelivery.place(x=self.flexX-10,y=self.flexX,width=900,height=400)
 
 
             #Delivery Agent Display Container
@@ -798,16 +999,16 @@ class mainAdmin:
             self.DeliveryIDTAG.place(y=200,x=20,width=50,height=20)
             self.DeliveryID=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
             self.DeliveryID.place(y=200,x=130,width=190,height=20)
-            self.DeliveryID.insert(tk.END,"CRAFTdelvB-1")
-            self.DeliveryID.config(state=DISABLED)
+ 
+ 
 
             #Name
             self.DeliveryNameTAG=Label(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',11,'bold'),relief=FLAT,text="NAME: ")
             self.DeliveryNameTAG.place(y=220,x=23,width=50,height=20)
             self.DeliveryName=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
             self.DeliveryName.place(y=220,x=130,width=190,height=20)
-            self.DeliveryName.insert(tk.END,"Ravi Alias Kmar")
-            self.DeliveryName.config(state=DISABLED)
+
+ 
 
             
             #Posting Location
@@ -815,49 +1016,32 @@ class mainAdmin:
             self.DeliveryPlocationTAG.place(y=240,x=20,width=100,height=20)
             self.DeliveryPlocation=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
             self.DeliveryPlocation.place(y=240,x=130,width=190,height=20)
-            self.DeliveryPlocation.insert(tk.END,"Margao")
-            self.DeliveryPlocation.config(state=DISABLED)
+ 
+      
 
-             #HNO
-            self.DeliveryHnoTAG=Label(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',11,'bold'),relief=FLAT,text="HNO: ")
-            self.DeliveryHnoTAG.place(y=260,x=17,width=50,height=20)
-            self.DeliveryHno=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
-            self.DeliveryHno.place(y=260,x=130,width=190,height=20)
-            self.DeliveryHno.insert(tk.END,"89")
-            self.DeliveryHno.config(state=DISABLED)
+             #aDDRESS
+            self.DeliveryHnoTAG=Label(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',11,'bold'),relief=FLAT,text="ADDRESS: ")
+            self.DeliveryHnoTAG.place(y=260,x=17,width=80,height=20)
+            self.DeliveryHno=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',9),relief=FLAT,foreground="red")
+            self.DeliveryHno.place(y=260,x=135,width=190,height=30)
+    
 
-             #City/Village
-            self.DeliveryCityVillageTAG=Label(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',11,'bold'),relief=FLAT,text="CITY/VILLAGE: ")
-            self.DeliveryCityVillageTAG.place(y=280,x=20,width=105,height=20)
-            self.DeliveryCityVillage=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
-            self.DeliveryCityVillage.place(y=280,x=130,width=190,height=20)
-            self.DeliveryCityVillage.insert(tk.END,"Margao")
-            self.DeliveryCityVillage.config(state=DISABLED)
+
 
             #Phone Number
             self.DeliveryPHTAG=Label(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',11,'bold'),relief=FLAT,text="PH NUMBER: ")
             self.DeliveryPHTAG.place(y=300,x=17,width=100,height=20)
             self.DeliveryPH=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
             self.DeliveryPH.place(y=300,x=130,width=190,height=20)
-            self.DeliveryPH.insert(tk.END,"9822168754")
-            self.DeliveryPH.config(state=DISABLED)
+  
 
              #Email
             self.DeliveryMailTAG=Label(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',11,'bold'),relief=FLAT,text="EMAIL: ")
             self.DeliveryMailTAG.place(y=320,x=22,width=50,height=20)
             self.DeliveryMail=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
             self.DeliveryMail.place(y=320,x=130,width=190,height=20)
-            self.DeliveryMail.insert(tk.END,"kumar67@gmail.in")
-            self.DeliveryMail.config(state=DISABLED)
-
-                #Password
-            self.DeliveryPassTAG=Label(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',11,'bold'),relief=FLAT,text="PASSWORD: " )
-            self.DeliveryPassTAG.place(y=340,x=17,width=100,height=20)
-            self.DeliveryPass=Text(self.Deliver_Agent_display,bg=self.Deliver_Agent_color,fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
-            self.DeliveryPass.place(y=340,x=130,width=190,height=20)
-            self.DeliveryPass.insert(tk.END,"gec1234")
-            self.DeliveryPass.config(state=DISABLED)
-
+    
+        
             
             #Product Search by ID
             self.DeliveryByIDSearchTAG=Label( self.DELIVERY_AGENTcover,text='Search by ID :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
@@ -872,31 +1056,44 @@ class mainAdmin:
             self.DeliveryByNameSearch.place(x=self.flexX+500,y=self.flexY+430,height=30)
 
              #Search Button
-            self.Search11=Button(self.DELIVERY_AGENTcover,text='Search',padx=10,pady=8,font=('century gothic',10,),bg='white',fg='black',relief=RAISED,)
+            self.Search11=Button(self.DELIVERY_AGENTcover,text='Search',padx=10,pady=8,font=('century gothic',10,),bg='white',fg='black',relief=RAISED,command=self.SearchDeliveryAgenttreeview)
             self.Search11.place(x=self.flexX+810,y=self.flexY+420,width=80)
 
-                 #Refresh Button
+             #Refresh Button
             self.Refresh22=Button(self.DELIVERY_AGENTcover,text='Refresh',padx=10,pady=8,font=('century gothic',10,),bg='white',fg='black',relief=RAISED,)
             self.Refresh22.place(x=self.flexX+910,y=self.flexY+420,width=80)
 
-       
+            self.textareaDelivery=Text(self.DELIVERY_AGENTcover,bg="white",fg='black' ,font=('Century gothic',10),relief=FLAT,foreground="red")
+            self.textareaDelivery.place(y=470,x=1060,width=175,height=50)
+
+            self.ViewDELIVERY_mySQL=self.MYSQLconnection.cursor()
+            self.ViewDELIVERY_mySQL.execute("select *from deliverymember")
+            self.ViewDELIVERY=self.ViewDELIVERY_mySQL.fetchall() 
+   
+            for X in self.ViewDELIVERY:
+                  self.MYSQLDeloveryname=str(self.ViewDELIVERY[self.loopCount3][1])+" "+str(self.ViewDELIVERY[self.loopCount3][2])+" "+str(self.ViewDELIVERY[self.loopCount3][3])
+                  self.itemSectionDelivery.insert("",'end',iid=self.loopCount3,values=(X[0],self.MYSQLDeloveryname,X[6],X[8],X[4],X[5],X[5]))
+                  self.loopCount3=self.loopCount3+1
+
+            self.ViewDELIVERY_mySQL.close()
 
 
 
         def imageFunc(self):
             self.ADDimageFlag=1
-            self.product_IMG12=filedialog.askopenfilename(initialdir="C:/Users/Lloyd/Desktop/CLLoyd/Cropped Prod Images",title="Select a File",filetypes=(("png files","*.png"),("all files","*.*")))
+            self.product_IMG12=filedialog.askopenfilename(initialdir="C:\CraftozaParentImages",title="Select a File",filetypes=(("png files","*.png"),("all files","*.*")))
             self.ProductImageAddPro=Image.open(str(self.product_IMG12))
             self.resizeproductIMGAddPro=   self.ProductImageAddPro.resize((160,160))
             self.ProdImgObjAddPro=ImageTk.PhotoImage( self.resizeproductIMGAddPro)
             self.ProImageContainerAddPro=Label(  self.ProductDisplayAddPro,image= self.ProdImgObjAddPro,bg=self.PrdouctContainerColor)
             self.ProImageContainerAddPro.place(x=135,y=100,anchor=CENTER)
+       
+
 
         def ADD_product_submitted(self):
             self.count=1
             self.Add_product_mySQL=self.MYSQLconnection.cursor()
-            self.cat1={"Bamboo":"A","Coconut":"B","Clay":"C","Shells":"D","Wood":"E"}
-            self.cat2={"Bag":"1","Home Deco":"2","Earthen pots":"3","Juwellry":"4","Funiture":"5"}
+            
 
             if str(self.EnterProductName.get())=='':
                   self.textareaAddProduct.delete(1.0,END)
@@ -918,6 +1115,10 @@ class mainAdmin:
                   self.textareaAddProduct.delete(1.0,END)
                   self.textareaAddProduct.insert(END,"  Image Not Selected")
                   return
+            elif self.product_IMG12 == "":
+                    self.textareaAddProduct.delete(1.0,END)
+                    self.textareaAddProduct.insert(END,"Image Not Selected")
+                    return
 
 
 
@@ -936,22 +1137,25 @@ class mainAdmin:
             self.PRODUCTcountADD=self.Add_product_mySQL.fetchall()  
             self.PCNT=self.PRODUCTcountADD[0][0]
             
-            self.Add_product_mySQL.execute("select sid from seller where company_name like"+"'"+str(self.EnterPSeller.get()+"'"))
-            self.PRODUCTsidLIST=self.Add_product_mySQL.fetchall() 
-            self.SID= self.PRODUCTsidLIST[0][0]
-         
-            self.UN="CRAF-"+str(self.PCNT)+"-"+self.CAT1_Alpha+"#"+self.CAT2_Alpha
-            self.ProductInsert_query1="INSERT INTO Product (pid,sid,pname,price,qnt,material,type) VALUES (%s,%s,%s,%s,%s,%s,%s)"
-            self.ProductInsert_query1Value=(str(self.UN),int(self.SID),str(self.EnterProductName.get()),int(self.EnterProductPrice.get()),int(self.Addqtyr.get()),str(self.CAT1value.get()),str(self.CAT2value.get()))
-            self.Add_product_mySQL.execute(self.ProductInsert_query1,self.ProductInsert_query1Value)
-            self.Add_product_mySQL.execute('commit')
-            self.Add_product_mySQL.close()
-
-    
-            self.itemSectionPROD.insert("",'end',iid=1,values=(self.PRODUCTcountADD,str(self.EnterProductName.get()),self.CAT1value.get(),self.CAT2value.get(),str(self.EnterProductPrice.get()),str(self.EnterPSeller.get()),self.Addqtyr.get()))
+            try:
+                self.Add_product_mySQL.execute("select sid from seller where company_name like"+"'"+str(self.EnterPSeller.get()+"'"))
+                self.PRODUCTsidLIST=self.Add_product_mySQL.fetchall() 
+                self.SID= self.PRODUCTsidLIST[0][0]
             
-            self.textareaAddProduct.delete(1.0,END)
-            self.textareaAddProduct.insert(END,"  Data Entered Successfully")
+                self.UN="CRAF-"+str(self.PCNT)+"-"+self.CAT1_Alpha+"#"+self.CAT2_Alpha
+                self.ProductInsert_query1="INSERT INTO Product (pid,sid,pname,price,qnt,material,type,ParentImgLink) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+                self.ProductInsert_query1Value=(str(self.UN),int(self.SID),str(self.EnterProductName.get()),int(self.EnterProductPrice.get()),int(self.Addqtyr.get()),str(self.CAT1value.get()),str(self.CAT2value.get()),str(self.product_IMG12))
+                self.Add_product_mySQL.execute(self.ProductInsert_query1,self.ProductInsert_query1Value)
+                self.Add_product_mySQL.execute('commit')
+                self.Add_product_mySQL.close()
+
+        
+                self.itemSectionPROD.insert("",'end',iid=1,values=(self.PRODUCTcountADD,str(self.EnterProductName.get()),self.CAT1value.get(),self.CAT2value.get(),str(self.EnterProductPrice.get()),str(self.EnterPSeller.get()),self.Addqtyr.get()))
+                
+                self.textareaAddProduct.delete(1.0,END)
+                self.textareaAddProduct.insert(END,"  Data Entered Successfully")
+            except:
+                messagebox.showerror("Wrong Input","Please check your input once again")
 
 
         def ADD_product_RESET(self):
@@ -963,6 +1167,7 @@ class mainAdmin:
             self.Addqtyr.delete(0,END)
             self.textareaAddProduct.delete(1.0,END)
             self.textareaAddProduct.insert(END," STATUS BOX:")
+     
             self.ADDimageFlag=0
 
 
@@ -988,7 +1193,7 @@ class mainAdmin:
             self.CAT1TAG.place(x=self.FlexXA+20,y=self.flexY+80)
             self.CAT1value=StringVar()
             self.CAT1value.set("Bamboo")
-            self.CAT1valueOPTION=OptionMenu(self.ADD_Productcover,self.CAT1value,"Bamboo","Clay","Coconut","Shells","Wood")
+            self.CAT1valueOPTION=OptionMenu(self.ADD_Productcover,self.CAT1value,"Bamboo","Clay","Coconut","Shells","Wood","Glass","Ceramic","Cloth","Plastic","General")
             self.CAT1valueOPTION.place(x=self.FlexXA+280,y=self.flexY+86)
     
 
@@ -996,7 +1201,7 @@ class mainAdmin:
             self.CAT2TAG.place(x=self.FlexXA+380,y=self.flexY+80)
             self.CAT2value=StringVar()
             self.CAT2value.set("Bag")
-            self.CAT2valueOPTION=OptionMenu(self.ADD_Productcover,self.CAT2value,"Bag","Home Deco","Earthen pots","Juwellry","Funiture")
+            self.CAT2valueOPTION=OptionMenu(self.ADD_Productcover,self.CAT2value,"Bag","Home Deco","Earthen pots","Juwellry","Funiture","Fashion","Keychain","Cups","General")
             self.CAT2valueOPTION.place(x=self.FlexXA+640,y=self.flexY+86)
 
             self.PriceTAG=Label(self.ADD_Productcover,text='          Enter Price :  ',bg="white",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
@@ -1023,6 +1228,9 @@ class mainAdmin:
 
             self.Add_ProductImage1C=Button(self.ADD_Productcover,text='Add Image 1C',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.imageFunc)
             self.Add_ProductImage1C.place(x=self.FlexXA+580,y=self.flexY+266,width=100)
+
+            self.ShowSellers=Button(self.ADD_Productcover,text='Display Seller List',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.displaySellerTAB)
+            self.ShowSellers.place(x=self.FlexXA+1010,y=self.flexY+580,width=100)
 
             self.AddqtyTAG=Label(self.ADD_Productcover,text='          Enter QTY :  ',bg="white",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
             self.AddqtyTAG.place(x=self.FlexXA+570,y=self.flexY+170)
@@ -1073,8 +1281,45 @@ class mainAdmin:
             self.ProductDisplayAddPro.place(x=self.FlexXA+780,y=self.flexY+60,width=280,height=200)
             #Product Image
 
-        
+        def displaySellerTAB(self):
+            self.SellerTAB=Tk()
+            self.SellerTAB.title('Seller List')
+            self.SellerTAB.configure(bg='whitesmoke')
+            self.SellerTAB.geometry('820x400')
+            self.SELLERdispTAB=ttk.Style()
+            self. SELLERdispTAB.configure("mystyle.Treeview.Heading",font=('Microsoft JhengHei',10,'bold'))
+            self.SELLERdispTAB.configure("mystyle.Treeview",font=('Microsoft JhengHei',9))
+            self.itemSectionSELLER5=ttk.Treeview(self.SellerTAB,style="myPRODdisp.Treeview")
+            self.itemSectionSELLER5['columns']=("ID","NAME","ADDRESS","EMAIL","CONTACT")
+            self.itemSectionSELLER5.column("#0",anchor=W,width=0,stretch=NO)
+            self.itemSectionSELLER5.column("ID",anchor=W,width=40)
+            self.itemSectionSELLER5.column("NAME",anchor=W,width=200)
+            self.itemSectionSELLER5.column("ADDRESS",anchor=W,width=200)
+            self.itemSectionSELLER5.column("EMAIL",anchor=W,width=80)
+            self.itemSectionSELLER5.column("CONTACT",anchor=W,width=80)
+       
+            self.itemSectionSELLER5.heading("ID",text="ID",anchor=W)
+            self.itemSectionSELLER5.heading("NAME",text="NAME",anchor=W)
+            self.itemSectionSELLER5.heading("ADDRESS",text="ADDRESS",anchor=W)
+            self.itemSectionSELLER5.heading("EMAIL",text="EMAIL",anchor=W)
+            self.itemSectionSELLER5.heading("CONTACT",text="CONTACT",anchor=W)
+            self.itemSectionSELLER5.place(x=40,y=20,width=740,height=350)
 
+            self.DispSELL_mySQL=self.MYSQLconnection.cursor()
+            self.DispSELL_mySQL.execute("select *from seller")
+            self.DispSELL_mySQL1=self.DispSELL_mySQL.fetchall()
+
+
+            countS=0
+            for X in self.DispSELL_mySQL1:
+                self.itemSectionSELLER5.insert("",'end',iid=countS,values=(X[0],X[1],X[6],X[5],X[4]))
+                countS=countS+1
+
+            self.DispSELL_mySQL.close()
+
+
+
+        
    
         
 
@@ -1085,9 +1330,15 @@ class mainAdmin:
                     self.textareaEDITProduct.delete(1.0,END)
                     self.textareaEDITProduct.insert(END," Name Field Empty")
               else:
-                    # self.EDIT_product_mySQL.execute("UPDATE product SET pname="+str(self.UpdateProductName.get()))
+                    self.EDIT_product_mySQL=self.MYSQLconnection.cursor()
+                    self.CurItem1=self.itemSectionPRODEDIT.focus()
+                    self.A=self.itemSectionPRODEDIT.item( self.CurItem1)
+                    
+                    self.EDIT_product_mySQL.execute("UPDATE product SET pname= '" +str(self.UpdateProductName.get())+ "' where pid= '"+str(self.A.get('values')[0])+"'")
+                    self.EDIT_product_mySQL.execute("commit")
                     self.textareaEDITProduct.delete(1.0,END)
-                    self.textareaEDITProduct.insert(END," Name Entered \nSuccessfully")
+                    self.textareaEDITProduct.insert(END," Name Updated \nSuccessfully")
+                    self.EDIT_product_mySQL.close()
 
         def EDIT_PRODUCT_funcPriceUpdate(self):
               if str(self.UpdateEnterProductPrice.get())=='':
@@ -1095,22 +1346,50 @@ class mainAdmin:
                     self.textareaEDITProduct.insert(END," Price Field Empty")
 
               else:
+                    self.EDIT_product_mySQL=self.MYSQLconnection.cursor()
+                    self.CurItem1=self.itemSectionPRODEDIT.focus()
+                    self.A=self.itemSectionPRODEDIT.item( self.CurItem1)
+                    
+                    self.EDIT_product_mySQL.execute("UPDATE product SET price= " +str(self.UpdateEnterProductPrice.get())+ " where pid= '"+str(self.A.get('values')[0])+"'")
+                    self.EDIT_product_mySQL.execute("commit")
+                    self.EDIT_product_mySQL.close()
                     self.textareaEDITProduct.delete(1.0,END)
-                    self.textareaEDITProduct.insert(END," Price Entered \nSuccessfully")
+                    self.textareaEDITProduct.insert(END," Price Updated \nSuccessfully")
 
         def EDIT_PRODUCT_funcSellerUpdate(self):
               if str(self.UpdateEnterPSeller.get())=='':
                     self.textareaEDITProduct.delete(1.0,END)
                     self.textareaEDITProduct.insert(END," Seller Field Empty")
               else:
+                    self.EDIT_product_mySQL=self.MYSQLconnection.cursor()
+                    self.CurItem1=self.itemSectionPRODEDIT.focus()
+                    self.A=self.itemSectionPRODEDIT.item( self.CurItem1)
+                    
+                    self.EDIT_product_mySQL.execute("UPDATE product SET sid= " +str(self.UpdateEnterPSeller.get())+ " where pid= '"+str(self.A.get('values')[0])+"'")
+                    self.EDIT_product_mySQL.execute("commit")
+                    self.EDIT_product_mySQL.close()
                     self.textareaEDITProduct.delete(1.0,END)
-                    self.textareaEDITProduct.insert(END," Seller Entered\n Successfully")
+                    self.textareaEDITProduct.insert(END," SellerID Updated\n Successfully")
 
         def imageFunc2(self):
              self.ImageEditFLAG=1
-             self.product_IMG123=filedialog.askopenfilename(initialdir="C:/Users/Lloyd/Desktop/CLLoyd/Cropped Prod Images",title="Select a File",filetypes=(("png files","*.png"),("all files","*.*")))
+             self.product_IMG123=filedialog.askopenfilename(initialdir="C:\CraftozaParentImages",title="Select a File",filetypes=(("png files","*.png"),("all files","*.*")))
              self.ProductImageAddPro1=Image.open(str(self.product_IMG123))
              self.resizeproductIMGAddPro1=   self.ProductImageAddPro1.resize((160,160))
+
+             if self.product_IMG123 == "":
+                    self.textareaEDITProduct.delete(1.0,END)
+                    self.textareaEDITProduct.insert(END,"Image Not Selected")
+                    return
+
+             self.EDIT_product_mySQL=self.MYSQLconnection.cursor()
+             self.CurItem1=self.itemSectionPRODEDIT.focus()
+             self.A=self.itemSectionPRODEDIT.item( self.CurItem1)
+                    
+             self.EDIT_product_mySQL.execute("UPDATE product SET ParentImgLink= '" +str(self.product_IMG123)+ "' where pid= '"+str(self.A.get('values')[0])+"'")
+             self.EDIT_product_mySQL.execute("commit")
+             self.EDIT_product_mySQL.close()
+        
           
 
 
@@ -1132,28 +1411,95 @@ class mainAdmin:
                     self.textareaEDITProduct.delete(1.0,END)
                     self.textareaEDITProduct.insert(END," QTY Field Empty")
               else:
+                    self.EDIT_product_mySQL=self.MYSQLconnection.cursor()
+                    self.CurItem1=self.itemSectionPRODEDIT.focus()
+                    self.A=self.itemSectionPRODEDIT.item( self.CurItem1)
+                    
+                    self.EDIT_product_mySQL.execute("UPDATE product SET qnt= " +str(self.Updateqtyr.get())+ " where pid= '"+str(self.A.get('values')[0])+"'")
+                    self.EDIT_product_mySQL.execute("commit")
+                    self.EDIT_product_mySQL.close()
                     self.textareaEDITProduct.delete(1.0,END)
-                    self.textareaEDITProduct.insert(END," QTY Entered\n Successfully") 
+                    self.textareaEDITProduct.insert(END," QTY Updated\n Successfully") 
 
-        def EDIT_PRODUCT_funcCAT1Update(self):   
+        def EDIT_PRODUCT_funcCAT1Update(self):
+                    self.EDIT_product_mySQL=self.MYSQLconnection.cursor()
+                    self.CurItem1=self.itemSectionPRODEDIT.focus()
+                    self.A=self.itemSectionPRODEDIT.item( self.CurItem1)
+
+                    if str(self.UpdateCAT1value.get()) in self.cat1.keys():
+                        self.CAT1_Alpha=self.cat1[str(self.UpdateCAT1value.get())]
+                    
+                    self.EditChangeID=str(self.A.get('values')[0])
+                    self.EditChangeIDSplit1=self.EditChangeID.split("-")
+                    self.EditChangeIDSplit2=self.EditChangeIDSplit1[2].split("#")
+                    self.EditChangeID=str(self.EditChangeIDSplit1[0])+"-"+str(self.EditChangeIDSplit1[1])+"-"+str(self.CAT1_Alpha)+"#"+str(self.EditChangeIDSplit2[1])
+                
+    
+                  
+                   
+                    self.EDIT_product_mySQL.execute("UPDATE product SET pid='"+str(self.EditChangeID)+"',material= '" +str(self.UpdateCAT1value.get())+ "' where pid= '"+str(self.A.get('values')[0])+"'")
+                    self.EDIT_product_mySQL.execute("commit")
+                    self.EDIT_product_mySQL.close()
                     self.textareaEDITProduct.delete(1.0,END)
                     self.textareaEDITProduct.insert(END," CAT1 Entered\n Successfully") 
         
-        def EDIT_PRODUCT_funcCAT2Update(self):   
+        def EDIT_PRODUCT_funcCAT2Update(self): 
+                    self.EDIT_product_mySQL=self.MYSQLconnection.cursor()
+                    self.CurItem1=self.itemSectionPRODEDIT.focus()
+                    self.A=self.itemSectionPRODEDIT.item( self.CurItem1)
+
+                    if str(self.UpdateCAT2value.get()) in self.cat2.keys():
+                         self.CAT2_Alpha=self.cat2[str(self.UpdateCAT2value.get())]
+
+                    self.EditChangeID=str(self.A.get('values')[0])
+                    self.EditChangeIDSplit1=self.EditChangeID.split("-")
+                    self.EditChangeIDSplit2=self.EditChangeIDSplit1[2].split("#")
+                    self.EditChangeID=str(self.EditChangeIDSplit1[0])+"-"+str(self.EditChangeIDSplit1[1])+"-"+str(self.EditChangeIDSplit2[0])+"#"+str(self.CAT2_Alpha)
+             
+                    self.EDIT_product_mySQL.execute("UPDATE product SET pid='"+str(self.EditChangeID)+"',type= '" +str(self.UpdateCAT2value.get())+ "' where pid= '"+str(self.A.get('values')[0])+"'")
+                    self.EDIT_product_mySQL.execute("commit")
+                    self.EDIT_product_mySQL.close()
+                    self.textareaEDITProduct.delete(1.0,END)  
                     self.textareaEDITProduct.delete(1.0,END)
                     self.textareaEDITProduct.insert(END," CAT2 Entered\n Successfully") 
  
         def EDIT_searchBYidORName(self):
             self.EDIT_product_mySQL=self.MYSQLconnection.cursor()
-            print("select *from product where pid like "+"'"+str(self.userSearchIDEDITprod.get())+"'")
+            for item in self.itemSectionPRODEDIT.get_children():
+                     self.itemSectionPRODEDIT.delete(item)
 
             if(len(self.userSearchIDEDITprod.get())!=0):
                 self.EDIT_product_mySQL.execute("select *from product where pid like "+"'"+str(self.userSearchIDEDITprod.get())+"'")
                 self.ProductSearchByIdEdit=self.EDIT_product_mySQL.fetchall()  
+
+                if self.ProductSearchByIdEdit==[]:
+                    self.textareaEDITProduct.delete(1.0,END)
+                    self.textareaEDITProduct.insert(END,"Record Doesnt Exist")
+                    return
+                self.EditCount=0
                 for X in self.ProductSearchByIdEdit:  
-                     self.itemSectionPRODEDIT.insert("",'end',iid=self.EditCount,values=((X[0],X[2],X[4],X[1])))
+                     self.itemSectionPRODEDIT.insert("",'end',iid=self.EditCount,values=(X[0],X[2],X[8],X[9],X[3],X[1],X[4]))
                      self.EditCount =self.EditCount+1
-                # self.EDIT_product_mySQL.close()
+                self.userSearchIDEDITprod.delete(0,END)
+
+            if(len(self.userSearchEDITnameprod.get())!=0):
+                self.EDIT_product_mySQL.execute("select *from product where pname like "+"'%"+str(self.userSearchEDITnameprod.get())+"%'")
+                self.ProductSearchByIdEdit=self.EDIT_product_mySQL.fetchall()  
+                
+                if self.ProductSearchByIdEdit==[]:
+                    self.textareaEDITProduct.delete(1.0,END)
+                    self.textareaEDITProduct.insert(END,"Record Doesnt Exist")
+                    return
+                self.EditCount=0
+                for X in self.ProductSearchByIdEdit:  
+                     self.itemSectionPRODEDIT.insert("",'end',iid=self.EditCount,values=(X[0],X[2],X[8],X[9],X[3],X[1],X[4]))
+                     self.EditCount =self.EditCount+1
+                self.userSearchEDITnameprod.delete(0,END)
+
+            self.textareaEDITProduct.delete(1.0,END)
+            self.textareaEDITProduct.insert(END," Please Select the\n Product")
+            
+            self.EDIT_product_mySQL.close()
                     
 
 
@@ -1161,13 +1507,10 @@ class mainAdmin:
         def EDIT_PRODUCT(self):
             self.ImageEditFLAG=0
             self.current=5
-            self.EditCount=0
+          
             self.EDIT_Productcover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE6.place(y=self.SideStart2+45,width=200,x=235,height=35)
        
-
-            
-
 
             self.userSearchIDEDITprodTAG=Label(self.EDIT_Productcover,text='Search by ID :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
             self.userSearchIDEDITprodTAG.place(x=self.flexX+60,y=self.flexY+20)
@@ -1225,7 +1568,7 @@ class mainAdmin:
             self.UpdateCAT1TAG.place(x=self.flexX+20,y=self.flexY+80)
             self.UpdateCAT1value=StringVar()
             self.UpdateCAT1value.set("Bamboo")
-            self.UpdateCAT1valueOPTION=OptionMenu(self.EditProductFrame, self.UpdateCAT1value,"Bamboo","Clay","Coconut","Shells","Wood")
+            self.UpdateCAT1valueOPTION=OptionMenu(self.EditProductFrame, self.UpdateCAT1value,"Bamboo","Clay","Coconut","Shells","Wood","Glass","Ceramic","Cloth","Plastic","General")
             self.UpdateCAT1valueOPTION.place(x=self.flexX+280,y=self.flexY+86)
     
 
@@ -1233,7 +1576,7 @@ class mainAdmin:
             self.UpdateCAT2TAG.place(x=self.flexX+380,y=self.flexY+80)
             self.UpdateCAT2value=StringVar()
             self.UpdateCAT2value.set("Bag")
-            self.UpdateCAT2valueOPTION=OptionMenu(self.EditProductFrame,    self.UpdateCAT2value,"Bag","Home Deco","Earthen pots","Juwellry","Funiture")
+            self.UpdateCAT2valueOPTION=OptionMenu(self.EditProductFrame,    self.UpdateCAT2value,"Bag","Home Deco","Earthen pots","Juwellry","Funiture","Fashion","Keychain","Cups","General")
             self.UpdateCAT2valueOPTION.place(x=self.flexX+640,y=self.flexY+86)
 
             self.UpdatePriceTAG=Label(self.EditProductFrame,text='          Enter New Price :  ',bg="white",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
@@ -1242,7 +1585,7 @@ class mainAdmin:
             self.UpdateEnterProductPrice.place(x=self.flexX+250,y=self.flexY+146,height=30,width=300)
 
             
-            self.UpdatePSellerTAG=Label(self.EditProductFrame,text='          Enter New Seller :  ',bg="white",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
+            self.UpdatePSellerTAG=Label(self.EditProductFrame,text='          Update New SellerID :  ',bg="white",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
             self.UpdatePSellerTAG.place(x=self.flexX+20,y=self.flexY+200)
             self.UpdateEnterPSeller=Entry( self.EditProductFrame,width=45,relief=SUNKEN)
             self.UpdateEnterPSeller.place(x=self.flexX+250,y=self.flexY+206,height=30,width=300)
@@ -1285,9 +1628,6 @@ class mainAdmin:
 
             self.UpdatOtherIMGsubmit=Button(self.EditProductFrame,text='UPDATE 1A,2B,1C',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.EDIT_PRODUCT_funcQTYUpdate)
             self.UpdatOtherIMGsubmit.place( x=self.UpdateButtons-150,y=self.flexY1+260+50,width=130)
-
-
-
 
 
             self.EDIT_ProductImage1A=Button(self.EditProductFrame,text='Add Image 1A',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.imageFunc)
@@ -1338,11 +1678,16 @@ class mainAdmin:
                     self.textareaAddDelivery.delete(1.0,END)
                     self.textareaAddDelivery.insert(END," Contact Field Empty")
                     return
-
-
-             self.itemSectionDELIVERY.insert("",'end',iid=1,values=("1",(str(self.DeliveryFirstName.get())+" "+str(self.DeliverySecondName.get())+" "+str(self.DeliveryLastName.get())) ,str(self.DeliveryAddress.get()),str(self.DeliveryPostingLocation.get()),str(self.DeliveryEmail.get()),str(self.DeliveryContact.get())))
+             self.AddDevliveryAgenet_MySQL=self.MYSQLconnection.cursor()
+             self.AddDevliveryAgenetQuery1="INSERT INTO deliverymember (fname,mname,lname,pnum,email,location,Address) VALUES (%s,%s,%s,%s,%s,%s,%s)"
+             self.AddDevliveryAgenetQuery2=(str(self.DeliveryFirstName.get()),str(self.DeliverySecondName.get()),str(self.DeliveryLastName.get()),int(self.DeliveryContact.get()),str(self.DeliveryEmail.get()),str(self.DeliveryPostingLocation.get()),str(self.DeliveryAddress.get()))
+             self.AddDevliveryAgenet_MySQL.execute(self.AddDevliveryAgenetQuery1,self.AddDevliveryAgenetQuery2)
+             self.AddDevliveryAgenet_MySQL.execute('commit')
+             self.itemSectionDELIVERY.insert("",'end',iid=1,values=("1",(str(self.DeliveryFirstName.get())+" "+str(self.DeliverySecondName.get())+" "+str(self.DeliveryLastName.get())) ,str(self.DeliveryAddress.get()),str(self.DeliveryPostingLocation.get()),str(self.DeliveryEmail.get()),str(self.DeliveryContact.get()),str(self.DeliveryAddress.get())))
+            
              self.textareaAddDelivery.delete(1.0,END)
              self.textareaAddDelivery.insert(END,"  Data Entered Successfully")
+             self.AddDevliveryAgenet_MySQL.close()
 
 
         def ADD_DELIVERY_AGENT_reset(self):
@@ -1365,6 +1710,7 @@ class mainAdmin:
             self.current=6
             self.ADD_DELIVERY_AGENTcover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE7.place(y=self.SideStart2+90,width=200,x=235,height=35)
+           
   
             self.AddDeliveryFrame=LabelFrame(self.ADD_DELIVERY_AGENTcover,bg="white",labelanchor="n",borderwidth=0)
             self.AddDeliveryFrame.place(x=self.flexX+40,y=self.flexY,width=1090,height=425)
@@ -1448,6 +1794,7 @@ class mainAdmin:
             self.itemSectionDELIVERY.place(x=self.flexX+40,y=self.FlexYD+490,width=1090,height=100)
 
 
+
         
             
         def EDIT_DELIVERY_AGENT_reset(self):
@@ -1464,6 +1811,9 @@ class mainAdmin:
               
                 self.textareaEDITDelivery.delete(1.0,END)
                 self.textareaEDITDelivery.insert(END," STATUS BOX:")
+
+
+
 
         def EDIT_DELIVERY_AGENT_submit(self):
              if str(self.DeliveryFirstNameEDIT.get())=='':
@@ -1496,20 +1846,76 @@ class mainAdmin:
                     self.textareaEDITDelivery.insert(END," Contact Field Empty")
                     return
 
-             if str(self.DeliveryContactEDIT.get()).length()!=10:
+             if len(str(self.DeliveryContactEDIT.get()))!=10:
                     self.textareaEDITDelivery.delete(1.0,END)
                     self.textareaEDITDelivery.insert(END," Invalid Phone Number")
                     return
 
-
-             self.itemSectionDELIVERYEDIT.insert("",'end',iid=1,values=("1",(str(self.DeliveryFirstNameEDIT.get())+" "+str(self.DeliverySecondNameEDIT.get())+" "+str(self.DeliveryLastNameEDIT.get())) ,str(self.DeliveryAddressEDIT.get()),str(self.DeliveryPostingLocationEDIT.get()),str(self.DeliveryEmailEDIT.get()),str(self.DeliveryContactEDIT.get())))
+             self.EDIT_DeliveryAgent_mySQL=self.MYSQLconnection.cursor()
+             self.CurItem2=self.itemSectionDELIVERYEDIT.focus()
+             self.A1=self.itemSectionDELIVERYEDIT.item( self.CurItem2)
+             
+                       
+             self.EDIT_DeliveryAgent_mySQL.execute("update deliverymember set fname='"+str(self.DeliveryFirstNameEDIT.get())+"',mname='"+str(self.DeliverySecondNameEDIT.get())+"',lname='"+str(self.DeliveryLastNameEDIT.get())+"',pnum="+str(self.DeliveryContactEDIT.get())+",email='"+str(self.DeliveryEmailEDIT.get())+"',Address='"+str(self.DeliveryAddressEDIT.get())+"',location='"+str(self.DeliveryPostingLocationEDIT.get())+"' where did='"+str(self.A1.get('values')[0])+"'")
+             self.EDIT_DeliveryAgent_mySQL.execute("commit")
+             self.EDIT_DeliveryAgent_mySQL.close()
+             self.textareaEDITDelivery.delete(1.0,END)
+             self.textareaEDITDelivery.insert(END," QTY Updated\n Successfully") 
              self.textareaEDITDelivery.delete(1.0,END)
              self.textareaEDITDelivery.insert(END,"  Data Entered Successfully")
 
 
 
+
+
+
+
+        def EDIT_searchBYidORNameDeliveryAgent(self):
+        
+            self.EDIT_DeliveryAgent_mySQL=self.MYSQLconnection.cursor()
+            for item in self.itemSectionDELIVERYEDIT.get_children():
+                    self.itemSectionDELIVERYEDIT.delete(item)
+
+            if(len(self.userSearchEDITIDDelivery.get())!=0):
+                self.EDIT_DeliveryAgent_mySQL.execute("select *from deliverymember where did = "+str(self.userSearchEDITIDDelivery.get()))
+                self.DeliverySearchByIdEdit=self.EDIT_DeliveryAgent_mySQL.fetchall()  
+
+                if self.DeliverySearchByIdEdit==[]:
+                    self.textareaEDITDelivery.delete(1.0,END)
+                    self.textareaEDITDelivery.insert(END,"Record Doesnt Exist")
+                    return
+                self.EditCount4=0
+                for X in self.DeliverySearchByIdEdit:  
+                    self.MYSQLDeloveryname=str(self.DeliverySearchByIdEdit[self.EditCount4][1])+" "+str(self.DeliverySearchByIdEdit[self.EditCount4][2])+" "+str(self.DeliverySearchByIdEdit[self.EditCount4][3])
+                    self.itemSectionDELIVERYEDIT.insert("",'end',iid=self.EditCount4,values=(X[0],self.MYSQLDeloveryname,X[6],X[8],X[5],X[4]))
+                    self.EditCount4 =self.EditCount4+1
+                self.userSearchEDITIDDelivery.delete(0,END)
+
+            if(len(self.userSearchDeliveryEDITName.get())!=0):
+                self.NameSplit=str(self.userSearchDeliveryEDITName.get()).split(" ")
+                self.EDIT_DeliveryAgent_mySQL.execute("select *from deliverymember where fname like "+"'%"+self.NameSplit[0]+"%'")
+                self.DeliverySearchByIdEdit=self.EDIT_DeliveryAgent_mySQL.fetchall()  
+                
+                if self.DeliverySearchByIdEdit==[]:
+                    self.textareaEDITDelivery.delete(1.0,END)
+                    self.textareaEDITDelivery.insert(END,"Record Doesnt Exist")
+                    return
+                self.EditCount4=0
+                for X in self.DeliverySearchByIdEdit:  
+                     self.MYSQLDeloveryname=str(self.DeliverySearchByIdEdit[self.EditCount4][1])+" "+str(self.DeliverySearchByIdEdit[self.EditCount4][2])+" "+str(self.DeliverySearchByIdEdit[self.EditCount4][3])
+                     self.itemSectionDELIVERYEDIT.insert("",'end',iid=self.EditCount4,values=(X[0],self.MYSQLDeloveryname,X[6],X[8],X[5],X[4],))
+                     self.EditCount4 =self.EditCount4+1
+                self.userSearchDeliveryEDITName.delete(0,END)
+
+            self.textareaEDITDelivery.delete(1.0,END)
+            self.textareaEDITDelivery.insert(END," Please Select the\n Product")
+            
+            self.EDIT_DeliveryAgent_mySQL.close()
+
+
         def EDIT_DELIVERY_AGENT(self):
             self.current=7
+       
             self.EDIT_DELIVERY_AGENTcover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE8.place(y=self.SideStart2+135,width=200,x=235,height=35)
 
@@ -1547,7 +1953,7 @@ class mainAdmin:
             self.userSearchDeliveryEDITName=Entry(self.EDIT_DELIVERY_AGENTcover,width=45,relief=SUNKEN)
             self.userSearchDeliveryEDITName.place(x=self.flexX+600,y=self.flexY+26,height=30)
 
-            self.DeliverEDITSearchsubmit=Button(self.EDIT_DELIVERY_AGENTcover,text='Search',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'))
+            self.DeliverEDITSearchsubmit=Button(self.EDIT_DELIVERY_AGENTcover,text='Search',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.EDIT_searchBYidORNameDeliveryAgent)
             self.DeliverEDITSearchsubmit.place( x=self.flexX+910,y=self.flexY+17,width=130)
 
 
@@ -1603,9 +2009,6 @@ class mainAdmin:
 
             self.Delivery_RESETEDIT=Button(self.EditDeliveryFrame,text='RESET',padx=20,pady=10,font=('Microsoft JhengHei',10,'bold'),command=self.EDIT_DELIVERY_AGENT_reset)
             self.Delivery_RESETEDIT.place(x=self.FlexXD+246,y=self.FlexYD+310,width=150)
-
-
-
 
 
 
@@ -1744,8 +2147,6 @@ class mainAdmin:
             self.itemSectionSELLER.column("EMAIL",anchor=W,width=80)
             self.itemSectionSELLER.column("CONTACT",anchor=W,width=80)
        
-
-
             self.itemSectionSELLER.heading("ID",text="ID",anchor=W)
             self.itemSectionSELLER.heading("NAME",text="NAME",anchor=W)
             self.itemSectionSELLER.heading("ADDRESS",text="ADDRESS",anchor=W)
@@ -1755,11 +2156,85 @@ class mainAdmin:
 
 
 
+        def UpdateSpecs1(self):
+            if self.SetProduct.get()=="":
+                self.SetSearchIDTEXT.delete(1.0,END)
+                self.SetSearchIDTEXT.insert(END,"Search ID Field\nEmpty")
+                return
+            self.UpdateSPECS_mySQL=self.MYSQLconnection.cursor()
+            self.UpdateSPECS_mySQL.execute("select *from product where pid like '"+str(self.SetProduct.get())+"'")
+            self.FetchedData=self.UpdateSPECS_mySQL.fetchall()
+
+            if self.FetchedData==[]:
+                self.SetSearchIDTEXT.delete(0,END)
+                self.SetSearchIDTEXT.insert(END,"Record Doesnt Exist")
+                self.UpdateSPECS_mySQL.close()
+                return
+           
+            self.UpdateSPECS_mySQL.execute("Update product set spec='"+str(self.textareaProductSpecification.get("1.0",END))+"' where pid like '"+str(self.SetProduct.get())+"'")
+            self.UpdateSPECS_mySQL.execute("commit")
+            self.UpdateSPECS_mySQL.close()
+            self.SetSearchIDTEXT.delete(1.0,END)
+            self.textareaProductSpecification.delete(1.0,END)
+            self.SetSearchIDTEXT.insert(END,"Product Specification\nUpdated Successfully")
+            self.SetProduct.delete(0,END)
+
+        def UpdateDescription(self):
+
+            if self.SetProduct.get()=="":
+                self.SetSearchIDTEXT.delete(1.0,END)
+                self.SetSearchIDTEXT.insert(END,"Search ID Field\nEmpty")
+                return
+            self.UpdateSPECS_mySQL=self.MYSQLconnection.cursor()
+            self.UpdateSPECS_mySQL.execute("select *from product where pid like '"+str(self.SetProduct.get())+"'")
+            self.FetchedData=self.UpdateSPECS_mySQL.fetchall()
+
+            if self.FetchedData==[]:
+                self.SetSearchIDTEXT.delete(0,END)
+                self.SetSearchIDTEXT.insert(END,"Record Doesnt Exist")
+                self.UpdateSPECS_mySQL.close()
+                return
+            self.UpdateSPECS_mySQL.execute("Update product set des='"+str(self.textareaProductDescription.get("1.0",END))+"' where pid like '"+str(self.SetProduct.get())+"'")
+            self.UpdateSPECS_mySQL.execute("commit")
+            self.UpdateSPECS_mySQL.close()
+            self.SetSearchIDTEXT.delete(1.0,END)
+            self.textareaProductDescription.delete(1.0,END)
+            self.SetSearchIDTEXT.insert(END,"Product Description\nUpdated Successfully")
+            self.SetProduct.delete(0,END)
+
             
         def UPDATE_ADVERTISEMENTS(self):
             self.current=9
+            self.FlexXD1=340
             self.UPDATE_ADScover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE10.place(y=self.SideStart2+225,width=200,x=235,height=35)
+            self.SepcificationTAG=Label(self.UPDATE_ADScover,text='Enter Product Specifications :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
+            self.SepcificationTAG.place(x=self.FlexXD1+40,y=self.FlexYD+26) 
+            self.textareaProductSpecification=Text(self.UPDATE_ADScover,width=50,height=30)
+            self.textareaProductSpecification.place(x=self.FlexXD1+40,y=self.FlexYD+70)
+            self.textareaProductSpecification.insert(END," STATUS BOX:")
+
+            self.DescriptionTAG=Label(self.UPDATE_ADScover,text='Enter Product Description :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
+            self.DescriptionTAG.place(x=self.FlexXD1+440+40,y=self.FlexYD+26) 
+            self.textareaProductDescription=Text(self.UPDATE_ADScover,width=50,height=30)
+            self.textareaProductDescription.place(x=self.FlexXD1+40+440,y=self.FlexYD+70)
+            self.textareaProductDescription.insert(END," STATUS BOX:")
+
+            self.SetProductTAG=Label(self.UPDATE_ADScover,text='Enter ProductID :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
+            self.SetProductTAG.place(x=self.FlexXD+40,y=self.FlexYD+80) 
+            self.SetProduct=Entry( self.UPDATE_ADScover,width=45,relief=SUNKEN)
+            self.SetProduct.place(x=self.FlexXD+40,y=self.FlexYD+120,height=30,width=280)
+
+            self.SetSearchIDTEXT=Text(self.UPDATE_ADScover,width=34,height=5)
+            self.SetSearchIDTEXT.place(x=self.FlexXD+40,y=self.FlexYD+190)
+            self.SetSearchIDTEXT.insert(END," STATUS BOX:")
+
+            self.UpdateSpecs=Button(self.UPDATE_ADScover,text='Update Sepcifications',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.UpdateSpecs1)
+            self.UpdateSpecs.place(x=self.FlexXD+40,y=self.FlexYD+310,width=130)
+
+            self.UpdateDesc=Button(self.UPDATE_ADScover,text='Update Descriptions',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.UpdateDescription)
+            self.UpdateDesc.place(x=self.FlexXD+185,y=self.FlexYD+310,width=130)
+
 
         def SEND_NEWLETTERS(self):
             self.current=10
@@ -1771,17 +2246,289 @@ class mainAdmin:
             self.EMAIL_DELIVERY_AGENTScover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE12.place(y=self.SideStart3+90,width=200,x=235,height=35)
       
+class invoiceDesign:
+    
+    img1="C:/Users/Lloyd/Desktop/Craftoza/Invoice/Final Non Tested Invoice/Main Template.png"
+    img2="C:/Users/Lloyd/Desktop/Craftoza/Invoice/3.png"
+    img3="C:/Users/Lloyd\Desktop/Craftoza/Invoice/2.png"
+    img4="C:/Users/Lloyd/Desktop/Craftoza/Invoice/1.png"
+    GrandTotal=0
+    GrandTaxTotal=0
+    
+
+    def __init__(self,x):  
+        self.ParentPath="C:/Invoice PDFs Craftoza"
+        self.ChildPath=str(self.ParentPath)+"/"+str(x)+".pdf"
+        self.c=canvas.Canvas( self.ChildPath)
+        self.d=canvas.Canvas( self.ChildPath)
+        self.c.drawImage(self.img1,0,-140,width=210*mm,preserveAspectRatio=True,mask='auto')
+    
+
+    def QR(self,UDC):
+        qr=QRCodeImage(UDC,size=30*mm)
+        qr.drawOn(self.c,35,415)
+    
+
+    def Seller(self,Name,Ward,Village_City,Taluka_State):
+        self.c.drawString(28,700,Name)
+        self.c.drawString(28,685,Ward)
+        self.c.drawString(28,670,Village_City)
+        self.c.drawString(28,655,Taluka_State)
+    
+        
+
+    def BillingAddress(self,Name,Ward,Village_City,Taluka_State,Pincode):
+        self.c.drawRightString(560,700,Name)
+        self.c.drawRightString(560,685,Ward)
+        self.c.drawRightString(560,670,Village_City)
+        self.c.drawRightString(560,655,Taluka_State)
+        self.c.drawRightString(560,640,Pincode)
+       
+
+    def ShippingAddress(self,Name,Ward,Village_City,Taluka_State,Pincode):
+        self.c.drawRightString(560,560,Name)
+        self.c.drawRightString(560,545,Ward)
+        self.c.drawRightString(560,530,Village_City)
+        self.c.drawRightString(560,515,Taluka_State)
+        self.c.drawRightString(560,500,Pincode)
+      
+
+    def OrderDeets(self,OrderDate,Customer_ID,UDC):
+        self.c.drawString(180,575,OrderDate)
+        self.c.drawString(107,553,Customer_ID)
+        self.c.drawString(158,526,UDC)
+
+
+    def TableTitle(self):
+        self.c.drawImage(self.img2,28,375,width=190.544*mm,preserveAspectRatio=True,mask='auto')
+
+
+    def UpdateTableNew(self,ProductName,UnitPrice,Discount,Qty,NetAmount,TaxRate,TaxAmount,TotalAmount):
+            i=325
+            z=i+28
+            self.c.setFont('Helvetica', 8)
+            self.c.drawImage(self.img3,28,i,width=190.544*mm,preserveAspectRatio=True,mask='auto')
+            self.c.drawString(37,z,str("1"))
+            self.c.drawString(60,z,str(ProductName))
+            self.c.drawString(315,z,str(UnitPrice))
+            self.c.drawString(370,z,str(Discount))
+            self.c.drawString(409,z,str(Qty))
+            self.c.drawRightString(449,z,str(NetAmount))
+            self.c.drawRightString(472,z,str(TaxRate))
+            self.c.drawRightString(505,z,str(TaxAmount))
+            self.c.drawRightString(560,z,str(TotalAmount))
+            i=i-50
+        
+    def update(self):
+        self.c.showPage()
+        self.c.save()
+
+
+
+class OrderPool:
+          
+    def __init__(self):
+            self.OP=Tk()
+            self.MYSQLconnection2=mysql.connect(host="localhost",user="root",password="",database="craftozalloyd",port=3307)
+            self.OP.title('CRAFTOZA Admin Panel')
+            self.OP.configure(bg='whitesmoke')
+            self.OP.geometry('1366x768')
+            self.OP.state('zoomed')
+            self.tabControl = ttk.Notebook(self.OP)
+            self.tab1 = Frame(self.tabControl,width=1600,height=710,bg="whitesmoke")
+            self.tab2 = Frame(self.tabControl,width=1600,height=710,bg="whitesmoke")
+            self.tabControl.add(self.tab1, text='Order Pool')
+            self.tabControl.add(self.tab2, text='Order Invoice')
+            self.tabControl.place(y=90,x=0)
+            style=ttk.Style()
+            style.theme_create( "MyStyle", parent="classic", settings={
+        "TNotebook": {"configure": {"tabmargins": [0, 0, 0, 0] } },
+        "TNotebook.Tab": {
+            "configure": {"padding": [50, 12], "background":"#CD3333", "foreground":"white"  },
+            "map":       {"background": [("selected", "#CD3333")],
+                          "expand": [("selected", [1, 1, 1, 0])] } } } )
+     
+
+            style.theme_use("MyStyle")
+            self.Main_TitleOP=Frame(self.OP,height=90,bg="#CD3333")
+            self.Main_TitleOP.pack(fill=X)
+            self.imggOP=Image.open("C:/Users/Lloyd/Desktop/CLLoyd/Images/redImage1.png")
+            self.resizeIMGOP= self.imggOP.resize((180,45))
+            self.imgOP=ImageTk.PhotoImage( self.resizeIMGOP)
+            self.TitleImageOP=Label(self.Main_TitleOP,image= self.imgOP,bg="#CD3333")
+            self.TitleImageOP.place(x=130,y=45,anchor=CENTER)
+            
+            self.LOGOUTOP=Label(self.Main_TitleOP,bg="#CD3333",text="Log Out",fg='white' ,font=('century gothic',10),justify=CENTER)
+            self.LOGOUTOP.place(y=25,width=120,x=1400,height=70)
+            self.SITEOP=Label(self.Main_TitleOP,bg="#CD3333",text="Change Password",fg='white' ,font=('century gothic',10),justify=CENTER)
+            self.SITEOP.place(y=25,width=120,x=1280,height=70)
+            self.OPENWEBOP=Label(self.Main_TitleOP,bg="#CD3333",text="Open Website",fg='white' ,font=('century gothic',10),justify=CENTER)
+            self.OPENWEBOP.place(y=25,width=120,x=1145,height=70)
+
+ 
+            self.TreeviewTAG=Label(self.tab1,bg="whitesmoke",text="ORDER POOL",fg='black' ,font=('century gothic',14),justify=CENTER)
+            self.TreeviewTAG.place(y=20,width=126,x=59,height=70)
+
+     
+            self.OrderPOOLTable=ttk.Style()
+            self. OrderPOOLTable.configure("mystyle.Treeview.Heading",font=('century gothic',11,),background="#EE3B3B",foreground="white")
+            self.OrderPOOLTable.configure("mystyle.Treeview",font=('Microsoft JhengHei',9),background="white",foreground="black")
+            self.iteamSectionOP=ttk.Treeview(self.tab1,style="mystyle.Treeview")
+            self.OrderPOOLTable.map("Treeview",background=[('selected','light blue')])
+            self.iteamSectionOP['columns']=("UDC","Pid","Did","Uid","Quantity","Status","Delivery Address","Invoice Generated Status")
+            self.iteamSectionOP.column("#0",anchor=W,width=0,stretch=NO)
+            self.iteamSectionOP.column("UDC",anchor=W,width=90)
+            self.iteamSectionOP.column("Pid",anchor=W,width=30)
+            self.iteamSectionOP.column("Did",anchor=W,width=30)
+            self.iteamSectionOP.column("Uid",anchor=W,width=30)
+            self.iteamSectionOP.column("Quantity",anchor=W,width=30)
+            self.iteamSectionOP.column("Status",anchor=W,width=30)
+            self.iteamSectionOP.column("Delivery Address",anchor=W,width=130)
+            self.iteamSectionOP.column("Invoice Generated Status",anchor=W,width=80)
+       
+            self.iteamSectionOP.heading("UDC",text="Unique Delivery Code",anchor=W)
+            self.iteamSectionOP.heading("Pid",text="Product ID",anchor=W)
+            self.iteamSectionOP.heading("Did",text="Delivery Agent ID",anchor=W)
+            self.iteamSectionOP.heading("Uid",text="User ID",anchor=W)
+            self.iteamSectionOP.heading("Quantity",text="Quantity",anchor=W)
+            self.iteamSectionOP.heading("Status",text="Status",anchor=W)
+            self.iteamSectionOP.heading("Delivery Address",text="Delivery Address",anchor=W)
+            self.iteamSectionOP.heading("Invoice Generated Status",text="Invoice Generated Status",anchor=W)
+            self.iteamSectionOP.place(x=65,y=76,width=1400,height=500)
+
+            self.x=threading.Thread(target=self.Update_OrderPOOL)
+            self.x.start()
+
+            self.OPRefresh=Button(self.tab1,text='Refresh',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.Update_OrderPOOL2)
+            self.OPRefresh.place(x=1300,y=600,width=130,height=30)
+
+            self.OPRefresh=Button(self.tab1,text='Update Invoice Folder',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.Update_PDFfolderInvoice)
+            self.OPRefresh.place(x=1140,y=600,width=130,height=30)
+
+
+            self.TAB2FRAME=LabelFrame(self.tab2,bg="white",labelanchor="n",borderwidth=0)
+            self.TAB2FRAME.place(x=210,y=100,width=1090,height=425)
+
+            self.OPUpdateFolderViewLIst=Button(self.TAB2FRAME,text='Update List',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.UpdateFolderLIST)
+            self.OPUpdateFolderViewLIst.place(x=350,y=50,width=130,height=30)
+            
+            self.OPUpdateFolderViewLIst1=Button(self.TAB2FRAME,text='Open PDF',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.UpdateFolderShowPDF)
+            self.OPUpdateFolderViewLIst1.place(x=350,y=100,width=130,height=30)
+
+            self.OPUpdateFolderViewLIst2=Button(self.TAB2FRAME,text='Print PDF',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.PrintSelected)
+            self.OPUpdateFolderViewLIst2.place(x=350,y=150,width=130,height=30)
+
+            self.PdfFolderViewTAG=Label(self.TAB2FRAME,bg="whitesmoke",text="Invoice PDF Directory View",fg='black' ,font=('Century gothic',12),justify=CENTER)
+            self.PdfFolderViewTAG.place(x=46,y=50,width=260,height=35)
+            self.PdfFolderView=Listbox(self.TAB2FRAME,bg="#FCFCFC",borderwidth=0,fg='black',highlightthickness=0,font=('roboto',10),activestyle=None,selectborderwidth=0,relief=FLAT)
+            self.PdfFolderView.place(x=46,y=90,width=260,height=280)
+
+            for Directory in os.walk(r"C:\Invoice PDFs Craftoza"):
+                content=Directory[2]
+            
+            for i in content:
+                self.PdfFolderView.insert(END,str(i))
+
+            self.textareaOP5=Text( self.TAB2FRAME,width=35,height=5)
+            self.textareaOP5.place(x=520,y=50,)
+            self.textareaOP5.insert(END," STATUS BOX:")
+
+
+            
+            
+          
+     
+       
+            self.OP.mainloop()
+            
+    def UpdateFolderLIST(self):
+         self.PdfFolderView.delete(0,END)
+         for Directory in os.walk(r"C:\Invoice PDFs Craftoza"):
+                content=Directory[2]
+            
+         for i in content:
+                self.PdfFolderView.insert(END,str(i))
+
+    def UpdateFolderShowPDF(self):
+        self.PATHPDF="C:/Invoice PDFs Craftoza/"+str(self.PdfFolderView.get(ACTIVE))
+        wb.open_new(self.PATHPDF)
+    
+    def PrintSelected(self):
+        self.PATHPDFprint="C:/Invoice PDFs Craftoza/"+str(self.PdfFolderView.get(ACTIVE))
+        try:
+            os.startfile(self.PATHPDFprint,"print")
+        except Exception as e:
+              self.textareaOP5.delete(1.0,END)
+              self.textareaOP5.insert(END," Printer Error")
 
 
 
 
+    def Update_OrderPOOL(self):
 
+            while True:
+                for item in  self.iteamSectionOP.get_children():
+                    self.iteamSectionOP.delete(item)
+                self.UpdateOrderPool1_mySQL=self.MYSQLconnection2.cursor()
+                self.UpdateOrderPool1_mySQL.execute('COMMIT;')
+                self.UpdateOrderPool1_mySQL.execute("SET global TRANSACTION ISOLATION LEVEL READ COMMITTED;")
+                self.UpdateOrderPool1_mySQL.execute("select *from orders natural join address;")
+                self.UpdateOrderPool1_mySQL_OrderTableAddress=self.UpdateOrderPool1_mySQL.fetchall()
+         
+        
 
-
-
-
-
-
+                self.OPcount=0
+                for x in self.UpdateOrderPool1_mySQL_OrderTableAddress:
+                    self.NewAddress=str(x[7])+" "+str(x[8])+" "+str(x[9])+" "+str(x[10])+" "+str(x[11])+" "+str(x[12]) 
+                    self.iteamSectionOP.insert("",'end',iid= self.OPcount,values=(x[6],x[1],x[2],x[0],x[3],x[4],self.NewAddress,x[5]))
+                    self.OPcount= self.OPcount+1
+                self.UpdateOrderPool1_mySQL.close()
+                time.sleep(10)
+    
+    def Update_OrderPOOL2(self):
+                for item in  self.iteamSectionOP.get_children():
+                    self.iteamSectionOP.delete(item)
+                self.UpdateOrderPool_mySQL=self.MYSQLconnection2.cursor()
+                self.UpdateOrderPool_mySQL.execute("select *from orders natural join address;")
+                self.UpdateOrderPool_mySQL_OrderTableAddress=self.UpdateOrderPool_mySQL.fetchall()
+        
+                self.OPcount=0
+                for x in self.UpdateOrderPool_mySQL_OrderTableAddress:
+                    self.NewAddress=str(x[7])+" "+str(x[8])+" "+str(x[9])+" "+str(x[10])+" "+str(x[11])+" "+str(x[12]) 
+                    self.iteamSectionOP.insert("",'end',iid= self.OPcount,values=(x[0],x[1],x[2],x[6],x[3],x[4],self.NewAddress,x[5]))
+                    self.OPcount= self.OPcount+1
+                self.UpdateOrderPool_mySQL.close()
+                
+    
+    def Update_PDFfolderInvoice(self):
+        UpdatePDF_mySQL=self.MYSQLconnection2.cursor()
+        UpdatePDF_mySQL.execute("select udc,pid,did,qnt,status,PrintStatus,fname,mname,lname,hno,wname,villageCity,taluka,state,pincode,pnum,uid from(select *from orders natural join address natural join user)as k where k.PrintStatus like '0'")
+        UpdatePDFdata_mySQL=UpdatePDF_mySQL.fetchall()
+        
+       
+        for x in UpdatePDFdata_mySQL:
+            NewInstance=invoiceDesign(x[0])   
+            name=str(x[6])+" "+str(x[7])+" "+str(x[8])
+            addr=str(x[10])+" "+str(x[11])
+            UpdatePDF_mySQL.execute(" select *from seller where sid = (select sid from product where pid like '"+str(x[1])+"')")
+            currentseller=UpdatePDF_mySQL.fetchall()
+            NewInstance.Seller(str(currentseller[0][1]),str(currentseller[0][6]),str(currentseller[0][5]),str(currentseller[0][4]))
+            NewInstance.BillingAddress(name,x[9],addr,str(x[12])+" "+str(x[13]),str(x[14]))
+            NewInstance.ShippingAddress("Craftoza Warehouse","Reg-2365","Alto-Panjim","Bardez Goa","403604")
+            NewInstance.OrderDeets("2-2-2002",str(x[16]),str(x[0]))
+            NewInstance.QR(str(x[0]))
+            UpdatePDF_mySQL.execute("select pname,price,discnt from product where pid like '"+str(x[1])+"'")
+            ProductPrice_mySQL=UpdatePDF_mySQL.fetchall()
+            NetAMount=int(ProductPrice_mySQL[0][1])*int(x[3])
+            discount=NetAMount-(NetAMount*int(ProductPrice_mySQL[0][2]))
+            TaxAMount=discount*(8/100)
+            TotalAmount=discount+TaxAMount
+            NewInstance.UpdateTableNew(ProductPrice_mySQL[0][0], ProductPrice_mySQL[0][1],ProductPrice_mySQL[0][2],x[3], str(NetAMount),"8",str(TaxAMount),str(TotalAmount))
+            UpdatePDF_mySQL.execute("update orders set PrintStatus ='1' where udc ="+str(x[0]))
+            NewInstance.TableTitle()
+            NewInstance.update()
+            UpdatePDF_mySQL.execute('commit')
+       
             
 
 if __name__ == '__main__':
