@@ -143,7 +143,12 @@
                     <div class="text1"><?php echo $row1['pname']?></div>
                     <!-- <div class="text1">Basket</div> -->
                 </div>
-                <button id="buybtn">BUY NOW</button>
+                <button id="buybtn" onclick="load()">BUY NOW</button>
+                <script>
+                    function load() {
+                        window.location ="order.php";
+                    }
+                </script>
             </div>
 
             <hr>
