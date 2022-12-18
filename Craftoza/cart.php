@@ -1,31 +1,6 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
-    if($_SERVER["REQUEST_METHOD"]=="POST")
-    {
-        // if(isset($_POST['pid']))
-        // {
-        //     $_SESSION['pid']=$_POST['pid'];
-        // }    
-        // $sql1="SELECT * FROM `product` WHERE `pid`='{$_SESSION['pid']}'";
-        // $res1=mysqli_query($db,$sql1);
-        // $sql2="SELECT `fname`,`mname`,`lname`, `comment` FROM `user` NATURAL JOIN `reviews` WHERE `pid`='{$_SESSION['pid']}';";
-        // $res2=mysqli_query($db,$sql2);
-
-        // $row1=mysqli_fetch_assoc($res1);
-        
-
-        if(isset($_POST['order']))
-        {
-            // $sql2="UPDATE `view` SET `status`='cart' WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$POST['pid']}'";
-            // mysqli_query($db,$sql2);
-        }
-        if(isset($_POST['cart']))
-        {
-            $sql2="DELETE FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_POST['pid']}'";
-            $res2=mysqli_query($db,$sql2);
-        }
-    }
 ?>
 <!DOCTYPE html>
 
@@ -70,7 +45,25 @@
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>
-
+    <?php
+        if($_SERVER["REQUEST_METHOD"]=="POST")
+        {
+            if(isset($_POST['order']))
+            {
+                $_SESSION['pid']=$_POST['pid'];
+                echo "<script>
+                    function load() {
+                        window.location ='order.php';
+                    }
+                </script>";
+            }
+            if(isset($_POST['cart']))
+            {
+                $sql2="DELETE FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_POST['pid']}'";
+                $res2=mysqli_query($db,$sql2);
+            }
+        }
+    ?>
     <main>
         <div id="top">
             <p id="Headtext">My Cart</p>
@@ -111,7 +104,7 @@
                             <div id="btn">
                                 <form action="" method="POST">
                                     <input type="hidden" name="pid" value=<?php echo $row['pid']?>>
-                                    <input type="submit" value="Buy now" name="order" class="btn1" style="text-align: center;">
+                                    <input type="submit" value="Buy now" name="order" class="btn1" style="text-align: center;">            
                                     <input type="submit" value="Remove From Cart" name="cart" class="btn2" style="text-align: center;">
                                 </form>
                             </div>

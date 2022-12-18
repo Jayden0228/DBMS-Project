@@ -103,12 +103,10 @@
                         else
                         {
                             echo "<div id='box1'>";
-                                echo "<p id='ctext'>Saved Cards</p>";
+                            echo "<p id='ctext'>Saved Cards</p>";
                             while($row=mysqli_fetch_assoc($res))
                             {
-
                                 ?>
-
                                     <div id='card'>
                                         <div class='center cardarea'>
             
@@ -117,23 +115,15 @@
                                             <span class='ncard'>
                                                 <form action="#" method="post" style="margin:0;">
                                                     <input type="hidden" name="removecard" value=<?php echo $row['cardno']?>>
-                                                    <input type="submit" name="rcard" value="Remove" style="color: #FE981B;
-background: white; border:none; margin:0; padding:0">
+                                                    <input type="submit" name="rcard" value="Remove" style="color: #FE981B;background: white; border:none; margin:0; padding:0">
                                                 </form >
                                             </span>
                                         </div>
                                     </div>
-
                                 <?php
-                                // echo "<div id='card'>";
-                                //     echo "<div class='center cardarea'>";
-                                //         echo "<span class='cardname'>{$row['label']}</span>";
-                                //         echo "<span class='ncard remove'>Remove</span>";
-                                //     echo "</div>";
-                                // echo "</div>";
                             }
-                                echo "<hr>";
-                                echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newcd' class='ncard' >New Card</span></div>";
+                            echo "<hr>";
+                            echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newcd' class='ncard' >New Card</span></div>";
                             echo "</div>";
                         }
                     }
