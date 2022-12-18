@@ -211,3 +211,6 @@ input:focus{
 .order{
     margin-top: 20px;
 }
+input[type="radio"]{
+    width:3%;
+}

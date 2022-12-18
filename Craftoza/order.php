@@ -278,6 +278,19 @@
             <div id="mainbox3">
                 <p id="toptext">Payment</p>
                 <hr>
+                <label for="">Choose The Payment Method</label><br>
+                <form action="" method="POST" class="center">
+                    <input type="radio" name="payment" value="UPI">
+                    <label>UPI</label><br>
+                    <input type="radio" name="payment" value="Credit/Wallet">
+                    <label>Credit/Wallet</label><br>
+                    <input type="radio" name="payment" value="Net Banking">
+                    <label>Net Banking</label><br>
+                    <input type="radio" name="payment" value="Cash on Delivery">
+                    <label>Cash on Delivery</label><br>
+                    <br><br>
+                    <button class="center" type="submit">Choose</button>
+                </form>
                 <?php
                     $userid=$_SESSION['UserID'];
                     $sql="SELECT * FROM `creditcard` WHERE `uid`='$userid'";
