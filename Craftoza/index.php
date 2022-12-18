@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $msg="";
 ?>
 <!DOCTYPE html>
 
@@ -22,7 +21,7 @@
 
     <link rel="stylesheet" href="Css/productGallery.css">
     <link rel="stylesheet" href="Css/card.css">
-    <link rel="stylesheet" href="Css/ProductDetails.css"><!-- not found -->
+    <!-- <link rel="stylesheet" href="Css/ProductDetails.css">not found -->
 
     <link rel="stylesheet" href="Css/GoaMapPg.css">
 
@@ -42,19 +41,15 @@
         $num;
         if($_SERVER["REQUEST_METHOD"]=="POST")
         {
-            if(isset($_POST['login']))
+            if(isset($_POST["Login"]))
             {
-                $msg="";
                 $email=$_POST["Email"];
                 $password=$_POST["Password"];
                 $sql="SELECT * FROM `user` WHERE `email` = '$email'";
-    
                 $res=mysqli_query($db,$sql);
-    
                 if(mysqli_num_rows($res)==0)
                 {
-                    $msg="** Incorrect Email Or Password **";
-                    echo "<script>displayBlock('login');</script>";
+                    echo "** Incorrect Email Or Password **";
                 }
                 else
                 {
@@ -66,12 +61,41 @@
                         $_SESSION['Name']=$row["fname"];
                     }
                     else{
-                        $msg="** Incorrect Email Or Password **";
-                        echo "<script>displayBlock('login');</script>";
+                        echo "** Incorrect Email Or Password **";
+                        // echo "<script>displayBlock('login');</script>";
                     }
                 }
             }
-            else if(isset($_POST['signup']))
+            // if(isset($_POST['login']))
+            // {
+            //     $msg="";
+            //     $email=$_POST["Email"];
+            //     $password=$_POST["Password"];
+            //     $sql="SELECT * FROM `user` WHERE `email` = '$email'";
+    
+            //     $res=mysqli_query($db,$sql);
+    
+            //     if(mysqli_num_rows($res)==0)
+            //     {
+            //         // $msg="** Incorrect Email Or Password **";
+            //         echo "<script>displayBlock('login');</script>";
+            //     }
+            //     else
+            //     {
+            //         $row=mysqli_fetch_assoc($res);
+            //         $hashed_password=$row['pwd'];
+            //         if(password_verify($password, $hashed_password)){
+            //             $_SESSION['UserID']=$row["uid"];
+            //             $_SESSION['Email']=$row["email"];
+            //             $_SESSION['Name']=$row["fname"];
+            //         }
+            //         else{
+            //             // $msg="** Incorrect Email Or Password **";
+            //             echo "<script>displayBlock('login');</script>";
+            //         }
+            //     }
+            // }
+            if(isset($_POST['signup']))
             {
                 $email=$_POST["Email"];
                 $password=$_POST["Password"];
@@ -86,38 +110,87 @@
                 $_SESSION['Email']=$row["email"];
                 header("Location: profile.php");
             }
+            // if(isset($_POST['forgotpwd']))
+            // {
+            //     $email = $_POST['Email1'];
+            //     $sql="SELECT * FROM `user` WHERE `email` = '$email'";
+    
+            //     $res=mysqli_query($db,$sql);
+    
+            //     if(mysqli_num_rows($res)==0)
+            //     {
+            //         // echo "NO Such User";
+            //     }else{
+            //         // $row=mysqli_fetch_assoc($res);
+                    
+            //         // $_SESSION['UserID']=$row["uid"];
+    
+            //         $num=0;
+            //         $i=0;
+            //         while($i<6)
+            //         {
+            //             $num*=10;
+            //             $num+=rand(0,9);
+            //             $i+=1;
+            //         }
+            //         include "Php/mail.php";
+            //         $_SESSION['otp']=$num;
+            //         // $_SESSION['showotp']='yes';
+            //     }
+            // }
             if(isset($_POST['forgotpwd']))
             {
-                $email = $_POST['Email1'];
+                $email = $_POST['Email'];
                 $sql="SELECT * FROM `user` WHERE `email` = '$email'";
-    
+
                 $res=mysqli_query($db,$sql);
-    
+
                 if(mysqli_num_rows($res)==0)
                 {
                     // echo "NO Such User";
                 }else{
-                    $row=mysqli_fetch_assoc($res);
-                    
-                    $_SESSION['UserID']=$row["uid"];
-    
-                    // $num=rand(0,9)+(rand(0,9)*10)+(rand(0,9)*100)+(rand(0,9)*1000)+(rand(0,9)*10000)+(rand(0,9)*100000);
-                    // $sub="Craft OPT";
-                    // $msg="Your OTP is $num DONT'T SEND IT TO ANYONE";
-                    // mail($email, $sub, $msg);
-                    $_SESSION['otp']=111111;
+                    $num=0;
+                    $i=0;
+                    while($i<6)
+                    {
+                        $num*=10;
+                        $num+=rand(0,9);
+                        $i+=1;
+                    }
+                    include "Php/mail.php";
+                    $_SESSION['otp']=$num;
                 }
+                echo "Done";
             }
-            else if(isset($_POST['OTP']))
+            if(isset($_POST['resend']))
+            {
+                $num=0;
+                $i=0;
+                while($i<6)
+                {
+                    $num*=10;
+                    $num+=rand(0,9);
+                }
+                include "Php/mail.php";
+                $_SESSION['otp']=$num;
+                // $_SESSION['showotp']='yes';
+            }
+            if(isset($_POST['OTP']))
             {
                 $otp=$_POST["otp"];
-    
                 if($_SESSION['otp']!=$otp)
                 {
-                    // echo "NO Such User";
+                    echo "Invalid OTP";
+                }
+                else{
+                    ?>
+                    <script>
+                        console.log("INside the else")
+                    </script>
+                    <?php
                 }
             }
-            else if(isset($_POST['newpwd']))
+            if(isset($_POST['newpwd']))
             {
                 $userid=$_SESSION['UserID'];
                 $password=$_POST["Password"];
@@ -524,5 +597,7 @@
     <script src="JS/Login.js"></script>
     <script src="JS/ProdGallery.js"></script>
     <script src="JS/Ads1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.2.js" integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4=" crossorigin="anonymous"></script>
+    <script src="JS/loginjQuery.js"></script>
 </body>
 </html>
