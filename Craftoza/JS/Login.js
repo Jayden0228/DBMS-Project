@@ -1,4 +1,4 @@
-let i=2;
+var i=2;
 
 function displayNone(x) {
     document.getElementById(x).style.display = "none";
@@ -21,7 +21,7 @@ function validateLogin(thisform)
         thisform.Password.title="Minimum 8 characters";
         return false;
     }
-    displayNone('login')
+    // displayNone('login')
     return true;
 }
 
