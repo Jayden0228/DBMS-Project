@@ -24,7 +24,7 @@ import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import ( FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
-
+import smtplib
 
 
 #Craftoza Modules
@@ -864,6 +864,7 @@ class mainAdmin:
              self.getDataFromCraftozaModule=General_CraftozaDeets()
              self.R5=self.getDataFromCraftozaModule.get_Revenue()
              self.TodaySale=self.getDataFromCraftozaModule.get_TodaySales()
+             self.ThusMonth=self.getDataFromCraftozaModule.get_ThisMonthSales()
 
              self.TotalRevenueContainerStats=LabelFrame(self.STATISTICScover,bg="darkseagreen1",labelanchor="n",borderwidth=0)
              self.TotalRevenueContainerStats.place(y=self.flexY,x=self.flexX+900+30,width=250,height=165)
@@ -881,9 +882,9 @@ class mainAdmin:
 
              self.LastMonthRevenueContainerStats=LabelFrame(self.STATISTICScover,bg="lightpink",labelanchor="n",borderwidth=0)
              self.LastMonthRevenueContainerStats.place(y=self.flexY+400,x=self.flexX+900+30,width=250,height=165)
-             self.LastMonthTitleStats=Label( self.LastMonthRevenueContainerStats,bg="lightpink",text="Sales Last Month",fg='black' ,font=('Century gothic',13),justify=CENTER)
+             self.LastMonthTitleStats=Label( self.LastMonthRevenueContainerStats,bg="lightpink",text="Sales This Month",fg='black' ,font=('Century gothic',13),justify=CENTER)
              self.LastMonthTitleStats.place(y=110,x=22,width=200,height=50)
-             self.LastMonthNumberStats=Label( self.LastMonthRevenueContainerStats,bg="lightpink",text="Rs. 0",fg='black' ,font=('Century gothic',35),justify=CENTER)
+             self.LastMonthNumberStats=Label( self.LastMonthRevenueContainerStats,bg="lightpink",text="Rs."+str(self.ThusMonth),fg='black' ,font=('Century gothic',25),justify=CENTER)
              self.LastMonthNumberStats.place(y=20,x=10,width=240,height=100)
 
              self.Statistics_mySQL.execute("commit")
@@ -2238,13 +2239,13 @@ class mainAdmin:
             self.DashBoardSIDE10.place(y=self.SideStart2+225,width=200,x=235,height=35)
             self.SepcificationTAG=Label(self.UPDATE_ADScover,text='Enter Product Specifications :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
             self.SepcificationTAG.place(x=self.FlexXD1+40,y=self.FlexYD+26) 
-            self.textareaProductSpecification=Text(self.UPDATE_ADScover,width=50,height=30)
+            self.textareaProductSpecification=Text(self.UPDATE_ADScover,width=50,height=30,wrap="word")
             self.textareaProductSpecification.place(x=self.FlexXD1+40,y=self.FlexYD+70)
             self.textareaProductSpecification.insert(END," STATUS BOX:")
 
             self.DescriptionTAG=Label(self.UPDATE_ADScover,text='Enter Product Description :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
             self.DescriptionTAG.place(x=self.FlexXD1+440+40,y=self.FlexYD+26) 
-            self.textareaProductDescription=Text(self.UPDATE_ADScover,width=50,height=30)
+            self.textareaProductDescription=Text(self.UPDATE_ADScover,width=50,height=30,wrap="word")
             self.textareaProductDescription.place(x=self.FlexXD1+40+440,y=self.FlexYD+70)
             self.textareaProductDescription.insert(END," STATUS BOX:")
 
@@ -2253,9 +2254,10 @@ class mainAdmin:
             self.SetProduct=Entry( self.UPDATE_ADScover,width=45,relief=SUNKEN)
             self.SetProduct.place(x=self.FlexXD+40,y=self.FlexYD+120,height=30,width=280)
 
-            self.SetSearchIDTEXT=Text(self.UPDATE_ADScover,width=34,height=5)
+            self.SetSearchIDTEXT=Text(self.UPDATE_ADScover,width=34,height=5,wrap="word")
             self.SetSearchIDTEXT.place(x=self.FlexXD+40,y=self.FlexYD+190)
             self.SetSearchIDTEXT.insert(END," STATUS BOX:")
+            
 
             self.UpdateSpecs=Button(self.UPDATE_ADScover,text='Update Sepcifications',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.UpdateSpecs1)
             self.UpdateSpecs.place(x=self.FlexXD+40,y=self.FlexYD+310,width=130)
@@ -2268,6 +2270,47 @@ class mainAdmin:
             self.current=10
             self.SEND_NEWLETTERScover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE11.place(y=self.SideStart3+45,width=200,x=235,height=35)
+            self.NewsLFrame=LabelFrame(self.SEND_NEWLETTERScover,bg="white",labelanchor="n",borderwidth=0)
+            self.NewsLFrame.place(x=50+30,y=self.flexY,width=1090,height=630)
+            self.NewsLFrameTAG=Label(self.SEND_NEWLETTERScover,text='Newsletter Notepad:  ',bg="white",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
+            self.NewsLFrameTAG.place(x=120,y=60) 
+
+            self.sendNEws=Button(self.NewsLFrame,text='Send News Letter',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.AREuSure)
+            self.sendNEws.place(x=900,y=570,width=130)
+        
+
+            self.SetSubject=Entry(self.NewsLFrame,width=45,relief=SUNKEN)
+            self.SetSubject.insert(0,"Enter subject here")
+            self.SetSubject.place(x=40,y=570,height=30,width=300)
+            self.textareaNewsLetter=Text( self.NewsLFrame,width=125,height=30,wrap="word")
+            self.textareaNewsLetter.place(x=40,y=60)
+            
+
+        def AREuSure(self):
+
+            if self.SetSubject.get()=="Enter subject here" or len(self.SetSubject.get())==0 :
+                messagebox.showinfo("Newletter Mail","Subject not defined")
+                return
+
+            if len(self.textareaNewsLetter.get("1.0",END)) == 1:
+                messagebox.showinfo("Newletter Mail","Textbox Empty")
+                return
+          
+            ans=messagebox.askyesno("Newletter Mail","Are you sure?")
+            if ans==True:
+             try:
+                li=["lloydcosta23@gmail.com","enquirycraftoza@gmail.com","vasrenza@gmail.com","salrima2001@gmail.com"]
+                for dest in li:
+                    s=smtplib.SMTP('smtp.gmail.com',587)
+                    s.starttls()
+                    message='Subject: {}\n\n{}'.format(self.SetSubject.get(),self.textareaNewsLetter.get("1.0",END))
+                    s.login("lloydcosta2002@gmail.com","aayzraadrkxfsixk")
+                    s.sendmail("lloydcosta2002@gmail.com",dest,message)
+                    s.quit()
+             except:
+                messagebox.showinfo("Newletter Mail","Email not sent! Check you connection")
+                return
+             messagebox.showinfo("Newletter Mail","Email sent successfully!")
         
         def SEND_MAIL_DELIVERYagent(self):
             self.current=11
@@ -2293,7 +2336,7 @@ class invoiceDesign:
     
 
     def QR(self,UDC):
-        qr=QRCodeImage(UDC,size=30*mm)
+        qr=QRCodeImage(str(UDC),size=30*mm)
         qr.drawOn(self.c,35,415)
     
 
@@ -2426,12 +2469,13 @@ class OrderPool:
 
             self.x=threading.Thread(target=self.Update_OrderPOOL)
             self.x.start()
+      
 
             self.OPRefresh=Button(self.tab1,text='Refresh',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.Update_OrderPOOL2)
             self.OPRefresh.place(x=1300,y=600,width=130,height=30)
 
-            self.OPRefresh=Button(self.tab1,text='Update Invoice Folder',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.Update_PDFfolderInvoice)
-            self.OPRefresh.place(x=1140,y=600,width=130,height=30)
+            self.OPRefresh2=Button(self.tab1,text='Update Invoice Folder',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.Update_PDFfolderInvoice)
+            self.OPRefresh2.place(x=1140,y=600,width=130,height=30)
 
 
             self.TAB2FRAME=LabelFrame(self.tab2,bg="white",labelanchor="n",borderwidth=0)
@@ -2507,7 +2551,7 @@ class OrderPool:
 
                 self.OPcount=0
                 for x in self.UpdateOrderPool1_mySQL_OrderTableAddress:
-                    self.NewAddress=str(x[7])+" "+str(x[8])+" "+str(x[9])+" "+str(x[10])+" "+str(x[11])+" "+str(x[12]) 
+                    self.NewAddress=str(str(x[8])+" "+str(x[9])+" "+str(x[10])+" "+str(x[11])+" "+str(x[12]) )
                     self.iteamSectionOP.insert("",'end',iid= self.OPcount,values=(x[6],x[1],x[2],x[0],x[3],x[4],self.NewAddress,x[5]))
                     self.OPcount= self.OPcount+1
                 self.UpdateOrderPool1_mySQL.close()
@@ -2522,48 +2566,51 @@ class OrderPool:
         
                 self.OPcount=0
                 for x in self.UpdateOrderPool_mySQL_OrderTableAddress:
-                    self.NewAddress=str(x[7])+" "+str(x[8])+" "+str(x[9])+" "+str(x[10])+" "+str(x[11])+" "+str(x[12]) 
+                    self.NewAddress=str(str(x[8])+" "+str(x[9])+" "+str(x[10])+" "+str(x[11])+" "+str(x[12]))
                     self.iteamSectionOP.insert("",'end',iid= self.OPcount,values=(x[0],x[1],x[2],x[6],x[3],x[4],self.NewAddress,x[5]))
                     self.OPcount= self.OPcount+1
                 self.UpdateOrderPool_mySQL.close()
                 
     
     def Update_PDFfolderInvoice(self):
-        UpdatePDF_mySQL=self.MYSQLconnection2.cursor()
-        UpdatePDF_mySQL.execute("select udc,pid,did,qnt,status,PrintStatus,fname,mname,lname,hno,wname,villageCity,taluka,state,pincode,pnum,uid from(select *from orders natural join address natural join user)as k where k.PrintStatus like '0'")
-        UpdatePDFdata_mySQL=UpdatePDF_mySQL.fetchall()
+        self.UpdatePDF_mySQL=self.MYSQLconnection2.cursor()
+        self.UpdatePDF_mySQL.execute("select udc,pid,did,qnt,status,PrintStatus,fname,mname,lname,hno,wname,villageCity,taluka,state,pincode,pnum,uid from(select *from orders natural join address natural join user)as k where k.PrintStatus like '0'")
+        self.UpdatePDFdata_mySQL=self.UpdatePDF_mySQL.fetchall()
+        self.x24=threading.Thread(target=self.UpdateTableOR)
+        self.x24.start()
         
-       
-        for x in UpdatePDFdata_mySQL:
+    def UpdateTableOR(self):   
+        for x in self.UpdatePDFdata_mySQL:
             NewInstance=invoiceDesign(x[0])   
             name=str(x[6])+" "+str(x[7])+" "+str(x[8])
             addr=str(x[10])+" "+str(x[11])
-            UpdatePDF_mySQL.execute(" select *from seller where sid = (select sid from product where pid like '"+str(x[1])+"')")
-            currentseller=UpdatePDF_mySQL.fetchall()
+            self.UpdatePDF_mySQL.execute(" select *from seller where sid = (select sid from product where pid like '"+str(x[1])+"')")
+            currentseller=self.UpdatePDF_mySQL.fetchall()
             NewInstance.Seller(str(currentseller[0][1]),str(currentseller[0][6]),str(currentseller[0][5]),str(currentseller[0][4]))
             NewInstance.BillingAddress(name,x[9],addr,str(x[12])+" "+str(x[13]),str(x[14]))
             NewInstance.ShippingAddress("Craftoza Warehouse","Reg-2365","Alto-Panjim","Bardez Goa","403604")
             NewInstance.OrderDeets("2-2-2002",str(x[16]),str(x[0]))
             NewInstance.QR(str(x[0]))
-            UpdatePDF_mySQL.execute("select pname,price,discnt from product where pid like '"+str(x[1])+"'")
-            ProductPrice_mySQL=UpdatePDF_mySQL.fetchall()
+            self.UpdatePDF_mySQL.execute("select pname,price,discnt from product where pid like '"+str(x[1])+"'")
+            ProductPrice_mySQL=self.UpdatePDF_mySQL.fetchall()
             NetAMount=int(ProductPrice_mySQL[0][1])*int(x[3])
             discount=NetAMount-(NetAMount*int(ProductPrice_mySQL[0][2]))
             TaxAMount=discount*(8/100)
             TotalAmount=discount+TaxAMount
             NewInstance.UpdateTableNew(ProductPrice_mySQL[0][0], ProductPrice_mySQL[0][1],ProductPrice_mySQL[0][2],x[3], str(NetAMount),"8",str(TaxAMount),str(TotalAmount))
-            UpdatePDF_mySQL.execute("update orders set PrintStatus ='1' where udc ="+str(x[0]))
+            self.UpdatePDF_mySQL.execute("update orders set PrintStatus ='1' where udc ="+str(x[0]))
             NewInstance.TableTitle()
             NewInstance.update()
-            UpdatePDF_mySQL.execute('commit')
+            self.UpdatePDF_mySQL.execute('commit')
        
-            
+         
 
 if __name__ == '__main__':
 
     # SPLASHscreen=Splashscreen()
     # OV=OPTION_VERIFICATION()
     x=mainAdmin()
+    # x=OrderPool()
  
 
     
