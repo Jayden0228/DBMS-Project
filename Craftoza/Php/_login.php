@@ -3,15 +3,11 @@
     <span class="arrow" onclick="displayNone('login')">&#8592;</span>
     <img src="Images/Logo.png" alt="Craftoza" class="center logo">
     <p class="head bolder">LOGIN</p>
-    <?php
-        echo "<p style='font-size: large;
-        font-weight: 300;
-        text-align: center;
-        color:#fd5353fe'>$msg</p>"
-    ?>
-    <form action="index.php" method="post" class="center2" onsubmit="return validateLogin(this)">
+    <p id='errmsg' style='font-size: large;font-weight: 300;text-align: center;color:#fd5353fe'></p>
+    <form autocomplete="off" class="center2" id="Loginform">
+    <!-- onsubmit="return validateLogin(this) -->
         <label for="Email">Email</label><br>
-        <input type="email" name="Email" value="" class="inp" required><br><br>
+        <input type="email" id="email"name="Email" class="inp" required><br><br>
         <label for="Password">Password</label><br>
         <input type="password" id="psw" name="Password" class="inp" required><br><br>
         <input type="submit" value="LOGIN" class="button2" name="login">
