@@ -101,3 +101,10 @@
     height: 16px;
     font-size: 30px;
 }
+#errmsg, #errmsg1, #errmsg2, #errmsg3, #errmsg4{
+    display: none;
+    font-size: large;
+    font-weight: 300;
+    text-align: center;
+    color:#fd5353fe
+}
