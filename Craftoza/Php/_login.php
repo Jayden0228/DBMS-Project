@@ -3,7 +3,7 @@
     <span class="arrow" onclick="displayNone('login')">&#8592;</span>
     <img src="Images/Logo.png" alt="Craftoza" class="center logo">
     <p class="head bolder">LOGIN</p>
-    <p id='errmsg' style='font-size: large;font-weight: 300;text-align: center;color:#fd5353fe'></p>
+    <p id='errmsg'></p>
     <form autocomplete="off" class="center2" id="Loginform">
     <!-- onsubmit="return validateLogin(this) -->
         <label for="Email">Email</label><br>

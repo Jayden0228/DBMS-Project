@@ -6,16 +6,49 @@ $(document).ready(function(){
         var password=$('#psw').val();
         $.ajax({
             type: 'POST',
-            url: 'index.php',
+            url: 'loginvalidate.php',
             data: {
                 Email: email,
                 Password: password,
                 Login: true
             },
             success:function(data){
-                // $('#errmsg').css('display','block');
-                // $('#errmsg').html(data);
-                location.reload();
+                if(data=='no')
+                {
+                    $('#errmsg').css('display','block');
+                    $('#errmsg').html('** Incorrect Email Or Password **');
+                }
+                else{
+                    $('#errmsg').css('display','none');
+                    location.reload();
+                }
+            }
+        });
+    });
+    
+    $('#Signupform').on('submit',function(e){
+        e.preventDefault();
+        var email=$('#semail').val();
+        var password=$('#spwd').val();
+        $.ajax({
+            type: 'POST',
+            url: 'loginvalidate.php',
+            data: {
+                Email: email,
+                Password: password,
+                Signup: true
+            },
+            success:function(data){
+                if(data=='no')
+                {
+                    $('#errmsg').css('display','block');
+                    $('#errmsg').html('Sign up failed! Try again');
+                }
+                else{
+                    $('#errmsg').css('display','none');
+                    // location.reload();
+                    $(location).prop('href','profile.php')
+                }
             }
         });
     });
@@ -25,42 +58,72 @@ $(document).ready(function(){
         var email=$('#email1').val();
         $.ajax({
             type: 'POST',
-            url: 'index.php',
+            url: 'loginvalidate.php',
             data: {
                 Email: email,
                 forgotpwd: true
             },
             success:function(data){
-                $('#errmsg').css('display','block');
-                $('#errmsg').html(data);
-                // location.reload();
+                if(data=='no'){
+                    $('#errmsg2').css('display','block');
+                    $('#errmsg2').html("Not signed up");
+                }
+                else{
+                    $('#gotp').css('display','block');
+                    $('#fpwd').css('display','none');
+                }
+                
             }
         });
-        $('#gotp').css('display','block');
-        $('#fpwd').css('display','none');
     });
 
     $('#OTPform').on('submit',function(e){
         e.preventDefault();
-        var otp=$('#otp').val();
+        var otp=$('#getotp').val();
+        console.log(otp);
         $.ajax({
             type: 'POST',
-            url: 'index.php',
+            url: 'loginvalidate.php',
             data: {
-                otp: otp,
+                Otp: otp,
                 OTP: true
             },
             success:function(data){
-                $('#errmsg1').css('display','block');
-                $('#errmsg1').html(data);
-                // location.reload();
+                if(data=='yes'){
+                    $('#npwd').show();
+                    $('#gotp').hide();
+                }
+                else{
+                    $('#errmsg1').css('display','block');
+                    $('#errmsg1').html("Enter a valid OTP");
+                }
             }
         });
-        console.log("otp test");
-        $('#npwd').show();
-        $('#gotp').hide();
-        // $('#npwd').css('display','block');
-        // $('#gotp').css('display','none');
-        console.log("otp test2");
+
+    });
+
+    $('#Changepwdform').on('submit',function(e){
+        e.preventDefault();
+        var password=$('#Password').val();
+        var cpassword=$('#CPassword').val();
+        $.ajax({
+            type: 'POST',
+            url: 'loginvalidate.php',
+            data: {
+                Password: password,
+                Newpass: true
+            },
+            success:function(data){
+                if(data=='no')
+                {
+                    $('#errmsg').css('display','block');
+                    $('#errmsg').html('Could not update the password');
+                }
+                else{
+                    $('#errmsg').css('display','none');
+                    location.reload();
+                }
+            }
+        });
     });
 });

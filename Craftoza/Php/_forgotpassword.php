@@ -7,6 +7,7 @@
 
     <!-- onsubmit="return validateFgtpwd(this)" -->
     <form autocomplete="off" class="center2" id="Forgotpassform"><br>
+        <p id='errmsg2'></p>
         <label for="Email">Email</label><br>
         <input type="email" id="email1" name="Email" class="inp" value="<?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "";}?>" required><br><br>
         <input type="submit" value="GET OTP" name="fgtpwd" class="button2"><br><br>
