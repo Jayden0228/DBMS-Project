@@ -147,8 +147,6 @@ class OPTION_VERIFICATION:
 
 
 
-
-
 class mainAdmin:
             
         def __init__(self):
@@ -303,11 +301,7 @@ class mainAdmin:
            
             # self.PRODUCT_INFO(0)
             self.DASHBOARD()
-            
-            # self.Statistics()
-            # self.DELIVERY_AGENT()
-            # self.EDIT_PRODUCT()
-            # self.ADD_DELIVER_AGENT()
+    
 
             self.AC.mainloop()
 
@@ -364,7 +358,6 @@ class mainAdmin:
         def DASHBOARD(self):
             self.current=0
            
-
             self.DASHBOARDcover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE1.place(y=self.SideStart1,width=235,x=236,height=35)
             self.dASHBOARD_mySQL=self.MYSQLconnection.cursor()
@@ -373,7 +366,7 @@ class mainAdmin:
             self.R52=self.getDataFromCraftozaModule.get_Revenue()
             self.getUsercnt=self.getDataFromCraftozaModule.get_UserCOUNT()
             self.getProductCNT=self.getDataFromCraftozaModule.get_ProductCOUNT()
-           
+     
          
             self.TotalRevenueContainer=LabelFrame(self.DASHBOARDcover,bg="#3A5FCD",labelanchor="n",borderwidth=0)
             self.TotalRevenueContainer.place(y=self.flexY,x=self.flexX+900+30,width=250,height=165)
@@ -407,11 +400,16 @@ class mainAdmin:
             self.MidContainer2=Label(self.DASHBOARDcover,text="Product Reviews",bg="mistyrose1",font=('Century gothic',13),justify=CENTER,fg="black")
             self.MidContainer2.place(y=self.flexY+390,x=self.flexX,width=650,height=35)
 
-            self.AdCampaignListTitle=Label(self.DASHBOARDcover,bg="mistyrose1",text="Current Advertise Campaigns",fg='black' ,font=('Century gothic',12),justify=CENTER)
-            self.AdCampaignListTitle.place(x=self.flexX,y=self.flexY+180,width=323,height=35)
-            self.AdCampaignList=Label(self.DASHBOARDcover,bg="white")
-            self.AdCampaignList.place(x=self.flexX,y=self.flexY+221,width=323,height=147)
-
+            self.ProductIDANATOMYTitle=Label(self.DASHBOARDcover,bg="mistyrose1",text="Product ID Dictionary",fg='black' ,font=('Century gothic',12),justify=CENTER)
+            self.ProductIDANATOMYTitle.place(x=self.flexX,y=self.flexY+180,width=323,height=35)
+            self.ProductIDANATOMY1=Listbox(self.DASHBOARDcover,bg="white",borderwidth=0,fg='black',highlightthickness=0,font=('roboto',10),activestyle=None,selectborderwidth=0,relief=FLAT)
+            self.ProductIDANATOMY1.place(x=self.flexX,y=self.flexY+221,width=161.5,height=147)
+            self.ProductIDANATOMY2=Listbox(self.DASHBOARDcover,bg="white",borderwidth=0,fg='black',highlightthickness=0,font=('roboto',10),activestyle=None,selectborderwidth=0,relief=FLAT)
+            self.ProductIDANATOMY2.place(x=self.flexX+161.5,y=self.flexY+221,width=161.5,height=147)
+            # self.ProductIDANATOMY=Label(self.DASHBOARDcover,bg="white")
+            # self.ProductIDANATOMY.place(x=self.flexX,y=self.flexY+221,width=323,height=147)
+            self.ProductDictionary()
+        
 
             self.MidContainer5=Label(self.DASHBOARDcover,bg="white")
             self.MidContainer5.place(x=self.flexX+350,y=self.flexY+240,width=555,height=130)
@@ -482,6 +480,15 @@ class mainAdmin:
             self.dASHBOARD_mySQL.close()
                    
 
+        def ProductDictionary(self):
+            
+            for X,Y in self.cat1.items():
+                self.ProductIDANATOMY1.insert(END,str(Y)+"  "+str(X))
+                
+            for X,Y in self.cat2.items():
+                    self.ProductIDANATOMY2.insert(END,str(Y)+"  "+str(X))
+            
+
         def selectedReview(self,a):
             self.CurItem6=self.itemSection1.focus()
             self.D6=self.itemSection1.item(self.CurItem6)
@@ -496,10 +503,6 @@ class mainAdmin:
 
             
 
-            
-         
-
-
         def CUST_EMAIL(self):
             self.EmailInbox=Label(self.DASHBOARDcover,bg="mistyrose1",text="Email Inbox",fg='black' ,font=('Century gothic',12),justify=CENTER)
             self.EmailInbox.place(x=self.flexX+350,y=self.flexY,width=260,height=35)
@@ -510,7 +513,7 @@ class mainAdmin:
             try:
                 self.imap=imaplib.IMAP4_SSL(self.SERVER,993)
                 self.imap.login(self.EMAIL_ADDRESS,self.PASSWORD)
-                self.imap.select('"[Gmail]/All Mail"')
+                self.imap.select('"[Gmail]/All Mail;"')
                 result, data = self.imap.uid('search', None, "ALL") # search all email and return uids
                 if result == 'OK':
                     for num in data[0].split():
@@ -759,13 +762,13 @@ class mainAdmin:
                 self.loopCount2=self.loopCount2+1
 
             #Topup Needed Count  
-            self.Display_Products_mySQL.execute("select count(pid) from product") 
+            self.Display_Products_mySQL.execute("select sum(price*qnt) from product") 
             self.InventoryCount=self.Display_Products_mySQL.fetchall()   
             self.InventoryCountContainer=LabelFrame( self.PRODUCT_INFOcover,bg="#FF3030",labelanchor="n",borderwidth=0)
             self.InventoryCountContainer.place(y=self.flexY+510,x=self.flexX+670+240,width=220,height=125)
-            self.InventoryCountTitle=Label(self.InventoryCountContainer,bg="#FF3030",text="Total Inventory Count",fg='white' ,font=('Century gothic',13))
+            self.InventoryCountTitle=Label(self.InventoryCountContainer,bg="#FF3030",text="Total Inventory Worth",fg='white' ,font=('Century gothic',13))
             self.InventoryCountTitle.place(y=65,x=6,width=210,height=50)
-            self.InventoryCountNumber=Label(self.InventoryCountContainer,bg="#FF3030",text=self.InventoryCount[0][0],fg='white' ,font=('Century gothic',40))
+            self.InventoryCountNumber=Label(self.InventoryCountContainer,bg="#FF3030",text="Rs."+str(self.InventoryCount[0][0]),fg='white' ,font=('Century gothic',25))
             self.InventoryCountNumber.place(y=10,x=35,width=150,height=60)
      
 
@@ -776,7 +779,7 @@ class mainAdmin:
             self.TopUPContainer.place(y=self.flexY+510,x=self.flexX+670,width=220,height=125)
             self.TopUTitle=Label(self.TopUPContainer,bg="#3A5FCD",text="Top Ups Needed ",fg='white' ,font=('Century gothic',13))
             self.TopUTitle.place(y=65,x=6,width=210,height=50)
-            self.TopUNumber=Label(self.TopUPContainer,bg="#3A5FCD",text=self.InventoryTOPup[0][0],fg='white' ,font=('Century gothic',40))
+            self.TopUNumber=Label(self.TopUPContainer,bg="#3A5FCD",text=self.InventoryTOPup[0][0],fg='white' ,font=('Century gothic',25))
             self.TopUNumber.place(y=10,x=35,width=150,height=60)
             self.Display_Products_mySQL.close()
 
@@ -786,6 +789,7 @@ class mainAdmin:
         def Statistics(self):
              self.current=2
              self.Statistics_mySQL=self.MYSQLconnection.cursor()
+             self.getDataFromCraftozaModule=General_CraftozaDeets()
              self.updateCompoundValue()  
              self.STATISTICScover.place(y=90,x=267,width=1300,height=710)
 
@@ -803,12 +807,24 @@ class mainAdmin:
              self.canvasMonthlyRevenue .get_tk_widget().place(height=300,width=400,x=self.flexX,y=self.flexY+30)
 
       
-
+             PopularBrands=self.getDataFromCraftozaModule.get_popularity()  
+             c3=0
+             top5BrandsNames=[]
+             top5BrandsValues=[]
+             for X in PopularBrands:
+                    self.Statistics_mySQL.execute("select company_name from (select pid,company_name from (select pid,sid from product) as K join seller on K.sid=seller.sid)as L where pid like '"+str(X[0])+"'")
+                    self.dbDataR=self.Statistics_mySQL.fetchall()
+                    top5BrandsNames.append(self.dbDataR[0][0])
+                    top5BrandsValues.append(X[1])
+                    c3=c3+1
+                    if c3==4:
+                        break
+        
              self.PieChartTitle=Label( self.STATISTICScover,bg="white",text="Top 5 Popular Brands",fg='Black' ,font=('Century gothic',13),justify=CENTER)
              self.PieChartTitle.place(x=self.flexX+428,y=self.flexY,width=250,height=30)
              self.f1=Figure()
              self.AX=self.f1.add_subplot(111)
-             self.AX.pie([15,25,40,10,10],radius=1,labels=["A","B","C","D","E"],autopct='%0.2f%%',shadow=True)
+             self.AX.pie(top5BrandsValues,radius=1,labels=top5BrandsNames,autopct='%0.2f%%',shadow=True,textprops={'fontsize':6})
              self.chart1=FigureCanvasTkAgg(self.f1,self.STATISTICScover)
              self.chart1.get_tk_widget().place(x=self.flexX+428,y=self.flexY+30,width=250,height=210)
             
@@ -861,7 +877,7 @@ class mainAdmin:
 
 
            
-             self.getDataFromCraftozaModule=General_CraftozaDeets()
+          
              self.R5=self.getDataFromCraftozaModule.get_Revenue()
              self.TodaySale=self.getDataFromCraftozaModule.get_TodaySales()
              self.ThusMonth=self.getDataFromCraftozaModule.get_ThisMonthSales()
@@ -888,21 +904,31 @@ class mainAdmin:
              self.LastMonthNumberStats.place(y=20,x=10,width=240,height=100)
 
              self.Statistics_mySQL.execute("commit")
-             self.Statistics_mySQL.execute("select pname from product where pid like (select pid from (select pid,count(pid) as cnt from orders group by pid)as k4 where k4.cnt = (select MAX(cnt) as BESTSELLINGproduct from (select pid,count(pid) as cnt from orders group by pid)as K))")
+            #  self.Statistics_mySQL.execute("select pname from product where pid like (select pid from (select pid,count(pid) as cnt from orders group by pid)as k4 where k4.cnt = (select MAX(cnt) as BESTSELLINGproduct from (select pid,count(pid) as cnt from orders group by pid)as K))")
+             self.Statistics_mySQL.execute(" select pname from product natural join (select pid from (select pid,count(pid) as cnt from orders group by pid)as k4 where k4.cnt = (select MAX(cnt) as BESTSELLINGproduct from (select pid,count(pid) as cnt from orders group by pid)as K))as d;")
              self.Frequently_Ordered_product=self.Statistics_mySQL.fetchall()
              self.MostSoldTitle=Label( self.STATISTICScover,bg="darkslategray1",text="Most Sold Product",fg='Black' ,font=('Century gothic',12),justify=CENTER)
              self.MostSoldTitle.place(x=self.flexX+705,y=self.flexY,width=200,height=30)
-             self.MostSoldFigure=Label( self.STATISTICScover,bg="white",text=str(self.Frequently_Ordered_product[0][0]),fg='Black' ,font=('calibri',9),justify=CENTER)
+             self.MostSoldFigure=Listbox(self.STATISTICScover,bg="white",borderwidth=0,fg='black',highlightthickness=0,font=('calibri',9),activestyle=None,selectborderwidth=0,relief=FLAT)
              self.MostSoldFigure.place(x=self.flexX+705,y=self.flexY+30,width=200,height=50)
+            #  self.MostSoldFigure=Label( self.STATISTICScover,bg="white",text=str(self.Frequently_Ordered_product[0][0]),fg='Black' ,font=('calibri',9),justify=CENTER)
+            #  self.MostSoldFigure.place(x=self.flexX+705,y=self.flexY+30,width=200,height=50)
+             for X in self.Frequently_Ordered_product:     
+                self.MostSoldFigure.insert(END,str(X[0]))
+            
 
              self.Statistics_mySQL.execute("commit")
-             self.Statistics_mySQL.execute("select pname from product where pid like ( select pid from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3)as H where AVG = (select MAX(AVG) as MAX from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3)as Y));")
+            #  self.Statistics_mySQL.execute("select pname from product where pid like ( select pid from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3)as H where AVG = (select MAX(AVG) as MAX from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3)as Y));")
+             self.Statistics_mySQL.execute(" select pname from product natural join ( select pid from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3)as H where AVG = (select MAX(AVG) as MAX from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3)as Y))as k;")
              self.HightProductAVG=self.Statistics_mySQL.fetchall()
              self.HighestRatedTitle=Label( self.STATISTICScover,bg="darkseagreen1",text="Highest Rated Product",fg='Black' ,font=('Century gothic',12),justify=CENTER)
              self.HighestRatedTitle.place(x=self.flexX+705,y=self.flexY+100,width=200,height=30)
-             
-             self.HighestRatedFigure=Label( self.STATISTICScover,bg="white",text=str(self.HightProductAVG[0][0]),fg='Black' ,font=('calibri',9),justify=CENTER)
+             self.HighestRatedFigure=Listbox(self.STATISTICScover,bg="white",borderwidth=0,fg='black',highlightthickness=0,font=('calibri',9),activestyle=None,selectborderwidth=0,relief=FLAT)
              self.HighestRatedFigure.place(x=self.flexX+705,y=self.flexY+130,width=200,height=50)
+            #  self.HighestRatedFigure=Label( self.STATISTICScover,bg="white",text=str(self.HightProductAVG[0][0]),fg='Black' ,font=('calibri',9),justify=CENTER)
+            #  self.HighestRatedFigure.place(x=self.flexX+705,y=self.flexY+130,width=200,height=50)
+             for X in self.HightProductAVG:     
+                self.HighestRatedFigure.insert(END,str(X[0]))
              
              self.Statistics_mySQL.execute("commit")
              self.Statistics_mySQL.execute(" select pname from (select *from (select pid,count(pid) as cnt from reviews group by pid) as T1 natural join (select pid,AVG(CommentCOMPUNDvalue) as AVG from reviews group by pid) as T2 where cnt >=3 and AVG<0)as S natural join product;")
@@ -914,6 +940,7 @@ class mainAdmin:
 
              for X in self.NegativeRated:     
                 self.NegativeList.insert(END,str(X[0]))
+            
 
 
              self.CFPTitle=Label( self.STATISTICScover,bg="#FCE6C9",text="Current Financial Year Profit",fg='Black' ,font=('Century gothic',13),justify=CENTER)
@@ -2195,7 +2222,7 @@ class mainAdmin:
             self.FetchedData=self.UpdateSPECS_mySQL.fetchall()
 
             if self.FetchedData==[]:
-                self.SetSearchIDTEXT.delete(0,END)
+                self.SetSearchIDTEXT.delete(1.0,END)
                 self.SetSearchIDTEXT.insert(END,"Record Doesnt Exist")
                 self.UpdateSPECS_mySQL.close()
                 return
@@ -2219,7 +2246,7 @@ class mainAdmin:
             self.FetchedData=self.UpdateSPECS_mySQL.fetchall()
 
             if self.FetchedData==[]:
-                self.SetSearchIDTEXT.delete(0,END)
+                self.SetSearchIDTEXT.delete(1.0,END)
                 self.SetSearchIDTEXT.insert(END,"Record Doesnt Exist")
                 self.UpdateSPECS_mySQL.close()
                 return
@@ -2307,6 +2334,8 @@ class mainAdmin:
                     s.login("lloydcosta2002@gmail.com","aayzraadrkxfsixk")
                     s.sendmail("lloydcosta2002@gmail.com",dest,message)
                     s.quit()
+                    self.textareaNewsLetter.delete(1.0,END)
+                    self.SetSubject.delete(0,END)
              except:
                 messagebox.showinfo("Newletter Mail","Email not sent! Check you connection")
                 return
@@ -2316,6 +2345,52 @@ class mainAdmin:
             self.current=11
             self.EMAIL_DELIVERY_AGENTScover.place(y=90,x=267,width=1300,height=710)
             self.DashBoardSIDE12.place(y=self.SideStart3+90,width=200,x=235,height=35)
+          
+    
+            self.DeliveryEMails=LabelFrame(self.EMAIL_DELIVERY_AGENTScover,bg="white",labelanchor="n",borderwidth=0)
+            self.DeliveryEMails.place(x=50+30,y=self.flexY,width=1090,height=630)
+            self.DeliveryEMailsTAG=Label( self.DeliveryEMails,text='Delivery Agent Notepad:  ',bg="white",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
+            self.DeliveryEMailsTAG.place(x=40,y=10) 
+
+            self.sendNEws=Button(self.DeliveryEMails,text='Send News Letter',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.AREuSureDelivery)
+            self.sendNEws.place(x=900,y=570,width=130)
+        
+
+            self.SetSubject3=Entry(self.DeliveryEMails,width=45,relief=SUNKEN)
+            self.SetSubject3.insert(0,"Enter subject here")
+            self.SetSubject3.place(x=40,y=570,height=30,width=300)
+            self.textareaDel=Text( self.DeliveryEMails,width=125,height=30,wrap="word")
+            self.textareaDel.place(x=40,y=60)
+            
+
+        def AREuSureDelivery(self):
+
+            if self.SetSubject3.get()=="Enter subject here" or len(self.SetSubject3.get())==0 :
+                messagebox.showinfo("Delivery Agent Mail","Subject not defined")
+                return
+
+            if len(self.textareaDel.get("1.0",END)) == 1:
+                if len(self.textareaDel.get("1.0",END)) == 1:
+                    messagebox.showinfo("Delivery Agent Mail","Textbox Empty")
+                    return
+          
+            ans=messagebox.askyesno("Delivery Agent Mail","Are you sure?")
+            if ans==True:
+             try:
+                li=["lloydcosta23@gmail.com","enquirycraftoza@gmail.com","vasrenza@gmail.com","salrima2001@gmail.com"]
+                for dest in li:
+                    s=smtplib.SMTP('smtp.gmail.com',587)
+                    s.starttls()
+                    message='Subject: {}\n\n{}'.format(self.SetSubject3.get(),self.textareaDel.get("1.0",END))
+                    s.login("lloydcosta2002@gmail.com","aayzraadrkxfsixk")
+                    s.sendmail("lloydcosta2002@gmail.com",dest,message)
+                    s.quit()
+                    self.textareaDel.delete(1.0,END)
+                    self.SetSubject3.delete(0,END)
+             except:
+                messagebox.showinfo("Delivery Agent Mail","Email not sent! Check you connection")
+                return
+             messagebox.showinfo("Delivery Agent Mail","Email sent successfully!")
       
 class invoiceDesign:
     

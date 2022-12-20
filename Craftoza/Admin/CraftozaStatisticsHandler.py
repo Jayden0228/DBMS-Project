@@ -1,4 +1,6 @@
 import mysql.connector as mysql
+from collections import OrderedDict
+import numpy as np
 
     #   self.cat1={"Bamboo":"A","Clay":"B","Coconut":"C","Shells":"D","Wood":"E","Glass":"F","Ceramic":"G","Cloth":"H","Plastic":"I","General":"J"}
     #         self.cat2={"Bag":"1","Home Deco":"2","Earthen pots":"3","Juwellry":"4","Funiture":"5","Fashion":"6","Keychain":"7","Cups":"8","General":"9"}
@@ -71,6 +73,7 @@ class General_CraftozaDeets:
 
     def get_Revenue(self):
         self.GneralDataExecuter=self.MYSQLconnection.cursor()
+        self.GneralDataExecuter.execute("commit")
         self.GneralDataExecuter.execute("select orders.qnt,price,discnt from orders join product on orders.pid=product.pid") 
         self.revenueR=self.GneralDataExecuter.fetchall()
     
@@ -83,6 +86,7 @@ class General_CraftozaDeets:
     
     def get_UserCOUNT(self):
          self.GneralDataExecuter=self.MYSQLconnection.cursor()
+         self.GneralDataExecuter.execute("commit")
          self.GneralDataExecuter.execute("select COUNT(uid) from user") 
          dataUser=self.GneralDataExecuter.fetchall()
          self.GneralDataExecuter.close()
@@ -90,6 +94,7 @@ class General_CraftozaDeets:
     
     def get_ProductCOUNT(self):
          self.GneralDataExecuter=self.MYSQLconnection.cursor()
+         self.GneralDataExecuter.execute("commit")
          self.GneralDataExecuter.execute("select COUNT(pid) from product")
          dataProduct=self.GneralDataExecuter.fetchall()
          self.GneralDataExecuter.close()
@@ -97,6 +102,7 @@ class General_CraftozaDeets:
     
     def get_TodaySales(self):
         self.GneralDataExecuter=self.MYSQLconnection.cursor()
+        self.GneralDataExecuter.execute("commit")
         self.GneralDataExecuter.execute("select orders.qnt,price,discnt from orders join product on orders.pid=product.pid where OrderDate like CURDATE();")
         dataProduct=self.GneralDataExecuter.fetchall()
         RevenueT=0
@@ -105,6 +111,57 @@ class General_CraftozaDeets:
                 RevenueT+=(x[0]*x[1])-discount
         self.GneralDataExecuter.close()
         return RevenueT
+
+    def get_ThisMonthSales(self):
+        self.GneralDataExecuter=self.MYSQLconnection.cursor()
+        self.GneralDataExecuter.execute("commit")
+        self.GneralDataExecuter.execute("select orders.qnt,price,discnt from orders join product on orders.pid=product.pid where MONTH(OrderDate) = MONTH(CURDATE());")
+        dataProduct=self.GneralDataExecuter.fetchall()
+        RevenueT=0
+        for x in  dataProduct:
+                discount=(x[1]*x[2])/100
+                RevenueT+=(x[0]*x[1])-discount
+        self.GneralDataExecuter.close()
+        return RevenueT
+    
+    def get_popularity(self):
+        V=0.2
+        W=0.5
+        O=1
+        self.GneralDataExecuter=self.MYSQLconnection.cursor()
+        self.GneralDataExecuter.execute("commit")
+        self.GneralDataExecuter.execute(" select distinct pid from view;")
+        self.AllProductinView=self.GneralDataExecuter.fetchall()
+        self.GneralDataExecuter.execute("select pid,count(status) from view where status like 'view' group by pid;")
+        self.ViewsTableViewsCNT=self.GneralDataExecuter.fetchall()
+        self.GneralDataExecuter.execute("select pid,count(status) from view where status like 'Wish' group by pid;")
+        self.ViewsTableWishCNT=self.GneralDataExecuter.fetchall()
+        self.GneralDataExecuter.execute("select pid,count(pid) from orders group by pid;")
+        self.ViewsTableOrderCNT=self.GneralDataExecuter.fetchall()
+
+        DatabaseViewsUniqueIDs=[]
+
+        for X in self.AllProductinView:
+            DatabaseViewsUniqueIDs.append(str(X[0]))
+        
+        PIDdictEQN=dict.fromkeys(DatabaseViewsUniqueIDs,0) #Create a dict of unique pids from views table  
+        for X in self.ViewsTableViewsCNT:
+            PIDdictEQN[X[0]]=X[1]*V
+        for X in self.ViewsTableWishCNT:
+            PIDdictEQN[X[0]]+=X[1]*W
+        for X in self.ViewsTableOrderCNT:
+            PIDdictEQN[X[0]]+=X[1]*O
+        import operator
+        sort_by_val=operator.itemgetter(1)
+        sorted_PIDdictEQN=sorted(PIDdictEQN.items(),key=sort_by_val,reverse=True)
+
+        return(sorted_PIDdictEQN)
+
+                
+
+
+        
+
 
 
 
