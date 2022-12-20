@@ -1,27 +1,30 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
-    if(isset($_POST['profile']))
+    if($_SERVER["REQUEST_METHOD"]=="POST")
     {
-        $fname=$_POST["fname"];
-        $mname=$_POST["mname"];
-        $lname=$_POST["lname"];
-        $mnum=$_POST["mnum"];
-        $email=$_POST["email"];
-
-        // $sql="SELECT * FROM `user` WHERE `email` = '$email'";
-        // $res=mysqli_query($db,$sql);
-        // $row=mysqli_fetch_assoc($res);
-        $sql="UPDATE `user` SET `fname` = '$fname', `mname` = '$mname', `lname` = '$lname', `pnum` = '$mnum' WHERE `user`.`email` = '$email';";
-        $res=mysqli_query($db,$sql);
-
-        if(!$res)
+        if(isset($_POST['profile']))
         {
-            echo "Record not updated";
+            $fname=$_POST["fname"];
+            $mname=$_POST["mname"];
+            $lname=$_POST["lname"];
+            $mnum=$_POST["mnum"];
+            $email=$_POST["email"];
+    
+            // $sql="SELECT * FROM `user` WHERE `email` = '$email'";
+            // $res=mysqli_query($db,$sql);
+            // $row=mysqli_fetch_assoc($res);
+            $sql="UPDATE `user` SET `fname` = '$fname', `mname` = '$mname', `lname` = '$lname', `pnum` = '$mnum' WHERE `user`.`email` = '$email';";
+            $res=mysqli_query($db,$sql);
+    
+            if(!$res)
+            {
+                echo "Record not updated";
+            }
+            // $_SESSION['Email']=$row["email"];
+            $_SESSION['Name']=$fname;
+            header("Location: index.php");
         }
-        // $_SESSION['Email']=$row["email"];
-        $_SESSION['Name']=$fname;
-        header("Location: index.php");
     }
     mysqli_close($db);
 ?>
