@@ -113,7 +113,7 @@
                     <label class="center" for="mnbr">Mobile Number</label><br>
                     <input type="text" class="inpbiline center" name="mnum" value="<?php if(isset($mnum)) {echo "$mnum";}else{echo "";}?>" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required><br>
                     <label class="center" for="email">Email</label><br>
-                    <input type="text" class="inpbiline center" name="email" value="<?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "";}?>" required><br>
+                    <input type="text" class="inpbiline center" name="email" value="<?php if(isset($_SESSION['Email'])) {echo $_SESSION['Email'];}else{echo "";}?>" required><br>
                     <input type="submit" class="center" value="Submit" name="profile" id="subbtn">
                 </form>
             </div>

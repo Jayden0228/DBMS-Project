@@ -39,7 +39,7 @@
         if(!$res){
             echo "no";
         }
-        $_SESSION['Email']=$row["email"];
+        $_SESSION['Email']=$email;
     }
 
     if(isset($_POST['forgotpwd']))
