@@ -24,7 +24,7 @@ hr{
     padding: 27px;
 }
 #mainbox2, #mainbox3{
-    /* display: none; */
+    display: none;
 }
 
 /* .obtn{
@@ -172,12 +172,12 @@ input[type=number] {
     padding: 0;
     border: 3px solid #aeacac;
 }
-.continue{
+/* .continue{
     color:white;
     background-color: #FE981B;
     width:14%;
     border-radius: 20px;
-}
+} */
 
 .cardarea{
     padding: 15px;

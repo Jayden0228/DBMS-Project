@@ -1,6 +1,7 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
+    $cnt=1;
 ?>
 <!DOCTYPE html>
 
@@ -18,22 +19,6 @@
     <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/order.css">
     <link rel="stylesheet" href="Css/footer.css">
-
-    <script>
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
-        }
-    </script>
-    
     <title>Craftoza</title>
 </head>
 
@@ -44,13 +29,7 @@
     <?php
         if($_SERVER["REQUEST_METHOD"]=="POST")
         {
-            if(isset($_POST['caddr'])){
-                $_SESSION['hno']=$_POST['cadd'];
-                echo "<script>
-                        displayNone(`mainbox1`);
-                        displayBlock(`mainbox2`);
-                </script>";
-            }
+            
             if(isset($_POST['ccard'])){
                 $_SESSION['cdno']=$_POST['choosecard'];
                 // echo $_SESSION['cdno'];
@@ -124,18 +103,16 @@
 
                         if(mysqli_num_rows($res)==0)
                         {
-                            echo "<script>
-                                    displayNone(`box1`);
-                                    displayBlock(`box2`);
-                            </script>";
+                            ?>
+                                <script>displayNone(`box1`);displayBlock(`box2`);</script>
+                            <?php
                         }
                         else
                         {   
-                            echo "<script>
-                                    displayNone(`box2`);
-                                    displayBlock(`box1`);
-                            </script>";
-                            echo "<div id='box1'>";
+                            ?>
+                                <script>displayNone(`box2`);displayBlock(`box1`);</script>
+                                <div id='box1'>
+                            <?php
 
                             while($row=mysqli_fetch_assoc($res))
                             {
@@ -148,8 +125,8 @@
                                                 <span>Mobile No: <?php echo $mnum?></span><br>
                                             </span>
                                             <span class='link choose'>
-                                                <form action="#" method="post" style="margin:0;">
-                                                    <input type="hidden" name="cadd" value=<?php echo $row['hno']?>>
+                                                <form autocomplete="off" style="margin:0;" id="AddrForm">
+                                                    <input type="hidden" id='cadd' name="cadd" value=<?php echo $row['hno']?>>
                                                     <input type="submit" name="caddr" value="Choose" style="color: #FE981B;background: white; border:none; margin:0; padding:0;width: 83px;">
                                                 </form >
                                             </span>
@@ -157,39 +134,43 @@
                                     </div>
                                 <?php
                             }
-                            echo "<hr>";
-                            echo "<div style='margin-top: 20px; margin-bottom: 30px;text-align: end;'><span id='newaddr' class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
-                            echo "</div>";
+                            ?>
+                                <hr>
+                                <div style='margin-top: 20px; margin-bottom: 30px;text-align: end;'><span id='newaddr' class='link'>New Address</span></div>
+                                </div>
+                            <?php
                         }
-                        echo "<div id='box2'>";
-                            echo "<form action='' method='post' class='center2' style='width: 40%;'>";
-                                echo "<label for='Hno/fno'>H.No/Flat NO</label>";
-                                echo "<br>";
-                                echo "<input type='text' name='hfno' id='hfno' required>";
-                                echo "<br><br>";
-                                echo "<label for='Wname'>Ward Name</label>";
-                                echo "<br>";
-                                echo "<input type='text' name='wname' id='wname' required>";
-                                echo "<br><br>";
-                                echo "<label for='villageCity'>Village/City</label>";
-                                echo "<br>";
-                                echo "<input type='text' name='villcity' id='villcity' required>";
-                                echo "<br><br>";
-                                echo "<label for='Taluka'>Taluka</label>";
-                                echo "<br>";
-                                echo "<input type='text' name='taluka' id='taluka' required>";
-                                echo "<br><br>";
-                                echo "<label for='state'>State</label>";
-                                echo "<br>";
-                                echo "<input type='text' name='state' id='State' required>";
-                                echo "<br><br>";
-                                echo "<label for='pcode'>Pincode</label>";
-                                echo "<br>";
-                                echo "<input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' maxlength='6' required>";
-                                echo "<br><br>";
-                                echo "<input type='submit' name='newaddr' value='Submit' style='width: 30%; padding: 4px 0;'>";
-                            echo "</form>";
-                        echo "</div>";
+                        ?>
+                            <div id='box2'>
+                                <form action='' method='post' class='center2' style='width: 40%;' id="AddressForm">
+                                    <label for='Hno/fno'>H.No/Flat NO</label>
+                                    <br>
+                                    <input type='text' name='hfno' id='hfno' required>
+                                    <br><br>
+                                    <label for='Wname'>Ward Name</label>
+                                    <br>
+                                    <input type='text' name='wname' id='wname' required>
+                                    <br><br>
+                                    <label for='villageCity'>Village/City</label>
+                                    <br>
+                                    <input type='text' name='villcity' id='villcity' required>
+                                    <br><br>
+                                    <label for='Taluka'>Taluka</label>
+                                    <br>
+                                    <input type='text' name='taluka' id='taluka' required>
+                                    <br><br>
+                                    <label for='state'>State</label>
+                                    <br>
+                                    <input type='text' name='state' id='State' required>
+                                    <br><br>
+                                    <label for='pcode'>Pincode</label>
+                                    <br>
+                                    <input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' maxlength='6' required>
+                                    <br><br>
+                                    <input type='submit' name='newaddr' value='Submit' style='width: 30%; padding: 4px 0;'>
+                                </form>
+                            </div>
+                        <?php
                     }
                 ?>
             </div>
@@ -234,43 +215,59 @@
                     {   
                         $row1=mysqli_fetch_assoc($res1);
                         ?>
-                            <!-- <div id='addr'>
-                                <div class='center addarea'>
-                                    <span class='fulladd'>
-                                        <span>Address: <?php //echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
-                                    </span>
-                                </div>
-                            </div> -->
 
-                            <div class="item">
-                                <div id="image">
-                                    <img src="Images/card3.png" alt="" style="width: 70%;height: 50%;">
-                                </div>
-                                <div id="text">
-                                    <div class="text1"><?php echo $row1['pname']?></div>
-                                    <div class="text2"><?php echo $row1['company_name']?></div>
-                                    <?php
-                                        $dprice=$row1['price']-$row1['price']*$row1['discnt']*0.01;
-                                    ?>
-                                    <div class="text2" style="color: #fd5353fe;">-<?php echo $row1['discnt']?>% <span style="color: black;">Rs <?php echo $dprice?></span></div>
-                                    <div class="text2">MRP <s><?php echo $row1['price']?></s></div>
-                                    <div class="text2" style="font-weight: normal;">Inclusive of all taxes</div>
-                                </div>
-                                <div id="qnt" style="width: 135%;">
-                                    <div class="text3">Qnt 
-                                        <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button>
+                            <form autocomplete="off" id="Product Qnt">
+                                <div class="item">
+                                    <div id="image">
+                                        <img src="Images/card3.png" alt="" style="width: 70%;height: 50%;">
+                                    </div>
+                                    <div id="text">
+                                        <div class="text1"><?php echo $row1['pname']?></div>
+                                        <div class="text2"><?php echo $row1['company_name']?></div>
+                                        <?php
+                                            $dprice=$row1['price']-$row1['price']*$row1['discnt']*0.01;
+                                        ?>
+                                        <div class="text2" style="color: #fd5353fe;">-<?php echo $row1['discnt']?>% <span style="color: black;">Rs <?php echo $dprice?></span></div>
+                                        <div class="text2">MRP <s><?php echo $row1['price']?></s></div>
+                                        <div class="text2" style="font-weight: normal;">Inclusive of all taxes</div>
+                                    </div>
+                                    <div id="qnt" style="width: 135%;">
+                                        <div class="text3">Qnt 
+                                            <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            
+                                <hr>
+                                <br><br>
+                                <table class="center">
+                                    <tr>
+                                        <td>Price (<?php echo $cnt?> item)</td>
+                                        <td><?php echo $row1['price']*$cnt?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Discount <?php echo $row1['discnt']?>%OFF</td>
+                                        <td><?php echo $row1['price']*$row1['discnt']*0.01?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delivery Charge</td>
+                                        <td>Free Delivery</td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td><?php echo $dprice*$cnt ?></td>
+                                    </tr>
+                                </table>
+                                <br><br>
+                                <div id="msg">
+                                    <p style="text-align: center;">Congrats you have earn <?php echo $row1['credit']?> Craft Credits</p>
+                                </div>
+                                <!-- <button  onclick="(`mainbox2`);displayBlock(`mainbox3`);">Continue</button> -->
+                                <button type="submit" class="center continue">Proceed</button>
+                            </form>
                         <?php
-                        echo "<hr>";
                     }
                     ?>
-                    <div id="msg">
-                        <p style="text-align: center;">Congrats you have earn <?php echo $row1['credit']?> Craft Credits</p>
-                    </div>
-                    <button class="center continue" onclick="(`mainbox2`);displayBlock(`mainbox3`);">Continue</button>
             </div>
             
 
@@ -367,7 +364,9 @@
     ?>
     <?php include 'Php/_footer.php'?>
 
-    <script src="JS/Login.js"></script>
+    <script src="JS/validationjQuery.js"></script>
+    <script src="JS/orderjQuery.js"></script>
+
     <script>
         document.getElementById('newaddr').onclick = function(){
             displayNone(`box1`);
@@ -376,6 +375,18 @@
         document.getElementById('newcd').onclick = function(){
             displayNone(`box3`);
             displayBlock(`box4`);
+        }
+        function increment(){
+            let a=document.getElementById('pqnt');
+            let cnt=parseInt(a.value)+1
+            a.value=cnt.toString();
+        }
+        function decrement(){
+            let a=document.getElementById('pqnt');
+            if(a.value!=1){
+                let cnt=parseInt(a.value)-1
+                a.value=cnt.toString();
+            }
         }
     </script>
 </body>
