@@ -4,7 +4,7 @@
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
         if(isset($_POST['raddr'])){
-            $sql="DELETE FROM `address` WHERE `hno/fno` = '{$_POST['removeaddr']}' AND `uid` = '{$_SESSION['UserID']}'";
+            $sql="DELETE FROM `address` WHERE `hno` = '{$_POST['removeaddr']}' AND `uid` = '{$_SESSION['UserID']}'";
             mysqli_query($db,$sql);
         }
     }
@@ -75,7 +75,7 @@
                     $state=$_POST["state"];
                     $pcode=$_POST["pcode"];
 
-                    $sql="INSERT INTO `address` (`uid`, `hno/fno`, `wname`, `vill/city`, `taluka`, `state`, `pincode`) VALUES ('{$_SESSION['UserID']}', '$hfno', '$wname', '$villcity', '$taluka', '$state', '$pcode');";
+                    $sql="INSERT INTO `address` (`uid`, `hno`, `wname`, `villageCity`, `taluka`, `state`, `pincode`) VALUES ('{$_SESSION['UserID']}', '$hfno', '$wname', '$villcity', '$taluka', '$state', '$pcode');";
 
                     $res=mysqli_query($db,$sql);
                     if(!$res)
@@ -94,8 +94,6 @@
                     $sql2="SELECT * FROM `user` WHERE `uid`='$userid'";
                     $res=mysqli_query($db,$sql);
                     $res2=mysqli_query($db,$sql2);
-
-
 
                     if(mysqli_num_rows($res)==0)
                     {
@@ -127,13 +125,13 @@
                                 <div id='addr'>
                                     <div class='center addarea'>
                                         <span class='fulladd'>
-                                            <span>Name: <?php $fname?></span><br>
-                                            <span>Address: <?php echo "{$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
-                                            <span>Mobile No: <?php $mnum?></span><br>
+                                            <span>Name: <?php echo $fname?></span><br>
+                                            <span>Address: <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                            <span>Mobile No: <?php echo $mnum?></span><br>
                                         </span>
                                         <span class='link remove'>
                                             <form action="#" method="post" style="margin:0;">
-                                                <input type="hidden" name="removeaddr" value=<?php echo $row['hno/fno']?>>
+                                                <input type="hidden" name="removeaddr" value=<?php echo $row['hno']?>>
                                                 <input type="submit" name="raddr" value="Remove" style="color: #FE981B;background: white; border:none; margin:0; padding:0">
                                             </form >
                                         </span>

@@ -69,7 +69,7 @@
                 $state=$_POST["state"];
                 $pcode=$_POST["pcode"];
 
-                $sql="INSERT INTO `address` (`uid`, `hno/fno`, `wname`, `vill/city`, `taluka`, `state`, `pincode`) VALUES ('{$_SESSION['UserID']}', '$hfno', '$wname', '$villcity', '$taluka', '$state', '$pcode');";
+                $sql="INSERT INTO `address` (`uid`, `hno`, `wname`, `villageCity`, `taluka`, `state`, `pincode`) VALUES ('{$_SESSION['UserID']}', '$hfno', '$wname', '$villcity', '$taluka', '$state', '$pcode');";
 
                 $res=mysqli_query($db,$sql);
                 if(!$res)
@@ -143,13 +143,13 @@
                                     <div id='addr'>
                                         <div class='center addarea'>
                                             <span class='fulladd'>
-                                                <span>Name: <?php $fname?></span><br>
-                                                <span>Address: <?php echo "{$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
-                                                <span>Mobile No: <?php $mnum?></span><br>
+                                                <span>Name: <?php echo $fname?></span><br>
+                                                <span>Address: <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                                <span>Mobile No: <?php echo $mnum?></span><br>
                                             </span>
                                             <span class='link choose'>
                                                 <form action="#" method="post" style="margin:0;">
-                                                    <input type="hidden" name="cadd" value=<?php echo $row['hno/fno']?>>
+                                                    <input type="hidden" name="cadd" value=<?php echo $row['hno']?>>
                                                     <input type="submit" name="caddr" value="Choose" style="color: #FE981B;background: white; border:none; margin:0; padding:0;width: 83px;">
                                                 </form >
                                             </span>
@@ -171,7 +171,7 @@
                                 echo "<br>";
                                 echo "<input type='text' name='wname' id='wname' required>";
                                 echo "<br><br>";
-                                echo "<label for='vill/city'>Village/City</label>";
+                                echo "<label for='villageCity'>Village/City</label>";
                                 echo "<br>";
                                 echo "<input type='text' name='villcity' id='villcity' required>";
                                 echo "<br><br>";
@@ -201,7 +201,7 @@
                 <hr>
                 <?php
                     $userid=$_SESSION['UserID'];
-                    $sql="SELECT * FROM `address` WHERE `uid`='$userid' AND `hno/fno`='{$_SESSION['hno']}'";
+                    $sql="SELECT * FROM `address` WHERE `uid`='$userid' AND `hno`='{$_SESSION['hno']}'";
                     $res=mysqli_query($db,$sql);
                     if(mysqli_num_rows($res)==0)
                     {
@@ -214,7 +214,7 @@
                             <div id='addr'>
                                 <div class='center addarea'>
                                     <span class='fulladd'>
-                                        <span>Address: <?php echo "{$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                        <span>Address: <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
                                     </span>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                             <!-- <div id='addr'>
                                 <div class='center addarea'>
                                     <span class='fulladd'>
-                                        <span>Address: <?php //echo "{$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                        <span>Address: <?php //echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
                                     </span>
                                 </div>
                             </div> -->
