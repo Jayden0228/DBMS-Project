@@ -143,6 +143,18 @@
                     <div class="text1"><?php echo $row1['pname']?></div>
                     <div class="text1"><?php echo $row1['company_name']?></div>
                 </div>
+                <div class="star" style="margin-left: auto;">
+                    <?php
+                        $i=1;
+                        while($i<=$row1['rating'])
+                        {
+                            ?>
+                                <img src="Images/star.png" alt="star" style="width: 20%;">
+                            <?php
+                            $i++;
+                        }
+                    ?>
+                </div>
                 <button id="buybtn" onclick="load()">BUY NOW</button>
                 <script>
                     function load() {

@@ -106,6 +106,18 @@
                             <div id="text">
                                 <div class="text1"><?php echo $row['pname']?></div>
                                 <div class="text2" style="color: #fd5353fe;"><?php echo $row['price']?></div>
+                                <div class="text3">
+                                <?php
+                                    $i=1;
+                                    while($i<=$row['rating'])
+                                    {
+                                        ?>
+                                            <img src="Images/star.png" alt="star" style="width: 9%;">
+                                        <?php
+                                        $i++;
+                                    }
+                                ?>
+                                </div>
                                 <div class="text3"><img src="Images/craftfied.png" alt="craftfied" style="width: 36%;height: auto;"></div>
                                 <div class="text4">Qnt <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button></div>
                             </div>
