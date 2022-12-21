@@ -31,15 +31,22 @@
     {
         $email=$_POST["Email"];
         $password=$_POST["Password"];
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql="INSERT INTO `user` (`pwd`, `email`, `fname`, `mname`, `lname`, `pnum`, `credit`) VALUES ('$hashed_password', '$email', NULL, NULL, NULL, NULL, NULL)";
-
-        $res=mysqli_query($db,$sql);
-
-        if(!$res){
-            echo "no";
+        $cpassword=$_POST["CPassword"];
+        if($password!=$cpassword){
+            echo "perr";
         }
-        $_SESSION['Email']=$email;
+        else{
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $sql="INSERT INTO `user` (`pwd`, `email`, `fname`, `mname`, `lname`, `pnum`, `credit`) VALUES ('$hashed_password', '$email', NULL, NULL, NULL, NULL, NULL)";
+            $res=mysqli_query($db,$sql);
+            if(!$res){
+                echo "no";
+            }
+            else{
+                $_SESSION['Email']=$email;
+                echo "yes";
+            }
+        }
     }
 
     if(isset($_POST['forgotpwd']))

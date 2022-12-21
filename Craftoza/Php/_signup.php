@@ -13,7 +13,8 @@
         <label for="Password" class="bolder">Password</label><br>
         <input type="password" id="spwd" name="Password"  value="" class="inp" requried><br>
         <label for="ConfirmPassword"class="bolder">Confirm Password</label><br>
-        <input type="password" name="CPassword" value="" class="inp" requried>
+        <input type="password" id="cspwd" name="CPassword" value="" class="inp" requried>
+        <br>
         <input type="checkbox" required><span style="font-size:12px">I've read and accept the terms and conditions <a href="T&C.html">Terms&Conditions</a></span><br><br>
         <input type="submit" value="SIGNUP" class="button2" ><br><br>
     </form>

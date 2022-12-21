@@ -30,22 +30,29 @@ $(document).ready(function(){
         e.preventDefault();
         var email=$('#semail').val();
         var password=$('#spwd').val();
+        var cpassword=$('#cspwd').val();
         $.ajax({
             type: 'POST',
             url: 'loginvalidate.php',
             data: {
                 Email: email,
                 Password: password,
+                CPassword: cpassword,
                 Signup: true
             },
             success:function(data){
-                if(data=='no')
+                if(data=='perr')
                 {
-                    $('#errmsg').css('display','block');
-                    $('#errmsg').html('Sign up failed! Try again');
+                    $('#errmsg4').css('display','block');
+                    $('#errmsg4').html('Password not matching');
                 }
-                else{
-                    $('#errmsg').css('display','none');
+                else if(data=='no')
+                {
+                    $('#errmsg4').css('display','block');
+                    $('#errmsg4').html('Sign up failed! Try again');
+                }
+                else if(data=='yes'){
+                    $('#errmsg4').css('display','none');
                     // location.reload();
                     $(location).prop('href','profile.php')
                 }
@@ -125,5 +132,60 @@ $(document).ready(function(){
                 }
             }
         });
+    });
+
+    $('#Loginform').validate({
+        rules: {
+            Email: {
+                required: true,
+                email: true,
+            },
+            Password: {
+                required: true,
+                minlength: 8,
+            }
+        },
+        messages: {
+            Email: 'Enter a valid email',
+            Password: {
+                minlength: 'Password must be at least 8 characters long'
+            }
+        }  
+        // submitHandler: function(form) {
+        //     console.log("Submitted!");
+        //     form.submit();
+        // }
+    });
+
+    $('#Signupform').validate({
+        rules: {
+            Email: {
+                required: true,
+                email: true,
+            },
+            Password: {
+                required: true,
+                minlength: 8,
+            },
+            CPassword: {
+                required: true,
+                minlength: 8,
+                equalTo: '[name="Password"]'
+            }
+        },
+        messages: {
+            Email: 'Enter a valid email',
+            Password: {
+                minlength: 'Password must be at least 8 characters long'
+            },
+            CPassword: {
+                minlength: 'Password must be at least 8 characters long',
+                equalTo: 'Password not matching'
+            }
+        }  
+        // submitHandler: function(form) {
+        //     console.log("Submitted!");
+        //     form.submit();
+        // }
     });
 });

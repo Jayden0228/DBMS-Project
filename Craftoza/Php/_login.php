@@ -7,7 +7,7 @@
     <form autocomplete="off" class="center2" id="Loginform">
     <!-- onsubmit="return validateLogin(this) -->
         <label for="Email">Email</label><br>
-        <input type="email" id="email"name="Email" class="inp" required><br><br>
+        <input type="email" id="email" name="Email" class="inp" required><br><br>
         <label for="Password">Password</label><br>
         <input type="password" id="psw" name="Password" class="inp" required><br><br>
         <input type="submit" value="LOGIN" class="button2" name="login">
