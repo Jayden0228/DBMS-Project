@@ -86,7 +86,7 @@
         <div id="backgd">
             <br><br><br>
             <div id="pfbox">
-                <form action="" method="POST" onsubmit="return validateProfile(this)">
+                <form action="" method="POST" id="ProfileForm">
                     <?php
                         
                         include "Php/_connectDatabase.php";
@@ -102,10 +102,10 @@
                             $row=mysqli_fetch_assoc($res);
                             $fname=$row["fname"];
                             $mname=$row["mname"];
-                            // echo"";
                             $lname=$row["lname"];
                             $mnum=$row["pnum"];
                         }
+                        mysqli_close($db);
                     ?>
                     <label class="center" for="fname">First Name</label><br>
                     <input type="text" class="inpbiline center" name="fname" value="<?php if(isset($fname)) {echo "$fname";}else{echo "";}?>" required><br>
@@ -125,9 +125,7 @@
     </main>
     <?php include 'Php/_footer.php'?>
 
-    <script src="JS/Login.js"></script>
-    <script src="JS/account.js"></script>
-
+    <script src="JS/validationjQuery.js"></script>
 
 </body>
 </html>
