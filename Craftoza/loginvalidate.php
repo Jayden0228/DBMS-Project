@@ -52,25 +52,31 @@
     if(isset($_POST['forgotpwd']))
     {
         $email = $_POST['Email'];
-        $sql="SELECT * FROM `user` WHERE `email` = '$email'";
-
-        $res=mysqli_query($db,$sql);
-
-        if(mysqli_num_rows($res)==0)
+        if(empty($email))
         {
-            echo "no";
-        }else{
-            $num=0;
-            $i=0;
-            while($i<6)
+            echo 'empty';
+        }
+        else{
+            $sql="SELECT * FROM `user` WHERE `email` = '$email'";
+    
+            $res=mysqli_query($db,$sql);
+    
+            if(mysqli_num_rows($res)==0)
             {
-                $num*=10;
-                $num+=rand(0,9);
-                $i+=1;
+                echo "no";
+            }else{
+                $num=0;
+                $i=0;
+                while($i<6)
+                {
+                    $num*=10;
+                    $num+=rand(0,9);
+                    $i+=1;
+                }
+                $_SESSION['otp']=$num;
+                include "Php/mail.php";
+                echo "yes";
             }
-            $_SESSION['otp']=$num;
-            include "Php/mail.php";
-            echo "yes";
         }
     }
 

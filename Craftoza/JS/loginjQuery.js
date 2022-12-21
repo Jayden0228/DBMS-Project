@@ -75,11 +75,10 @@ $(document).ready(function(){
                     $('#errmsg2').css('display','block');
                     $('#errmsg2').html("Not signed up");
                 }
-                else{
+                else if(data=='yes'){
                     $('#gotp').css('display','block');
                     $('#fpwd').css('display','none');
                 }
-                
             }
         });
     });
@@ -188,4 +187,6 @@ $(document).ready(function(){
         //     form.submit();
         // }
     });
+
+    $('#Forgotpassform').validate();
 });
