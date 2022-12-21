@@ -143,6 +143,8 @@ $(document).ready(function(){
     });
 
     $('#Loginform').validate({
+        wrapper: 'div',
+        errorLabelContainer: "#messageBox",
         errorClass: "error fail-alert",
         validClass: "valid success-alert",
         rules: {
@@ -168,6 +170,8 @@ $(document).ready(function(){
     });
 
     $('#Signupform').validate({
+        wrapper: 'div',
+        errorLabelContainer: "#messageBox",
         errorClass: "error fail-alert",
         validClass: "valid success-alert",
         rules: {
@@ -202,11 +206,15 @@ $(document).ready(function(){
     });
 
     $('#Forgotpassform').validate({
+        wrapper: 'div',
+        errorLabelContainer: "#messageBox",
         errorClass: "error fail-alert",
         validClass: "valid success-alert",
     });
     
     $('#OTPform').validate({
+        wrapper: 'div',
+        errorLabelContainer: "#messageBox",
         errorClass: "error fail-alert",
         validClass: "valid success-alert",
         rules: {
@@ -223,6 +231,8 @@ $(document).ready(function(){
     });
     
     $('#Changepwdform').validate({
+        wrapper: 'div',
+        errorLabelContainer: "#messageBox",
         errorClass: "error fail-alert",
         validClass: "valid success-alert",
         rules: {
@@ -249,11 +259,5 @@ $(document).ready(function(){
         //     console.log("Submitted!");
         //     form.submit();
         // }
-    });
-
-    $('#resend').click(function(){
-        $('#fpwd').css('display','block');
-        $('#gotp').show();
-        $('otpclick').click();
     });
 });
