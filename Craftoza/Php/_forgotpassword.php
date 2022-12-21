@@ -10,7 +10,11 @@
         <p id='errmsg2'></p>
         <label for="Email">Email</label><br>
         <input type="email" id="email1" name="Email" class="inp" value="<?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "";}?>" required><br><br>
-        <input type="submit" value="GET OTP" name="fgtpwd" class="button2"><br><br>
+        
+        
+        <!-- <input type="submit" value="GET OTP" name="fgtpwd" class="button2"><br><br> -->
+        <button type="submit" id="otpclick">GET OTP</button>
+
     </form>
     <p id="backToLogin" style="font-size: 14px; padding-bottom: 40px; padding-left: 75px;"><span onclick="displayNone('fpwd');displayBlock('login')">Back to Log In?</span></p>
 </div>

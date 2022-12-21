@@ -11,11 +11,20 @@
     <form autocomplete="off" class="center2" id="OTPform">
         <br><br>
         <p id='errmsg1'></p>
-        <input type="number" id="getotp" name="otp"  class="otpinp" required><br><br>
+        <input type="number" id="getotp" name="otp"  class="otpinp" required>
+        <input type="hidden"><br><br><br>
         <!-- oninput="this.value=this.value.replace(/[^0-9]/g,'')" -->
-        <input type="submit" value="VERIFY" class="button2"><br><br>
+
+
+        <!-- <input type="submit" value="VERIFY" class="button2"><br><br> -->
+        <button type="submit">VERIFY</button>
     </form>
-    <p style="font-size: 14px; padding-bottom: 10px;"><button name="resend" type="submit"><span>RESEND OTP</span></button></p>
+
+    <form autocomplete="off" class="center2" id="ResendOTP">
+        <button type="submit" style="background-color: transparent; color:black; width: 68%;font-size: 14px;margin-top: 10px;padding-left: 0px;">RESEND OTP</button>
+        <!-- <p id="resend" style="font-size: 14px; padding-bottom: 10px;"></p> -->
+    </form>
+
     <p style="font-size: 14px; padding-bottom: 40px;"><span onclick="displayNone('gotp');displayBlock('fpwd')">INVALID EMAIL?</span></p>
 </div>
 <br>

@@ -15,7 +15,10 @@
         <label for="CPassword" class="bolder">Confirm Password</label><br>
         <input type="password" id="CPassword"name="CPassword" class="inp">
         <br><br>
-        <input type="submit" value="SUBMIT" class="button2" name="newpwd">
+        
+        <!-- <input type="submit" value="SUBMIT" class="button2" name="newpwd"> -->
+        <button type="submit">SUBMIT</button>
+
         <br><br><br><br>
     </form>
 </div>

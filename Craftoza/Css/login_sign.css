@@ -62,7 +62,6 @@
 }
 
 .otpinp{
-    outline: none;
     border-style: solid;
     border-color: rgb(221, 219, 219);
     background-color: #f9f9f9f0;
@@ -76,7 +75,7 @@
 }
 
 
-.button2{
+button[type='submit']{
     border: none;
     border-radius: 30px;
     background-color: #FE3F3F;  /* #008CBA Blue */
@@ -90,7 +89,7 @@
     cursor: pointer;
 }
 
-.button2:hover{
+button[type='submit']:hover{
     background-color: #c23333;  /* #008CBA Blue */
 }
 .arrow{
@@ -107,4 +106,26 @@
     font-weight: 300;
     text-align: center;
     color:#fd5353fe
+}
+
+label.error.fail-alert {
+    color: #fd5353fe;
+}
+input.valid.success-alert {
+    border: 2px solid #4CAF50;
+    color: green;
+}
+input:focus{
+    outline: none;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  appearance: textfield;
 }

@@ -35,29 +35,6 @@
 </head>
 
 <body>
-    <?php
-        include "Php/_connectDatabase.php";
-        
-        $num;
-        if($_SERVER["REQUEST_METHOD"]=="POST")
-        {
-            
-            
-            if(isset($_POST['resend']))
-            {
-                $num=0;
-                $i=0;
-                while($i<6)
-                {
-                    $num*=10;
-                    $num+=rand(0,9);
-                }
-                include "Php/mail.php";
-                $_SESSION['otp']=$num;
-            }
-        }
-        mysqli_close($db);
-    ?>
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>

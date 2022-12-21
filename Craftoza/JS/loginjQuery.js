@@ -86,7 +86,6 @@ $(document).ready(function(){
     $('#OTPform').on('submit',function(e){
         e.preventDefault();
         var otp=$('#getotp').val();
-        console.log(otp);
         $.ajax({
             type: 'POST',
             url: 'loginvalidate.php',
@@ -99,13 +98,23 @@ $(document).ready(function(){
                     $('#npwd').show();
                     $('#gotp').hide();
                 }
-                else{
+                else if(data=='no'){
                     $('#errmsg1').css('display','block');
                     $('#errmsg1').html("Enter a valid OTP");
                 }
             }
         });
+    });
 
+    $('#ResendOTP').on('submit',function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: 'loginvalidate.php',
+            data: {
+                ResendOtp: true
+            }
+        });
     });
 
     $('#Changepwdform').on('submit',function(e){
@@ -134,6 +143,8 @@ $(document).ready(function(){
     });
 
     $('#Loginform').validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
         rules: {
             Email: {
                 required: true,
@@ -157,6 +168,8 @@ $(document).ready(function(){
     });
 
     $('#Signupform').validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
         rules: {
             Email: {
                 required: true,
@@ -188,5 +201,59 @@ $(document).ready(function(){
         // }
     });
 
-    $('#Forgotpassform').validate();
+    $('#Forgotpassform').validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+    });
+    
+    $('#OTPform').validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            otp: {
+                required: true,
+                range: [100000, 999999]
+            }
+        },
+        messages: {
+            otp: {
+                range: 'OTP must be 6 digit long'
+            }
+        }  
+    });
+    
+    $('#Changepwdform').validate({
+        errorClass: "error fail-alert",
+        validClass: "valid success-alert",
+        rules: {
+            Password: {
+                required: true,
+                minlength: 8,
+            },
+            CPassword: {
+                required: true,
+                minlength: 8,
+                equalTo: '[name="Password"]'
+            }
+        },
+        messages: {
+            Password: {
+                minlength: 'Password must be at least 8 characters long'
+            },
+            CPassword: {
+                minlength: 'Password must be at least 8 characters long',
+                equalTo: 'Password not matching'
+            }
+        }  
+        // submitHandler: function(form) {
+        //     console.log("Submitted!");
+        //     form.submit();
+        // }
+    });
+
+    $('#resend').click(function(){
+        $('#fpwd').css('display','block');
+        $('#gotp').show();
+        $('otpclick').click();
+    });
 });

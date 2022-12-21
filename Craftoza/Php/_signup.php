@@ -16,7 +16,10 @@
         <input type="password" id="cspwd" name="CPassword" value="" class="inp" requried>
         <br>
         <input type="checkbox" required><span style="font-size:12px">I've read and accept the terms and conditions <a href="T&C.html">Terms&Conditions</a></span><br><br>
-        <input type="submit" value="SIGNUP" class="button2" ><br><br>
+        <!-- <input type="submit" value="SIGNUP" class="button2" > -->
+        <button type="submit">SIGNUP</button>
+
+        <br><br>
     </form>
         <p style="font-size: 14px; padding-bottom: 40px;">Already have an Account? <span style="font-size: 14px; display: inline-block;" onclick="displayNone('signup');displayBlock('login')">LOG IN</span></p>
 </div>

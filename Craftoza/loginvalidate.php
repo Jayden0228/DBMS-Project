@@ -1,7 +1,6 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
-
     if(isset($_POST["Login"]))
     {
         $email=$_POST["Email"];
@@ -66,14 +65,13 @@
                 echo "no";
             }else{
                 $num=0;
-                $i=0;
-                while($i<6)
+                while(strlen((string)$num)!=6)
                 {
                     $num*=10;
                     $num+=rand(0,9);
-                    $i+=1;
                 }
                 $_SESSION['otp']=$num;
+                $_SESSION['Email']=$email;
                 include "Php/mail.php";
                 echo "yes";
             }
@@ -83,13 +81,29 @@
     if(isset($_POST['OTP']))
     {
         $otp=$_POST['Otp'];
-        if($_SESSION['otp']!=$otp)
-        {
-            echo "no";
+        if(strlen((string)$otp)!=6){
+            echo "less";
         }
         else{
-            echo "yes";
+            if($_SESSION['otp']!=$otp){
+                echo "no";
+            }
+            else{
+                echo "yes";
+            }
         }
+    }
+
+    if(isset($_POST['ResendOtp']))
+    {
+        $num=0;
+        while(strlen((string)$num)!=6)
+        {
+            $num*=10;
+            $num+=rand(0,9);
+        }
+        $_SESSION['otp']=$num;
+        include "Php/mail.php";
     }
 
 
