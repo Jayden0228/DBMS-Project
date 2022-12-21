@@ -102,7 +102,7 @@
                             $row=mysqli_fetch_assoc($res);
                             $fname=$row["fname"];
                             $mname=$row["mname"];
-                            echo"";
+                            // echo"";
                             $lname=$row["lname"];
                             $mnum=$row["pnum"];
                         }
