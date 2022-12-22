@@ -1,6 +1,7 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
+    $_SESSION['cnt']=1;
 ?>
 <!DOCTYPE html>
 
