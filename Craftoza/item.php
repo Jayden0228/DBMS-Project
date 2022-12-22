@@ -122,19 +122,19 @@
             <div class="item">
                 <div class="simg">
                     <div id="simg1">
-                        <img src="Images/item1.jpg" alt="" width="110%" height="100%" onclick="swap('simg1','image')">
+                        <img src=<?php echo $row1['ParentImgLink'].'a.png'?> width='110%' height='100%' onclick="swap('simg1','image')">
                     </div>
                     <br>
                     <div id="simg2">
-                        <img src="Images/item2.jpeg" alt="" width="110%" height="100%" onclick="swap('simg2','image')">
+                        <img src=<?php echo $row1['ParentImgLink'].'b.png'?> width='110%' height='100%' onclick="swap('simg2','image')">
                     </div>
                     <br>
                     <div id="simg3">
-                        <img src="Images/item3.jpeg" alt="" width="110%" height="100%" onclick="swap('simg3','image')">
+                        <img src=<?php echo $row1['ParentImgLink'].'c.png'?> width='110%' height='100%' onclick="swap('simg3','image')">
                     </div>
                 </div>
                 <div id="image">
-                    <img src="Images/card3.png" alt="" width="110%" height="100%">
+                    <img src=<?php echo $row1['ParentImgLink'].'.png'?> width='110%' height='100%'>
                 </div>
                 <hr id="divider">
             </div>

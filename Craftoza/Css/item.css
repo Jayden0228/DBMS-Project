@@ -15,10 +15,10 @@ button, input[type=submit]{
     cursor: pointer;
 }
 #divider{
-    width: 24vw;
+    width: 28vw;
     position: relative;
-    top: -12vw;
-    left: 0vw;
+    top: -15vw;
+    left: -1vw;
     transform: rotate(90deg);
 }
 
@@ -88,9 +88,13 @@ button, input[type=submit]{
 #lv2cn1,#lv2cn2,#lv2cn3{
     display: inline-block;
 }
+#lv2cn1{
+    width: 30%;
+}
 
 #lv2cn2{
-    margin: 0 17%;
+    margin: 0 9%;
+    width: 15%;
 }
 
 #lv2cn3{

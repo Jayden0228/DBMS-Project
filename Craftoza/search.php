@@ -103,7 +103,7 @@
                                     <form action='item.php' method='POST'>
                                         <div id='search'>
                                             <div id='image'>
-                                                <img src=<?php echo $row['ParentImgLink'].'png'?> width='110%' height='auto'>
+                                                <img src=<?php echo $row['ParentImgLink'].'.png'?> width='110%' height='auto'>
                                             </div>
                                             <div id='text'>
                                                 <div class='text1'><?php echo $row['pname']?></div>
