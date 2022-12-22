@@ -243,7 +243,7 @@
                     <div class="plus"><span>&#65291;</span></div>
                 </div>
                 <div id="lv3cn3h">
-                    <span style="float :right; color:#5ea2ecfe" onclick="displayBlock('reviewForm');displayNone('review')">ADD REVIEW</span>
+                    <span style="float :right;color:#5ea2ecfe;cursor: pointer;" onclick="displayBlock('reviewForm');displayNone('review')">ADD REVIEW</span>
                     <form action="" method="post" id="reviewForm" class="center2" >
                         <input type="hidden" name="rated" value=<?php $row1['rating']?>>
                         <label>Enter your Review!!</label><br>
