@@ -1,13 +1,7 @@
 <?php
     session_start();
-    // if($_SERVER["REQUEST_METHOD"]=="POST")
-    // {
-    //     if(isset($_POST['pid']))
-    //     {
-    //         echo "{$_POST['pid']}";
-    //     }
-    // }
     include "Php/_connectDatabase.php";
+
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
         if(isset($_POST['pid']))
@@ -55,6 +49,25 @@
             // mysqli_query($db,$sql4);
             // $row4=mysqli_fetch_assoc($res1);
         }
+
+        if(isset($_POST['reviewinp'])){
+            $review=$_POST['review'];
+            $rating=$_POST['rating'];
+            $rated=$_POST['rated'];
+            
+            if(!empty($review)){
+                $sql5="INSERT INTO `reviews`(`pid`, `uid`, `comment`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','$review')";
+                mysqli_query($db,$sql5);
+            }
+            if($rating!=0){
+                $x=(int)$rated+(int)$rating;
+                $sql6="UPDATE `product` SET `rating`='$x' WHERE `pid`='{$_SESSION['pid']}'";
+                mysqli_query($db,$sql6);
+            }
+            ?>
+            <script>displayBlock('reviewForm');displayNone('review')</script>
+            <?php
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -81,18 +94,6 @@
             let c=a.src;
             a.src=b.src
             b.src=c;
-        }
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
         }
         function show(id,arw){
             if(document.getElementById(id).style.display=='block')
@@ -149,7 +150,7 @@
                         while($i<=$row1['rating'])
                         {
                             ?>
-                                <img src="Images/star.png" alt="star" style="width: 20%;">
+                                <img src="Images/star.png" alt="star" style="width: 75%;">
                             <?php
                             $i++;
                         }
@@ -175,10 +176,21 @@
                     <div class="text2" style="font-weight: normal;">Inclusive of all taxes</div>
                 </div>
                 <div id="lv2cn2">
-                    <div class="text3">Qnt 
-                        <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button>
-                </div>
-                </div>
+                    <div class="text4">
+                        <?php
+                            if($row1['qnt']==0){
+                                ?>
+                                    <div style="color:red">Out of stock</div>
+                                <?php
+                            }
+                            else{
+                                ?>
+                                    <div style="color:green">In stock</div>
+                                <?php
+                            }
+                        ?>
+                        </div>
+                    </div>
                 <div id="lv2cn3">
                     <form action="#" method="POST">
                         <input type="submit" value="Add To Cart" name="cart" class="btn1">
@@ -214,6 +226,24 @@
                     <div class="plus"><span>&#65291;</span></div>
                 </div>
                 <div id="lv3cn3h">
+                    <span style="float :right; color:#5ea2ecfe" onclick="displayBlock('reviewForm');displayNone('review')">ADD REVIEW</span>
+                    <form action="" method="post" id="reviewForm" class="center2" >
+                        <input type="hidden" name="rated" value=<?php $row1['rating']?>>
+                        <label>Enter your Review!!</label><br>
+                        <textarea name="review" cols="40" rows="5"></textarea><br>
+                        <label>Rate</label>
+                        <select name="rating">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <br>
+                        <button type="submit" name="reviewinp" style="width:75%">Submit</button>
+                    </form>
+                    <div id="review">
                     <?php
                         if(mysqli_num_rows($res2)==0)
                         {
@@ -238,6 +268,7 @@
                             }
                         }
                     ?>
+                    </div>
                 </div>
             </div>
 
