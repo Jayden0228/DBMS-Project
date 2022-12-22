@@ -7,7 +7,7 @@ app=FastAPI()
 
 class CraftozaRecomML:
       
-       def __init__(self,pid):
+       def giveREC(self,pid):
         self.model=pickle.load(open('Model.pkl','rb'))
         self.modelIndices=pickle.load(open('ModelIndices.pkl','rb'))
         self.modelDataSet=pickle.load(open('ModelIndicesDatasetCleaned.pkl','rb'))
@@ -21,10 +21,11 @@ class CraftozaRecomML:
         RecommenedCraftozaJson=json.dumps(RecommenedResponseDict,indent=10)
         # with open('RecommenedCraftozaJson.json','w') as file:
         #         json.dump(RecommenedCraftozaJson,file)
-        return "hello"
+        return RecommenedCraftozaJson
 @app.get('/')
 def getRecommendation(pid: str):
-    return(CraftozaRecomML(pid))   
+    x=CraftozaRecomML()
+    return(x.giveREC(pid))   
 
 if __name__=='__main__':
     uvicorn.run(app,host="localhost",port=8000) 
