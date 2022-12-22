@@ -11,9 +11,9 @@
         <label for="Email">Email</label><br>
         <input type="email" id="semail" name="Email" value="" class="inp" requried><br>
         <label for="Password" class="bolder">Password</label><br>
-        <input type="password" id="spwd" name="Password"  value="" class="inp" requried><br>
+        <input type="password" id="spwd" name="Password" class="inp" requried><br>
         <label for="ConfirmPassword"class="bolder">Confirm Password</label><br>
-        <input type="password" id="cspwd" name="CPassword" value="" class="inp" requried>
+        <input type="password" id="cspwd" name="CPassword" class="inp" requried>
         <br>
         <input type="checkbox" required><span style="font-size:12px">I've read and accept the terms and conditions <a href="T&C.html">Terms&Conditions</a></span><br><br>
         <!-- <input type="submit" value="SIGNUP" class="button2" > -->

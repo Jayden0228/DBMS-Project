@@ -2,7 +2,7 @@
     $servername="localhost";
     $username="root";
     $password="";
-    $dbname="craftoza2";
+    $dbname="craftoza";
 
     $db=mysqli_connect($servername,$username,$password,$dbname);
 
