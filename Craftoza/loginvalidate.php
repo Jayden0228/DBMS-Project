@@ -71,7 +71,7 @@
                     $num+=rand(0,9);
                 }
                 $_SESSION['otp']=$num;
-                $_SESSION['Email']=$email;
+                $_SESSION['FEmail']=$email;
                 include "Php/mail.php";
                 echo "yes";
             }
@@ -109,16 +109,23 @@
 
     if(isset($_POST['Newpass']))
     {
-        $userid=$_SESSION['UserID'];
         $password=$_POST["Password"];
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $sql="UPDATE `user` SET `pwd` = '$hashed_password' WHERE `user`.`uid` = $userid;";
+        $cpassword=$_POST["CPassword"];
+        if($password!=$cpassword){
+            echo "perr";
+        }
+        else{
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $sql="UPDATE `user` SET `pwd` = '$hashed_password' WHERE `user`.`email` = '{$_SESSION['FEmail']}';";
 
-        $res=mysqli_query($db,$sql);
+            $res=mysqli_query($db,$sql);
 
-        if(!$res)
-        {
-            echo "no";
+            if(!$res){
+                echo "no";
+            }else{
+                echo "yes";
+                unset($_SESSION['FEmail']);
+            }
         }
     }
 ?>

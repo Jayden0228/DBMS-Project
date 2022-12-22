@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(isset($_SESSION['pid'])){ //unsetting the pid session
+    if(isset($_SESSION['pid'])){
         unset($_SESSION['pid']);
     }
     if($_SERVER["REQUEST_METHOD"]=="POST")
@@ -51,14 +51,6 @@
 
         // }
     }
-    // if(isset($_SESSION['material']))
-    // {
-    //     echo "{$_SESSION['material']}";
-    // }
-    // if(isset($_SESSION['type']))
-    // {
-    //     echo "{$_SESSION['type']}";
-    // }
 ?>
 
 <!DOCTYPE html>
@@ -77,24 +69,6 @@
     <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/search.css">
     <link rel="stylesheet" href="Css/footer.css">
-
-    <!-- <script>
-        function move(){
-            document.getElementById('craftie').style.left="85%";
-        }
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
-        }
-    </script> -->
     
     <title>Craftoza</title>
 </head>
@@ -105,13 +79,7 @@
     <?php include 'Php/_nav.php'?>
 
     <main>
-        <!-- <div id="top">
-            <p id="Headtext">HELLO <?php //printn();?></p>
-            <div id="craftie">
-                <img src="Images/craftie-rbg.png" alt="" onload="setTimeout(move, 1880)">            
-            </div>
-            <hr>
-        </div> -->
+
         <div id="backgd">
             <br><br><br>
                 <?php
@@ -130,23 +98,52 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
-                                $dprice=$row['price']-$row['price']*$row['discnt']*0.01;
-                                echo "<form action='item.php' method='POST'>";
-                                echo "<div id='search'>";
-                                echo "<div id='image'>";
-                                echo "<img src='Images/card3.png' alt='' width='110%' height='auto'>";
-                                echo "</div>";
-                                echo "<div id='text'>";
-                                echo "<div class='text1'>{$row['pname']}</div>";
-                                echo "<div class='text2' style='color: #fd5353fe;'>RS. $dprice</div>";
-                                echo "<div class='text3'>-{$row['discnt']} %OFF</div>";
-                                echo "</div>";
-                                echo "<div id='btn'>";
-                                echo "<input type='hidden' name='pid' value='{$row['pid']}' >";
-                                echo "<input class='btn1' type='submit' value='View Product' style='text-align: center;'>";
-                                echo "</div>";
-                                echo "</div>";
-                                echo "</form>";
+                                $dprice=$row['price']*(1-$row['discnt']*0.01);
+                                ?>
+                                    <form action='item.php' method='POST'>
+                                        <div id='search'>
+                                            <div id='image'>
+                                                <img src=<?php echo $row['ParentImgLink'].'png'?> width='110%' height='auto'>
+                                            </div>
+                                            <div id='text'>
+                                                <div class='text1'><?php echo $row['pname']?></div>
+                                                <div class='text2' style='color: #fd5353fe;'><?php echo "Rs ".$dprice?></div>
+                                                <div class='text3'>-<?php echo $row['discnt']?>%OFF</div>
+                                                <div class="text3">
+                                                    <?php
+                                                        $i=1;
+                                                        while($i<=$row['rating'])
+                                                        {
+                                                            ?>
+                                                                <img src="Images/star.png" alt="star" style="width: 9%;">
+                                                            <?php
+                                                            $i++;
+                                                        }
+                                                    ?>
+                                                </div>
+                                                <div class="text4">
+                                                    <?php
+                                                        if($row['qnt']==0){
+                                                            ?>
+                                                                <div style="color:red">Out of stock</div>
+                                                            <?php
+                                                        }
+                                                        else{
+                                                            ?>
+                                                                <div style="color:green">In stock</div>
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            
+                                            <div id='btn'>
+                                                <input type='hidden' name='pid' value=<?php echo $row['pid']?> >
+                                                <input class='btn1' type='submit' value='View Product' style='text-align: center;'>
+                                            </div>
+                                        </div>
+                                    </form>
+                                <?php
                             }
                         }
                     }
@@ -165,23 +162,52 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
-                                echo "<form action='item.php' method='POST'>";
-                                echo "<div id='search'>";
-                                echo "<div id='image'>";
-                                echo "<img src='Images/card3.png' alt='' width='110%' height='auto'>";
-                                echo "</div>";
-                                echo "<div id='text'>";
-                                echo "<div class='text1'>{$row['pname']}</div>";
-                                echo "<div class='text2' style='color: #fd5353fe;'>{$row['price']}</div>";
-                                echo "<div class='text3'>{$row['discnt']} %OFF</div>";
-                                echo "</div>";
-                                echo "<div id='btn'>";
-                                //echo "<button class='btn1' type='button' value='{$row['pid']}'>View Product</button>";
-                                echo "<input type='hidden' name='pid' value='{$row['pid']}' >";
-                                echo "<input class='btn1' type='submit' value='View Product' style='text-align: center;'>";
-                                echo "</div>";
-                                echo "</div>";
-                                echo "</form>";
+                                $dprice=$row['price']*(1-$row['discnt']*0.01);
+                                ?>
+                                    <form action='item.php' method='POST'>
+                                        <div id='search'>
+                                            <div id='image'>
+                                                <img src=<?php echo $row['ParentImgLink'].'png'?> width='110%' height='auto'>
+                                            </div>
+                                            <div id='text'>
+                                                <div class='text1'><?php echo $row['pname']?></div>
+                                                <div class='text2' style='color: #fd5353fe;'><?php echo "Rs ".$dprice?></div>
+                                                <div class='text3'>-<?php echo $row['discnt']?>%OFF</div>
+                                                <div class="text3">
+                                                    <?php
+                                                        $i=1;
+                                                        while($i<=$row['rating'])
+                                                        {
+                                                            ?>
+                                                                <img src="Images/star.png" alt="star" style="width: 9%;">
+                                                            <?php
+                                                            $i++;
+                                                        }
+                                                    ?>
+                                                </div>
+                                                <div class="text4">
+                                                    <?php
+                                                        if($row['qnt']==0){
+                                                            ?>
+                                                                <div style="color:red">Out of stock</div>
+                                                            <?php
+                                                        }
+                                                        else{
+                                                            ?>
+                                                                <div style="color:green">In stock</div>
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            
+                                            <div id='btn'>
+                                                <input type='hidden' name='pid' value=<?php echo $row['pid']?> >
+                                                <input class='btn1' type='submit' value='View Product' style='text-align: center;'>
+                                            </div>
+                                        </div>
+                                    </form>
+                                <?php
                             }
                         }
                     }  

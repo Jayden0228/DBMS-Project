@@ -53,7 +53,6 @@ $(document).ready(function(){
                 }
                 else if(data=='yes'){
                     $('#errmsg4').css('display','none');
-                    // location.reload();
                     $(location).prop('href','profile.php')
                 }
             }
@@ -126,16 +125,22 @@ $(document).ready(function(){
             url: 'loginvalidate.php',
             data: {
                 Password: password,
+                CPassword: cpassword,
                 Newpass: true
             },
             success:function(data){
-                if(data=='no')
+                if(data=='perr')
                 {
-                    $('#errmsg').css('display','block');
-                    $('#errmsg').html('Could not update the password');
+                    $('#errmsg3').css('display','block');
+                    $('#errmsg3').html('Password not matching');
                 }
-                else{
-                    $('#errmsg').css('display','none');
+                else if(data=='no')
+                {
+                    $('#errmsg3').css('display','block');
+                    $('#errmsg3').html('Could not update the password');
+                }
+                else if(data=='yes'){
+                    $('#errmsg3').css('display','none');
                     location.reload();
                 }
             }
@@ -186,7 +191,7 @@ $(document).ready(function(){
             CPassword: {
                 required: true,
                 minlength: 8,
-                equalTo: '[name="Password"]'
+                // equalTo: '[name="Password"]'
             }
         },
         messages: {
@@ -196,7 +201,7 @@ $(document).ready(function(){
             },
             CPassword: {
                 minlength: 'Password must be at least 8 characters long',
-                equalTo: 'Password not matching'
+                // equalTo: 'Password not matching'
             }
         }  
         // submitHandler: function(form) {
@@ -236,18 +241,18 @@ $(document).ready(function(){
         errorClass: "error fail-alert",
         validClass: "valid success-alert",
         rules: {
-            Password: {
+            NPassword: {
                 required: true,
                 minlength: 8,
             },
             CPassword: {
                 required: true,
                 minlength: 8,
-                equalTo: '[name="Password"]'
+                equalTo: '[name="NPassword"]'
             }
         },
         messages: {
-            Password: {
+            NPassword: {
                 minlength: 'Password must be at least 8 characters long'
             },
             CPassword: {
