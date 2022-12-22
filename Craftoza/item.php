@@ -1,6 +1,7 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
+    $_SESSION['cnt']=1;
 
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
@@ -206,8 +207,8 @@
                                 <?php
                             }
                         ?>
-                        </div>
                     </div>
+                </div>
                 <div id="lv2cn3">
                     <form action="#" method="POST">
                         <input type="submit" value="Add To Cart" name="cart" class="btn1">
