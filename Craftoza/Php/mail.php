@@ -1,6 +1,6 @@
 <?php
    // session_start();
-   $to = "{$_SESSION['Email']}";
+   $to = "{$_SESSION['FEmail']}";
    $subject = "OTP Verification";
    
    $message = "Your OTP is {$_SESSION['otp']}";
