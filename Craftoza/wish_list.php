@@ -44,22 +44,9 @@
     <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/footer.css">
 
-
     <script>
         function move(){
             document.getElementById('craftie').style.left="85%";
-        }
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
         }
     </script>
     
@@ -82,7 +69,7 @@
         <div id="backgd">
             <br><br><br>
             <?php
-                $sql="SELECT * FROM `view` NATURAL JOIN `product` WHERE `uid`='{$_SESSION['UserID']}' AND `status`='wishlist'";
+                $sql="SELECT * FROM `view` NATURAL JOIN `product` NATURAL JOIN `seller` WHERE `uid`='{$_SESSION['UserID']}' AND `status`='wishlist'";
                 $res=mysqli_query($db,$sql);
 
                 ?>
@@ -105,6 +92,7 @@
                             </div>
                             <div id="text">
                                 <div class="text1"><?php echo $row['pname']?></div>
+                                <div class="text1"><?php echo $row['company_name']?></div>
                                 <div class="text2" style="color: #fd5353fe;"><?php echo $row['price']?></div>
                                 <div class="text3">
                                 <?php
@@ -119,7 +107,20 @@
                                 ?>
                                 </div>
                                 <div class="text3"><img src="Images/craftfied.png" alt="craftfied" style="width: 36%;height: auto;"></div>
-                                <div class="text4">Qnt <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button></div>
+                                <div class="text4">
+                                <?php
+                                    if($row['qnt']==0){
+                                        ?>
+                                            <div style="color:red">Out of stock</div>
+                                        <?php
+                                    }
+                                    else{
+                                        ?>
+                                            <div style="color:green">In stock</div>
+                                        <?php
+                                    }
+                                ?>
+                                </div>
                             </div>
                             <div id="btn">
                                 <form action="" method="POST">
