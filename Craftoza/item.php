@@ -150,18 +150,35 @@
                         while($i<=$row1['rating'])
                         {
                             ?>
-                                <img src="Images/star.png" alt="star" style="width: 75%;">
+                                <img src="Images/star.png" alt="star" style="width: 9%;">
                             <?php
                             $i++;
                         }
                     ?>
                 </div>
-                <button id="buybtn" onclick="load()">BUY NOW</button>
+                <?php
+                    if($row1['qnt']==0){
+                        ?>
+                            <button id="buybtn" disabled>BUY NOW</button>
+                        <?php
+                    }
+                    else{
+                        ?>
+                            <button id="buybtn" onclick="load()">BUY NOW</button>
+                            <script>
+                                function load() {
+                                    window.location ="order.php";
+                                }
+                            </script>
+                        <?php
+                    }
+                ?>
+                <!-- <button id="buybtn" onclick="load()">BUY NOW</button>
                 <script>
                     function load() {
                         window.location ="order.php";
                     }
-                </script>
+                </script> -->
             </div>
 
             <hr>
