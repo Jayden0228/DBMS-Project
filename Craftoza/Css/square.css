@@ -1,0 +1,140 @@
+
+.SquareContainer{
+    grid-row-start: 4;
+    grid-column-start: 1;
+ 
+    position: relative;
+    width:400px;
+    height:200px;
+    overflow:hidden;
+    left:600px;
+    bottom:60px;
+    top:-60px;
+
+}
+
+.Square{
+    position: absolute;
+    bottom:0;
+    width:10px;
+    height: 10px;
+    animation: flying 10s infinite ease-in;
+    z-index: 1;
+}
+
+.Square:nth-child(1)
+{
+    width:15px;
+    height: 15px;
+    left:100px;
+    animation-duration: 8s;
+    background-color:  rgba(253, 82, 82, 1);
+    z-index: 1;
+}
+
+.Square:nth-child(2)
+{
+    width:12px;
+    height: 12px;
+    left:50px;
+    animation-duration: 10s;
+    background-color:   rgba(254, 204, 34, 1);
+    z-index: 1;
+}
+
+.Square:nth-child(3)
+{
+    width:17px;
+    height: 17px;
+    left:120px;
+    animation-duration: 5s;
+    background-color:   rgba(94, 162, 235, 1);
+    z-index: 1;
+}
+
+.Square:nth-child(4)
+{
+    width:14px;
+    height: 14px;
+    left:40px;
+    animation-duration: 9s;
+    background-color:   rgba(253, 82, 82, 1);
+    z-index: 1;
+}
+
+.Square:nth-child(5)
+{
+    width:18px;
+    height: 18px;
+    left:106px;
+    animation-duration: 16s;
+    background-color:   rgba(94, 162, 235, 1);
+    z-index: 1;
+}
+
+.Square:nth-child(6)
+{
+    width:20px;
+    height: 20px;
+    left:60px;
+    animation-duration: 14s;
+    background-color:   rgba(254, 204, 34, 0.5);
+    z-index: 1;
+}
+
+.Square:nth-child(7)
+{
+    width:16px;
+    height: 16px;
+    left:40px;
+    animation-duration: 6s;
+    background-color:   rgba(253, 82, 82, 1);
+    z-index: 1;
+}
+
+.Square:nth-child(8)
+{
+    width:10px;
+    height: 10px;
+    left:30px;
+    animation-duration: 8s;
+    background-color:   rgba(94, 162, 235, 1);
+    z-index: 1;
+}
+
+.Square:nth-child(9)
+{
+    width:12px;
+    height: 12px;
+    left:20px;
+    animation-duration: 12s;
+    background-color:   rgba(254, 204, 34, 0.5);
+    z-index: 1;
+}
+
+
+@keyframes flying
+{
+    0%
+    {
+        bottom:-100px;
+        transform: translateX(0);
+    }
+    50%
+    {
+        transform: translateX(120px);
+    }
+    100%
+    {
+        bottom:300px;
+        transform: translateX(-10px);
+    }
+}
+
+
+
+
+
+
+
+
