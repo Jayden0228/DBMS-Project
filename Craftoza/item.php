@@ -53,17 +53,10 @@
 
         if(isset($_POST['reviewinp'])){
             $review=$_POST['review'];
-            $rating=$_POST['rating'];
-            $rated=$_POST['rated'];
             
             if(!empty($review)){
                 $sql5="INSERT INTO `reviews`(`pid`, `uid`, `comment`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','$review')";
                 mysqli_query($db,$sql5);
-            }
-            if($rating!=0){
-                $x=(int)$rated+(int)$rating;
-                $sql6="UPDATE `product` SET `rating`='$x' WHERE `pid`='{$_SESSION['pid']}'";
-                mysqli_query($db,$sql6);
             }
             ?>
             <script>displayBlock('reviewForm');displayNone('review')</script>
@@ -174,16 +167,9 @@
                         <?php
                     }
                 ?>
-                <!-- <button id="buybtn" onclick="load()">BUY NOW</button>
-                <script>
-                    function load() {
-                        window.location ="order.php";
-                    }
-                </script> -->
             </div>
 
             <hr>
-
             <div id="lv2">
                 <div id="lv2cn1">
                     <?php
@@ -244,22 +230,16 @@
                     <div class="plus"><span>&#65291;</span></div>
                 </div>
                 <div id="lv3cn3h">
-                    <span style="float :right;color:#5ea2ecfe;cursor: pointer;" onclick="displayBlock('reviewForm');displayNone('review')">ADD REVIEW</span>
+                    <span ></span>
+                    <button id="addreview"onclick="displayBlock('reviewForm');displayNone('review');displayNone('addreview')">ADD REVIEW</button>
                     <form action="" method="post" id="reviewForm" class="center2" >
                         <input type="hidden" name="rated" value=<?php $row1['rating']?>>
+                        <br>
                         <label>Enter your Review!!</label><br>
                         <textarea name="review" cols="40" rows="5"></textarea><br>
-                        <label>Rate</label>
-                        <select name="rating">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
                         <br>
                         <button type="submit" name="reviewinp" style="width:75%">Submit</button>
+                        <br>
                     </form>
                     <div id="review">
                     <?php
