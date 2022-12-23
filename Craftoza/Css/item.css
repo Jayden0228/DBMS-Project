@@ -210,3 +210,15 @@ input[type=number] {
 #reviewForm{
     display: none;
 }
+#addreview{
+    float :right;
+    border: 1px solid #5ea2ecfe;
+    background-color: white;
+    color:#5ea2ecfe;
+    cursor: pointer;
+    width: 23%;
+}
+#addreview:hover{
+    color:white;
+    background: #5ea2ecfe;
+}
