@@ -21,7 +21,7 @@
                 }
             ?>
             
-            <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
+            <li><a href="AboutUsindex.html"><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></a></li>
         </ul>
 
     </div>
