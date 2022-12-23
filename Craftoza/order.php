@@ -1,7 +1,6 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
-    $cnt=1;
 ?>
 <!DOCTYPE html>
 
@@ -19,6 +18,29 @@
     <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/order.css">
     <link rel="stylesheet" href="Css/footer.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        *, ::after, ::before {
+            box-sizing: content-box;
+        }
+        img, svg {
+            vertical-align:auto;
+        }
+        td,th{
+            text-align: center;
+        }
+        .container{
+            max-width: 1170px;
+            margin: auto;
+        }
+        .row{
+            display: flex;
+            flex-wrap:wrap;
+            row-gap: 20px;
+        }
+    </style>
+
     <title>Craftoza</title>
 </head>
 
@@ -29,7 +51,15 @@
     <?php
         if($_SERVER["REQUEST_METHOD"]=="POST")
         {
-            
+            if(isset($_POST['QNT'])){
+                $_SESSION['cnt']=$_POST['pqnt'];
+                ?>
+                <script>
+                    window.location ="payment.php";
+                </script>
+                <?php
+            }
+
             if(isset($_POST['ccard'])){
                 $_SESSION['cdno']=$_POST['choosecard'];
                 // echo $_SESSION['cdno'];
@@ -113,9 +143,11 @@
                                 <script>displayNone(`box2`);displayBlock(`box1`);</script>
                                 <div id='box1'>
                             <?php
-
+                            $c=1;
                             while($row=mysqli_fetch_assoc($res))
                             {
+                                $id='AddrForm'.$c;
+                                $id2='cadd'.$c;
                                 ?>
                                     <div id='addr'>
                                         <div class='center addarea'>
@@ -125,14 +157,15 @@
                                                 <span>Mobile No: <?php echo $mnum?></span><br>
                                             </span>
                                             <span class='link choose'>
-                                                <form autocomplete="off" style="margin:0;" id="AddrForm">
-                                                    <input type="hidden" id='cadd' name="cadd" value=<?php echo $row['hno']?>>
+                                                <form autocomplete="off" style="margin:0;" id=<?php echo $id?>>
+                                                    <input type="hidden" id=<?php echo $id2?> name="cadd" value=<?php echo $row['hno']?>>
                                                     <input type="submit" name="caddr" value="Choose" style="color: #FE981B;background: white; border:none; margin:0; padding:0;width: 83px;">
                                                 </form >
                                             </span>
                                         </div>
                                     </div>
                                 <?php
+                                $c+=1;
                             }
                             ?>
                                 <hr>
@@ -192,13 +225,15 @@
                     {   
                         $row=mysqli_fetch_assoc($res);
                         ?>
+                            <br>
                             <div id='addr'>
                                 <div class='center addarea'>
                                     <span class='fulladd'>
-                                        <span>Address: <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                        <span><b>Address:</b><br> <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
                                     </span>
                                 </div>
                             </div>
+                            <br>
                         <?php
                         echo "<hr>";
                     }
@@ -216,7 +251,7 @@
                         $row1=mysqli_fetch_assoc($res1);
                         ?>
 
-                            <form autocomplete="off" id="Product Qnt">
+                            <form action="" method="POST" id="ProductQnt">
                                 <div class="item">
                                     <div id="image">
                                         <img src="Images/card3.png" alt="" style="width: 70%;height: 50%;">
@@ -227,130 +262,45 @@
                                         <?php
                                             $dprice=$row1['price']-$row1['price']*$row1['discnt']*0.01;
                                         ?>
-                                        <div class="text2" style="color: #fd5353fe;">-<?php echo $row1['discnt']?>% <span style="color: black;">Rs <?php echo $dprice?></span></div>
-                                        <div class="text2">MRP <s><?php echo $row1['price']?></s></div>
-                                        <div class="text2" style="font-weight: normal;">Inclusive of all taxes</div>
+                                        <div class="star" style="margin-left: auto;">
+                                            <?php
+                                                $i=1;
+                                                while($i<=$row1['rating'])
+                                                {
+                                                    ?>
+                                                        <img src="Images/star.png" alt="star" style="width: 7%;">
+                                                    <?php
+                                                    $i++;
+                                                }
+                                            ?>
+                                        </div>
+                                        <div class="text2">MRP <s><?php echo $row1['price']?></s> Rs <?php echo $dprice?> <span style="color: #fd5353fe">-<?php echo $row1['discnt']?>%OFF</span></div>
                                     </div>
                                     <div id="qnt" style="width: 135%;">
-                                        <div class="text3">Qnt 
-                                            <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button>
+                                        <div class="text3">Qnt
+                                            <select name="pqnt" id="pqnt" style="width: 15%;" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                <?php
+                                                    $i=1;
+                                                    while($i<=$row1['qnt'])
+                                                    {
+                                                        ?>
+                                                            <option value=<?php echo $i?>><?php echo $i?></option>
+                                                        <?php
+                                                        $i++;
+                                                    }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <hr>
-                                <br><br>
-                                <table class="center">
-                                    <tr>
-                                        <td>Price (<?php echo $cnt?> item)</td>
-                                        <td><?php echo $row1['price']*$cnt?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Discount <?php echo $row1['discnt']?>%OFF</td>
-                                        <td><?php echo $row1['price']*$row1['discnt']*0.01?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Delivery Charge</td>
-                                        <td>Free Delivery</td>
-                                    </tr>
-                                    <hr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td><?php echo $dprice*$cnt ?></td>
-                                    </tr>
-                                </table>
-                                <br><br>
                                 <div id="msg">
                                     <p style="text-align: center;">Congrats you have earn <?php echo $row1['credit']?> Craft Credits</p>
                                 </div>
-                                <!-- <button  onclick="(`mainbox2`);displayBlock(`mainbox3`);">Continue</button> -->
-                                <button type="submit" class="center continue">Proceed</button>
+                                <button type="submit" name="QNT" style="width: 77%;">Proceed</button>
                             </form>
                         <?php
                     }
-                    ?>
-            </div>
-            
-
-            
-            <div id="mainbox3">
-                <p id="toptext">Payment</p>
-                <hr>
-                <label for="">Choose The Payment Method</label><br>
-                <form action="" method="POST" class="center">
-                    <input type="radio" name="payment" value="UPI">
-                    <label>UPI</label><br>
-                    <input type="radio" name="payment" value="Credit/Wallet">
-                    <label>Credit/Wallet</label><br>
-                    <input type="radio" name="payment" value="Net Banking">
-                    <label>Net Banking</label><br>
-                    <input type="radio" name="payment" value="Cash on Delivery">
-                    <label>Cash on Delivery</label><br>
-                    <br><br>
-                    <button class="center" type="submit">Choose</button>
-                </form>
-                <?php
-                    $userid=$_SESSION['UserID'];
-                    $sql="SELECT * FROM `creditcard` WHERE `uid`='$userid'";
-                    $res=mysqli_query($db,$sql);
-                    if(mysqli_num_rows($res)==0)
-                    {
-                        echo "<script>
-                                displayNone(`box3`);
-                                displayBlock(`box4`);
-                        </script>";
-                    }
-                    else
-                    {   
-                        echo "<script>
-                                displayNone(`box4`);
-                                displayBlock(`box3`);
-                        </script>";
-                        echo "<div id='box3'>";
-                        while($row=mysqli_fetch_assoc($res))
-                        {
-                            ?>
-                            <div id='card'>
-                                <div class='center cardarea'>
-                                    <span class='cardname'><?php echo "{$row['label']}"?></span>
-                                    <span class='ncard'>
-                                        <form action="#" method="post" style="margin:0;">
-                                            <input type="hidden" name="choosecard" value=<?php echo $row['cardno']?>>
-                                            <input type="submit" name="ccard" id="ccard" value="choose" style="color: #FE981B;background: white; border:none; margin:0; padding:0">
-                                        </form >
-                                    </span>
-                                </div>
-                            </div>
-
-                        <?php
-                        }
-                        echo "<hr>";
-                        echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newcd' class='ncard' >New Card</span></div>";
-                        ?>
-                        <button class="center order" onclick="displayNone(`mainbox2`);displayBlock(`mainbox3`);">Order</button>
-                        <?php
-                        echo "</div>";
-                    }
-
-                    echo "<div id='box4'>";
-                    echo "<form action='' method='post' class='center2' style='width: 40%;' onsubmit='return validateCard(this)'>";
-                    echo "<label for='Card No'>Card Number</label>";
-                    echo "<br>";
-                    echo "<input type='number' name='cardno' id='cardno' oninput='this.value=this.value.replace(/[^0-9]/g,``)' maxlength='16' required>";
-                    echo "<br><br>";
-                    echo "<label for='CVV'>CVV</label>";
-                    echo "<br>";
-                    echo "<input type='number' name='cvv' id='cvv' maxlength='3' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>";
-                    echo "<br><br>";
-                    echo "<label for='Card No'>Exp Date <span style='font-weight: 100;'>(month-year)</span></label>";
-                    echo "<br>";
-                    echo "<input type='date' name='exptdate' id='exptdate' required>";
-                    echo "<br><br>";
-                    echo "<label for='Card Label'>Card Label</label><br>";
-                    echo "<input type='text' name='clabel' id='clabel' required>";
-                    echo "<br>";
-                    echo "<input type='submit' value='Submit' name='newcard' style='width: 30%; padding: 4px 0;'>";
-                    echo "</form>";
-                    echo "</div>";
                     ?>
             </div>
 

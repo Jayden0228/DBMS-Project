@@ -40,11 +40,10 @@
             if(isset($_POST['order']))
             {
                 $_SESSION['pid']=$_POST['pid'];
-                echo "<script>
-                    function load() {
-                        window.location ='order.php';
-                    }
-                </script>";
+                ?><script>
+                    window.location ='order.php';
+                </script>
+                <?php
             }
             if(isset($_POST['cart']))
             {
