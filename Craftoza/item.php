@@ -153,19 +153,20 @@
                 <?php
                     if($row1['qnt']==0){
                         ?>
-                            <button id="buybtn" disabled>BUY NOW</button>
+                            <button id="buybtn" style="background: #9c9c9c;" disabled>BUY NOW</button>
                         <?php
-                    }
-                    else{
+                    }else{
+                        if(isset($_SESSION['UserID']))
+                        {
                         ?>
-                            <button id="buybtn" onclick="load()">BUY NOW</button>
-                            <script>
-                                function load() {
-                                    window.location ="order.php";
-                                }
-                            </script>
+                            <button id="buybtn" onclick='window.location ="order.php"'>BUY NOW</button>
+                        <?php
+                        }else{
+                        ?>
+                            <button id="buybtn" onclick="displayBlock('login')">BUY NOW</button>
                         <?php
                     }
+                }
                 ?>
             </div>
 
