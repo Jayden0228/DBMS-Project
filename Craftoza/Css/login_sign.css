@@ -101,6 +101,7 @@ button[type='submit']:hover{
     font-size: 30px;
 }
 #errmsg, #errmsg1, #errmsg2, #errmsg3, #errmsg4{
+    margin: 0;
     display: none;
     font-size: large;
     font-weight: 300;
