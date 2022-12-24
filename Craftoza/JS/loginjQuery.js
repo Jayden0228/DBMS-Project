@@ -62,6 +62,8 @@ $(document).ready(function(){
     $('#Forgotpassform').on('submit',function(e){
         e.preventDefault();
         var email=$('#email1').val();
+        $('#otpclick').hide();
+        $('#load').show();
         $.ajax({
             type: 'POST',
             url: 'loginvalidate.php',
@@ -78,6 +80,8 @@ $(document).ready(function(){
                     $('#gotp').css('display','block');
                     $('#fpwd').css('display','none');
                 }
+                $('#otpclick').show();
+                $('#load').hide();
             }
         });
     });
