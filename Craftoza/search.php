@@ -97,7 +97,6 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
-                                $dprice=$row['price']*(1-$row['discnt']*0.01);
                                 ?>
                                     <form action='item.php' method='POST'>
                                         <div id='search'>
@@ -106,8 +105,8 @@
                                             </div>
                                             <div id='text'>
                                                 <div class='text1'><?php echo $row['pname']?></div>
-                                                <div class='text2' style='color: #fd5353fe;'><?php echo "Rs ".$dprice?></div>
-                                                <div class='text3'>-<?php echo $row['discnt']?>%OFF</div>
+                                                <div class='text2'><?php echo "MRP: Rs ".$row['price']?></div>
+                                                <div class='text3' style='color: #fd5353fe;'>-<?php echo $row['discnt']?>%OFF</div>
                                                 <div class="text3">
                                                     <?php
                                                         $i=1;
@@ -162,17 +161,16 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
-                                $dprice=$row['price']*(1-$row['discnt']*0.01);
                                 ?>
                                     <form action='item.php' method='POST'>
                                         <div id='search'>
                                             <div id='image'>
-                                                <img src=<?php echo $row['ParentImgLink'].'png'?> width='110%' height='auto'>
+                                                <img src=<?php echo $row['ParentImgLink'].'.png'?> width='110%' height='auto'>
                                             </div>
                                             <div id='text'>
                                                 <div class='text1'><?php echo $row['pname']?></div>
-                                                <div class='text2' style='color: #fd5353fe;'><?php echo "Rs ".$dprice?></div>
-                                                <div class='text3'>-<?php echo $row['discnt']?>%OFF</div>
+                                                <div class="text2">MRP: Rs <s><?php echo $row1['price']?></s><?php echo "Rs ".$dprice?></div>
+                                                <div class='text3' style='color: #fd5353fe;'>-<?php echo $row['discnt']?>%OFF</div>
                                                 <div class="text3">
                                                     <?php
                                                         $i=1;
@@ -227,17 +225,16 @@
                         {
                             while($row=mysqli_fetch_assoc($res))
                             {
-                                $dprice=$row['price']*(1-$row['discnt']*0.01);
                                 ?>
                                     <form action='item.php' method='POST'>
                                         <div id='search'>
                                             <div id='image'>
-                                                <img src=<?php echo $row['ParentImgLink'].'png'?> width='110%' height='auto'>
+                                                <img src=<?php echo $row['ParentImgLink'].'.png'?> width='110%' height='auto'>
                                             </div>
                                             <div id='text'>
                                                 <div class='text1'><?php echo $row['pname']?></div>
-                                                <div class='text2' style='color: #fd5353fe;'><?php echo "Rs ".$dprice?></div>
-                                                <div class='text3'>-<?php echo $row['discnt']?>%OFF</div>
+                                                <div class='text2'><?php echo "MRP: Rs ".$row['price']?></div>
+                                                <div class='text3' style='color: #fd5353fe;'>-<?php echo $row['discnt']?>%OFF</div>
                                                 <div class="text3">
                                                     <?php
                                                         $i=1;
@@ -254,7 +251,7 @@
                                                     <?php
                                                         if($row['qnt']==0){
                                                             ?>
-                                                                <div style="color:red">Out of stock</div>
+                                                                <div style="color:#fd5353fe">Out of stock</div>
                                                             <?php
                                                         }
                                                         else{
@@ -281,8 +278,5 @@
         </div>
     </main>
     <?php include 'Php/_footer.php'?>
-                    
-    <script src="JS/Login.js"></script>
-
 </body>
 </html>

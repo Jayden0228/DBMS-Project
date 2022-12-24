@@ -174,7 +174,7 @@
             <div id="lv2">
                 <div id="lv2cn1">
                     <?php
-                        $dprice=$row1['price']-$row1['price']*$row1['discnt']*0.01;
+                        $dprice=$row['price']*(1-$row['discnt']*0.01);
                     ?>
                     <div class="text1" style="color: #fd5353fe;">-<?php echo $row1['discnt']?>% <span style="color: black;">Rs <?php echo $dprice?></span></div>
                     <div class="text1">MRP <s><?php echo $row1['price']?></s></div>
@@ -185,7 +185,7 @@
                         <?php
                             if($row1['qnt']==0){
                                 ?>
-                                    <div style="color:red">Out of stock</div>
+                                    <div style="color:#fd5353fe;">Out of stock</div>
                                 <?php
                             }
                             else{
