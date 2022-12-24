@@ -1,5 +1,7 @@
 <?php
     session_start();
+    include "Php/_connectDatabase.php";
+    $_SESSION['cnt']=1;
 ?>
 <!DOCTYPE html>
 
@@ -23,18 +25,6 @@
         function move(){
             document.getElementById('craftie').style.left="85%";
         }
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
-        }
     </script>
     
     <title>Craftoza</title>
@@ -44,7 +34,24 @@
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>
-
+    <?php
+        if($_SERVER["REQUEST_METHOD"]=="POST")
+        {
+            if(isset($_POST['order']))
+            {
+                $_SESSION['pid']=$_POST['pid'];
+                ?><script>
+                    window.location ='order.php';
+                </script>
+                <?php
+            }
+            if(isset($_POST['cart']))
+            {
+                $sql2="DELETE FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_POST['pid']}'";
+                $res2=mysqli_query($db,$sql2);
+            }
+        }
+    ?>
     <main>
         <div id="top">
             <p id="Headtext">My Cart</p>
@@ -55,55 +62,86 @@
         </div>
         <div id="backgd">
             <br><br><br>
-            <div class="item">
-                <div id="image">
-                    <!-- <img src="Images/card3.png" alt="" width="110%" height="100%"> -->
-                    <img src="Images/card3.png" alt="" width="110%" height="auto">
-                </div>
-                <div id="text">
-                    <div class="text1">Proud Bardezkar Bamboo</div>
-                    <div class="text2">Basket</div>
-                    <div class="text3" style="color: #fd5353fe;">Rs 299</div>
-                    <div class="text4"></div>
-                    <div class="text5">Qnt <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button></div>
-                </div>
-                <div id="btn">
-                    <button class="btn1">Add To Cart</button>
-                    <button class="btn2">Remove From Wish List</button>
-                </div>
-            </div>
-            <br><br><br>
-            <div class="item">
-                <div id="image">
-                    <!-- <img src="Images/card3.png" alt="" width="110%" height="100%"> -->
-                    <img src="Images/card3.png" alt="" width="110%" height="auto">
-                </div>
-                <div id="text">
-                    <div class="text1">Proud Bardezkar Bamboo</div>
-                    <div class="text2">Basket</div>
-                    <div class="text3" style="color: #fd5353fe;">Rs 299</div>
-                    <div class="text4"></div>
-                    <div class="text5">Qnt <button id="min" onclick="decrement()">-</button><input type="number" id="pqnt" min="1" value="1"><button id="max" onclick="increment()">+</button></div>
-                </div>
-                <div id="btn">
-                    <button class="btn1">Add To Cart</button>
-                    <button class="btn2">Remove From Wish List</button>
-                </div>
-            </div>
-            <br><br><br>
-            <!-- <div id="billtable">
-                <p style="font-weight: bold;">Price Details</p>
-                <p>Price <span>Rs 2000</span></p>
-                <p>Discount <span>20%</span></p>
-                <p>Delivery Charges <span>Rs 40</span></p>
-                <hr>
-                <p style="font-weight: bold;">Total Amount <span>Rs 1640</span></p>
-            </div>
-            <br>
-            <button id="orderplc">Place Order</button>
-            <br><br><br> -->
+            <?php
+                $sql="SELECT * FROM `view` NATURAL JOIN `product`  NATURAL JOIN `seller` WHERE `uid`='{$_SESSION['UserID']}' AND `status`='cart'";
+                $res=mysqli_query($db,$sql);
+                ?>
+                <?php
+                if(mysqli_num_rows($res)==0)
+                {
+                ?>
+                    <div class="item">
+                    <br><p style="text-align:center">No Items in your cart</p><br>
+                    </div>
+                <?php    
+                }
+                else{
+                    while($row=mysqli_fetch_assoc($res))
+                    {
+                        $dprice=$row['price']*(1-$row['discnt']*0.01);
+                        ?>
+                        <div class="item">
+                            <div id="image">
+                                <img src=<?php echo $row['ParentImgLink'].'.png'?> width='110%' height='auto'><!-- height="100%"> -->
+                            </div>
+                            <div id="text">
+                                <div class="text1"><?php echo $row['pname']?></div>
+                                <div class="text1"><?php echo $row['company_name']?></div>
+                                <div class="text2" style="color: #fd5353fe;"><?php echo "Rs ".$dprice?></div>
+                                <div class="text3">
+                                    <?php
+                                        $i=1;
+                                        while($i<=$row['rating'])
+                                        {
+                                            ?>
+                                                <img src="Images/star.png" alt="star" style="width: 9%;">
+                                            <?php
+                                            $i++;
+                                        }
+                                    ?>
+                                </div>
+                                <div class="text3"><img src="Images/craftfied.png" alt="craftfied" style="width: 36%;height: auto;"></div>
+                                <div class="text4">
+                                <?php
+                                    if($row['qnt']==0){
+                                        ?>
+                                            <div style="color:red">Out of stock</div>
+                                        <?php
+                                    }
+                                    else{
+                                        ?>
+                                            <div style="color:green">In stock</div>
+                                        <?php
+                                    }
+                                ?>
+                                </div>
+                            </div>
+                            <div id="btn">
+                                <form action="" method="POST">
+                                    <input type="hidden" name="pid" value=<?php echo $row['pid']?>>
+                                    <?php
+                                        if($row['qnt']==0){
+                                            ?><input type="submit" value="Buy now" name="order" class="btn1" style="text-align: center;" disabled><?php
+                                        }
+                                        else{
+                                            ?><input type="submit" value="Buy now" name="order" class="btn1" style="text-align: center;"><?php
+                                        }
+                                    ?>          
+                                    <input type="submit" value="Remove From Cart" name="cart" class="btn2" style="text-align: center;">
+                                </form>
+                            </div>
+                        </div>
+                        <br><br><br>
+                        <?php
+                    }
+                }
+            ?>
         </div>
+        
     </main>
+    <?php
+        mysqli_close($db);
+    ?>
     <?php include 'Php/_footer.php'?>
 
     <script src="JS/Login.js"></script>

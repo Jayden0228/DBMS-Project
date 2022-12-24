@@ -1,5 +1,13 @@
 <?php
     session_start();
+    include "Php/_connectDatabase.php";
+    if($_SERVER["REQUEST_METHOD"]=="POST")
+    {
+        if(isset($_POST['raddr'])){
+            $sql="DELETE FROM `address` WHERE `hno` = '{$_POST['removeaddr']}' AND `uid` = '{$_SESSION['UserID']}'";
+            mysqli_query($db,$sql);
+        }
+    }
 ?>
 <!DOCTYPE html>
 
@@ -57,7 +65,6 @@
             <div id="addbox">
 
             <?php
-                include "Php/_connectDatabase.php";
                 
                 if(isset($_POST['newaddr']))
                 {
@@ -68,14 +75,16 @@
                     $state=$_POST["state"];
                     $pcode=$_POST["pcode"];
 
-                    $sql="INSERT INTO `address` (`uid`, `hno/fno`, `wname`, `vill/city`, `taluka`, `state`, `pincode`) VALUES ('{$_SESSION['UserID']}', '$hfno', '$wname', '$villcity', '$taluka', '$state', '$pcode');";
+                    $sql="INSERT INTO `address` (`uid`, `hno`, `wname`, `villageCity`, `taluka`, `state`, `pincode`) VALUES ('{$_SESSION['UserID']}', '$hfno', '$wname', '$villcity', '$taluka', '$state', '$pcode');";
 
                     $res=mysqli_query($db,$sql);
                     if(!$res)
                     {
                         echo "Record not updated";
-                    }    
-                    echo "<script>displayNone(`box2`);displayBlock(`box1`)</script>";
+                    } 
+                    ?>  
+                    <script>displayNone(`box2`);displayBlock(`box1`)</script>
+                    <?php
                 }
 
                 if(isset($_SESSION['UserID']))
@@ -86,147 +95,100 @@
                     $res=mysqli_query($db,$sql);
                     $res2=mysqli_query($db,$sql2);
 
-
-
                     if(mysqli_num_rows($res)==0)
                     {
-                            echo "<div id='box1'>";
-                            echo "<p id='atext'>Saved Address</p>";
-
-                            echo "<div id='addr'>";
-                                echo "<br>";
-                                // echo "<div class='center addarea'>";
-                                    // echo "<span class='fulladd'>";
-                                    //     echo "<span>Name:</span><br>";
-                                    //     echo "<span>Address:</span><br>";
-                                    //     echo "<span>Mobile No:</span><br>";
-                                    // echo "</span>";
-                                    // echo "<span class='link'>Remove</span>";
-                                // echo "</div>";
-                                echo "<p style='text-align:center'>No Address</p>";
-                                echo "<br>";
-                            echo "</div>";
-                            echo "<hr>";
-                            echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
-                        echo "</div>";
-                        
+                        ?>
+                            <div id='box1'>
+                                <p id='atext'>Saved Address</p>
+                                <div id='addr'>
+                                <br>
+                                <p style='text-align:center'>No Address</p>
+                                <br>
+                            </div>
+                            <hr>
+                            <div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>
+                            </div>
+                        <?php
                     }
                     else
                     {
                         $row2=mysqli_fetch_assoc($res2);
-                        
-                        echo "<div id='box1'>";
-                        echo "<p id='atext'>Saved Address</p>";
-
+                        $fname=$row2["fname"];
+                        $mnum=$row2["pnum"];
+                        ?>
+                        <div id='box1'>
+                            <p id='atext'>Saved Address</p>
+                        <?php
                         while($row=mysqli_fetch_assoc($res))
                         {
-                            echo "<div id='addr'>";
-                                echo "<div class='center addarea'>";
-                                    echo "<span class='fulladd'>";
-                                        echo "<span>Name: {$row2['fname']}</span><br>";
-                                        echo "<span>Address: {$row['hno/fno']} {$row['wname']} {$row['vill/city']} {$row['taluka']} {$row['state']} {$row['pincode']}</span><br>";
-                                        echo "<span>Mobile No: {$row2['pnum']}</span><br>";
-                                    echo "</span>";
-                                    echo "<span class='link remove'>Remove</span>";
-                                echo "</div>";
-                            echo "</div>";
+                            ?>
+                                <div id='addr'>
+                                    <div class='center addarea'>
+                                        <span class='fulladd'>
+                                            <span>Name: <?php echo $fname?></span><br>
+                                            <span>Address: <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                            <span>Mobile No: <?php echo $mnum?></span><br>
+                                        </span>
+                                        <span class='link remove'>
+                                            <form action="#" method="post" style="margin:0;">
+                                                <input type="hidden" name="removeaddr" value=<?php echo $row['hno']?>>
+                                                <input type="submit" name="raddr" value="Remove" style="color: #FE981B;background: white; border:none; margin:0; padding:0">
+                                            </form >
+                                        </span>
+                                    </div>
+                                </div>
+                            <?php
                         }
-                            echo "<hr>";
-                            echo "<div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>";//onclick='displayNone(`box1`);displayBlock(`box2`);
-                        echo "</div>";
+                        ?>
+                        <hr>
+                        <div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>
+                        </div>
+                        <?php
                     }
                 }
-                echo "<script>
+                ?>
+                <script>
                     document.getElementById('newaddr').onclick = function(){
                         displayNone(`box1`);
                         displayBlock(`box2`);
                     }
-                </script>";
-                echo "<div id='box2'>";
-                    echo "<p id='atext'>Enter the Details</p>";
-                    echo "<hr>";
-                    echo "<form action='' method='post' class='center2' style='width: 40%;'>";
-                        echo "<label for='Hno/fno'>H.No/Flat NO</label>";
-                        echo "<br>";
-                        echo "<input type='number' name='hfno' id='hfno' required>";
-                        echo "<br><br>";
-                        echo "<label for='Wname'>Ward Name</label>";
-                        echo "<br>";
-                        echo "<input type='text' name='wname' id='wname' required>";
-                        echo "<br><br>";
-                        echo "<label for='vill/city'>Village/City</label>";
-                        echo "<br>";
-                        echo "<input type='text' name='villcity' id='villcity' required>";
-                        echo "<br><br>";
-                        echo "<label for='Taluka'>Taluka</label>";
-                        echo "<br>";
-                        echo "<input type='text' name='taluka' id='taluka' required>";
-                        echo "<br><br>";
-                        echo "<label for='state'>State</label>";
-                        echo "<br>";
-                        echo "<input type='text' name='state' id='State' required>";
-                        echo "<br><br>";
-                        echo "<label for='pcode'>Pincode</label>";
-                        echo "<br>";
-                        echo "<input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' maxlength='6' required>";
-                        echo "<br><br>";
-                        echo "<input type='submit' name='newaddr' value='Submit' style='width: 30%; padding: 4px 0;'>";
-                    echo "</form>";
-                echo "</div>";  
-        
+                </script>
+                <div id='box2'>
+                    <span class='arrow' onclick='displayNone(`box2`);displayBlock(`box1`);' style='position: relative;
+                    cursor: pointer;'>&#8592;</span>
+                    <p id='atext'>Enter the Details</p>
+                    <hr>
+                    <form action='' method='post' class='center2' style='width: 40%;' id="AddressForm">
+                        <label for='Hno/fno'>H.No/Flat NO</label>
+                        <br>
+                        <input type='text' name='hfno' id='hfno' required>
+                        <br><br>
+                        <label for='Wname'>Ward Name</label>
+                        <br>
+                        <input type='text' name='wname' id='wname' required>
+                        <br><br>
+                        <label for='vill/city'>Village/City</label>
+                        <br>
+                        <input type='text' name='villcity' id='villcity' required>
+                        <br><br>
+                        <label for='Taluka'>Taluka</label>
+                        <br>
+                        <input type='text' name='taluka' id='taluka' required>
+                        <br><br>
+                        <label for='state'>State</label>
+                        <br>
+                        <input type='text' name='state' id='State' required>
+                        <br><br>
+                        <label for='pcode'>Pincode</label>
+                        <br>
+                        <input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>
+                        <br><br>
+                        <input type='submit' name='newaddr' value='Submit' style='width: 30%; padding: 4px 0;'>
+                    </form>
+                </div> 
+            <?php
                 mysqli_close($db);
             ?>
-
-                <!-- <div id="box1">
-                    <p id="atext">Saved Address</p>
-
-                    <div id="addr">
-                        <div class="center addarea">
-                            <span class="fulladd">
-                                <span>Name:</span><br>
-                                <span>Address:</span><br>
-                                <span>Mobile No:</span><br>
-                            </span>
-                            <span class="link">Remove</span>
-                        </div>
-                    </div>
-                    <hr>
-                    <div style="margin-top: 20px; margin-bottom: 30px;"><span class="link">New Address</span></div>
-                </div> -->
-
-                <!-- <div id="box2">
-                    <p id="atext">Enter the Details</p>
-                    <hr>
-                    <form action="" method="post" class="center2" style="width: 40%;">
-                        
-                        <label for="Hno/fno">H.No/Flat NO</label>
-                        <br>
-                        <input type="number" name="hfno" id="hfno" required>
-                        <br><br>
-                        <label for="Wname">Ward Name</label>
-                        <br>
-                        <input type="number" name="wname" id="wname" required>
-                        <br><br>
-                        <label for="vill/city">Village/City</label>
-                        <br>
-                        <input type="number" name="villcity" id="villcity" required>
-                        <br><br>
-                        <label for="Taluka">Taluka</label>
-                        <br>
-                        <input type="number" name="taluka" id="taluka" required>
-                        <br><br>
-                        <label for="state">State</label>
-                        <br>
-                        <input type="number" name="state" id="State" required>
-                        <br><br>
-                        <label for="pcode">Pincode</label>
-                        <br>
-                        <input type="number" name="pcode" id="pcode" oninput="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="6" required>
-                        <br><br>
-                        <input type="submit" name="newaddr" value="Submit" style="width: 30%; padding: 4px 0;">
-                    </form>
-                </div> -->
-                
 
             </div>
             <br><br><br>
@@ -234,7 +196,7 @@
     </main>
     <?php include 'Php/_footer.php'?>
 
-    <script src="JS/Login.js"></script>
-
+    <script src="JS/validationjQuery.js"></script>
+    
 </body>
 </html>

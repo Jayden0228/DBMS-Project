@@ -1,6 +1,6 @@
 var ADno=0;
-const ADVERTISEcontentBEFORE_LINE=["BIG","CHRISTMAS","BAZAAR","Get discounts upto 50%"];
-const ADVERTISEcontentAFTER_LINE=["SEASHELL","UNION","GOA","30 Unique Art Pieces"];
+var ADVERTISEcontentBEFORE_LINE=["BIG","CHRISTMAS","BAZAAR","Get discounts upto 50%"];
+var ADVERTISEcontentAFTER_LINE=["SEASHELL","UNION","GOA","30 Unique Art Pieces"];
 
 
 setInterval(function AdUpdate(){

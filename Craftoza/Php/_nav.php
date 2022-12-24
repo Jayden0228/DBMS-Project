@@ -1,18 +1,17 @@
 <header>
     <div id="logo"><img src="Images\Logo.png" alt="logo" id="logo" height="auto" width="100%"></div>
 
-    <form action="">
-        <input id="searchvalue" type="search" placeholder=" Search Products">
+    <form action="search.php" method="POST">
+        <input id="searchvalue" name="search" type="search" placeholder=" Search Products">
     </form>
 
     <div class="icons">
         <ul>
             <?php
-                // session_start();
                 if(isset($_SESSION['UserID']))
                 {
                     echo "<li><a href='account.php'><img src='Micro_Webpage_Elements\icons\admin.png' class='Icons'><a></li>";
-                    echo "<li><a href='wish_list.php'><img src='Micro_Webpage_Elements\icons\cart.png' class='Icons'></a></li>";
+                    echo "<li><a href='cart.php'><img src='Micro_Webpage_Elements\icons\cart.png' class='Icons'></a></li>";
 
                 }
                 else{
@@ -22,7 +21,7 @@
                 }
             ?>
             
-            <li><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></li>
+            <li><a href="AboutUsindex.html"><img src="Micro_Webpage_Elements\icons\help.png" class="Icons"></a></li>
         </ul>
 
     </div>
@@ -30,11 +29,30 @@
         <ul class="NavLinks">
             <li>Explore
                 <div class="dropdown">
-                    <a href="">Pottery</a>
-                    <a href="">Shells</a>
-                    <a href="">Jewellery</a>
-                    <a href="">Bag</a>
-                    <a href="">Coconut Item</a>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Bamboo" value="Bamboo" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Coconut" value="Coconut" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Clay" value="Clay" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Shells" value="Shells" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Bag" value="Bag" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="HomeDeco" value="Home Deco" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="EarthenPots" value="Earthen Pots" id="dpbutton">
+                </form>
+                <form action="search.php" method="post">
+                        <input type="submit" name="Jewellery" value="Jewellery" id="dpbutton">
+                </form>
                 </div>
             </li>
             <li>Community
