@@ -6,8 +6,10 @@
     <p style="font-size: 17px">Please Enter The OTP To Verify Your Account</p>
     <p style="font-size: medium; color: rgb(44, 43, 43);">An OPT Has Been Sent To <?php if(isset($_SESSION['Email'])) {echo "{$_SESSION['Email']}";}else{echo "entered email";}?></p>
     
-
+    
+    
     <form autocomplete="off" class="center2" id="OTPform">
+        <!-- <p style="margin:0; margin-bottom:5px;font-size: medium;" id="timerPara">Session will end in <span id="timer">2:00</span>.</p> -->
         <br><br>
         <p id="resendotp">OTP has been resended</p>
         <p id='errmsg1'></p>
