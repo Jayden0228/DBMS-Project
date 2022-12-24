@@ -62,6 +62,7 @@ $(document).ready(function(){
     $('#Forgotpassform').on('submit',function(e){
         e.preventDefault();
         var email=$('#email1').val();
+        $('#errmsg1').hide();
         $('#otpclick').hide();
         $('#load').show();
         $.ajax({
@@ -105,12 +106,22 @@ $(document).ready(function(){
                     $('#errmsg1').css('display','block');
                     $('#errmsg1').html("Enter a valid OTP");
                 }
+                else{
+                    $('#errmsg1').css('display','block');
+                    $('#errmsg1').html("OTP Expired");
+                }
             }
         });
     });
 
     $('#ResendOTP').on('submit',function(e){
         e.preventDefault();
+        $('#rsend').hide(setTimeout(function(){
+            $('#rsend').show();
+            $('#resendotp').hide();
+        }, 30000));
+        $('#resendotp').show();
+        $('#errmsg1').hide();
         $.ajax({
             type: 'POST',
             url: 'loginvalidate.php',

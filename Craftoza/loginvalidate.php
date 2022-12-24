@@ -73,6 +73,7 @@
                 $_SESSION['otp']=$num;
                 $_SESSION['FEmail']=$email;
                 include "Php/mail.php";
+                $_SESSION['time']=time();
                 echo "yes";
             }
         }
@@ -89,7 +90,10 @@
                 echo "no";
             }
             else{
-                echo "yes";
+                if(time()-$_SESSION['time']<=120)
+                    echo "yes";
+                else
+                    echo "exp";
             }
         }
     }
@@ -104,6 +108,7 @@
         }
         $_SESSION['otp']=$num;
         include "Php/mail.php";
+        $_SESSION['time']=time();
     }
 
 

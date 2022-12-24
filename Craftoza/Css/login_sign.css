@@ -108,6 +108,17 @@ button[type='submit']:hover{
     text-align: center;
     color:#fd5353fe
 }
+#resendotp{
+    display: none;
+    font-size: medium;
+}
+#rsend{
+    background-color: transparent; 
+    color:black; width: 68%;
+    font-size: 14px;
+    margin-top: 10px;
+    padding-left: 0px;
+}
 
 label.error.fail-alert {
     color: #fd5353fe;
