@@ -5,7 +5,7 @@
    
    $message = "Your OTP is {$_SESSION['otp']}";
    $message .= "\nPlease dont share it with anyone";
-   $message .= "\n\nOnly valid for 5 minutes";
+   $message .= "\n\nOnly valid for 3 minutes";
    
    $header = "From:enquirycraftoza@gmail.com \r\n";
    $header .= "Cc:craftoza@craft.com \r\n";

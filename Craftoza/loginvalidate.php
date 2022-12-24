@@ -90,7 +90,7 @@
                 echo "no";
             }
             else{
-                if(time()-$_SESSION['time']<=120)
+                if(time()-$_SESSION['time']<=180)
                     echo "yes";
                 else
                     echo "exp";
