@@ -30,28 +30,28 @@
             <li>Explore
                 <div class="dropdown">
                 <form action="search.php" method="post">
-                        <input type="submit" name="Bamboo" value="Bamboo" id="dpbutton">
+                    <input type="submit" name="Bamboo" value="Bamboo" id="dpbutton">
                 </form>
                 <form action="search.php" method="post">
-                        <input type="submit" name="Coconut" value="Coconut" id="dpbutton">
+                    <input type="submit" name="Coconut" value="Coconut" id="dpbutton">
                 </form>
                 <form action="search.php" method="post">
-                        <input type="submit" name="Clay" value="Clay" id="dpbutton">
+                    <input type="submit" name="Clay" value="Clay" id="dpbutton">
                 </form>
                 <form action="search.php" method="post">
-                        <input type="submit" name="Shells" value="Shells" id="dpbutton">
+                    <input type="submit" name="Shells" value="Shells" id="dpbutton">
                 </form>
                 <form action="search.php" method="post">
-                        <input type="submit" name="Bag" value="Bag" id="dpbutton">
+                    <input type="submit" name="Bag" value="Bag" id="dpbutton">
                 </form>
                 <form action="search.php" method="post">
-                        <input type="submit" name="HomeDeco" value="Home Deco" id="dpbutton">
+                    <input type="submit" name="HomeDeco" value="Home Deco" id="dpbutton">
                 </form>
                 <form action="search.php" method="post">
-                        <input type="submit" name="EarthenPots" value="Earthen Pots" id="dpbutton">
+                    <input type="submit" name="EarthenPots" value="Earthen Pots" id="dpbutton">
                 </form>
                 <form action="search.php" method="post">
-                        <input type="submit" name="Jewellery" value="Jewellery" id="dpbutton">
+                    <input type="submit" name="Jewellery" value="Jewellery" id="dpbutton">
                 </form>
                 </div>
             </li>

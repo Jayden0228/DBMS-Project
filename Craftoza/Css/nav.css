@@ -115,7 +115,6 @@ nav{
     top:-1px;
     left:-1px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-
 }
 
 .NavLinks li:hover .dropdown{
@@ -126,6 +125,13 @@ nav{
     background: #f1f1f1;
     min-width: 160px;
     border: none;
+    border-radius: 0px;
+    text-align: start;
+    color: black;
+    padding: 12px 16px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: normal;
 }
 
 #dpbutton:hover{
