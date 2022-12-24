@@ -37,13 +37,13 @@
         }
         if(isset($_POST['wishlist']))
         {
+            echo"";
             $sql4="SELECT * FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_SESSION['pid']}'";
             $res4=mysqli_query($db,$sql4);
             if(mysqli_num_rows($res4)==0)
             {
-                echo"Wishlist";
-                $sql4="INSERT INTO `view` (`uid`, `pid`, `status`) VALUES ('{$_SESSION['UserID']}', '{$_SESSION['pid']}', 'wishlist')";
-                mysqli_query($db,$sql4);
+                $sql5="INSERT INTO `view` (`uid`, `pid`, `status`) VALUES ('{$_SESSION['UserID']}', '{$_SESSION['pid']}', 'wishlist')";
+                mysqli_query($db,$sql5);
             }
 
             // $sql4="INSERT INTO `view` (`uid`, `pid`, `status`) VALUES ('{$_SESSION['UserID']}', '{$_SESSION['pid']}', 'wishlist')";

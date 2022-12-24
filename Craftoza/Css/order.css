@@ -14,7 +14,7 @@ hr{
     top: 10px;
 }
 
-#mainbox1, #mainbox2, #mainbox3{
+#mainbox1, #mainbox2, #mainbox3, #mainbox4{
     background-color: #ffffff;
     border-radius: 20px;
     border-style: solid;
@@ -23,7 +23,7 @@ hr{
     margin: 0 auto;
     padding: 27px;
 }
-#mainbox2, #mainbox3{
+#mainbox2, #mainbox4{
     display: none;
 }
 
@@ -150,7 +150,7 @@ input[type=number] {
     font-size: x-large;
 }
 .text2, .text3, s{
-    font-weight: bolder;
+    font-weight: bold;
     font-size: large;
 }
 #pqnt{
@@ -213,4 +213,11 @@ input:focus{
 }
 input[type="radio"]{
     width:3%;
+}
+div#text *{
+    margin: 5px 0;
+}
+.paymentopt{
+    width: 93%;
+    margin: 10px;
 }

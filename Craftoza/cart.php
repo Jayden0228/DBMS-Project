@@ -119,7 +119,14 @@
                             <div id="btn">
                                 <form action="" method="POST">
                                     <input type="hidden" name="pid" value=<?php echo $row['pid']?>>
-                                    <input type="submit" value="Buy now" name="order" class="btn1" style="text-align: center;">            
+                                    <?php
+                                        if($row['qnt']==0){
+                                            ?><input type="submit" value="Buy now" name="order" class="btn1" style="text-align: center;" disabled><?php
+                                        }
+                                        else{
+                                            ?><input type="submit" value="Buy now" name="order" class="btn1" style="text-align: center;"><?php
+                                        }
+                                    ?>          
                                     <input type="submit" value="Remove From Cart" name="cart" class="btn2" style="text-align: center;">
                                 </form>
                             </div>

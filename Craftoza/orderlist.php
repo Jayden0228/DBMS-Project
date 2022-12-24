@@ -30,6 +30,15 @@
 
             }
         }
+        if(isset($_POST['paymed'])){
+            echo $_SESSION['pid'];
+            echo $_SESSION['UserID'];
+            echo $_SESSION['cnt'];
+        
+            $sql3="INSERT INTO `orders`(`pid`, `uid`, `did`, `qnt`, `status`, `OrderDate`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','10','{$_SESSION['cnt']}','Pending',current_date()); ";
+            mysqli_query($db,$sql3);
+
+        }
     }
 ?>
 <!DOCTYPE html>

@@ -137,3 +137,6 @@ input[type=submit]{
     text-align: left;
     padding: 15px 15px;
 }
+button:disabled, input[type='submit']:disabled{
+    cursor: no-drop;
+}
