@@ -65,7 +65,7 @@ hr{
 .obtn{
     width: 88%;
     border: none;
-    /* border-radius: 30px; */
+    border-radius: 12px;
     color: white;
     padding: 10px 24px;
     display: inline-block;
@@ -77,10 +77,20 @@ hr{
 } 
 .obtn:hover{
     background: #ff4545fe;
+    position: relative;
+    top: -1px;
+    left: -1px;
 }
 .arrw{
     float: right;
     transform: scale(2);
+}
+.arrw:hover{
+    float: right;
+    transform: scale(2);
+    position: relative;
+    top: -1px;
+    left: -1px;
 }
 .accopt{
     width: 92%;

@@ -30,25 +30,13 @@
         function move(){
             document.getElementById('craftie').style.left="85%";
         }
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
-        }
     </script>
     
     <title>Craftoza</title>
 </head>
 
 <body>
-    <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
+    <?php include "Php/_register.php";?>
 
     <?php include 'Php/_nav.php'?>
 
@@ -69,8 +57,7 @@
                 <hr>
                 <div class="accopt center">Save Cards & Wallets<a href="credit.php"><span class="arrw">&#8680;</span></a></div>
                 <hr>
-                <div class="accopt center">Address<a href="address.php"><span class="arrw">&#8680;</span></a></div>
-                
+                <div class="accopt center">Address<a href="address.php"><span class="arrw">&#8680;</span></a></div> 
             </div>
             <br><br><br>
             <a href="orderlist.php"><button class="obtn">Your Order</button></a>
