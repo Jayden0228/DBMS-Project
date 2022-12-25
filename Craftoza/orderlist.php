@@ -10,17 +10,14 @@
             $currate=explode('/', $_POST['currate']);;
             
             if($rating!=0){
-                $currate[0]=(int)$currate[0]+$rating;
-                $currate[1]=(int)$currate[1]+1;
-                $x=$currate[0]."/".$currate[1];
+                $currate[0]=(float)$currate[0]+(float)$rating;
                 
                 $sql2="UPDATE `orders` SET `status`='Rated' WHERE `pid`='$pid' AND `uid`='{$_SESSION['UserID']}'";
                 mysqli_query($db,$sql2);
             }
-            else{
-                $currate[1]=(int)$currate[1]+1;
-                $x=$currate[0]."/".$currate[1];
-            }
+            
+            $currate[1]=(int)$currate[1]+1;
+            $x=$currate[0]."/".$currate[1];
             $sql1="UPDATE `product` SET `rating`='$x' WHERE `pid`='$pid'";
             mysqli_query($db,$sql1);
         }

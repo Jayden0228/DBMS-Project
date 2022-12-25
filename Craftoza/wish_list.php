@@ -94,12 +94,12 @@
                             <div id="text">
                                 <div class="text1"><?php echo $row['pname']?></div>
                                 <div class="text1"><?php echo $row['company_name']?></div>
-                                <div class="text2" style="color: #fd5353fe;">MRP: Rs <s><?php echo $row1['price']?></s><?php echo "Rs ".$dprice?></div>
+                                <div class="text2">MRP: Rs <s><?php echo $row['price']?></s><span style="color: #fd5353fe;"><?php echo " ".$dprice?></span></div>
                                 <div class="text3">
                                 <?php
                                     $i=1;
                                     $t=explode('/',$row['rating']);
-                                    
+                                    if($t[1]==0) $t[1]=1;
                                     $rate=$t[0]/$t[1];
                                     while($i<=$rate)
                                     {
@@ -107,6 +107,26 @@
                                             <img src="Images/star.png" alt="star" style="width: 9%;">
                                         <?php
                                         $i++;
+                                    }
+                                    $rate*=100;
+                                    $rate%=100;
+                                    if($rate>0 and $rate<=25)
+                                    {
+                                        ?>
+                                            <img src="Images/star2.png" alt="star" style="width: 2.7%;">
+                                        <?php
+                                    }
+                                    if($rate>25 and $rate<=50)
+                                    {
+                                        ?>
+                                            <img src="Images/star5.png" alt="star" style="width: 4.5%;">
+                                        <?php
+                                    }
+                                    if($rate>50)
+                                    {
+                                        ?>
+                                            <img src="Images/star7.png" alt="star" style="width: 6.6%;">
+                                        <?php
                                     }
                                 ?>
                                 </div>
