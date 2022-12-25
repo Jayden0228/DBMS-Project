@@ -110,7 +110,9 @@
                                                 <div class="text3">
                                                     <?php
                                                         $i=1;
-                                                        while($i<=$row['rating'])
+                                                        $t=explode('/',$row['rating']);
+                                                        $rate=$t[0]/$t[1];
+                                                        while($i<=$rate)
                                                         {
                                                             ?>
                                                                 <img src="Images/star.png" alt="star" style="width: 9%;">
@@ -174,7 +176,9 @@
                                                 <div class="text3">
                                                     <?php
                                                         $i=1;
-                                                        while($i<=$row['rating'])
+                                                        $t=explode('/',$row['rating']);
+                                                        $rate=$t[0]/$t[1];
+                                                        while($i<=$rate)
                                                         {
                                                             ?>
                                                                 <img src="Images/star.png" alt="star" style="width: 9%;">
@@ -238,7 +242,10 @@
                                                 <div class="text3">
                                                     <?php
                                                         $i=1;
-                                                        while($i<=$row['rating'])
+                                                        $t=explode('/',$row['rating']);
+                                                        
+                                                        $rate=$t[0]/$t[1];
+                                                        while($i<=$rate)
                                                         {
                                                             ?>
                                                                 <img src="Images/star.png" alt="star" style="width: 9%;">

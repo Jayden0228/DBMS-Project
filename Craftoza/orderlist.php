@@ -7,28 +7,22 @@
         if(isset($_POST['rate'])){
             $pid=$_POST['pid'];
             $rating=$_POST['rating'];
-            $currate=$_POST['currate'];
+            $currate=explode('/', $_POST['currate']);;
             
             if($rating!=0){
-                $sql="SELECT COUNT(`uid`) as `cnt` FROM `orders` WHERE `status`='Rated' AND `pid`='$pid'";
-                $res=mysqli_query($db,$sql);
-                if(mysqli_num_rows($res)==0)
-                {
-                    $x=(int)$rated+(int)$rating;
-                }else{
-                    $row=mysqli_fetch_assoc($res);
-                    $t=(int)$row['cnt'];
-                    $t++;
-                    $x=(int)$currate+((int)$rating/$t);
-                    
-                }
-                $sql1="UPDATE `product` SET `rating`='$x' WHERE `pid`='$pid'";
-                mysqli_query($db,$sql1);
+                $currate[0]=(int)$currate[0]+$rating;
+                $currate[1]=(int)$currate[1]+1;
+                $x=$currate[0]."/".$currate[1];
                 
                 $sql2="UPDATE `orders` SET `status`='Rated' WHERE `pid`='$pid' AND `uid`='{$_SESSION['UserID']}'";
                 mysqli_query($db,$sql2);
-
             }
+            else{
+                $currate[1]=(int)$currate[1]+1;
+                $x=$currate[0]."/".$currate[1];
+            }
+            $sql1="UPDATE `product` SET `rating`='$x' WHERE `pid`='$pid'";
+            mysqli_query($db,$sql1);
         }
         if(isset($_POST['paymed'])){
             echo $_SESSION['pid'];

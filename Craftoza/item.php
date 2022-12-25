@@ -141,7 +141,10 @@
                 <div class="star" style="margin-left: auto;">
                     <?php
                         $i=1;
-                        while($i<=$row1['rating'])
+                        $t=explode('/',$row1['rating']);
+                        
+                        $rate=$t[0]/$t[1];
+                        while($i<=$rate)
                         {
                             ?>
                                 <img src="Images/star.png" alt="star" style="width: 9%;">
