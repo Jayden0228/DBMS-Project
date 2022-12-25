@@ -88,263 +88,89 @@
                         $pid=$_SESSION['material'];
                         $sql="SELECT * FROM `product` WHERE `pid` like '%$pid#%'";
                         $res=mysqli_query($db,$sql);
-    
-                        if(mysqli_num_rows($res)==0)
-                        {
-                            echo "No such product";
-                        }
-                        else
-                        {
-                            while($row=mysqli_fetch_assoc($res))
-                            {
-                                $dprice=$row['price']*(1-$row['discnt']*0.01);
-                                ?>
-                                    <form action='item.php' method='POST'>
-                                        <div id='search'>
-                                            <div id='image'>
-                                                <img src=<?php echo $row['ParentImgLink'].'.png'?> width='110%' height='auto'>
-                                            </div>
-                                            <div id='text'>
-                                                <div class='text1'><?php echo $row['pname']?></div>
-                                                <div class='text2'><?php echo "MRP: Rs ".$row['price']?></div>
-                                                <div class='text3' style='color: #fd5353fe;'>-<?php echo $row['discnt']?>%OFF</div>
-                                                <div class="text3">
-                                                    <?php
-                                                        $i=1;
-                                                        $t=explode('/',$row['rating']);
-                                                        if($t[1]==0) $t[1]=1;
-                                                        $rate=$t[0]/$t[1];
-                                                        while($i<=$rate)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star.png" alt="star" style="width: 9%;">
-                                                            <?php
-                                                            $i++;
-                                                        }
-                                                        $rate*=100;
-                                                        $rate%=100;
-                                                        if($rate>0 and $rate<=25)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star2.png" alt="star" style="width: 2.7%;">
-                                                            <?php
-                                                        }
-                                                        if($rate>25 and $rate<=50)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star5.png" alt="star" style="width: 4.5%;">
-                                                            <?php
-                                                        }
-                                                        if($rate>50)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star7.png" alt="star" style="width: 6.6%;">
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                </div>
-                                                <div class="text4">
-                                                    <?php
-                                                        if($row['qnt']==0){
-                                                            ?>
-                                                                <div style="color:red">Out of stock</div>
-                                                            <?php
-                                                        }
-                                                        else{
-                                                            ?>
-                                                                <div style="color:green">In stock</div>
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                            
-                                            <div id='btn'>
-                                                <input type='hidden' name='pid' value=<?php echo $row['pid']?> >
-                                                <input class='btn1' type='submit' value='View Product' style='text-align: center;'>
-                                            </div>
-                                        </div>
-                                    </form>
-                                <?php
-                            }
-                        }
                         unset($_SESSION['material']);
                     }
                     if(isset($_SESSION['type']))
                     {
                         $pid=$_SESSION['type'];
                         $sql="SELECT * FROM `product` WHERE `pid` like '%#$pid'";
-                        
                         $res=mysqli_query($db,$sql);
-    
-                        if(mysqli_num_rows($res)==0)
-                        {
-                            echo "No such type";
-                        }
-                        else
-                        {
-                            while($row=mysqli_fetch_assoc($res))
-                            {
-                                $dprice=$row['price']*(1-$row['discnt']*0.01);
-                                ?>
-                                    <form action='item.php' method='POST'>
-                                        <div id='search'>
-                                            <div id='image'>
-                                                <img src=<?php echo $row['ParentImgLink'].'.png'?> width='110%' height='auto'>
-                                            </div>
-                                            <div id='text'>
-                                                <div class='text1'><?php echo $row['pname']?></div>
-                                                <div class="text2">MRP: Rs <s><?php echo $row1['price']?></s><?php echo "Rs ".$dprice?></div>
-                                                <div class='text3' style='color: #fd5353fe;'>-<?php echo $row['discnt']?>%OFF</div>
-                                                <div class="text3">
-                                                    <?php
-                                                        $i=1;
-                                                        $t=explode('/',$row['rating']);
-                                                        if($t[1]==0) $t[1]=1;
-                                                        $rate=$t[0]/$t[1];
-                                                        while($i<=$rate)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star.png" alt="star" style="width: 9%;">
-                                                            <?php
-                                                            $i++;
-                                                        }
-                                                        $rate*=100;
-                                                        $rate%=100;
-                                                        if($rate>0 and $rate<=25)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star2.png" alt="star" style="width: 2.7%;">
-                                                            <?php
-                                                        }
-                                                        if($rate>25 and $rate<=50)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star5.png" alt="star" style="width: 4.5%;">
-                                                            <?php
-                                                        }
-                                                        if($rate>50)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star7.png" alt="star" style="width: 6.6%;">
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                </div>
-                                                <div class="text4">
-                                                    <?php
-                                                        if($row['qnt']==0){
-                                                            ?>
-                                                                <div style="color:red">Out of stock</div>
-                                                            <?php
-                                                        }
-                                                        else{
-                                                            ?>
-                                                                <div style="color:green">In stock</div>
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                            
-                                            <div id='btn'>
-                                                <input type='hidden' name='pid' value=<?php echo $row['pid']?> >
-                                                <input class='btn1' type='submit' value='View Product' style='text-align: center;'>
-                                            </div>
-                                        </div>
-                                    </form>
-                                <?php
-                            }
-                        }
                         unset($_SESSION['type']);
                     }
                     if(isset($_POST['search']))
                     {
                         $searchstr=$_POST['search'];
                         $sql="SELECT * FROM `product` WHERE `pname` like '%$searchstr%'";
-                        
                         $res=mysqli_query($db,$sql);
-
-                        if(mysqli_num_rows($res)==0)
+        
+                    }
+                    if(mysqli_num_rows($res)==0)
+                    {
+                        echo "No such product";
+                    }
+                    else
+                    {
+                        while($row=mysqli_fetch_assoc($res))
                         {
-                            echo "No Such Product in the Database";
-                        }
-                        else
-                        {
-                            while($row=mysqli_fetch_assoc($res))
-                            {
-                                $dprice=$row['price']*(1-$row['discnt']*0.01);
-                                ?>
-                                    <form action='item.php' method='POST'>
-                                        <div id='search'>
-                                            <div id='image'>
-                                                <img src=<?php echo $row['ParentImgLink'].'.png'?> width='110%' height='auto'>
+                            $dprice=$row['price']*(1-$row['discnt']*0.01);
+                            ?>
+                                <form action='item.php' method='POST'>
+                                    <div id='search'>
+                                        <div id='image'>
+                                            <img src=<?php echo $row['ParentImgLink'].'.png'?> width='110%' height='auto'>
+                                        </div>
+                                        <div id='text'>
+                                            <div class='text1'><?php echo $row['pname']?></div>
+                                            <div class='text2'><?php echo "MRP: Rs ".$row['price']?></div>
+                                            <div class='text3' style='color: #fd5353fe;'>-<?php echo $row['discnt']?>%OFF</div>
+                                            <div class="text3">
+                                                <?php
+                                                    $i=1;
+                                                    $t=explode('/',$row['rating']);
+                                                    if($t[1]==0) $t[1]=1;
+                                                    $rate=$t[0]/$t[1];
+                                                    while($i<=$rate)
+                                                    {
+                                                        ?><img src="Images/star.png" alt="star" style="width: 9%;"><?php
+                                                        $i++;
+                                                    }
+                                                    $rate*=100;
+                                                    $rate%=100;
+                                                    if($rate>0 and $rate<=25)
+                                                    {
+                                                        ?><img src="Images/star2.png" alt="star" style="width: 2.7%;"><?php
+                                                    }
+                                                    if($rate>25 and $rate<=50)
+                                                    {
+                                                        ?><img src="Images/star5.png" alt="star" style="width: 4.5%;"><?php
+                                                    }
+                                                    if($rate>50)
+                                                    {
+                                                        ?><img src="Images/star7.png" alt="star" style="width: 6.6%;"><?php
+                                                    }
+                                                ?>
                                             </div>
-                                            <div id='text'>
-                                                <div class='text1'><?php echo $row['pname']?></div>
-                                                <div class="text2">MRP: Rs <s><?php echo $row['price']?></s><span style="color: #fd5353fe;"><?php echo " ".$dprice?></span></div>
-                                                <div class='text3'>-<?php echo $row['discnt']?>%OFF</div>
-                                                <div class="text3">
-                                                    <?php
-                                                        $i=1;
-                                                        $t=explode('/',$row['rating']);
-                                                        if($t[1]==0) $t[1]=1;
-                                                        $rate=$t[0]/$t[1];
-                                                        while($i<=$rate)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star.png" alt="star" style="width: 9%;">
-                                                            <?php
-                                                            $i++;
-                                                        }
-                                                        $rate*=100;
-                                                        $rate%=100;
-                                                        if($rate>0 and $rate<=25)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star2.png" alt="star" style="width: 2.7%;">
-                                                            <?php
-                                                        }
-                                                        if($rate>25 and $rate<=50)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star5.png" alt="star" style="width: 4.5%;">
-                                                            <?php
-                                                        }
-                                                        if($rate>50)
-                                                        {
-                                                            ?>
-                                                                <img src="Images/star7.png" alt="star" style="width: 6.6%;">
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                </div>
-                                                <div class="text4">
-                                                    <?php
-                                                        if($row['qnt']==0){
-                                                            ?>
-                                                                <div style="color:#fd5353fe">Out of stock</div>
-                                                            <?php
-                                                        }
-                                                        else{
-                                                            ?>
-                                                                <div style="color:green">In stock</div>
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                            
-                                            <div id='btn'>
-                                                <input type='hidden' name='pid' value=<?php echo $row['pid']?> >
-                                                <input class='btn1' type='submit' value='View Product' style='text-align: center;'>
+                                            <div class="text4">
+                                                <?php
+                                                    if($row['qnt']==0){
+                                                        ?><div style="color:#fd5252ff">Out of stock</div><?php
+                                                    }
+                                                    else{
+                                                        ?><div style="color:green">In stock</div><?php
+                                                    }
+                                                ?>
                                             </div>
                                         </div>
-                                    </form>
-                                <?php
-                            }
+                                        
+                                        <div id='btn'>
+                                            <input type='hidden' name='pid' value=<?php echo $row['pid']?> >
+                                            <input class='btn1' type='submit' value='View Product' style='text-align: center;'>
+                                        </div>
+                                    </div>
+                                </form>
+                            <?php
                         }
-                    } 
+                    }
                 ?>
             <br><br><br>
         </div>
