@@ -147,7 +147,7 @@
                         while($i<=$rate)
                         {
                             ?>
-                                <img src="Images/star.png" alt="star" style="width: 9%;">
+                                <img src="Images/star.png" alt="star" style="width: 30%;">
                             <?php
                             $i++;
                         }
@@ -156,19 +156,19 @@
                         if($rate>0 and $rate<=25)
                         {
                             ?>
-                                <img src="Images/star2.png" alt="star" style="width: 2.7%;">
+                                <img src="Images/star2.png" alt="star" style="width: 8.7%;">
                             <?php
                         }
                         if($rate>25 and $rate<=50)
                         {
                             ?>
-                                <img src="Images/star5.png" alt="star" style="width: 4.5%;">
+                                <img src="Images/star5.png" alt="star" style="width: 15.1%;">
                             <?php
                         }
                         if($rate>50)
                         {
                             ?>
-                                <img src="Images/star7.png" alt="star" style="width: 6.6%;">
+                                <img src="Images/star7.png" alt="star" style="width: 20.9%;">
                             <?php
                         }
                     ?>
