@@ -58,12 +58,12 @@ hr{
 .option{
     display: flex;
     justify-content: space-around;
-    width: 100%;
-    margin: 40px auto;
+    /* width: 100%; */
+    margin: 6% auto;
 }
 .option div p{
     text-align: center;
-    width:171px;
+    /* width: 100%; */
 }
 #AccOpBtn{
     /* background-color: #5ea2ecfe;    rgb(94,162,236) */
@@ -72,7 +72,14 @@ hr{
     padding: 20px 60px;
     border: none;
     box-shadow: 1px 1px 5px #414141;
-    width:171px;
+}
+#AccOpBtn:hover img{
+    transform: scale(1.2);
+    rotate: -10deg;
+}
+div>#AccOpBtn:hover div>p{
+    transform: scale(1.2);
+    font-weight: bold;
 }
 #AccOpBtn img{
     width:60px;

@@ -42,7 +42,7 @@
 
     <main>
         <div id="top">
-            <p id="Headtext">HELLO <?php printn();?></p>
+            <p id="Headtext">Hello <?php printn();?></p>
             <div id="craftie">
                 <img src="Images/craftie-rbg.png" alt="" onload="setTimeout(move, 1880)">            
             </div>
