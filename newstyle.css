@@ -1,0 +1,402 @@
+
+body{
+    width:100vw;
+    height: 100vh;
+    margin:0;
+}
+
+
+html{
+    scroll-behavior: smooth;
+}
+body{
+    margin: 0;
+    padding: 0;
+}
+
+
+header{
+    display:flex;
+    background-color: white;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;   
+    padding: 10px 10px;
+    position: fixed;
+    z-index:1000;
+   height: 90px;
+   width: 100%;
+
+}
+@media (max-width:1920px){
+    input{
+        position: relative;
+        margin: 0px 35px;
+        width:290px;
+        height: 30px;
+        font-family: "century gothic";
+    }
+
+}
+@media (max-width:1413px){
+    .icons{
+        position: relative;
+        left:35vw;
+    }
+}
+
+@media (max-width:1250px){
+    .icons{
+        position: relative;
+        left:33vw;
+    }
+}
+
+@media (max-width:1330px){
+    .icons{
+        position: relative;
+        left:34vw;
+    }
+}
+
+@media (max-width:1150px){
+    .icons{
+        position: relative;
+        left:32vw;
+    }
+}
+
+@media (max-width:1073px){
+    .icons{
+        position: relative;
+        order:2;
+        left:2vw;
+    }
+
+    input{
+        position: relative;
+        margin: 0px 28px;
+        left:10px;
+        width:290px;
+        height: 30px;
+        font-family: 'Ubuntu';
+        color:rgb(136, 136, 136);
+        order:4;
+    }
+
+    nav{
+        position: relative;
+        width:436px;
+        left:10px;
+        margin: 0px 10px;
+        order:3;
+    }
+
+    #logo{
+        margin-left:10px;
+     padding: 5px 21px;
+     width:200px;
+     height: 50px;
+     top:10px;
+     order:1;
+    }
+    
+}
+
+
+
+#logo{
+    margin-left:10px;
+ padding: 5px 21px;
+ width:200px;
+ height: 50px;
+ top:10px;
+}
+
+input{
+    position: relative;
+    margin: 0px 28px;
+    left:10px;
+    width:290px;
+    height: 30px;
+    font-family: 'Ubuntu';
+    color:rgb(136, 136, 136)
+}
+
+.Icons{
+
+    width:20px;
+    height: 20px;
+
+}
+
+.icons{
+    position: relative;
+    right:0px;
+}
+
+.icons li{
+    display:inline-block;
+    padding: 0px 40px;
+}
+
+.lineBreaker{
+    flex-basis: 100%;
+    height: 1px;
+
+}
+
+nav{
+    position: relative;
+    width:436px;
+    left:10px;
+    margin: 0px 10px;
+}
+
+.NavLinks{
+    list-style: none;
+    text-underline-offset: none;
+}
+.NavLinks li{
+    display:inline-block;
+    padding: 0px 15px;
+}
+
+a{
+    text-decoration: none;
+    font-family: 'Ubuntu';
+    color:#000000ff;
+    font-size: 14px;
+    color:#4d4d4dff;
+}
+
+.IndexContainer{
+    position: relative;
+    top:0;
+    width:100%;
+    height: 100%;
+    scroll-snap-type:y mandatory;
+    overflow-y: scroll;
+    
+}
+
+.section1{
+    display: grid;
+    grid-template-rows: 12vw 5vw 15vw;
+    grid-template-columns: 5% 48vh 68vh 37vh;
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start;
+    /* background-color: #fffcfa; */
+    background-color: #ffffff;
+}
+
+.Board{
+    grid-row-start: 2;
+    grid-column-start: 2;
+    position: relative;
+    width: 370.1px;
+    height: 460.1px; 
+
+}
+
+
+.doorSAFE_AREA{
+    grid-row-start: 2;
+    grid-column-start: 3;
+    width:305px;
+    height: 305px;
+    position:relative;
+    left: 1vw;
+    top:170px;
+}
+
+#DecoSize{
+    grid-row-start: 2;
+    grid-column-start: 3;
+    position:relative;
+    left: 4vw;
+    top: 85px;
+}
+
+.MINIadSafeAREA{
+    grid-row-start: 2;
+    grid-column-start: 3;
+    position: relative;
+    width: 300px;
+    height: 70px;
+    left: 3vw;
+    top:0px;
+
+}
+
+.Top35Colours{
+    position:relative;
+    display: flex;
+    flex-direction: row;
+    width:280px;
+    height:7px;
+    left:30px;
+    top:5px;
+    z-index:2;
+    gap:10px;
+}
+
+.T35{
+    width: 26px;
+    border-radius: 15px;
+    height: 6px;
+}
+.a35TT{
+    position: relative;
+    font-family: "century gothic";
+    color:rgb(99, 99, 99);
+    width:255px;
+    height: 8px;
+    font-size:larger;
+    left:30px;
+    top:15px;
+    font-weight:200;
+    list-style: none;
+
+}
+#red{
+
+    background-color:#fd5252ff;
+}
+#yellow{
+    background-color: #ffd335ff;
+}
+#blue{
+    background-color: #5ea2ecfe;
+}
+@media (max-width:1370px){
+    .section1{
+        display: grid;
+        grid-template-rows: 13.5vw 5vw 15vw;
+        grid-template-columns: 6vh 48vh 54vh 34vh;
+        width: 100vw;
+        height: 100vh;
+        scroll-snap-align: start;
+        background-color: #ffffff;
+    }
+    .MAINBOX32{
+        flex: 0 0 auto;
+        left:0px;
+        width:230.4px;
+        height: 301.32px;
+        grid-row-start: 3;
+        grid-column-start: 4;
+        position: relative;
+        background-color: rgb(238, 238, 238);
+        border-radius: 10px;
+      
+    }
+
+
+}
+
+/* 
+.CARDbox23{
+    
+    grid-row-start: 3;
+    grid-column-start: 4;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-evenly;
+    overflow:scroll;
+    position: relative;
+    width:15vw;
+    height: 42vh;
+    left:0px;
+    -ms-overflow-style: none;
+    scrollbar-width:none;
+
+}
+.CARDbox23::-webkit-scrollbar{
+    display:none
+} */
+
+
+.MAINBOX32{
+    flex: 0 0 auto;
+    left:0px;
+    width:230.4px;
+    height: 313.32px;
+    grid-row-start: 3;
+    grid-column-start: 4;
+    position: relative;
+    background-color: rgb(238, 238, 238);
+    border-radius: 10px;
+  
+}
+.TopBX23{
+    position:relative;
+    display: flex;
+    flex-direction: row;
+    width:10vw;
+    height:7px;
+    left:3.5vw;
+    top:0px;
+    z-index:2;
+
+}
+
+.T38{
+    width: 40px;
+    height: 4px;
+
+}
+
+
+
+
+
+
+
+
+
+
+.ENDAds{
+    grid-row-start: 3;
+    grid-column-start: 5;
+    position: relative;
+    top:0px;
+    left:0px;
+    width:17vw;
+    height: 42vh;
+}
+.TopBX29{
+    position:absolute;
+    display: flex;
+    flex-direction: column;
+    width:7px;
+    height:42vh;
+    left:10px;
+    top:70px;
+    z-index:2;
+    gap:20px;
+}
+
+.T39{
+    width: 18px;
+    height: 40px;
+    border-radius: 3px;
+    opacity: 98%;
+}
+
+.Advertise{
+    position: relative;       z-index: 2;
+    font-family: "century gothic";
+    color:rgb(35, 35, 35);
+    top:11vh;
+    left:4vw;
+    max-width:210px;
+    height: 150px;
+    
+}
+
+
+
