@@ -54,26 +54,55 @@
                 <p id="BoxTopText">ACCOUNT SETTING</p>
                 <hr>
                 <div class="option">
-                    <button id="AccOpBtn">
-                        <img src="" alt="">
-                    </button>
-                    <button id="AccOpBtn">
-                        <img src="" alt="">
-                    </button>
-                    <button id="AccOpBtn">
-                        <img src="" alt="">
-                    </button>
+                    <div>
+                        <button id="AccOpBtn" onclick='window.location ="profile.php"'>
+                            <img src="Images/account/profile.png">
+                            <br>
+                        </button>
+                        <p>Profile</p>
+                    </div>
+                    <div>
+                        <button id="AccOpBtn" onclick='window.location ="credit.php"'>
+                            <img src="Images/account/creditcard.png">
+                        </button>
+                        <p>Cards & Wallets</p>
+                    </div>
                 </div>
                 <div class="option">
-                    <button id="AccOpBtn">
-                        <img src="" alt="">
-                    </button>
-                    <button id="AccOpBtn">
-                        <img src="" alt="">
-                    </button>
-                    <button id="AccOpBtn">
-                        <img src="" alt="">
-                    </button>
+                    <div>
+                        <button id="AccOpBtn" onclick='window.location ="address.php"'>
+                            <img src="Images/account/address.png">
+                        </button>
+                        <p>Address</p>
+                    </div>
+                    <div>
+                        <button id="AccOpBtn" onclick='window.location ="orderlist.php"'>
+                            <img src="Images/account/order.png">
+                        </button>
+                        <p>Your Order</p>
+                    </div>
+                </div>
+                <div class="option">
+                    <div>
+                        <button id="AccOpBtn" onclick='window.location ="wish_list.php"'>
+                            <img src="Images/account/wishlist.png">
+                        </button>
+                        <p>Your Wish List</p>
+                    </div>
+                    <div>
+                        <button id="AccOpBtn" onclick="displayBlock('fpwd')">
+                            <img src="Images/account/changepwd.png">
+                        </button>
+                        <p>Change Password</p>
+                    </div>
+                </div>
+                <div class="option">
+                    <div>
+                        <button id="AccOpBtn" onclick='window.location ="Php/_logout.php"'>
+                            <img src="Images/account/logout.png">
+                        </button>
+                        <p>Log Out</p>
+                    </div>
                 </div>
             </div>
             <br><br><br>
@@ -86,19 +115,3 @@
     <script src="JS/loginjQuery.js"></script>
 </body>
 </html>
-
-
-<!-- <div class="accopt center">Edit profile<a href="profile.php"><span class="arrw">&#8680;</span></a></div>
-<hr>
-<div class="accopt center">Save Cards & Wallets<a href="credit.php"><span class="arrw">&#8680;</span></a></div>
-<hr>
-<div class="accopt center">Address<a href="address.php"><span class="arrw">&#8680;</span></a></div>
-<br><br><br>
-<a href="orderlist.php"><button class="obtn">Your Order</button></a>
-<br><br>
-<a href="wish_list.php"><button class="obtn">Your Wish List</button></a>
-<br><br>
-<button class="obtn" onclick="displayBlock('fpwd')">Change Password</button>
-<br><br>
-<a href="Php/_logout.php"><button class="obtn">Log Out</button></a>
-<br><br><br>  -->
