@@ -141,31 +141,55 @@
                 <div class="star" style="margin-left: auto;">
                     <?php
                         $i=1;
-                        while($i<=$row1['rating'])
+                        $t=explode('/',$row1['rating']);
+                        if($t[1]==0) $t[1]=1;
+                        $rate=$t[0]/$t[1];
+                        while($i<=$rate)
                         {
                             ?>
-                                <img src="Images/star.png" alt="star" style="width: 9%;">
+                                <img src="Images/star.png" alt="star" style="width: 30%;">
                             <?php
                             $i++;
+                        }
+                        $rate*=100;
+                        $rate%=100;
+                        if($rate>0 and $rate<=25)
+                        {
+                            ?>
+                                <img src="Images/star2.png" alt="star" style="width: 8.7%;">
+                            <?php
+                        }
+                        if($rate>25 and $rate<=50)
+                        {
+                            ?>
+                                <img src="Images/star5.png" alt="star" style="width: 15.1%;">
+                            <?php
+                        }
+                        if($rate>50)
+                        {
+                            ?>
+                                <img src="Images/star7.png" alt="star" style="width: 20.9%;">
+                            <?php
                         }
                     ?>
                 </div>
                 <?php
                     if($row1['qnt']==0){
                         ?>
-                            <button id="buybtn" disabled>BUY NOW</button>
+                            <button id="buybtn" style="background: #9c9c9c;" disabled>BUY NOW</button>
                         <?php
-                    }
-                    else{
+                    }else{
+                        if(isset($_SESSION['UserID']))
+                        {
                         ?>
-                            <button id="buybtn" onclick="load()">BUY NOW</button>
-                            <script>
-                                function load() {
-                                    window.location ="order.php";
-                                }
-                            </script>
+                            <button id="buybtn" onclick='window.location ="order.php"'>BUY NOW</button>
+                        <?php
+                        }else{
+                        ?>
+                            <button id="buybtn" onclick="displayBlock('login')">BUY NOW</button>
                         <?php
                     }
+                }
                 ?>
             </div>
 
@@ -173,7 +197,7 @@
             <div id="lv2">
                 <div id="lv2cn1">
                     <?php
-                        $dprice=$row1['price']-$row1['price']*$row1['discnt']*0.01;
+                        $dprice=$row1['price']*(1-$row1['discnt']*0.01);
                     ?>
                     <div class="text1" style="color: #fd5353fe;">-<?php echo $row1['discnt']?>% <span style="color: black;">Rs <?php echo $dprice?></span></div>
                     <div class="text1">MRP <s><?php echo $row1['price']?></s></div>
@@ -184,7 +208,7 @@
                         <?php
                             if($row1['qnt']==0){
                                 ?>
-                                    <div style="color:red">Out of stock</div>
+                                    <div style="color:#fd5353fe;">Out of stock</div>
                                 <?php
                             }
                             else{

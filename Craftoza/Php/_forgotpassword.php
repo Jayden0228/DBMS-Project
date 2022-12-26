@@ -14,6 +14,7 @@
         
         <!-- <input type="submit" value="GET OTP" name="fgtpwd" class="button2"><br><br> -->
         <button type="submit" id="otpclick">GET OTP</button>
+        <div id="load" class="loader center"></div> 
 
     </form>
     <p id="backToLogin" style="font-size: 14px; padding-bottom: 40px; padding-left: 75px;"><span onclick="displayNone('fpwd');displayBlock('login')">Back to Log In?</span></p>

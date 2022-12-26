@@ -12,7 +12,7 @@ hr{
     letter-spacing: 3px;
 }
 
-#acctext{
+#BoxTopText{
     color: #fd5353fe;
     display: inline-block;
     margin-left: 3%;
@@ -52,7 +52,7 @@ hr{
     top: 10px;
 }
 
-#accbox{
+#Box{
     background-color: #ffffff;
     border-radius: 20px;
     border-style: solid;
@@ -62,10 +62,26 @@ hr{
     padding: 27px;
 }
 
+.option{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 40px auto;
+}
+
+#AccOpBtn{
+    /* background-color: #5ea2ecfe;    rgb(94,162,236) */
+    background-image: linear-gradient(to bottom right, rgba(94,162,236,0),rgba(94,162,236,0.5),rgba(94,162,236,0.8), rgba(94,162,236,1));
+    border-radius: 20px;
+    padding: 20px 60px;
+    border: none;
+    box-shadow: 1px 1px 5px #414141;
+}
+
 .obtn{
     width: 88%;
     border: none;
-    /* border-radius: 30px; */
+    border-radius: 12px;
     color: white;
     padding: 10px 24px;
     display: inline-block;
@@ -77,10 +93,20 @@ hr{
 } 
 .obtn:hover{
     background: #ff4545fe;
+    position: relative;
+    top: -1px;
+    left: -1px;
 }
 .arrw{
     float: right;
     transform: scale(2);
+}
+.arrw:hover{
+    float: right;
+    transform: scale(2);
+    position: relative;
+    top: -1px;
+    left: -1px;
 }
 .accopt{
     width: 92%;

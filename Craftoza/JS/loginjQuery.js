@@ -62,6 +62,9 @@ $(document).ready(function(){
     $('#Forgotpassform').on('submit',function(e){
         e.preventDefault();
         var email=$('#email1').val();
+        $('#errmsg1').hide();
+        $('#otpclick').hide();
+        $('#load').show();
         $.ajax({
             type: 'POST',
             url: 'loginvalidate.php',
@@ -77,7 +80,11 @@ $(document).ready(function(){
                 else if(data=='yes'){
                     $('#gotp').css('display','block');
                     $('#fpwd').css('display','none');
+                    // $('#timer').text("3:00");
+                    // countdown();
                 }
+                $('#otpclick').show();
+                $('#load').hide();
             }
         });
     });
@@ -101,18 +108,32 @@ $(document).ready(function(){
                     $('#errmsg1').css('display','block');
                     $('#errmsg1').html("Enter a valid OTP");
                 }
+                else{
+                    $('#errmsg1').css('display','block');
+                    $('#errmsg1').html("OTP Expired");
+                }
             }
         });
     });
 
     $('#ResendOTP').on('submit',function(e){
         e.preventDefault();
+        $('#rsend').hide(setTimeout(function(){
+            $('#rsend').show();
+            $('#resendotp').hide();
+        }, 30000));
+        $('#resendotp').show();
+        $('#errmsg1').hide();
         $.ajax({
             type: 'POST',
             url: 'loginvalidate.php',
             data: {
                 ResendOtp: true
-            }
+            },
+            // success:function(){
+            //     $('#timer').text("3:00");
+            //     countdown();
+            // }
         });
     });
 
@@ -147,6 +168,29 @@ $(document).ready(function(){
         });
     });
 
+
+    // var interval;
+    // function countdown() {
+    //     clearInterval(interval);
+    //     setInterval( function() {
+    //         var timer = $('#timer').html();
+    //         timer = timer.split(':');
+    //         var minutes = timer[0];
+    //         var seconds = timer[1];
+    //         seconds -= 1;
+    //         if (minutes < 0) return;
+    //         else if (seconds < 0 && minutes != 0) {
+    //             minutes -= 1;
+    //             seconds = 59;
+    //         }
+    //         else if (seconds < 10 && length.seconds != 2) seconds = '0' + seconds;
+            
+    //         $('#timer').html(minutes + ':' + seconds);
+            
+    //         if (minutes == 0 && seconds == 0) clearInterval(interval);
+    //     }, 1300);
+    // }
+
     $('#Loginform').validate({
         wrapper: 'div',
         errorLabelContainer: "#messageBox",
@@ -168,10 +212,6 @@ $(document).ready(function(){
                 minlength: 'Password must be at least 8 characters long'
             }
         }  
-        // submitHandler: function(form) {
-        //     console.log("Submitted!");
-        //     form.submit();
-        // }
     });
 
     $('#Signupform').validate({
@@ -204,10 +244,6 @@ $(document).ready(function(){
                 // equalTo: 'Password not matching'
             }
         }  
-        // submitHandler: function(form) {
-        //     console.log("Submitted!");
-        //     form.submit();
-        // }
     });
 
     $('#Forgotpassform').validate({
@@ -259,10 +295,6 @@ $(document).ready(function(){
                 minlength: 'Password must be at least 8 characters long',
                 equalTo: 'Password not matching'
             }
-        }  
-        // submitHandler: function(form) {
-        //     console.log("Submitted!");
-        //     form.submit();
-        // }
+        }
     });
 });

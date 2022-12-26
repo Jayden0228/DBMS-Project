@@ -132,7 +132,8 @@
                                         <span class='link remove'>
                                             <form action="#" method="post" style="margin:0;">
                                                 <input type="hidden" name="removeaddr" value=<?php echo $row['hno']?>>
-                                                <input type="submit" name="raddr" value="Remove" style="color: #FE981B;background: white; border:none; margin:0; padding:0">
+                                                <!-- <input type="submit" name="raddr" value="Remove" style=""> -->
+                                                <button type="submit" name="raddr" id="AddressButton">Remove</button>
                                             </form >
                                         </span>
                                     </div>
@@ -141,18 +142,12 @@
                         }
                         ?>
                         <hr>
-                        <div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>
+                        <div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px" onclick="displayNone(`box1`);displayBlock(`box2`);">New Address</button></div>
                         </div>
                         <?php
                     }
                 }
                 ?>
-                <script>
-                    document.getElementById('newaddr').onclick = function(){
-                        displayNone(`box1`);
-                        displayBlock(`box2`);
-                    }
-                </script>
                 <div id='box2'>
                     <span class='arrow' onclick='displayNone(`box2`);displayBlock(`box1`);' style='position: relative;
                     cursor: pointer;'>&#8592;</span>
