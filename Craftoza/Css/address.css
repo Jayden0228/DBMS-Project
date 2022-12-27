@@ -62,35 +62,33 @@ hr{
     padding: 27px;
 }
 
-.link{
-    float: right;
-    cursor: pointer;
-    color: #FE981B;
-}
-
 .addarea{
     padding: 15px;
     width: 90%;
-    border: solid 1px black;
     margin-top: 20px;
     margin-bottom: 20px;
+    border: 1.5px solid #0000006e;
+    border-radius: .375rem;
+    padding: 16px;
 }
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  appearance: none;
-  margin: 0;
+.addarea h5{
+    margin-top: 0px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 14px;
 }
-
-/* Firefox */
-input[type=number] {
-  appearance: textfield;
+.addarea p{
+    margin-top: 0px;
+    margin-bottom: 16px;
+}
+.addarea:hover{
+    transform: scale(1.02);
 }
 form{
     margin: 35px 0;
-    
 }
-#box2 form input{
+#box2 form input, #box3 form input{
     border: solid 1px black;
     border-style: none none solid none;
     padding: 12px 15px;
@@ -100,14 +98,14 @@ form{
 input:focus{
     outline: none;
 }
-#box2 form label{
+#box2 form label, #box3 form label{
     font-weight: bold;
     padding: 15px 0;
 }
 #box1{
     display: block;
 }
-#box2{
+#box2, #box3{
     display: none;
 }
 input[type=submit]
@@ -121,21 +119,21 @@ input[type=submit]
     margin-bottom: 10px;
     cursor: pointer;
 }
-.remove{
+/* .remove{
     position: relative;
     top: -35px;
-}
+} */
 #AddressButton{
-    color: #FE981B;
-    background: white; 
-    border: 1px solid #FE981B;
+    color:white;
+    background: #5ea2ecfe;/*0b5ed7*/
     border-radius: 30px;
+    border: none;
     margin:0; 
     padding:6px 0px;
-    margin-top: -7px;
     cursor: pointer;
+    border-radius: .375rem;
+
 }
 #AddressButton:hover{
-    color:white;
-    background: #FE981B;
+    background: #3e90e8fe;
 }

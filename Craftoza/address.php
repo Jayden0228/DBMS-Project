@@ -4,8 +4,13 @@
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
         if(isset($_POST['raddr'])){
-            $sql="DELETE FROM `address` WHERE `hno` = '{$_POST['removeaddr']}' AND `uid` = '{$_SESSION['UserID']}'";
+            $sql="DELETE FROM `address` WHERE `hno` = '{$_POST['AddrHno']}' AND `uid` = '{$_SESSION['UserID']}'";
             mysqli_query($db,$sql);
+        }
+        if(isset($_POST['uaddr'])){
+            $sql="SELECT * FROM `address` WHERE `hno` = '{$_POST['AddrHno']}' AND `uid`='{$_SESSION['UserID']}'";
+            $res1=mysqli_query($db,$sql);
+            $row1=mysqli_fetch_assoc($res1);
         }
     }
 ?>
@@ -29,18 +34,6 @@
     <script>
         function move(){
             document.getElementById('craftie').style.left="85%";
-        }
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
         }
     </script>
     
@@ -91,9 +84,7 @@
                 {
                     $userid=$_SESSION['UserID'];
                     $sql="SELECT * FROM `address` WHERE `uid`='$userid'";
-                    $sql2="SELECT * FROM `user` WHERE `uid`='$userid'";
                     $res=mysqli_query($db,$sql);
-                    $res2=mysqli_query($db,$sql2);
 
                     if(mysqli_num_rows($res)==0)
                     {
@@ -112,32 +103,31 @@
                     }
                     else
                     {
-                        $row2=mysqli_fetch_assoc($res2);
-                        $fname=$row2["fname"];
-                        $mnum=$row2["pnum"];
                         ?>
                         <div id='box1'>
                             <p id='atext'>Saved Address</p>
                         <?php
+                        $i=1;
                         while($row=mysqli_fetch_assoc($res))
                         {
                             ?>
-                                <div id='addr'>
-                                    <div class='center addarea'>
-                                        <span class='fulladd'>
-                                            <span>Name: <?php echo $fname?></span><br>
-                                            <span>Address: <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
-                                            <span>Mobile No: <?php echo $mnum?></span><br>
-                                        </span>
-                                        <span class='link remove'>
-                                            <form action="#" method="post" style="margin:0;">
-                                                <input type="hidden" name="removeaddr" value=<?php echo $row['hno']?>>
-                                                <!-- <input type="submit" name="raddr" value="Remove" style=""> -->
-                                                <button type="submit" name="raddr" id="AddressButton">Remove</button>
-                                            </form >
-                                        </span>
+                                
+                                <div class='center addarea'>
+                                    <h5>Address #<?php echo $i++?></h5>
+                                    <p><?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></p>
+                                    <div style="display: flex;">
+                                        <form style="margin:0;" id="AddressFormButton1">
+                                            <input type="hidden" name="AddrHno" value=<?php echo $row['hno']?>>
+                                            <button type="submit" name="raddr" id="AddressButton">Remove</button>
+                                        </form>
+                                        <div style="width:1%"></div>
+                                        <form style="margin:0;" id="AddressFormButton2">
+                                            <input type="hidden" name="AddrHno" value=<?php echo $row['hno']?>>
+                                            <button type="submit" name="uaddr" id="AddressButton">Update</button>
+                                        </form>
                                     </div>
                                 </div>
+                              
                             <?php
                         }
                         ?>
@@ -181,6 +171,40 @@
                         <input type='submit' name='newaddr' value='Submit' style='width: 30%; padding: 4px 0;'>
                     </form>
                 </div> 
+
+                <div id='box3'>
+                    <span class='arrow' onclick='displayNone(`box2`);displayBlock(`box1`);' style='position: relative;
+                    cursor: pointer;'>&#8592;</span>
+                    <p id='atext'>Enter the Details</p>
+                    <hr>
+                    <form action='' method='post' class='center2' style='width: 40%;' id="AddressForm">
+                        <label for='Hno/fno'>H.No/Flat NO</label>
+                        <br>
+                        <input type='text' name='hfno' id='hfno' required>
+                        <br><br>
+                        <label for='Wname'>Ward Name</label>
+                        <br>
+                        <input type='text' name='wname' id='wname' required>
+                        <br><br>
+                        <label for='vill/city'>Village/City</label>
+                        <br>
+                        <input type='text' name='villcity' id='villcity' required>
+                        <br><br>
+                        <label for='Taluka'>Taluka</label>
+                        <br>
+                        <input type='text' name='taluka' id='taluka' required>
+                        <br><br>
+                        <label for='state'>State</label>
+                        <br>
+                        <input type='text' name='state' id='State' required>
+                        <br><br>
+                        <label for='pcode'>Pincode</label>
+                        <br>
+                        <input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>
+                        <br><br>
+                        <input type='submit' name='newaddr' value='Submit' style='width: 30%; padding: 4px 0;'>
+                    </form>
+                </div> 
             <?php
                 mysqli_close($db);
             ?>
@@ -192,6 +216,6 @@
     <?php include 'Php/_footer.php'?>
 
     <script src="JS/validationjQuery.js"></script>
-    
+    <script src="JS/accountjQuery.js"></script>
 </body>
 </html>
