@@ -72,6 +72,7 @@ hr{
     padding: 20px 60px;
     border: none;
     box-shadow: 1px 1px 5px #414141;
+    cursor: pointer;
 }
 #AccOpBtn:hover img{
     transform: scale(1.2);

@@ -11,9 +11,6 @@
             $mnum=$_POST["mnum"];
             $email=$_POST["email"];
     
-            // $sql="SELECT * FROM `user` WHERE `email` = '$email'";
-            // $res=mysqli_query($db,$sql);
-            // $row=mysqli_fetch_assoc($res);
             $sql="UPDATE `user` SET `fname` = '$fname', `mname` = '$mname', `lname` = '$lname', `pnum` = '$mnum' WHERE `user`.`email` = '$email';";
             $res=mysqli_query($db,$sql);
     
@@ -21,7 +18,6 @@
             {
                 echo "Record not updated";
             }
-            // $_SESSION['Email']=$row["email"];
             $_SESSION['Name']=$fname;
             header("Location: index.php");
         }
@@ -50,24 +46,9 @@
         function move(){
             document.getElementById('craftie').style.left="85%";
         }
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
-        }
     </script>
     
     <title>Craftoza</title>
-    <?php
-        echo "<script>displayNone('backToLogin');</script>";
-    ?>
 </head>
 
 <body>
@@ -83,12 +64,17 @@
             </div>
             <hr>
         </div>
+        <br><br>
         <div id="backgd">
             <br><br><br>
-            <div id="pfbox">
-                <form action="" method="POST" id="ProfileForm">
+            <div id="Box">
+                <div class="Top3Colours">
+                    <div id="red"></div>
+                    <div id="yellow"></div>
+                    <div id="blue"></div>
+                </div>
+                <form action="" method="POST" id="ProfileForm" class="center">
                     <?php
-                        
                         include "Php/_connectDatabase.php";
                         $sql="SELECT * FROM `user` WHERE `email` = '{$_SESSION['Email']}'";
                         $res=mysqli_query($db,$sql);
@@ -107,24 +93,31 @@
                         }
                         mysqli_close($db);
                     ?>
-                    <label class="center" for="fname">First Name</label><br>
-                    <input type="text" class="inpbiline center" name="fname" value="<?php if(isset($fname)) {echo "$fname";}else{echo "";}?>" required><br>
-                    <label class="center" for="mname">Middle Name</label><br>
-                    <input type="text" class="inpbiline center" name="mname" value="<?php if(isset($mname)) {echo "$mname";}else{echo "";}?>"><br>
-                    <label class="center" for="lname">Last Name</label><br>
-                    <input type="text" class="inpbiline center" name="lname" value="<?php if(isset($lname)) {echo "$lname";}else{echo "";}?>" required><br>
-                    <label class="center" for="mnbr">Mobile Number</label><br>
-                    <input type="text" class="inpbiline center" name="mnum" value="<?php if(isset($mnum)) {echo "$mnum";}else{echo "";}?>" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required><br>
-                    <label class="center" for="email">Email</label><br>
-                    <input type="text" class="inpbiline center" name="email" value="<?php if(isset($_SESSION['Email'])) {echo $_SESSION['Email'];}else{echo "";}?>" required><br>
-                    <input type="submit" class="center" value="Submit" name="profile" id="subbtn">
+                    <label class="center" for="fname">First Name</label>
+                    <input type="text" class="center" name="fname" onkeydown="return /[a-z]/i.test(event.key)" value="<?php if(isset($fname)) {echo "$fname";}else{echo "";}?>" required><br>
+                    <label class="center" for="mname">Middle Name</label>
+                    <input type="text" class="center" name="mname" onkeydown="return /[a-z]/i.test(event.key)" value="<?php if(isset($mname)) {echo "$mname";}else{echo "";}?>"><br>
+                    <label class="center" for="lname">Last Name</label>
+                    <input type="text" class="center" name="lname" onkeydown="return /[a-z]/i.test(event.key)" value="<?php if(isset($lname)) {echo "$lname";}else{echo "";}?>" required><br>
+                    <label class="center" for="mnbr">Mobile Number</label>
+                    <input type="text" class="center" name="mnum" value="<?php if(isset($mnum)) {echo "$mnum";}else{echo "";}?>" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required><br>
+                    <label class="center" for="email">Email</label>
+                    <input type="text" class="center" name="email" value="<?php if(isset($_SESSION['Email'])) {echo $_SESSION['Email'];}else{echo "";}?>" required><br>
+                    <input type="submit" value="Submit" name="profile" id="subbtn" style="color: white;">
                 </form>
+                <div class="bottom3Colours">
+                    <div id="red"></div>
+                    <div id="yellow"></div>
+                    <div id="blue"></div>
+                </div>
             </div>
             <br><br><br>
-        </div>
+        </div>        
     </main>
     <?php include 'Php/_footer.php'?>
-
+    <?php
+        echo "<script>displayNone('backToLogin');</script>";
+    ?>
     <script src="JS/validationjQuery.js"></script>
 
 </body>
