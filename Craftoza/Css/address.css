@@ -97,12 +97,10 @@ form{
 input:focus{
     outline: none;
 }
-#AddFormBox form label, #box3 form label{
+form label{
     padding: 15px 0;
 }
-#box1{
-    display: block;
-}
+
 input[type=submit]
 {
     background: #FE981B;
@@ -127,15 +125,15 @@ input[type=submit]
     background: #3e90e8fe;
 }
 
-#AddFormBox{
-    display: none;
+/* #AddFormBox{
+    display: none; */
     /* display: block; */
-    position: fixed;
+    /* position: fixed;
     min-width: 100%;
     min-height: 100%;
     background-color: rgba(255, 255, 255, 0.5);
     z-index: 10;
-}
+} */
 .Formbox{
     /* background-color: #f9f9f9f0; */
     /* background-color: #ebebeb69; */
@@ -166,4 +164,14 @@ input[type=submit]
 .FormCol{
     display: flex;
     flex-direction: column;
+}
+
+
+
+label.error.fail-alert {
+    color: #fd5353fe;
+}
+input.valid.success-alert {
+    border: 2px solid #4CAF50;
+    color: green;
 }

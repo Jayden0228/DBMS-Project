@@ -3,6 +3,18 @@
     include "Php/_connectDatabase.php";
     if(isset($_SESSION['HnoUp']))
     unset($_SESSION['HnoUp']);
+
+    if($_SERVER["REQUEST_METHOD"]=="POST")
+    {
+        if(isset($_POST['raddr'])){
+            $sql="DELETE FROM `address` WHERE `hno` = '{$_POST['AddrHno']}' AND `uid` = '{$_SESSION['UserID']}'";
+            mysqli_query($db,$sql);
+        }
+        if(isset($_POST['uaddr'])){
+            $_SESSION['HnoUp']=$_POST['AddrHno'];
+            header("location: addressform.php");
+        }
+    }
 ?>
 <!DOCTYPE html>
 
@@ -31,7 +43,6 @@
 
 <body>
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
-    <div id="AddFormBox"></div>
     <?php include 'Php/_nav.php'?>
 
     <main>
@@ -47,50 +58,26 @@
             <div id="addbox">
 
             <?php
-                
-                if(isset($_POST['newaddr']))
-                {
-                    $hfno=$_POST["hfno"];
-                    $wname=$_POST["wname"];
-                    $villcity=$_POST["villcity"];
-                    $taluka=$_POST["taluka"];
-                    $state=$_POST["state"];
-                    $pcode=$_POST["pcode"];
-
-                    $sql="INSERT INTO `address` (`uid`, `hno`, `wname`, `villageCity`, `taluka`, `state`, `pincode`) VALUES ('{$_SESSION['UserID']}', '$hfno', '$wname', '$villcity', '$taluka', '$state', '$pcode');";
-
-                    $res=mysqli_query($db,$sql);
-                    // if(!$res)
-                    // {
-                    //     echo "Record not updated";
-                    // } 
-                }
-
                 if(isset($_SESSION['UserID']))
                 {
                     $userid=$_SESSION['UserID'];
-                    $sql="SELECT * FROM `address` WHERE `uid`='$userid'";
-                    $res=mysqli_query($db,$sql);
+                    $sqla="SELECT * FROM `address` WHERE `uid`='$userid'";
+                    $res=mysqli_query($db,$sqla);
 
+                    ?>
+                   
+                    <p id='atext'>Saved Address</p>
+                    <?php
                     if(mysqli_num_rows($res)==0)
                     {
-                        ?>
-                            <div id='box1'>
-                                <p id='atext'>Saved Address</p>
-                                <br>
-                                <p style='text-align:center'>No Address</p>
-                                <br>
-                            </div>
-                            <hr>
-                            <form id="NewAddressForm"><div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px">New Address</button></div></form>
+                        ?>   
+                        <br>
+                        <p style='text-align:center'>No Address</p>
+                        <br>
                         <?php
                     }
                     else
                     {
-                        ?>
-                        <div id='box1'>
-                            <p id='atext'>Saved Address</p>
-                        <?php
                         $i=1;
                         while($row=mysqli_fetch_assoc($res))
                         {
@@ -99,37 +86,42 @@
                                     <h5>Address #<?php echo $i?></h5>
                                     <p><?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></p>
                                     <div style="display: flex;">
-                                        <form style="margin:0;" id=<?php echo "AddressRemove".$i?>>
+                                        <form action='' method="POST" style="margin:0;" id=<?php echo "AddressRemove".$i?>>
                                             <input type="hidden" name="AddrHno" value=<?php echo $row['hno']?>>
                                             <button type="submit" name="raddr" id="AddressButton">Remove</button>
                                         </form>
                                         <div style="width:1%"></div>
-                                        <form style="margin:0;" id=<?php echo "AddressUpdate".$i?>>
+                                        <form action='' method="POST" style="margin:0;" id=<?php echo "AddressUpdate".$i?>>
                                             <input type="hidden" id=<?php echo "AddrHno".$i?> name="AddrHno" value=<?php echo $row['hno']?>>
                                             <button type="submit" name="uaddr" id="AddressButton">Update</button>
-                                    </form>
-                                </div>
+                                        </form>
+                                    </div>
                                 </div>
                             <?php
                             $i++;
                         }
                         ?>
-                        <hr>
-                        <form id="NewAddressForm"><div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px">New Address</button></div></form>
-                        </div>
+                        
                         <?php
                     }
                 }
                 mysqli_close($db);
                 ?>
-                        </div>
+              
+                <hr>
+                <div style='margin: 20px 28px 30px 80%;'><button class="NewAddressButton" id="AddressButton" style="width: 100%;padding: 9px">New Address</button></div>
+                </div>
                 <br><br><br>
             </div>
         </div>
     </main>
     <?php include 'Php/_footer.php'?>
-
-    <script src="JS/validationjQuery.js"></script>
-    <script src="JS/accountjQuery.js"></script>
+    <!-- <script src="JS/validationjQuery.js"></script> -->
+    <!-- <script src="JS/accountjQuery.js"></script> -->
+    <script>
+        $('.NewAddressButton').click(function(){
+            window.location="addressform.php";
+        });
+    </script>
 </body>
 </html>
