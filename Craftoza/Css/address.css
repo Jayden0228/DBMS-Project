@@ -137,7 +137,7 @@ input[type=submit]
     z-index: 10;
 }
 .Formbox{
-    background-color: #f9f9f9f0;
+    /* background-color: #f9f9f9f0; */
     /* background-color: #ebebeb69; */
     background: url(../Images/background.png);
     /* background-size: 100%; */

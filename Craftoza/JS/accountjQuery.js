@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    $('#AddressFormButton2').on('submit',function(e){
+    $('#AddressUpdate1').on('submit',function(e){
         e.preventDefault();
-        var hno=$('#AddrHno').val();
-        var password=$('#psw').val();
+        var hno=this.firstElementChild.value;
+        console.log(hno);
         $.ajax({
             type: 'POST',
             url: 'accountAJAX.php',
@@ -11,15 +11,40 @@ $(document).ready(function(){
                 uaddr: true
             },
             success:function(data){
-                // if(data=='no')
-                // {
-                //     $('#errmsg').css('display','block');
-                //     $('#errmsg').html('** Incorrect Email Or Password **');
-                // }
-                // else{
-                //     $('#errmsg').css('display','none');
-                //     location.reload();
-                // }
+                if(data=="Update"){
+                    $('#AddFormBox').show();
+                    $('#AddFormBox').load('Php/_addressform.php');
+                }
+            }
+        });
+    });
+    $('#AddressForm').on('submit',function(e){
+        e.preventDefault();
+        var hfno=$('#hfno').val();
+        var wname=$('#wname').val();
+        var villcity=$('#villcity').val();
+        var taluka=$('#taluka').val();
+        var state=$('#state').val();
+        var pcode=$('#pcode').val();
+        // console.log($('#updateaddr').val());
+        // console.log($('#updateaddr').val());
+        $.ajax({
+            type: 'POST',
+            url: 'accountAJAX.php',
+            data: {
+                hfno:hfno,
+                wname:wname,
+                villcity:villcity,
+                taluka:taluka,
+                state:state,
+                pcode:pcode,
+                updateaddr: true
+            },
+            success:function(data){
+                if(data=="Updated"){
+                    location.reload();
+                    $('#AddFormBox').hide();
+                }
             }
         });
     });

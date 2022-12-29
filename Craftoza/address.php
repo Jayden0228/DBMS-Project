@@ -1,6 +1,8 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
+    if(isset($_SESSION['HnoUp']))
+    unset($_SESSION['HnoUp']);
 ?>
 <!DOCTYPE html>
 
@@ -14,7 +16,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Css/nav.css">
-    <link rel="stylesheet" href="Css/style.css">
     <link rel="stylesheet" href="Css/address.css">
     <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/footer.css">
@@ -30,7 +31,7 @@
 
 <body>
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
-    
+    <div id="AddFormBox"></div>
     <?php include 'Php/_nav.php'?>
 
     <main>
@@ -76,14 +77,12 @@
                         ?>
                             <div id='box1'>
                                 <p id='atext'>Saved Address</p>
-                                <div id='addr'>
                                 <br>
                                 <p style='text-align:center'>No Address</p>
                                 <br>
                             </div>
                             <hr>
-                            <div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px" onclick="displayBlock(`AddFormBox`);">New Address</button></div>
-                            </div>
+                            <form id="NewAddressForm"><div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px">New Address</button></div></form>
                         <?php
                     }
                     else
@@ -97,91 +96,40 @@
                         {
                             ?>
                                 <div class='center addarea'>
-                                    <h5>Address #<?php echo $i++?></h5>
+                                    <h5>Address #<?php echo $i?></h5>
                                     <p><?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></p>
                                     <div style="display: flex;">
-                                        <form style="margin:0;" id="AddressFormButton1">
+                                        <form style="margin:0;" id=<?php echo "AddressRemove".$i?>>
                                             <input type="hidden" name="AddrHno" value=<?php echo $row['hno']?>>
                                             <button type="submit" name="raddr" id="AddressButton">Remove</button>
                                         </form>
                                         <div style="width:1%"></div>
-                                        <form style="margin:0;" id="AddressFormButton2">
-                                            <input type="hidden" id="AddrHno" name="AddrHno" value=<?php echo $row['hno']?>>
+                                        <form style="margin:0;" id=<?php echo "AddressUpdate".$i?>>
+                                            <input type="hidden" id=<?php echo "AddrHno".$i?> name="AddrHno" value=<?php echo $row['hno']?>>
                                             <button type="submit" name="uaddr" id="AddressButton">Update</button>
                                     </form>
                                 </div>
+                                </div>
                             <?php
+                            $i++;
                         }
                         ?>
                         <hr>
-                        <div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px" onclick="displayBlock(`AddFormBox`);">New Address</button></div>
+                        <form id="NewAddressForm"><div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px">New Address</button></div></form>
                         </div>
                         <?php
                     }
                 }
                 mysqli_close($db);
-            ?>
-            <div id="AddFormBox">
-        <div class='Formbox'>
-                    <span class='arrow1' onclick='displayNone(`AddFormBox`)'>&#8592;</span>
-                    <p id='atext'>Enter the Details</p>
-                    <hr>
-                    <form action='' method='post' class='center2' style='width: 80%;' id="AddressForm">
-                        <div class="FormRow">
-                          <div class="FormCol">
-                            <label for='Hno/fno'>H.No/Flat NO</label>
-                            <input type='text' name='hfno' id='hfno' required>
-                          </div>
-                          <div class="FormCol">
-                            <label for='Wname'>Ward Name</label>
-                            <input type='text' name='wname' id='wname' required>
-                          </div>
+                ?>
                         </div>
-
-                        <div class="FormRow" style="display: block;">
-                          <div class="FormCol">
-                            <label for='vill/city'>Village/City</label>
-                            <input type='text' name='villcity' id='villcity' required>
-                          </div>
-                        </div>
-
-                        <div class="FormRow">
-                          <div class="FormCol">
-                            <label for='Taluka'>Taluka</label>
-                            <input type='text' name='taluka' id='taluka' required>
-                          </div>
-                          <div class="FormCol">
-                            <label for='state'>State</label>
-                            <input type='text' name='state' id='State' required>
-                          </div>
-                        </div>
-                        
-                        
-                        <div class="FormRow" style="justify-content: center;">
-                          <div class="FormCol">
-                              <label for='pcode'>Pincode</label>
-                             <input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>
-                          </div>
-                        </div>
-                </div> 
-                        </div>
-                </div> 
-                        </div>
-
-                        <div class="FormRow" style="justify-content: center;">
-                            <input type='submit' name='newaddr' value='Submit' style='width: 21%;padding: 10px;border: none;border-radius: 20px;'>
-                        </div>
-                        <br>
-                    </form>
-                </div> 
-        </div>
+                <br><br><br>
             </div>
-            <br><br><br>
         </div>
-        
     </main>
     <?php include 'Php/_footer.php'?>
 
     <script src="JS/validationjQuery.js"></script>
+    <script src="JS/accountjQuery.js"></script>
 </body>
 </html>
