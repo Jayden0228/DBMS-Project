@@ -1,26 +1,25 @@
 $(document).ready(function(){
-    $('#AddressFormButton1').on('submit',function(e){
+    $('#AddressFormButton2').on('submit',function(e){
         e.preventDefault();
-        var email=$('#email').val();
+        var hno=$('#AddrHno').val();
         var password=$('#psw').val();
         $.ajax({
             type: 'POST',
-            url: 'loginvalidate.php',
+            url: 'accountAJAX.php',
             data: {
-                Email: email,
-                Password: password,
-                Login: true
+                AddrHno: hno,
+                uaddr: true
             },
             success:function(data){
-                if(data=='no')
-                {
-                    $('#errmsg').css('display','block');
-                    $('#errmsg').html('** Incorrect Email Or Password **');
-                }
-                else{
-                    $('#errmsg').css('display','none');
-                    location.reload();
-                }
+                // if(data=='no')
+                // {
+                //     $('#errmsg').css('display','block');
+                //     $('#errmsg').html('** Incorrect Email Or Password **');
+                // }
+                // else{
+                //     $('#errmsg').css('display','none');
+                //     location.reload();
+                // }
             }
         });
     });

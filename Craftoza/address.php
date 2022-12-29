@@ -1,18 +1,6 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
-    if($_SERVER["REQUEST_METHOD"]=="POST")
-    {
-        if(isset($_POST['raddr'])){
-            $sql="DELETE FROM `address` WHERE `hno` = '{$_POST['AddrHno']}' AND `uid` = '{$_SESSION['UserID']}'";
-            mysqli_query($db,$sql);
-        }
-        if(isset($_POST['uaddr'])){
-            $sql="SELECT * FROM `address` WHERE `hno` = '{$_POST['AddrHno']}' AND `uid`='{$_SESSION['UserID']}'";
-            $res1=mysqli_query($db,$sql);
-            $row1=mysqli_fetch_assoc($res1);
-        }
-    }
 ?>
 <!DOCTYPE html>
 
@@ -42,7 +30,7 @@
 
 <body>
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
-
+    
     <?php include 'Php/_nav.php'?>
 
     <main>
@@ -71,13 +59,10 @@
                     $sql="INSERT INTO `address` (`uid`, `hno`, `wname`, `villageCity`, `taluka`, `state`, `pincode`) VALUES ('{$_SESSION['UserID']}', '$hfno', '$wname', '$villcity', '$taluka', '$state', '$pcode');";
 
                     $res=mysqli_query($db,$sql);
-                    if(!$res)
-                    {
-                        echo "Record not updated";
-                    } 
-                    ?>  
-                    <script>displayNone(`box2`);displayBlock(`box1`)</script>
-                    <?php
+                    // if(!$res)
+                    // {
+                    //     echo "Record not updated";
+                    // } 
                 }
 
                 if(isset($_SESSION['UserID']))
@@ -97,7 +82,7 @@
                                 <br>
                             </div>
                             <hr>
-                            <div style='margin-top: 20px; margin-bottom: 30px;'><span id='newaddr' class='link' >New Address</span></div>
+                            <div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px" onclick="displayBlock(`AddFormBox`);">New Address</button></div>
                             </div>
                         <?php
                     }
@@ -111,7 +96,6 @@
                         while($row=mysqli_fetch_assoc($res))
                         {
                             ?>
-                                
                                 <div class='center addarea'>
                                     <h5>Address #<?php echo $i++?></h5>
                                     <p><?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></p>
@@ -122,100 +106,82 @@
                                         </form>
                                         <div style="width:1%"></div>
                                         <form style="margin:0;" id="AddressFormButton2">
-                                            <input type="hidden" name="AddrHno" value=<?php echo $row['hno']?>>
+                                            <input type="hidden" id="AddrHno" name="AddrHno" value=<?php echo $row['hno']?>>
                                             <button type="submit" name="uaddr" id="AddressButton">Update</button>
-                                        </form>
-                                    </div>
+                                    </form>
                                 </div>
-                              
                             <?php
                         }
                         ?>
                         <hr>
-                        <div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px" onclick="displayNone(`box1`);displayBlock(`box2`);">New Address</button></div>
+                        <div style='margin: 20px 28px 30px 80%;'><button id="AddressButton" style="width: 100%;padding: 9px" onclick="displayBlock(`AddFormBox`);">New Address</button></div>
                         </div>
                         <?php
                     }
                 }
-                ?>
-                <div id='box2'>
-                    <span class='arrow' onclick='displayNone(`box2`);displayBlock(`box1`);' style='position: relative;
-                    cursor: pointer;'>&#8592;</span>
-                    <p id='atext'>Enter the Details</p>
-                    <hr>
-                    <form action='' method='post' class='center2' style='width: 40%;' id="AddressForm">
-                        <label for='Hno/fno'>H.No/Flat NO</label>
-                        <br>
-                        <input type='text' name='hfno' id='hfno' required>
-                        <br><br>
-                        <label for='Wname'>Ward Name</label>
-                        <br>
-                        <input type='text' name='wname' id='wname' required>
-                        <br><br>
-                        <label for='vill/city'>Village/City</label>
-                        <br>
-                        <input type='text' name='villcity' id='villcity' required>
-                        <br><br>
-                        <label for='Taluka'>Taluka</label>
-                        <br>
-                        <input type='text' name='taluka' id='taluka' required>
-                        <br><br>
-                        <label for='state'>State</label>
-                        <br>
-                        <input type='text' name='state' id='State' required>
-                        <br><br>
-                        <label for='pcode'>Pincode</label>
-                        <br>
-                        <input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>
-                        <br><br>
-                        <input type='submit' name='newaddr' value='Submit' style='width: 30%; padding: 4px 0;'>
-                    </form>
-                </div> 
-
-                <div id='box3'>
-                    <span class='arrow' onclick='displayNone(`box2`);displayBlock(`box1`);' style='position: relative;
-                    cursor: pointer;'>&#8592;</span>
-                    <p id='atext'>Enter the Details</p>
-                    <hr>
-                    <form action='' method='post' class='center2' style='width: 40%;' id="AddressForm">
-                        <label for='Hno/fno'>H.No/Flat NO</label>
-                        <br>
-                        <input type='text' name='hfno' id='hfno' required>
-                        <br><br>
-                        <label for='Wname'>Ward Name</label>
-                        <br>
-                        <input type='text' name='wname' id='wname' required>
-                        <br><br>
-                        <label for='vill/city'>Village/City</label>
-                        <br>
-                        <input type='text' name='villcity' id='villcity' required>
-                        <br><br>
-                        <label for='Taluka'>Taluka</label>
-                        <br>
-                        <input type='text' name='taluka' id='taluka' required>
-                        <br><br>
-                        <label for='state'>State</label>
-                        <br>
-                        <input type='text' name='state' id='State' required>
-                        <br><br>
-                        <label for='pcode'>Pincode</label>
-                        <br>
-                        <input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>
-                        <br><br>
-                        <input type='submit' name='newaddr' value='Submit' style='width: 30%; padding: 4px 0;'>
-                    </form>
-                </div> 
-            <?php
                 mysqli_close($db);
             ?>
+            <div id="AddFormBox">
+        <div class='Formbox'>
+                    <span class='arrow1' onclick='displayNone(`AddFormBox`)'>&#8592;</span>
+                    <p id='atext'>Enter the Details</p>
+                    <hr>
+                    <form action='' method='post' class='center2' style='width: 80%;' id="AddressForm">
+                        <div class="FormRow">
+                          <div class="FormCol">
+                            <label for='Hno/fno'>H.No/Flat NO</label>
+                            <input type='text' name='hfno' id='hfno' required>
+                          </div>
+                          <div class="FormCol">
+                            <label for='Wname'>Ward Name</label>
+                            <input type='text' name='wname' id='wname' required>
+                          </div>
+                        </div>
 
+                        <div class="FormRow" style="display: block;">
+                          <div class="FormCol">
+                            <label for='vill/city'>Village/City</label>
+                            <input type='text' name='villcity' id='villcity' required>
+                          </div>
+                        </div>
+
+                        <div class="FormRow">
+                          <div class="FormCol">
+                            <label for='Taluka'>Taluka</label>
+                            <input type='text' name='taluka' id='taluka' required>
+                          </div>
+                          <div class="FormCol">
+                            <label for='state'>State</label>
+                            <input type='text' name='state' id='State' required>
+                          </div>
+                        </div>
+                        
+                        
+                        <div class="FormRow" style="justify-content: center;">
+                          <div class="FormCol">
+                              <label for='pcode'>Pincode</label>
+                             <input type='number' name='pcode' id='pcode' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>
+                          </div>
+                        </div>
+                </div> 
+                        </div>
+                </div> 
+                        </div>
+
+                        <div class="FormRow" style="justify-content: center;">
+                            <input type='submit' name='newaddr' value='Submit' style='width: 21%;padding: 10px;border: none;border-radius: 20px;'>
+                        </div>
+                        <br>
+                    </form>
+                </div> 
+        </div>
             </div>
             <br><br><br>
         </div>
+        
     </main>
     <?php include 'Php/_footer.php'?>
 
     <script src="JS/validationjQuery.js"></script>
-    <script src="JS/accountjQuery.js"></script>
 </body>
 </html>
