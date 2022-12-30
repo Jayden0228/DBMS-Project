@@ -88,7 +88,8 @@ hr{
 form{
     margin: 35px auto;
 }
-#AddressForm input[type="text"], #AddressForm input[type="number"]{
+#AddressForm input[type="text"], #AddressForm input[type="number"],
+    #AddressFormU input[type="text"], #AddressFormU input[type="number"]{
     border: 1px solid #0009;
     border-radius: .375rem; 
     padding: 7px;
@@ -97,7 +98,7 @@ form{
 input:focus{
     outline: none;
 }
-form label{
+#AddFormBox form label, #AddFormBoxU form label{
     padding: 15px 0;
 }
 
@@ -113,28 +114,26 @@ input[type=submit]
 #AddressButton{
     color:white;
     background: #5ea2ecfe;/*0b5ed7*/
-    border-radius: 30px;
     border: none;
     margin:0; 
     padding:6px 0px;
     cursor: pointer;
     border-radius: .375rem;
-
 }
 #AddressButton:hover{
     background: #3e90e8fe;
 }
 
-/* #AddFormBox{
-    display: none; */
+#AddFormBox, #AddFormBoxU {
+    display: none;
     /* display: block; */
-    /* position: fixed;
+    position: fixed;
     min-width: 100%;
     min-height: 100%;
     background-color: rgba(255, 255, 255, 0.5);
     z-index: 10;
-} */
-.Formbox{
+}
+.Formbox, .FormboxU{
     /* background-color: #f9f9f9f0; */
     /* background-color: #ebebeb69; */
     background: url(../Images/background.png);
@@ -164,14 +163,4 @@ input[type=submit]
 .FormCol{
     display: flex;
     flex-direction: column;
-}
-
-
-
-label.error.fail-alert {
-    color: #fd5353fe;
-}
-input.valid.success-alert {
-    border: 2px solid #4CAF50;
-    color: green;
 }
