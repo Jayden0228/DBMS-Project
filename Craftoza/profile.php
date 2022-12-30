@@ -1,5 +1,7 @@
 <?php
     session_start();
+    unset($_SESSION['HnoUp']);
+    unset($_SESSION['cdno']);
     include "Php/_connectDatabase.php";
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
