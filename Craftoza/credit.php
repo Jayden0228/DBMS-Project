@@ -4,8 +4,23 @@
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
         if(isset($_POST['rcard'])){
-            $sql="DELETE FROM `creditcard` WHERE `cardno` = {$_POST['removecard']} AND `uid` = {$_SESSION['UserID']} ";
+            $sql="DELETE FROM `creditcard` WHERE `cardno` = '{$_POST['cdno']}' AND `uid` = '{$_SESSION['UserID']}'";
             mysqli_query($db,$sql);
+        }
+        if(isset($_POST['newcard']))
+        {
+            $cardno=$_POST["cardno"];
+            $cvv=$_POST["cvv"];
+            $exptdate=$_POST["exptdate"];
+            $clabel=$_POST["clabel"];
+            $sql="INSERT INTO `creditcard` (`uid`, `cardno`, `cvv`, `expdate`, `label`) VALUES ('{$_SESSION['UserID']}', '$cardno', '$cvv', '$exptdate', '$clabel');";
+
+            $res=mysqli_query($db,$sql);
+
+            // if(!$res)
+            // {
+            //     echo "Record not updated";
+            // }
         }
     }
 ?>
@@ -21,7 +36,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Css/nav.css">
-    <link rel="stylesheet" href="Css/style.css">
     <link rel="stylesheet" href="Css/credit.css">
     <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/footer.css">
@@ -30,18 +44,6 @@
         function move(){
             document.getElementById('craftie').style.left="85%";
         }
-        function increment(){
-            let a=document.getElementById('pqnt');
-            let cnt=parseInt(a.value)+1
-            a.value=cnt.toString();
-        }
-        function decrement(){
-            let a=document.getElementById('pqnt');
-            if(a.value!=1){
-                let cnt=parseInt(a.value)-1
-                a.value=cnt.toString();
-            }
-        }
     </script>
     
     <title>Craftoza</title>
@@ -49,6 +51,92 @@
 
 <body>
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
+
+    <div id="CardFormBox">
+        <div class='Formbox'>
+        <span class='arrow1' onclick='displayNone(`CardFormBox`)'>&#8592;</span>
+        <p id='ctext'>Enter the Details</p>
+        <hr>
+        <form action='' method='post' class='center2' style='width: 80%;' id="CreditForm">
+            <div class="FormRow" style="display: block;">
+                <div class="FormCol">
+                <label for='Card No'>Card Number</label>
+                <input type='number' name='cardno' id='cardno' oninput='this.value=this.value.replace(/[^0-9]/g,``)'  required>
+                </div>
+            </div>
+
+            <div class="FormRow">
+                <div class="FormCol">
+                <label for='CVV'>CVV</label>
+                <input type='password' name='cvv' id='cvv' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>
+                </div>
+                <div class="FormCol">
+                <label for='Card No'>Exp Date <span style='font-weight: 100;'>(month-year)</span></label>
+                <input type='date' name='exptdate' id='exptdate' required>
+                </div>
+            </div>
+
+            <div class="FormRow" style="justify-content: center;">
+                <div class="FormCol">
+                <label for='Card Label'>Card Label</label><br>
+                <input type='text' name='clabel' id='clabel' required>
+                </div>
+            </div>
+
+            <div class="FormRow" style="justify-content: center;">
+                <input type='submit' name='newcard' value='Submit' style='width: 21%;padding: 10px;border: none;border-radius: 20px;'>
+            </div>
+            <br>
+        </form>
+        </div> 
+    </div>
+
+    <div id="CardFormBoxU">
+        <?php
+            if(isset($_SESSION['cdno'])){
+                $sql1="SELECT * FROM `creditcard` WHERE `cardno` = '{$_SESSION['cdno']}' AND `uid`='{$_SESSION['UserID']}'";
+                $res1=mysqli_query($db,$sql1);
+                $row1=mysqli_fetch_assoc($res1);
+            }
+        ?>
+        <div class='Formbox'>
+        <span class='arrow1' onclick='displayNone(`CardFormBoxU`)'>&#8592;</span>
+        <p id='ctext'>Enter the Details</p>
+        <hr>
+        <form action='' method='post' class='center2' style='width: 80%;' id="CreditFormU">
+            <div class="FormRow" style="display: block;">
+                <div class="FormCol">
+                <label for='Card No'>Card Number</label>
+                <input type='number' name='cardno' id='cardno1' oninput='this.value=this.value.replace(/[^0-9]/g,``)' value="<?php if(isset($row1)) echo $row1['cardno']; else echo "";?>"  required>
+                </div>
+            </div>
+
+            <div class="FormRow">
+                <div class="FormCol">
+                <label for='CVV'>CVV</label>
+                <input type='password' name='cvv' id='cvv1' oninput='this.value=this.value.replace(/[^0-9]/g,``)' value="<?php if(isset($row1)) echo $row1['cvv']; else echo "";?>"  required>
+                </div>
+                <div class="FormCol">
+                <label for='Card No'>Exp Date <span style='font-weight: 100;'>(month-year)</span></label>
+                <input type='date' name='exptdate' id='exptdate1' value="<?php if(isset($row1)) echo $row1['expdate']; else echo "";?>"  required>
+                </div>
+            </div>
+
+            <div class="FormRow" style="justify-content: center;">
+                <div class="FormCol">
+                <label for='Card Label'>Card Label</label><br>
+                <input type='text' name='clabel' id='clabel1' value="<?php if(isset($row1)) echo $row1['label']; else echo "";?>"  required>
+                </div>
+            </div>
+
+            <div class="FormRow" style="justify-content: center;">
+                <input type='submit' name='updatecard' value='Update' style='width: 21%;padding: 10px;border: none;border-radius: 20px;'>
+            </div>
+            <br>
+        </form>
+        </div> 
+    </div>
+
 
     <?php include 'Php/_nav.php'?>
 
@@ -64,108 +152,52 @@
             <br><br><br>
             <div id="creditbox">
                 <?php                    
-                    if(isset($_POST['newcard']))
-                    {
-                        $cardno=$_POST["cardno"];
-                        $cvv=$_POST["cvv"];
-                        $exptdate=$_POST["exptdate"];
-                        $clabel=$_POST["clabel"];
-                        $sql="INSERT INTO `creditcard` (`uid`, `cardno`, `cvv`, `expdate`, `label`) VALUES ('{$_SESSION['UserID']}', '$cardno', '$cvv', '$exptdate', '$clabel');";
-
-                        $res=mysqli_query($db,$sql);
-
-                        if(!$res)
-                        {
-                            echo "Record not updated";
-                        }
-                        ?>  
-                        <script>displayNone(`box2`);displayBlock(`box1`)</script>
-                        <?php
-                    }
-
                     if(isset($_SESSION['UserID']))
                     {
                         $userid=$_SESSION['UserID'];
                         $sql="SELECT * FROM `creditcard` WHERE `uid`='$userid'";
                         $res=mysqli_query($db,$sql);
-
+                        ?>
+                        <p id='ctext'>Saved Cards</p>
+                        <?php
                         if(mysqli_num_rows($res)==0)
                         {
                             ?>
-                            <div id='box1'>
-                                <p id='ctext'>Saved Cards</p>
-                                <div id='card'>
-                                <br>
-                                    <p style='text-align:center'>No Card</p>
-                                <br>
-                                </div>
-                                <hr>
-                                <div style='margin-top: 20px; margin-bottom: 30px;'><span id='newcd' class='ncard' >New Card</span></div>
-                            </div>
+                            <br>
+                            <p style='text-align:center'>No Card</p>
+                            <br>
                             <?php
                         }
                         else
                         {
-                            ?>
-                            <div id='box1'>
-                            <p id='ctext'>Saved Cards</p>
-                            <?php
+                            $i=1;
                             while($row=mysqli_fetch_assoc($res))
                             {
-                                ?>
-                                    <div id='card'>
-                                        <div class='center cardarea'>
-            
-                                            <span class='cardname'><?php echo "{$row['label']}"?></span>
-                                            
-                                            <span class='ncard'>
-                                                <form action="#" method="post" style="margin:0;">
-                                                    <input type="hidden" name="removecard" value=<?php echo $row['cardno']?>>
-                                                    <input type="submit" name="rcard" value="Remove" style="color: #FE981B;background: white; border:none; margin:0; padding:0">
-                                                </form >
-                                            </span>
+                                ?>  
+                                    <div class='center cardarea'>
+                                        <h5>Credit Card #<?php echo $i?></h5>
+                                        <p><?php echo $row['label']?></p>
+                                        <div style="display: flex;">
+                                            <form action='' method="POST" style="margin:0;">
+                                                <input type="hidden" name="cdno" value="<?php echo $row['cardno']?>">
+                                                <button type="submit" name="rcard" id="CreditButton">Remove</button>
+                                            </form>
+                                            <div style="width:1%"></div>
+                                            <form style="margin:0;" id=<?php echo "CardUpdate".$i?>>
+                                                <input type="hidden" id=<?php echo "cdno".$i?> name="cdno" value="<?php echo $row['cardno']?>">
+                                                <button type="submit" name="ucard" id="CreditButton">Update</button>
+                                            </form>
                                         </div>
                                     </div>
+                                    
                                 <?php
+                                $i++;
                             }
-                            ?>
-                            <hr>
-                            <div style='margin-top: 20px; margin-bottom: 30px;'><span id='newcd' class='ncard' >New Card</span></div>
-                            </div>
-                            <?php
                         }
                     }
                     ?>
-                    <script>
-                        document.getElementById('newcd').onclick = function(){
-                            displayNone(`box1`);
-                            displayBlock(`box2`);
-                        }
-                    </script>
-                    <div id='box2'>
-                    <span class='arrow' onclick='displayNone(`box2`);displayBlock(`box1`);' style='position: relative;
-                    cursor: pointer;'>&#8592;</span>
-                    <p id='ctext'>Enter the Details</p>
                     <hr>
-                    <form action='' method='post' class='center2' style='width: 40%;' id="CreditForm">
-                    <label for='Card No'>Card Number</label>
-                    <br>
-                    <input type='number' name='cardno' id='cardno' oninput='this.value=this.value.replace(/[^0-9]/g,``)'  required>
-                    <br><br>
-                    <label for='CVV'>CVV</label>
-                    <br>
-                    <input type='number' name='cvv' id='cvv' oninput='this.value=this.value.replace(/[^0-9]/g,``)' required>
-                    <br><br>
-                    <label for='Card No'>Exp Date <span style='font-weight: 100;'>(month-year)</span></label>
-                    <br>
-                    <input type='date' name='exptdate' id='exptdate' required>
-                    <br><br>
-                    <label for='Card Label'>Card Label</label><br>
-                    <input type='text' name='clabel' id='clabel' required>
-                    <br>
-                    <input type='submit' value='Submit' name='newcard' style='width: 30%; padding: 4px 0;'>
-                    </form>
-                    </div>
+                    <div style='margin: 20px 28px 30px 80%;'><button class="NewCardButton" id="CreditButton" style="width: 100%;padding: 9px">New Card</button></div>
                 <?php
                     mysqli_close($db);
                 ?>
@@ -175,8 +207,15 @@
         </div>
     </main>
     <?php include 'Php/_footer.php'?>
+    <?php
+    if(isset($_SESSION['cdno'])){
+        ?>
+            <script>$('#CardFormBoxU').show();</script>
+        <?php
+    }
+    ?>
 
     <script src="JS/validationjQuery.js"></script>
-
+    <script src="JS/accountjQuery.js"></script>
 </body>
 </html>

@@ -54,17 +54,58 @@ $(document).ready(function(){
     $('.NewAddressButton').click(function(){
         $('#AddFormBox').show();
     });
-    
 
 
 
+    //Credit card Logic
+    $('form[id^="CardUpdate"]').on('submit',function(e){
+        e.preventDefault();
+        var cdno=this.firstElementChild.value;
+        console.log(cdno);
+        $.ajax({
+            type: 'POST',
+            url: 'accountAJAX.php',
+            data: {
+                cdno: cdno,
+                ucard: true
+            },
+            success:function(data){
+                if(data==cdno){
+                    location.reload();
+                }
+            }
+        });
+    });
 
+    $('#CreditFormU').on('submit',function(e){
+        e.preventDefault();
 
+        var cardno=$('#cardno1').val();
+        var cvv=$('#cvv1').val();
+        var exptdate=$('#exptdate1').val();
+        var clabel=$('#clabel1').val();
 
-
-
-
-
+        $.ajax({
+            type: 'POST',
+            url: 'accountAJAX.php',
+            data: {
+                cardno:cardno,
+                cvv:cvv,
+                exptdate:exptdate,
+                clabel:clabel,
+                updatecard: true
+            },
+            success:function(data){
+                if(data=="Updated"){
+                    window.location="credit.php";
+                }
+                if(data=="NotUpdated"){
+                    console.log(data);
+                    location.reload();
+                }
+            }
+        });
+    });
 
     $('.NewCardButton').click(function(){
         $('#CardFormBox').show();
