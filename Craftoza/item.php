@@ -8,6 +8,9 @@
     if(isset($_SESSION['cnt'])){ //for order page
         unset($_SESSION['cnt']);
     }
+    if(isset($_SESSION['CardChoice'])){ //for order page
+        unset($_SESSION['CardChoice']);
+    }
 
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
