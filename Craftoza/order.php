@@ -242,7 +242,7 @@
                 ?>
                 <!-- Price Table display -->
                 <div id="PriceTable">
-                    <br><br>
+                    <br>
                     <?php
                         $sql1="SELECT * FROM `product` NATURAL JOIN `seller` WHERE `pid`='{$_SESSION['pid']}'";
                         $res1=mysqli_query($db,$sql1);
@@ -281,10 +281,10 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-                <br><br>
-                <div style="display: flex; justify-content:center">
-                    <button type="submit" onclick='window.location ="payment.php"'>Pay</button>
+                    <br><br>
+                    <div style="display: flex; justify-content:center">
+                        <button type="submit" onclick='window.location ="payment.php"'>Pay</button>
+                    </div>
                 </div>
             </div>
             <br><br><br>
