@@ -2,6 +2,9 @@
     session_start();
     include "Php/_connectDatabase.php";
     $_SESSION['cnt']=1;
+    if(isset($_SESSION['AddrChoice'])){ //for order page
+        unset($_SESSION['AddrChoice']);
+    }
 
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
