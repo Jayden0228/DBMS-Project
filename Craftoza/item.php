@@ -302,6 +302,5 @@
         mysqli_close($db);
     ?>
     <?php include 'Php/_footer.php'?>
-    <script src="JS/Login.js"></script>
 </body>
 </html>
