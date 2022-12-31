@@ -130,9 +130,7 @@ form{
     padding: 7px;
     text-indent: 1ch;
 }
-input:focus{
-    outline: none;
-}
+
 #CardFormBox form label, #CardFormBoxU form label{
     padding: 15px 0;
 }
