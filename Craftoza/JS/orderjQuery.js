@@ -2,54 +2,31 @@ $(document).ready(function(){
     // $(".formlistmenu").each(function(){
         
     // });
-    $('#AddrForm1').on('submit',function(e){
+
+    $('.NewAddressButton').click(function(){
+        $('#AddFormBox').show();
+    });
+
+
+    $('form[id^="AddressChoice"]').on('submit',function(e){
         e.preventDefault();
-        var addr=$('#cadd1').val();
+        var hno=this.firstElementChild.value;
+        console.log(hno);
         $.ajax({
             type: 'POST',
             url: 'orderAJAX.php',
             data: {
-                addr: addr,
+                addr: hno,
                 Address: true
             },
             success:function(data){
-                $('#mainbox1').hide();
-                $('#mainbox2').show();
+                location.reload();
+                // $('#mainbox1').hide();
+                // $('#mainbox2').show();
             }
         });
     });
-    $('#AddrForm2').on('submit',function(e){
-        e.preventDefault();
-        var addr=$('#cadd2').val();
-        $.ajax({
-            type: 'POST',
-            url: 'orderAJAX.php',
-            data: {
-                addr: addr,
-                Address: true
-            },
-            success:function(data){
-                $('#mainbox1').hide();
-                $('#mainbox2').show();
-            }
-        });
-    });
-    $('#AddrForm3').on('submit',function(e){
-        e.preventDefault();
-        var addr=$('#cadd3').val();
-        $.ajax({
-            type: 'POST',
-            url: 'orderAJAX.php',
-            data: {
-                addr: addr,
-                Address: true
-            },
-            success:function(data){
-                $('#mainbox1').hide();
-                $('#mainbox2').show();
-            }
-        });
-    });
+
     
 
     $('#cardForm1').on('submit',function(e){

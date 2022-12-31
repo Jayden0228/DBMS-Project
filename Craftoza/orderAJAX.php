@@ -3,7 +3,7 @@
     include "Php/_connectDatabase.php";
 
     if(isset($_POST['Address'])){
-        $_SESSION['hno']=$_POST['addr'];
+        $_SESSION['AddrChoice']=$_POST['addr'];
         echo "Set";
     }
     // if(isset($_POST['Pmethod'])){
