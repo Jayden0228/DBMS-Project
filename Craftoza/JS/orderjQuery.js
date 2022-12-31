@@ -3,8 +3,34 @@ $(document).ready(function(){
         
     // });
 
+    $('#wallet').click(function(){
+        $('#mainbox5').show();
+        $('#mainbox3').hide();
+        $('#ConfirmButton').show();
+        $('#ConfirmMsg').show();
+        $('#ConfirmMsg').html("<b>Payment Method: Wallet..</b> Click on the below button to Confirm the order and Pay");
+    });
+    $('#netbank').click(function(){
+        $('#mainbox5').show();
+        $('#mainbox3').hide();
+        $('#ConfirmButton').show();
+        $('#ConfirmMsg').show();
+        $('#ConfirmMsg').html("<b>Payment Method: Net Banking..</b> Click on the below button to Confirm the order and Pay");
+    });
+    $('#cod').click(function(){
+        $('#mainbox5').show();
+        $('#mainbox3').hide();
+        $('#ConfirmButton').show();
+        $('#ConfirmMsg').show();
+        $('#ConfirmMsg').html("<b>Payment Method: Cash On Delivery..</b> Click on the below button to Confirm the order");
+    });
+
+    
     $('.NewAddressButton').click(function(){
         $('#AddFormBox').show();
+    });
+    $('.NewCardButton').click(function(){
+        $('#CardFormBox').show();
     });
 
 
@@ -20,60 +46,38 @@ $(document).ready(function(){
                 Address: true
             },
             success:function(data){
-                location.reload();
-                // $('#mainbox1').hide();
-                // $('#mainbox2').show();
+                location.reload();  
             }
         });
     });
 
     
 
-    $('#cardForm1').on('submit',function(e){
+    $('form[id^="CardChoice"]').on('submit',function(e){
         e.preventDefault();
-        var card=$('#choosecard1').val();
+        var card=this.firstElementChild.value;
         $.ajax({
             type: 'POST',
             url: 'orderAJAX.php',
             data: {
                 card: card,
-                Creditcard: true
+                CreditCard: true
             },
-            success:function(){
-                window.location ='orderlist.php'
+            success:function(data){
+                // window.location ='orderlist.php'
+                // location.reload();
+                $('#mainbox5').show();
+                $('#mainbox3').hide();
+                $('#mainbox4').hide();
+                $('#ConfirmButton').show();
+                $('#ConfirmMsg').show();
+                $('#ConfirmMsg').html("<b>Payment Method: Credit Card..</b> Click on the below button to Confirm the order and Pay");
             }
         });
     });
-    $('#cardForm2').on('submit',function(e){
-        e.preventDefault();
-        var card=$('#choosecard2').val();
-        $.ajax({
-            type: 'POST',
-            url: 'orderAJAX.php',
-            data: {
-                card: card,
-                Creditcard: true
-            },
-            success:function(){
-                window.location ='orderlist.php'
-            }
-        });
-    });
-    $('#cardForm3').on('submit',function(e){
-        e.preventDefault();
-        var card=$('#choosecard3').val();
-        $.ajax({
-            type: 'POST',
-            url: 'orderAJAX.php',
-            data: {
-                card: card,
-                Creditcard: true
-            },
-            success:function(){
-                window.location ='orderlist.php'
-            }
-        });
-    });
+   
+
+
     // $('#pqnt').change(function(){
     //     var qnt=$('#pqnt').val();
     //     console.log(qnt);

@@ -6,15 +6,10 @@
         $_SESSION['AddrChoice']=$_POST['addr'];
         echo "Set";
     }
-    // if(isset($_POST['Pmethod'])){
-    //     if($_POST['payment']==2)
-    //         echo "yes";
-    //     else
-    //         echo "no";
-    // }
 
-    if(isset($_POST['Creditcard'])){
-        $_SESSION['cdno']=$_POST['card'];
+    if(isset($_POST['CreditCard'])){
+        $_SESSION['CardChoice']=$_POST['card'];
+        echo "Set";
     }
     mysqli_close($db);
 ?>

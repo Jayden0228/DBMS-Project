@@ -13,8 +13,17 @@ hr{
     position: relative;
     top: 10px;
 }
+#ctext{
+    color: #fd5353fe;
+    display: inline-block;
+    margin-left: 3%;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    font-size: 130%;
+    font-weight: bold;
+}
 
-#mainbox1, #mainbox2, #mainbox3, #mainbox4{
+#mainbox1, #mainbox2, #mainbox3, #mainbox4, #mainbox5{
     background-color: #ffffff;
     border-radius: 20px;
     border-style: solid;
@@ -23,7 +32,7 @@ hr{
     margin: 0 auto;
     padding: 27px;
 }
-#mainbox2, #mainbox4{
+#mainbox2, #mainbox4, #mainbox5{
     display: none;
 }
 
@@ -311,10 +320,7 @@ table{
     width: 70%;
     text-indent: 1ch;
 }
-input:focus{
-    outline: none;
-}
-#box4 form label{
+/* #box4 form label{
     font-weight: bold;
     padding: 15px 0;
 }
@@ -333,4 +339,107 @@ div#text *{
 .paymentopt{
     width: 93%;
     margin: 10px;
+} */
+
+.option{
+    display: flex;
+    justify-content: space-around;
+    /* width: 100%; */
+    margin: 6% auto;
+}
+.option div p{
+    text-align: center;
+    /* width: 100%; */
+}
+.AccOpBtn{
+    /* background-color: #5ea2ecfe;    rgb(94,162,236) */
+    background-image: linear-gradient(to bottom right, rgba(94,162,236,0),rgba(94,162,236,0.5),rgba(94,162,236,0.8), rgba(94,162,236,1));
+    border-radius: 20px;
+    padding: 20px 60px;
+    border: none;
+    box-shadow: 1px 1px 5px #414141;
+    cursor: pointer;
+}
+.AccOpBtn:hover img{
+    transform: scale(1.2);
+    rotate: -10deg;
+}
+div>.AccOpBtn:hover div>p{
+    transform: scale(1.2);
+    font-weight: bold;
+}
+.AccOpBtn img{
+    width:60px;
+}
+
+
+.cardarea{
+    padding: 15px;
+    width: 90%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1.5px solid #0000006e;
+    border-radius: .375rem;
+    padding: 16px;
+}
+.cardarea h5{
+    margin-top: 0px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 14px;
+}
+.cardarea p{
+    margin-top: 0px;
+    margin-bottom: 16px;
+}
+.cardarea:hover{
+    transform: scale(1.02);
+}
+#CreditButton{
+    color:white;
+    background: #5ea2ecfe;/*0b5ed7*/
+    border-radius: 30px;
+    border: none;
+    margin:0; 
+    padding:6px 0px;
+    cursor: pointer;
+    border-radius: .375rem;
+
+}
+#CreditButton:hover{
+    background: #3e90e8fe;
+}
+#CreditForm input[type="text"], #CreditForm input[type="number"], #CreditForm input[type="date"], #CreditForm input[type="password"]{
+    border: 1px solid #0009;
+    border-radius: .375rem; 
+    padding: 7px;
+    text-indent: 1ch;
+}
+
+#CardFormBox form label{
+    padding: 15px 0;
+}
+
+#CardFormBox{
+    display: none;
+    /* display: block; */
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 10;
+}
+
+#ConfirmButton, #ConfirmMsg{
+    display: none;
+    margin-bottom:10px;
+}
+#ConfirmForm{
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    width: 83%;
+    margin: auto;
+    margin-top: 5%;
 }
