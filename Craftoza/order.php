@@ -6,20 +6,6 @@
     {
         if(isset($_POST['QNT'])){
             $_SESSION['cnt']=$_POST['pqnt'];
-            ?>
-            <script>
-                window.location ="payment.php";
-            </script>
-            <?php
-        }
-
-        if(isset($_POST['ccard'])){
-            $_SESSION['cdno']=$_POST['choosecard'];
-            // echo $_SESSION['cdno'];
-            echo "<script>
-                    displayNone(`mainbox1`);
-                    displayBlock(`mainbox2`);
-            </script>";
         }
 
         if(isset($_POST['newaddr']))
@@ -38,21 +24,6 @@
             {
                 echo "Record not updated";
             }    
-            // echo "<script>displayNone(`box2`);displayBlock(`box1`)</script>";
-        }
-        if(isset($_POST['newcard'])){
-            $cardno=$_POST["cardno"];
-            $cvv=$_POST["cvv"];
-            $exptdate=$_POST["exptdate"];
-            $clabel=$_POST["clabel"];
-            $sql="INSERT INTO `creditcard` (`uid`, `cardno`, `cvv`, `expdate`, `label`) VALUES ('{$_SESSION['UserID']}', '$cardno', '$cvv', '$exptdate', '$clabel');";
-
-            $res=mysqli_query($db,$sql);
-
-            // if(!$res)
-            // {
-            //     echo "Record not updated";
-            // }    
         }
     }
 ?>
@@ -133,11 +104,6 @@
 
     <main>
         <div id="backgd">
-            <!-- address odersummary payment
-            address
-            product
-            price details
-            craft credit -->
             <br><br><br>
 
             <!-- Address Option For the user -->
@@ -183,7 +149,7 @@
                 ?>
             </div>
 
-                
+            <!-- Item details and quantity selection -->
             <div id="mainbox2">
                 <p id="toptext">Delivery Address</p>
                 <hr>
@@ -211,7 +177,6 @@
                         <?php
                         echo "<hr>";
                     }
-                    // echo $_SESSION['pid'];
 
                     $sql1="SELECT * FROM `product` NATURAL JOIN `seller` WHERE `pid`='{$_SESSION['pid']}'";
                     $res1=mysqli_query($db,$sql1);
@@ -274,9 +239,54 @@
                             </form>
                         <?php
                     }
-                    ?>
-            </div>
+                ?>
+                <!-- Price Table display -->
+                <div id="PriceTable">
+                    <br><br>
+                    <?php
+                        $sql1="SELECT * FROM `product` NATURAL JOIN `seller` WHERE `pid`='{$_SESSION['pid']}'";
+                        $res1=mysqli_query($db,$sql1);
+                        if(mysqli_num_rows($res1)==0)
+                            echo "Product not found in the database";
+                        else
+                            $row1=mysqli_fetch_assoc($res1);
 
+                        $nprice=$row1['price']*$_SESSION['cnt'];
+                        $ndiscnt=$row1['price']*$row1['discnt']*0.01*$_SESSION['cnt'];
+                        $ntax=$row1['price']*0.08*$_SESSION['cnt'];
+                    ?>
+
+                    <p id="toptext">Price Details</p>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>Price (<?php echo $_SESSION['cnt']?> item)</td>
+                                <td><?php echo "Rs ".$nprice?></td>
+                            </tr>
+                            <tr>
+                                <td>Discount <?php echo $row1['discnt']?>%OFF</td>
+                                <td><?php echo "Rs ".$ndiscnt?></td>
+                            </tr>
+                            <tr>
+                                <td>Tax 8%</td>
+                                <td><?php echo "Rs ".$ntax?></td>
+                            </tr>
+                            <tr>
+                                <td>Delivery Charge</td>
+                                <td>Free Delivery</td>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td><?php echo "Rs ".($nprice-$ndiscnt+$ntax) ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br><br>
+                <div style="display: flex; justify-content:center">
+                    <button type="submit" onclick='window.location ="payment.php"'>Pay</button>
+                </div>
+            </div>
             <br><br><br>
             <br><br><br>
         </div>
@@ -295,17 +305,12 @@
         if(isset($_SESSION['AddrChoice'])){
             ?><script>displayNone(`mainbox1`);displayBlock(`mainbox2`);</script><?php
         }
+        if(isset($_SESSION['AddrChoice']) && isset($_SESSION['cnt'])){
+            ?><script>displayBlock(`PriceTable`);</script><?php
+        }
     ?>
 
     <script>
-        // document.getElementById('newaddr').onclick = function(){
-        //     displayNone(`box1`);
-        //     displayBlock(`box2`);
-        // }
-        // document.getElementById('newcd').onclick = function(){
-        //     displayNone(`box3`);
-        //     displayBlock(`box4`);
-        // }
         function increment(){
             let a=document.getElementById('pqnt');
             let cnt=parseInt(a.value)+1

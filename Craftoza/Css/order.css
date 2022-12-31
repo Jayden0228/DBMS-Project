@@ -268,6 +268,29 @@ button[type=submit]:hover
     width:14%;
     border-radius: 20px;
 } */
+#PriceTable{
+    display: none;
+}
+
+tbody, td, tfoot, th, thead, tr {
+    border-color: #00000066;
+    border-style: solid;
+    border-width: 0;
+}
+td, th{
+    text-align: center;
+}
+table{
+    border-collapse: collapse;
+    margin: auto;
+}
+.table > :not(caption) > * > * {
+    padding: 1rem;
+    border-bottom-width: 1px;
+}
+.table > tbody{
+    vertical-align: inherit;
+}
 
 .cardarea{
     padding: 15px;
