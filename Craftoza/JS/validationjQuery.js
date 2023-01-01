@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#AddressForm').validate({
+    $('form[id^="AddressForm"]').validate({
         wrapper: 'div',
         errorLabelContainer: "#messageBox",
         errorClass: "error fail-alert",
@@ -79,7 +79,7 @@ $(document).ready(function(){
         }
     });
     
-    $('#CreditForm').validate({
+    $('form[id^="CreditForm"]').validate({
         wrapper: 'div',
         errorLabelContainer: "#messageBox",
         errorClass: "error fail-alert",

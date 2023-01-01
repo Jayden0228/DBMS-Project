@@ -11,7 +11,6 @@ hr{
     font-weight: bold;
     letter-spacing: 3px;
 }
-
 #BoxTopText{
     color: #fd5353fe;
     display: inline-block;
@@ -21,25 +20,21 @@ hr{
     font-size: 130%;
     font-weight: bold;
 }
-
 #craftie{
     position: absolute;
     left: 15%;
     top: -94%;
     animation: move 1s ease-in-out 1s 1;
 }
-
 @keyframes move {
     to{
         left:85%
     }
 }
-
 #top{
     position: relative;
     top: 28px;
 }
-
 #backgd{
     background-image: url(../Images/background.png);
     background-size: cover;
@@ -51,7 +46,6 @@ hr{
     position: relative;
     top: 10px;
 }
-
 #Box{
     background-color: #ffffff;
     border-radius: 20px;
@@ -61,14 +55,16 @@ hr{
     margin: 0 auto;
     padding: 27px;
 }
-
 .option{
     display: flex;
     justify-content: space-around;
-    width: 100%;
-    margin: 40px auto;
+    /* width: 100%; */
+    margin: 6% auto;
 }
-
+.option div p{
+    text-align: center;
+    /* width: 100%; */
+}
 #AccOpBtn{
     /* background-color: #5ea2ecfe;    rgb(94,162,236) */
     background-image: linear-gradient(to bottom right, rgba(94,162,236,0),rgba(94,162,236,0.5),rgba(94,162,236,0.8), rgba(94,162,236,1));
@@ -76,43 +72,18 @@ hr{
     padding: 20px 60px;
     border: none;
     box-shadow: 1px 1px 5px #414141;
-}
-
-.obtn{
-    width: 88%;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    padding: 10px 24px;
-    display: inline-block;
-    /* font-size: 16px; */
-    font-size: 1.41vw;
-    margin: 4px 7%;
     cursor: pointer;
-    background: #fd5353fe;
-} 
-.obtn:hover{
-    background: #ff4545fe;
-    position: relative;
-    top: -1px;
-    left: -1px;
 }
-.arrw{
-    float: right;
-    transform: scale(2);
+#AccOpBtn:hover img{
+    transform: scale(1.2);
+    rotate: -10deg;
 }
-.arrw:hover{
-    float: right;
-    transform: scale(2);
-    position: relative;
-    top: -1px;
-    left: -1px;
+div>#AccOpBtn:hover div>p{
+    transform: scale(1.2);
+    font-weight: bold;
 }
-.accopt{
-    width: 92%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    cursor: pointer;
+#AccOpBtn img{
+    width:60px;
 }
 #backToLogin{
     visibility: hidden;

@@ -51,6 +51,9 @@ button, input[type=submit]{
 #image{
     width: 75%;
 }
+#image:hover{
+    transform: scale(1.1);
+}
 #simg1, #simg2, #simg3{
     width: 65%;
 }
@@ -58,6 +61,7 @@ button, input[type=submit]{
     position: relative;
     top: -1px;
     left: -1px;
+    transform: scale(1.1);
 }
 
 #lv1, #lv2, #lv3{
@@ -207,9 +211,6 @@ input[type=number] {
     margin: 0.5% 0;
     font-weight: 400;
 }
-#reviewForm{
-    display: none;
-}
 #addreview{
     float :right;
     border: 1px solid #5ea2ecfe;
@@ -221,4 +222,46 @@ input[type=number] {
 #addreview:hover{
     color:white;
     background: #5ea2ecfe;
+}
+.Formbox{
+    /* background-color: #f9f9f9f0; */
+    /* background-color: #ebebeb69; */
+    background: url(../Images/background.png);
+    background-size: 25%;
+    min-height: 60%;
+    top: 30.5vh;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    z-index: 11;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+}
+#ReviewFormBox{
+    display: none;
+    /* display: block; */
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 10;
+}
+.arrow1{
+    cursor: pointer;
+    color: black;
+    margin-left: 3%;
+    font-size: 23px;
+}
+.FormCol{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#reviewinp{
+    width: 40%;
+    margin: 7% 0px;
+    background: #5ea2ecfe;
+    border-radius: .375rem;
 }

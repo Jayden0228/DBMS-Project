@@ -1,7 +1,16 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
-    $_SESSION['cnt']=1;
+    // $_SESSION['cnt']=1;
+    if(isset($_SESSION['AddrChoice'])){ //for order page
+        unset($_SESSION['AddrChoice']);
+    }
+    if(isset($_SESSION['cnt'])){ //for order page
+        unset($_SESSION['cnt']);
+    }
+    if(isset($_SESSION['CardChoice'])){ //for order page
+        unset($_SESSION['CardChoice']);
+    }
 ?>
 <!DOCTYPE html>
 

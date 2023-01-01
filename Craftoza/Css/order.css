@@ -13,8 +13,17 @@ hr{
     position: relative;
     top: 10px;
 }
+#ctext{
+    color: #fd5353fe;
+    display: inline-block;
+    margin-left: 3%;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    font-size: 130%;
+    font-weight: bold;
+}
 
-#mainbox1, #mainbox2, #mainbox3, #mainbox4{
+#mainbox1, #mainbox2, #mainbox3, #mainbox4, #mainbox5{
     background-color: #ffffff;
     border-radius: 20px;
     border-style: solid;
@@ -23,112 +32,127 @@ hr{
     margin: 0 auto;
     padding: 27px;
 }
-#mainbox2, #mainbox4{
+#mainbox2, #mainbox4, #mainbox5{
     display: none;
 }
 
-/* .obtn{
-    width: 88%;
-    border: none;
-    /* border-radius: 30px; */
-    /* color: white;
-    padding: 10px 24px;
-    display: inline-block; */
-    /* font-size: 16px; */
-    /* font-size: 1.41vw;
-    margin: 4px 7%;
-    cursor: pointer;
-    background: #fd5353fe; 
-}  */
-/* .obtn:hover{
-    background: #ff4545fe;
-} */
-/* .arrw{
-    float: right;
-    transform: scale(2);
-} */
-/* .accopt{
-    width: 92%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    cursor: pointer;
-} */
-input[type=submit]
-{
-    background: #FE981B;
-    color: white;
-    border-radius: 20px;
-    font-size: 18px;
-    margin-left: 21%;
-    margin-top: 7%;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
 #toptext{
     text-align: center;
     font-size: xx-large;
 }
-/* #atext{
+
+#atext{
     color: #fd5353fe;
     display: inline-block;
     margin-left: 3%;
     margin-bottom: 10px;
-    margin-top: 30px;
+    margin-top: 5%;
     font-size: 130%;
     font-weight: bold;
-} */
+}
+
+
 .addarea{
     padding: 15px;
     width: 90%;
-    border: solid 1px black;
     margin-top: 20px;
     margin-bottom: 20px;
+    border: 1.5px solid #0000006e;
+    border-radius: .375rem;
+    padding: 16px;
 }
-/* .remove{
-    position: relative;
-    top: -35px;
-    text-align: end;
-    background-color: transparent;
-} */
+.addarea h5{
+    margin-top: 0px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 14px;
+}
+.addarea p{
+    margin-top: 0px;
+    margin-bottom: 16px;
+}
+.addarea:hover{
+    transform: scale(1.02);
+}
 form{
-    margin: 35px 0;
+    margin: 35px auto;
 }
-form label{
-    font-weight: bold;
-    padding: 15px 0;
-}
-form input{
-    border: solid 1px black;
-    border-style: none none solid none;
-    padding: 12px 15px;
-    width: 70%;
+#AddressForm input[type="text"], #AddressForm input[type="number"]{
+    border: 1px solid #0009;
+    border-radius: .375rem; 
+    padding: 7px;
     text-indent: 1ch;
 }
-.link{
-    float: right;
-    cursor: pointer;
-    color: #FE981B;
+input:focus{
+    outline: none;
 }
-.choose{
-    position: relative;
-    top: -35px;
-}
-#box1, #box3{
-    display: block;
-}
-#box2, #box4{
-    display: none;
-}
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  appearance: none;
-  margin: 0;
+#AddFormBox form label{
+    padding: 15px 0;
 }
 
-/* Firefox */
-input[type=number] {
-  appearance: textfield;
+input[type=submit]
+{
+    background: #FE981B;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    width: 25%;
+    text-align: center;
+}
+
+#AddressButton{
+    color:white;
+    background: #5ea2ecfe;/*0b5ed7*/
+    border: none;
+    margin:0; 
+    padding:6px 0px;
+    cursor: pointer;
+    border-radius: .375rem;
+}
+#AddressButton:hover{
+    background: #3e90e8fe;
+}
+
+#AddFormBox{
+    display: none;
+    /* display: block; */
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 10;
+}
+.Formbox{
+    /* background-color: #f9f9f9f0; */
+    /* background-color: #ebebeb69; */
+    background: url(../Images/background.png);
+    /* background-size: 100%; */
+    min-height: 60%;
+    top: 9.5vh;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: relative;
+    z-index: 11;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+}
+.arrow1{
+    cursor: pointer;
+    color: black;
+    margin-left: 3%;
+    font-size: 26px;
+}
+.FormRow{
+    display: flex;
+    justify-content: space-between;
+    margin: 5% 0px;
+}
+.FormCol{
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -145,6 +169,10 @@ input[type=number] {
     justify-content: center;
     align-items: center;
 }
+.item:hover{
+    transform: scale(1.01);
+}
+
 .text1{
     font-weight: bolder;
     font-size: x-large;
@@ -154,11 +182,12 @@ input[type=number] {
     font-size: large;
 }
 #pqnt{
-    width: 16%;
+    width: 31%;
+    height: 5vh;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: .375rem;
     padding-top: 2.4px;
-    border: none;
-    border-top: 3px solid #aeacac;
-    border-bottom: 3px solid #aeacac;
 }
 #min, #max{
     display: inline;
@@ -172,12 +201,43 @@ input[type=number] {
     padding: 0;
     border: 3px solid #aeacac;
 }
-/* .continue{
-    color:white;
-    background-color: #FE981B;
-    width:14%;
-    border-radius: 20px;
-} */
+button[type=submit]
+{
+    background: #FE981B;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    width: 25%;
+    text-align: center;
+}
+button[type=submit]:hover
+{
+    background: #ff930f;
+}
+
+#PriceTable{
+    display: none;
+}
+
+tbody, td, tfoot, th, thead, tr {
+    border-color: #00000066;
+    border-style: solid;
+    border-width: 0;
+}
+td, th{
+    text-align: center;
+}
+table{
+    border-collapse: collapse;
+    margin: auto;
+}
+.table > :not(caption) > * > * {
+    padding: 1rem;
+    border-bottom-width: 1px;
+}
+.table > tbody{
+    vertical-align: inherit;
+}
 
 .cardarea{
     padding: 15px;
@@ -198,26 +258,107 @@ input[type=number] {
     width: 70%;
     text-indent: 1ch;
 }
-input:focus{
-    outline: none;
+
+
+.option{
+    display: flex;
+    justify-content: space-around;
+    /* width: 100%; */
+    margin: 6% auto;
 }
-#box4 form label{
+.option div p{
+    text-align: center;
+    /* width: 100%; */
+}
+.AccOpBtn{
+    /* background-color: #5ea2ecfe;    rgb(94,162,236) */
+    background-image: linear-gradient(to bottom right, rgba(94,162,236,0),rgba(94,162,236,0.5),rgba(94,162,236,0.8), rgba(94,162,236,1));
+    border-radius: 20px;
+    padding: 20px 60px;
+    border: none;
+    box-shadow: 1px 1px 5px #414141;
+    cursor: pointer;
+}
+.AccOpBtn:hover img{
+    transform: scale(1.2);
+    rotate: -10deg;
+}
+div>.AccOpBtn:hover div>p{
+    transform: scale(1.2);
     font-weight: bold;
+}
+.AccOpBtn img{
+    width:60px;
+}
+
+
+.cardarea{
+    padding: 15px;
+    width: 90%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1.5px solid #0000006e;
+    border-radius: .375rem;
+    padding: 16px;
+}
+.cardarea h5{
+    margin-top: 0px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 14px;
+}
+.cardarea p{
+    margin-top: 0px;
+    margin-bottom: 16px;
+}
+.cardarea:hover{
+    transform: scale(1.02);
+}
+#CreditButton{
+    color:white;
+    background: #5ea2ecfe;/*0b5ed7*/
+    border-radius: 30px;
+    border: none;
+    margin:0; 
+    padding:6px 0px;
+    cursor: pointer;
+    border-radius: .375rem;
+
+}
+#CreditButton:hover{
+    background: #3e90e8fe;
+}
+#CreditForm input[type="text"], #CreditForm input[type="number"], #CreditForm input[type="date"], #CreditForm input[type="password"]{
+    border: 1px solid #0009;
+    border-radius: .375rem; 
+    padding: 7px;
+    text-indent: 1ch;
+}
+
+#CardFormBox form label{
     padding: 15px 0;
 }
-#ccard{
-    width: 100%;
+
+#CardFormBox{
+    display: none;
+    /* display: block; */
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    z-index: 10;
 }
-.order{
-    margin-top: 20px;
+
+#ConfirmButton, #ConfirmMsg{
+    display: none;
+    margin-bottom:10px;
 }
-input[type="radio"]{
-    width:3%;
-}
-div#text *{
-    margin: 5px 0;
-}
-.paymentopt{
-    width: 93%;
-    margin: 10px;
+#ConfirmForm{
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    width: 83%;
+    margin: auto;
+    margin-top: 5%;
 }

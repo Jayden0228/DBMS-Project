@@ -158,7 +158,9 @@ input[type=number] {
     100% { transform: rotate(360deg); }
 }
 
-/* #timerPara{
-    margin:5px;
-    font-size: medium;
-} */
+.timer p{
+    text-align: center;
+    color: black;
+    font-size: 18px;
+    margin: 0;
+}

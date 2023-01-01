@@ -120,9 +120,9 @@ $(document).ready(function(){
         e.preventDefault();
         $('#rsend').hide(setTimeout(function(){
             $('#rsend').show();
-            $('#resendotp').hide();
         }, 30000));
         $('#resendotp').show();
+        $('#load2').show();
         $('#errmsg1').hide();
         $.ajax({
             type: 'POST',
@@ -130,10 +130,12 @@ $(document).ready(function(){
             data: {
                 ResendOtp: true
             },
-            // success:function(){
-            //     $('#timer').text("3:00");
-            //     countdown();
-            // }
+            success:function(){
+                $('#timer').hide();
+                timer2(180);
+                $('#resendotp').hide();
+                $('#load2').hide();
+            }
         });
     });
 

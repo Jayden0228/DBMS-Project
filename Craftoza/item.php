@@ -1,7 +1,16 @@
 <?php
     session_start();
     include "Php/_connectDatabase.php";
-    $_SESSION['cnt']=1;
+    // $_SESSION['cnt']=1;
+    if(isset($_SESSION['AddrChoice'])){ //for order page
+        unset($_SESSION['AddrChoice']);
+    }
+    if(isset($_SESSION['cnt'])){ //for order page
+        unset($_SESSION['cnt']);
+    }
+    if(isset($_SESSION['CardChoice'])){ //for order page
+        unset($_SESSION['CardChoice']);
+    }
 
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
@@ -51,16 +60,10 @@
             // $row4=mysqli_fetch_assoc($res1);
         }
 
-        if(isset($_POST['reviewinp'])){
-            $review=$_POST['review'];
-            
-            if(!empty($review)){
-                $sql5="INSERT INTO `reviews`(`pid`, `uid`, `comment`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','$review')";
-                mysqli_query($db,$sql5);
-            }
-            ?>
-            <script>displayBlock('reviewForm');displayNone('review')</script>
-            <?php
+        if(isset($_POST['reviewinp']))
+        {
+            $sql5="INSERT INTO `reviews`(`pid`, `uid`, `comment`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','{$_POST['review']}')";
+            mysqli_query($db,$sql5);
         }
     }
 ?>
@@ -108,6 +111,22 @@
 
 <body>
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
+    <div id="ReviewFormBox">
+        <div class="Formbox">
+            <form action="" method="post" class="center" >
+                <br>
+                <span class='arrow1' onclick='displayNone(`ReviewFormBox`);displayBlock(`addreview`)'>&#10005;</span>
+                <br><br>
+                <div class="FormCol">
+                    <label style="font-size: larger;margin-bottom: 4%;">Enter your Review!!</label>
+                    <textarea name="review" cols="40" rows="5" style="resize:none" required></textarea>
+                    <button type="submit" name="reviewinp" id="reviewinp">Submit</button>
+                </div>
+                <br><br>
+            </form>
+        </div>
+    </div>
+    
     <?php include 'Php/_nav.php'?>
     <main>
         <div id="backgd">
@@ -255,16 +274,7 @@
                 </div>
                 <div id="lv3cn3h">
                     <span ></span>
-                    <button id="addreview"onclick="displayBlock('reviewForm');displayNone('review');displayNone('addreview')">ADD REVIEW</button>
-                    <form action="" method="post" id="reviewForm" class="center2" >
-                        <input type="hidden" name="rated" value=<?php $row1['rating']?>>
-                        <br>
-                        <label>Enter your Review!!</label><br>
-                        <textarea name="review" cols="40" rows="5"></textarea><br>
-                        <br>
-                        <button type="submit" name="reviewinp" style="width:75%">Submit</button>
-                        <br>
-                    </form>
+                    <button id="addreview"onclick="displayBlock('ReviewFormBox');displayNone('addreview')">ADD REVIEW</button>
                     <div id="review">
                     <?php
                         if(mysqli_num_rows($res2)==0)
@@ -301,6 +311,5 @@
         mysqli_close($db);
     ?>
     <?php include 'Php/_footer.php'?>
-    <script src="JS/Login.js"></script>
 </body>
 </html>
