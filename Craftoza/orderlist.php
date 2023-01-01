@@ -21,15 +21,7 @@
             $sql1="UPDATE `product` SET `rating`='$x' WHERE `pid`='$pid'";
             mysqli_query($db,$sql1);
         }
-        if(isset($_POST['paymed'])){
-            echo $_SESSION['pid'];
-            echo $_SESSION['UserID'];
-            echo $_SESSION['cnt'];
         
-            $sql3="INSERT INTO `orders`(`pid`, `uid`, `did`, `qnt`, `status`, `OrderDate`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','10','{$_SESSION['cnt']}','Pending',current_date()); ";
-            mysqli_query($db,$sql3);
-
-        }
     }
 ?>
 <!DOCTYPE html>
@@ -61,11 +53,40 @@
 
 <body>
     <?php include "C:/xampp/htdocs/DBProject/Craftoza/Php/_register.php";?>
-
+    <div id="ThankYouBox">
+        <div id="ThankYou">
+            <span class='arrow1' onclick='displayNone(`ThankYouBox`)'>&#10005;</span>
+            <br><br>
+            <img src="Images/check-mark.png" style="width:20%; margin-left:40%">
+            <p>Thanks you for Shopping at Craftoza.</p>
+            <p>Your order will be delivered within 2days</p>
+            <br><br>
+        </div>
+    </div>
     <?php include 'Php/_nav.php'?>
     <?php
         if($_SERVER["REQUEST_METHOD"]=="POST")
         {
+            if(isset($_POST['ConfirmButton'])){
+
+                $sql3="INSERT INTO `orders`(`pid`, `uid`, `did`, `oqnt`, `status`, `OrderDate`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','10','{$_SESSION['cnt']}','Pending',current_date()); ";
+                $res3=mysqli_query($db,$sql3);
+                if($res3){
+                    ?><script>document.getElementById("ThankYouBox").style.display = "block"</script><?php
+
+
+                    $sql5="SELECT * FROM `product` WHERE `pid`='{$_SESSION['pid']}'";
+                    $row5=mysqli_fetch_assoc(mysqli_query($db,$sql5));
+                    $qnt=(int)$row5['qnt']-(int)$_SESSION['cnt'];
+                    
+                    $sql4="UPDATE `product` SET `qnt`='$qnt' WHERE `pid`='{$_SESSION['pid']}'";
+                    $res4=mysqli_query($db,$sql4);
+                }
+               
+
+                //set Delivery agent
+                
+            }
             if(isset($_POST['order']))
             {
                 $_SESSION['pid']=$_POST['pid'];
@@ -108,7 +129,7 @@
                 else{
                     while($row=mysqli_fetch_assoc($res))
                     {
-                        $price=$row['price']*$row['qnt']*(1.08-($row['discnt']*0.01));
+                        $price=$row['price']*$row['oqnt']*(1.08-($row['discnt']*0.01));
                         ?>
                         <div class="item">
                             <div id="image">
@@ -117,7 +138,7 @@
                             <div id="text">
                                 <div class="text1"><?php echo $row['pname']?></div>
                                 <div class="text2">Total<span style="color: #fd5353fe"><?php echo " Rs ".$price?></span></div>
-                                <div class="text4"><?php echo "Quantity: ".$row['qnt']?></div>
+                                <div class="text4"><?php echo "Quantity: ".$row['oqnt']?></div>
                                 <div class="text4"><?php echo "Status: ".$row['status']?></div>
                             </div>
                             <div id="btn">
@@ -164,6 +185,5 @@
         mysqli_close($db);
     ?>
     <?php include 'Php/_footer.php'?>
-
 </body>
 </html>
