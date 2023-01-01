@@ -36,67 +36,10 @@ hr{
     display: none;
 }
 
-/* .obtn{
-    width: 88%;
-    border: none;
-    /* border-radius: 30px; */
-    /* color: white;
-    padding: 10px 24px;
-    display: inline-block; */
-    /* font-size: 16px; */
-    /* font-size: 1.41vw;
-    margin: 4px 7%;
-    cursor: pointer;
-    background: #fd5353fe; 
-}  */
-/* .obtn:hover{
-    background: #ff4545fe;
-} */
-/* .arrw{
-    float: right;
-    transform: scale(2);
-} */
-/* .accopt{
-    width: 92%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    cursor: pointer;
-} */
-
 #toptext{
     text-align: center;
     font-size: xx-large;
 }
-
-/* form{
-    margin: 35px 0;
-}
-form label{
-    font-weight: bold;
-    padding: 15px 0;
-}
-form input{
-    border: solid 1px black;
-    border-style: none none solid none;
-    padding: 12px 15px;
-    width: 70%;
-    text-indent: 1ch;
-}
-.link{
-    float: right;
-    cursor: pointer;
-    color: #FE981B;
-}
-.choose{
-    position: relative;
-    top: -35px;
-}
-#box1, #box3{
-    display: block;
-}
-#box2, #box4{
-    display: none;
-} */
 
 #atext{
     color: #fd5353fe;
@@ -271,12 +214,7 @@ button[type=submit]:hover
 {
     background: #ff930f;
 }
-/* .continue{
-    color:white;
-    background-color: #FE981B;
-    width:14%;
-    border-radius: 20px;
-} */
+
 #PriceTable{
     display: none;
 }
@@ -320,26 +258,7 @@ table{
     width: 70%;
     text-indent: 1ch;
 }
-/* #box4 form label{
-    font-weight: bold;
-    padding: 15px 0;
-}
-#ccard{
-    width: 100%;
-}
-.order{
-    margin-top: 20px;
-}
-input[type="radio"]{
-    width:3%;
-}
-div#text *{
-    margin: 5px 0;
-}
-.paymentopt{
-    width: 93%;
-    margin: 10px;
-} */
+
 
 .option{
     display: flex;
