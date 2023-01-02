@@ -33,12 +33,13 @@ $(document).ready(function(){
     $('form[id^="AddressChoice"]').on('submit',function(e){
         e.preventDefault();
         var hno=this.firstElementChild.value;
-        console.log(hno);
+        var taluka=this.firstElementChild.nextElementSibling.value;
         $.ajax({
             type: 'POST',
             url: 'orderAJAX.php',
             data: {
                 addr: hno,
+                taluka:taluka,
                 Address: true
             },
             success:function(data){

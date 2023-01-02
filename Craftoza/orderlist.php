@@ -68,23 +68,29 @@
         if($_SERVER["REQUEST_METHOD"]=="POST")
         {
             if(isset($_POST['ConfirmButton'])){
+                //setting Delivery agent
+                $sql2="SELECT * FROM `deliverymember` WHERE `location`='{$_SESSION['taluka']}'";
+                $row2=mysqli_fetch_assoc(mysqli_query($db,$sql2));
 
-                $sql3="INSERT INTO `orders`(`pid`, `uid`, `did`, `oqnt`, `status`, `OrderDate`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','10','{$_SESSION['cnt']}','Pending',current_date()); ";
+                //Inserting order
+                $sql3="INSERT INTO `orders`(`pid`, `uid`, `did`, `oqnt`, `status`, `OrderDate`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','{$row2['did']}','{$_SESSION['cnt']}','Pending',current_date()); ";
                 $res3=mysqli_query($db,$sql3);
+
                 if($res3){
                     ?><script>document.getElementById("ThankYouBox").style.display = "block"</script><?php
 
-
+                    //Getting the qnt
                     $sql5="SELECT * FROM `product` WHERE `pid`='{$_SESSION['pid']}'";
                     $row5=mysqli_fetch_assoc(mysqli_query($db,$sql5));
                     $qnt=(int)$row5['qnt']-(int)$_SESSION['cnt'];
                     
+                    //Updating the qnt
                     $sql4="UPDATE `product` SET `qnt`='$qnt' WHERE `pid`='{$_SESSION['pid']}'";
                     $res4=mysqli_query($db,$sql4);
                 }
                
 
-                //set Delivery agent
+                
                 
             }
             if(isset($_POST['order']))
