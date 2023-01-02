@@ -134,6 +134,7 @@
                                         <p><?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></p>
                                         <form style="margin:0;" id=<?php echo "AddressChoice".$i?>>
                                             <input type="hidden" id=<?php echo "AddrHno".$i?> name="AddrHno" value=<?php echo $row['hno']?>>
+                                            <input type="hidden" id=<?php echo "AddrHno".$i?> name="AddrHno" value=<?php echo $row['taluka']?>>
                                             <button type="submit" name="chooseAddr" id="AddressButton">Choose</button>
                                         </form>
                                     </div>
