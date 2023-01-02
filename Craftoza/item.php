@@ -11,6 +11,9 @@
     if(isset($_SESSION['CardChoice'])){ //for order page
         unset($_SESSION['CardChoice']);
     }
+    if(isset($_SESSION['taluka'])){ //for order page
+        unset($_SESSION['taluka']);
+    }
 
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
