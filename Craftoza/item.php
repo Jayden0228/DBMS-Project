@@ -237,6 +237,9 @@
                             }
                         ?>
                     </div>
+                    <div>
+                        <img id="paymentopt" src="Images/payment_options.png">
+                    </div>
                 </div>
                 <div id="lv2cn3">
                     <form action="#" method="POST">
