@@ -53,6 +53,9 @@ hr{
     margin: 0 auto;
     padding: 27px;
 }
+.item:hover{
+    transform: scale(1.05);
+}
 #image{
     width: 68%;
     margin-top: auto;

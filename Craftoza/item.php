@@ -11,6 +11,9 @@
     if(isset($_SESSION['CardChoice'])){ //for order page
         unset($_SESSION['CardChoice']);
     }
+    if(isset($_SESSION['taluka'])){ //for order page
+        unset($_SESSION['taluka']);
+    }
 
     if($_SERVER["REQUEST_METHOD"]=="POST")
     {
@@ -232,10 +235,13 @@
                             }
                             else{
                                 ?>
-                                    <div style="color:green">In stock</div>
+                                    <div style="color:green">In stock<?php if($row1['qnt']<=10){echo "   (".$row1['qnt']."left)";}?></div>
                                 <?php
                             }
                         ?>
+                    </div>
+                    <div>
+                        <img id="paymentopt" src="Images/payment_options.png">
                     </div>
                 </div>
                 <div id="lv2cn3">

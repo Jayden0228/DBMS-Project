@@ -68,23 +68,29 @@
         if($_SERVER["REQUEST_METHOD"]=="POST")
         {
             if(isset($_POST['ConfirmButton'])){
+                //setting Delivery agent
+                $sql2="SELECT * FROM `deliverymember` WHERE `location`='{$_SESSION['taluka']}'";
+                $row2=mysqli_fetch_assoc(mysqli_query($db,$sql2));
 
-                $sql3="INSERT INTO `orders`(`pid`, `uid`, `did`, `oqnt`, `status`, `OrderDate`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','10','{$_SESSION['cnt']}','Pending',current_date()); ";
+                //Inserting order
+                $sql3="INSERT INTO `orders`(`pid`, `uid`, `did`, `oqnt`, `status`, `OrderDate`) VALUES ('{$_SESSION['pid']}','{$_SESSION['UserID']}','{$row2['did']}','{$_SESSION['cnt']}','Pending',current_date()); ";
                 $res3=mysqli_query($db,$sql3);
+
                 if($res3){
                     ?><script>document.getElementById("ThankYouBox").style.display = "block"</script><?php
 
-
+                    //Getting the qnt
                     $sql5="SELECT * FROM `product` WHERE `pid`='{$_SESSION['pid']}'";
                     $row5=mysqli_fetch_assoc(mysqli_query($db,$sql5));
                     $qnt=(int)$row5['qnt']-(int)$_SESSION['cnt'];
                     
+                    //Updating the qnt
                     $sql4="UPDATE `product` SET `qnt`='$qnt' WHERE `pid`='{$_SESSION['pid']}'";
                     $res4=mysqli_query($db,$sql4);
                 }
                
 
-                //set Delivery agent
+                
                 
             }
             if(isset($_POST['order']))
@@ -100,6 +106,18 @@
             {
                 $sql2="DELETE FROM `view` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_POST['pid']}'";
                 $res2=mysqli_query($db,$sql2);
+            }
+            if(isset($_POST['cancelorder']))
+            {
+                $sql2="DELETE FROM `orders` WHERE `uid`='{$_SESSION['UserID']}' AND `pid`='{$_POST['pid']}'";
+                $res2=mysqli_query($db,$sql2);
+
+                $sql5="SELECT * FROM `product` WHERE `pid`='{$_POST['pid']}'";
+                $row5=mysqli_fetch_assoc(mysqli_query($db,$sql5));
+                $qnt=(int)$row5['qnt']+(int)$_POST['qnt'];
+                
+                $sql4="UPDATE `product` SET `qnt`='$qnt' WHERE `pid`='{$_POST['pid']}'";
+                $res4=mysqli_query($db,$sql4);
             }
         }
     ?>
@@ -139,7 +157,7 @@
                                 <div class="text1"><?php echo $row['pname']?></div>
                                 <div class="text2">Total<span style="color: #fd5353fe"><?php echo " Rs ".$price?></span></div>
                                 <div class="text4"><?php echo "Quantity: ".$row['oqnt']?></div>
-                                <div class="text4"><?php echo "Status: ".$row['status']?></div>
+                                <div class="text4"><?php if($row['status']=="Rated") echo"Status: Delivered"; else echo "Status: ".$row['status'];?></div>
                             </div>
                             <div id="btn">
                                 <?php
@@ -165,14 +183,20 @@
                                     }
                                     else{
                                         ?>
-                                            <input type="submit" value="Rate" name="rate" class="btn1" style="text-align: center" disabled>
+                                            <input type="submit" value="Rate" name="rate" class="btn1" style="text-align: center;background: #f44;" disabled>
+                                            <?php if($row['status']!="Rated"){?>
+                                            <form action="" method="POST">
+                                                <input type="hidden" name="pid" value=<?php echo $row['pid']?>>
+                                                <input type="hidden" name="qnt" value=<?php echo $row['oqnt']?>>
+                                                <input type="submit" value="Cancel Order" name="cancelorder" class="btn1" style="text-align: center">
+                                            </form>
                                         <?php
+                                        }
                                     }
                                 ?>
                                 
                             </div>
                         </div>
-                        <br><br><br>
                         <br><br><br>
                         <?php
                     }

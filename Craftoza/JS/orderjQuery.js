@@ -1,8 +1,4 @@
 $(document).ready(function(){
-    // $(".formlistmenu").each(function(){
-        
-    // });
-
     $('#wallet').click(function(){
         $('#mainbox5').show();
         $('#mainbox3').hide();
@@ -37,12 +33,13 @@ $(document).ready(function(){
     $('form[id^="AddressChoice"]').on('submit',function(e){
         e.preventDefault();
         var hno=this.firstElementChild.value;
-        console.log(hno);
+        var taluka=this.firstElementChild.nextElementSibling.value;
         $.ajax({
             type: 'POST',
             url: 'orderAJAX.php',
             data: {
                 addr: hno,
+                taluka:taluka,
                 Address: true
             },
             success:function(data){
@@ -75,47 +72,20 @@ $(document).ready(function(){
             }
         });
     });
-   
+    
 
-
-    // $('#pqnt').change(function(){
-    //     var qnt=$('#pqnt').val();
-    //     console.log(qnt);
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: 'orderAJAX.php',
-    //         data: {
-    //             qnt: qnt,
-    //             Price: true
-    //         },
-    //         success:function(data){
-                
-    //         }
-    //     });
-    // });
-
-    // $('#paymentOptForm').on('submit',function(e){
-    //     e.preventDefault();
-    //     var payment=$('#payment').val();
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: 'orderAJAX.php',
-    //         data: {
-    //             payment: payment,
-    //             Pmethod: true
-    //         },
-    //         success:function(data){
-    //             if(data=='yes'){
-    //                 $('#mainbox3').hide();
-    //                 $('#mainbox4').show();
-    //             }
-    //             else{
-    //                 window.location ="orderlist.php";
-    //             }
-    //         }
-    //     });
-    // });
-    // $("#payment").change(function(){
-    //     alert($('#payment').val())
-    // })
+    $('#AddressChangeForm').on('submit',function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: 'orderAJAX.php',
+            data: {
+                ChangeAddr: true
+            },
+            success:function(data){
+                location.reload();
+            }
+        });
+    });
+    
 });

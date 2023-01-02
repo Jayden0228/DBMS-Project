@@ -99,6 +99,14 @@ button, input[type=submit]{
 #lv2cn2{
     margin: 0 9%;
     width: 15%;
+    display: flex;
+    flex-direction: column;
+}
+#paymentopt{
+    width: 188%;
+    position: relative;
+    left: -50%;
+    margin-top: 15%;
 }
 
 #lv2cn3{

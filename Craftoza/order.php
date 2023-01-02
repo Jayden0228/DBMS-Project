@@ -134,6 +134,7 @@
                                         <p><?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></p>
                                         <form style="margin:0;" id=<?php echo "AddressChoice".$i?>>
                                             <input type="hidden" id=<?php echo "AddrHno".$i?> name="AddrHno" value=<?php echo $row['hno']?>>
+                                            <input type="hidden" id=<?php echo "AddrHno".$i?> name="AddrHno" value=<?php echo $row['taluka']?>>
                                             <button type="submit" name="chooseAddr" id="AddressButton">Choose</button>
                                         </form>
                                     </div>
@@ -169,13 +170,15 @@
                             <div id='addr'>
                                 <div class='center addarea'>
                                     <span class='fulladd'>
-                                        <span><b>Address:</b><br> <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                        <span><b>Address:</b><br> <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br><br>
+                                        <form style="margin:0" id="AddressChangeForm">
+                                            <button type="submit" id="AddressButton">Change</button>
+                                        </form>
                                     </span>
                                 </div>
                             </div>
                             <br>
                         <?php
-                        echo "<hr>";
                     }
 
                     $sql1="SELECT * FROM `product` NATURAL JOIN `seller` WHERE `pid`='{$_SESSION['pid']}'";
@@ -232,7 +235,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br><hr><br>
+                                <br><br>
                                 <div style="display: flex; justify-content:center">
                                     <button type="submit" name="QNT">Proceed</button>
                                 </div>

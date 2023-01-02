@@ -11,6 +11,9 @@
     if(isset($_SESSION['CardChoice'])){ //for order page
         unset($_SESSION['CardChoice']);
     }
+    if(isset($_SESSION['taluka'])){ //for order page
+        unset($_SESSION['taluka']);
+    }
 ?>
 <!DOCTYPE html>
 
@@ -142,9 +145,7 @@
                                         <?php
                                     }
                                     else{
-                                        ?>
-                                            <div style="color:green">In stock</div>
-                                        <?php
+                                        ?><div style="color:green">In stock<?php if($row['qnt']<=10){echo "   (".$row['qnt']."left)";}?></div><?php
                                     }
                                 ?>
                                 </div>
