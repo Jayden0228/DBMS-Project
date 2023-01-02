@@ -21,6 +21,9 @@
     margin: 3% auto;
     padding: 27px;
 }
+#search:hover{
+    transform: scale(1.05);
+}
 #image{
     width: 68%;
     margin-top: auto;
