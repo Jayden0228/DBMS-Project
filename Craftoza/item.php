@@ -232,7 +232,7 @@
                             }
                             else{
                                 ?>
-                                    <div style="color:green">In stock</div>
+                                    <div style="color:green">In stock<?php if($row1['qnt']<=10){echo "   (".$row1['qnt']."left)";}?></div>
                                 <?php
                             }
                         ?>

@@ -155,7 +155,7 @@
                                                         ?><div style="color:#fd5252ff">Out of stock</div><?php
                                                     }
                                                     else{
-                                                        ?><div style="color:green">In stock</div><?php
+                                                        ?><div style="color:green">In stock<?php if($row['qnt']<=10){echo "   (".$row['qnt']."left)";}?></div><?php
                                                     }
                                                 ?>
                                             </div>
