@@ -7,6 +7,11 @@
         echo "Set";
     }
 
+    if(isset($_POST['ChangeAddr'])){
+        unset($_SESSION['AddrChoice']);
+        echo "Unset";
+    }
+
     if(isset($_POST['CreditCard'])){
         $_SESSION['CardChoice']=$_POST['card'];
         echo "Set";

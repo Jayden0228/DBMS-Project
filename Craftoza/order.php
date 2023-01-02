@@ -169,13 +169,15 @@
                             <div id='addr'>
                                 <div class='center addarea'>
                                     <span class='fulladd'>
-                                        <span><b>Address:</b><br> <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br>
+                                        <span><b>Address:</b><br> <?php echo "{$row['hno']} {$row['wname']} {$row['villageCity']} {$row['taluka']} {$row['state']} {$row['pincode']}"?></span><br><br>
+                                        <form style="margin:0" id="AddressChangeForm">
+                                            <button type="submit" id="AddressButton">Change</button>
+                                        </form>
                                     </span>
                                 </div>
                             </div>
                             <br>
                         <?php
-                        echo "<hr>";
                     }
 
                     $sql1="SELECT * FROM `product` NATURAL JOIN `seller` WHERE `pid`='{$_SESSION['pid']}'";
@@ -232,7 +234,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <br><hr><br>
+                                <br><br>
                                 <div style="display: flex; justify-content:center">
                                     <button type="submit" name="QNT">Proceed</button>
                                 </div>
