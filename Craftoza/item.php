@@ -85,6 +85,8 @@
     <link rel="stylesheet" href="Css/item.css">
     <link rel="stylesheet" href="Css/login_sign.css">
     <link rel="stylesheet" href="Css/footer.css">
+    <link rel="stylesheet" href="Css/productGallery.css">
+    <link rel="stylesheet" href="Css/card.css">
 
 
     <script>
@@ -310,6 +312,65 @@
                 </div>
             </div>
 
+            <br><br><br>
+            <div class="ProductSliderItemPage">
+                <div class="leftArrow" id="leftButton" onclick="slideLeft(0)">
+                    <img src="Images/leftArrow.png" height="100%" width="100%">
+                </div>
+                <div class="PRODUCTGALLERY" style="width:912px;background-color: white;">
+                    <?php
+                        include "Php/_connectDatabase.php";
+                        $sql="SELECT * FROM `product`";
+                        $res=mysqli_query($db,$sql);
+                        for($i=0;$i<5;$i++)
+                        {
+                            $row=mysqli_fetch_assoc($res);
+                        ?>
+                            <div class="PRODUCT" >
+                                <form action="item.php" method="post">
+                                    <input type="hidden" name="pid" value=<?php echo $row['pid']?>>
+                                    <button type="submit" class="card" style="width:285px;background:#f1f1f1ff;border-radius: 20px;color:black;margin:0;padding:0;">
+                                        <div class="shade1"> </div>
+                                        <div class="shade2"></div>
+                                        
+                                        <div class="Top3Colours">
+                                            <div id="red"></div>
+                                            <div id="yellow"></div>
+                                            <div id="blue"></div>
+                                        </div>
+                                        
+                                        <div class="ProImage"><img src=<?php echo $row['ParentImgLink'].'.png'?> alt="" height="100%" width="100%"></div>
+                            
+                                        <div class="HeaderBOX"><h1><?php echo $row['pname']?></h1></div>
+
+                                        <div class="Price"><h1>Rs <?php echo $row['price']*(1-$row['discnt']*0.01);?></h1></div>
+                                    
+                                        <div class="bottom3Colours">
+                                            <div id="red"></div>
+                                            <div id="yellow"></div>
+                                            <div id="blue"></div>
+                                        </div>
+                            
+                                    </button> 
+                                </form> 
+                            </div>
+                        <?php
+                        }
+                    ?>
+                        
+                </div>
+                <div class="rightArrow" id="rightButton" onclick="slideRight(0)">
+                    <img src="Images/rightArrows.png" height="100%" width="100%">
+                </div>
+                <script>
+                    function slideRight(i){
+                        document.getElementsByClassName('PRODUCTGALLERY')[i].scrollBy(300,0)
+                    }
+                    function slideLeft(i){
+                        document.getElementsByClassName('PRODUCTGALLERY')[i].scrollBy(-300,0)
+                    }
+                </script>
+            </div>
             <br><br><br>
         </div>
     </main>
