@@ -220,131 +220,45 @@
                     <img src="Images/leftArrow.png" height="100%" width="100%">
                 </div>
                 <div class="PRODUCTGALLERY ">
-                    <div class="PRODUCT" >
-                        <div class="card">
-                            <div class="shade1"> </div>
-                            <div class="shade2"></div>
+                    <?php
+                        include "Php/_connectDatabase.php";
+                        $sql="SELECT * FROM `product`";
+                        $res=mysqli_query($db,$sql);
+                        for($i=0;$i<5;$i++)
+                        {
+                            $row=mysqli_fetch_assoc($res);
+                        ?>
+                            <div class="PRODUCT" >
+                                <form action="item.php" method="post">
+                                    <input type="hidden" name="pid" value=<?php echo $row['pid']?>>
+                                    <button type="submit" class="card" style="width:285px;background:#f1f1f1ff;border-radius: 20px;color:black;margin:0;padding:0;">
+                                        <div class="shade1"> </div>
+                                        <div class="shade2"></div>
+                                        
+                                        <div class="Top3Colours">
+                                            <div id="red"></div>
+                                            <div id="yellow"></div>
+                                            <div id="blue"></div>
+                                        </div>
+                                        
+                                        <div class="ProImage"><img src=<?php echo $row['ParentImgLink'].'.png'?> alt="" height="100%" width="100%"></div>
                             
-                            <div class="Top3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="bottom3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="ProImage"><img src="Images/products/BAG.png" alt="avatar" height="100%" width="100%"></div>
-                
-                           <div class="HeaderBOX"><h1>Handcrafted Bamboo Bags</h1></div>
-                
-                           <div class="Price"><h1>Rs 1499</h1></div>
-                        </div>  
-                    </div>
-            
-                    <div class="PRODUCT" >
-                        <div class="card">
-                            <div class="shade1"> </div>
-                            <div class="shade2"></div>
+                                        <div class="HeaderBOX"><h1><?php echo $row['pname']?></h1></div>
+
+                                        <div class="Price"><h1>Rs <?php echo $row['price']*(1-$row['discnt']*0.01);?></h1></div>
+                                    
+                                        <div class="bottom3Colours">
+                                            <div id="red"></div>
+                                            <div id="yellow"></div>
+                                            <div id="blue"></div>
+                                        </div>
                             
-                            <div class="Top3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
+                                    </button> 
+                                </form> 
                             </div>
-                
-                            <div class="bottom3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="ProImage"><img src="Images/products/Ganesh.png" alt="avatar" height="100%" width="100%"></div>
-                
-                           <div class="HeaderBOX"><h1>Coconut Shell Ganesha Idol</h1></div>
-                
-                           <div class="Price"><h1>Rs 299</h1></div>
-                        </div>
-                    </div>
-            
-            
-                    <div class="PRODUCT" >
-                        <div class="card">
-                            <div class="shade1"> </div>
-                            <div class="shade2"></div>
-                            
-                            <div class="Top3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="bottom3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="ProImage"><img src="Images/products/WaterPot.png" alt="avatar" height="100%" width="100%"></div>
-                
-                           <div class="HeaderBOX"><h1>Goan Rooster Shaped Waterpot</h1></div>
-                
-                           <div class="Price"><h1>Rs 699</h1></div>
-                        </div>
-                    </div>
-    
-                    <div class="PRODUCT" >
-                        <div class="card">
-                            <div class="shade1"> </div>
-                            <div class="shade2"></div>
-                            
-                            <div class="Top3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="bottom3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="ProImage"><img src="Images/products/Shellbracl.png" alt="avatar" height="100%" width="100%"></div>
-                
-                           <div class="HeaderBOX"><h1>Handcrafted Sea Shells Bracelet</h1></div>
-                
-                           <div class="Price"><h1>Rs 999</h1></div>
-                        </div>
-                    </div>
-                    
-                    <div class="PRODUCT" >
-                        <div class="card">
-                            <div class="shade1"> </div>
-                            <div class="shade2"></div>
-                            
-                            <div class="Top3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="bottom3Colours">
-                                <div id="red"></div>
-                                <div id="yellow"></div>
-                                <div id="blue"></div>
-                            </div>
-                
-                            <div class="ProImage"><img src="Images/products/Shellbracl.png" alt="avatar" height="100%" width="100%"></div>
-                
-                            <div class="HeaderBOX"><h1>Handcrafted Sea Shells Bracelet</h1></div>
-                
-                            <div class="Price"><h1>Rs 999</h1></div>
-                        </div>
-                    </div>
+                        <?php
+                        }
+                    ?>
                         
                 </div>
                 <div class="rightArrow" id="rightButton" onclick="slideRight(0)">
@@ -420,6 +334,9 @@
     </main>
 
     <?php include 'Php/_footer.php'?>
+    <?php
+        mysqli_close($db);
+    ?>
     <script src="JS/ADScript.js"></script>
     <script src="JS/ProdGallery.jsx"></script>
     <script src="JS/Ads1.js"></script>

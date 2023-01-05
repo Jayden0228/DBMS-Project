@@ -1,11 +1,11 @@
 
 .card{
     position: relative;
-    width:285px;
     height:275px;
-    background:#f1f1f1ff;
-    border-radius: 20px;
+    
     overflow: hidden;
+    border: none;
+    cursor: pointer;
 }
 
 .shade1{
@@ -45,38 +45,37 @@
 }
 
 .Top3Colours{
-    position:absolute;
+    position:relative;
     width:280px;
     height:3px;
-    left:20px;
+    top: -1.1%;
     z-index:2;
 }
 
 .bottom3Colours{
-    position:absolute;
-    bottom:0px;
+    position:relative;
+    bottom: -2%;
     width:280px;
     height:3px;
-    left:20px;
     z-index:2;
 }
 #red{
     position:absolute;
-    width: 93px;
+    width: 33%;
     height: 3px;
     background-color: #fb3131ff;
 }
 #yellow{
     position:absolute;
-    left:93px;
-    width: 93px;
+    left: 33%;
+    width: 33%;
     height: 3px;
     background-color: #ffd335ff;
 }
 #blue{
     position:absolute;
-    left:186px;
-    width: 93px;
+    left: 65%;
+    width: 33%;
     height: 3px;
     background-color: #507deaff;
 }
