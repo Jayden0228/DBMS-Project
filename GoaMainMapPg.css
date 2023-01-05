@@ -1,0 +1,177 @@
+
+.MapSafeArea{
+    position: relative;
+    width: 700px;
+    height: 105px;
+}
+
+.GoaMap{
+    position: absolute;
+    left: 86px;
+    top: 40px;
+    height: 560px;
+    width: 500px;
+
+}
+
+.textAreaMap{
+    position: absolute;
+    /* right: 136px;
+    top: 176px;
+    width: 180px;
+    height: 280; */
+    right: 0px;
+    top: 169px;
+    width: 350px;
+    height: 322px;
+}
+
+.MapFONT{
+    font-family: "century gothic";
+}
+
+#MapText1{
+    position: absolute;
+    left:0px;
+    color:#4d4d4dff;
+    font-size: 40px;
+
+}
+
+#MapText2{
+    position: absolute;
+    left: 0px;
+    top: 37px;
+    color: #2a83e5ff;
+    font-size: 60px;
+}
+
+#MapText3{
+    position: absolute;
+    left: 0px;
+    top: 83px;
+    color: #fd5252ff;
+    font-size: 59px;
+}
+
+#MapText4{
+    position: absolute;
+    left: 0px;
+    top: 135px;
+    color: #4d4d4dff;
+    font-size: 45px;
+}
+
+#MapText5{
+    position: absolute;
+    left: 0px;
+    top: 178px;
+    color: #2a83e5ff;
+    font-size: 58px;
+}
+
+#MapText6{
+    position: absolute;
+    left: 49px;
+    top: 178px;
+    color: #fd5252ff;
+    font-size: 58px;
+}
+
+
+#MapText7{
+    position: absolute;
+    left: 95px;
+    top: 178px;
+    color: #fecc21ff;
+    font-size: 58px;
+}
+
+#leftQuote{
+    width: 283px;
+    position: absolute;
+    top: 500px;
+    left: -90px;
+    color: #4d4d4dff;
+    font-size: 15px;
+
+    opacity:90%;
+}
+
+#RightQuote{
+    width: 283px;
+    position: absolute;
+    right: -134px;
+    color: #4d4d4dff;
+    font-size: 15px;
+    top: 500px;
+    opacity:90%;
+}
+/* #MidQuote{
+    width: 283px;
+    position: absolute;
+    right: 166px;
+    color: #4d4d4dff;
+    font-size: 15px;
+    bottom: 63px;
+    opacity:90%;
+}
+ */
+
+
+.MapSideBOX{
+    width: 249px;
+    height: 89px;
+    background-color: #f6f6f6ff;
+}
+
+#LeftBox{
+    position: absolute;
+    left:0px;
+}
+
+#RightBox{
+    position: absolute;
+    right:0px;
+}
+
+.TriColourContainer{
+ 
+    display: flex;
+    width: 90px;
+    height: 15px;  
+ 
+}
+
+#leftTriColor{
+    flex-direction: row;
+    position: absolute;
+    top: -19px;
+    left: 0px;
+     
+}
+
+#rightTriColor{
+    flex-direction: row-reverse;
+    position: absolute;
+    top: -19px;
+    right: 0px;
+  
+}
+
+#BlueMapBox{
+    background-color: #5ea2ebff;
+    width:30px;
+    height:15px;
+}
+#RedMapBox{
+    background-color: #fd5252ff;
+    width:30px;
+    height:15px;
+}
+#YellowMapBox{
+    background-color: #fecc21ff;
+    width:30px;
+    height:15px;
+}
+

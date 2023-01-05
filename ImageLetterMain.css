@@ -1,0 +1,150 @@
+
+.ImageLetterSafeArea{
+    position: relative;
+    display:flex;
+    /* height: 500px; */
+    width: 100%;
+    top: 0;
+     flex-direction: row;
+     justify-content: flex-start;
+     flex-wrap: wrap;
+     left:0px;
+
+}
+
+
+.ImageLetter1{
+    position: relative;
+    width:50%;
+    height: 500px;
+    opacity: 80%;
+
+
+}
+
+.ImageLetter2{
+    position: relative;
+    height: 500px;
+    width:50%;
+    opacity: 80%;
+
+
+}
+
+
+#TraditonText{
+    position: absolute;
+    left: 60px;
+    top: 117px;
+    font-family: "century gothic";
+    font-size: 88px;
+    color: white;
+    z-index: 1;
+}
+
+#ConservedText{
+    position: absolute;
+    left: 60px;
+    top: 51px;
+    font-family: "century gothic";
+    font-size: 72px;
+    color: white;
+    z-index: 1;
+}
+
+#OtherText1{
+    position: absolute;
+    width: 373px;
+    left: 66px;
+    top: 246px;
+    font-family: "ubuntu";
+    font-size: 28px;
+    color: white;
+    z-index: 1;
+}
+
+
+#ExtraIdeaText{
+    position: absolute;
+    left: 60px;
+    top: 117px;
+    font-family: "century gothic";
+    font-size: 88px;
+    color: white;
+    z-index: 1;
+}
+
+#IdeaText{
+    position: absolute;
+    left: 60px;
+    top: 51px;
+    font-family: "century gothic";
+    font-size: 72px;
+    color: white;
+    z-index: 1;
+}
+
+#OtherText2{
+    position: absolute;
+    width: 373px;
+    left: 66px;
+    top: 246px;
+    font-family: "ubuntu";
+    font-size: 28px;
+    color: white;
+    z-index: 1;
+}
+
+#leftTriColorImageLetterTOP{
+    flex-direction: row;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+#rightTriColorImageLetterTOP{
+    flex-direction: row-reverse;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+#leftTriColorImageLetterBOTTOM{
+    flex-direction: row;
+    position: absolute;
+    bottom: -19px;
+    left: 30px;
+}
+
+#rightTriColorImageLetterBOTTOM{
+    flex-direction: row-reverse;
+    position: absolute;
+    bottom: -19px;
+    right: 30px;
+}
+
+.TriColourContainer{
+    
+    display: flex;
+    width: 90px;
+    height: 15px;  
+ 
+}
+
+@media (max-width:1016px){
+    .ImageLetter1{
+        position: relative;
+        width:100%;
+        height: 500px;
+        opacity: 80%;
+
+    }
+    
+    .ImageLetter2{
+        position: relative;
+        height: 500px;
+        width:100%;
+        opacity: 80%;
+
+    }
+}

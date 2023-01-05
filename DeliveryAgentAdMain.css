@@ -1,0 +1,68 @@
+
+.DeliverAgentSafeArea{
+    position: relative;
+    top: 521px;
+    left: 163px;
+    width: 1225px;
+    height: 590px;
+   
+}
+
+.DeliveryAdFont{
+  font-family:"century gothic";
+  font-weight: 200;
+}
+
+#DeliveryAdFont1{
+    position: absolute;
+    font-size: 99px;
+    color: #4e4e4ed5;
+    left: 20px;
+    top: 9px;
+}
+#DeliveryAdFont2{
+    position: absolute;
+    font-size: 96px;
+    color: #3389e6ff;
+    left: 20px;
+    top: 127px;
+}
+#DeliveryAdFont3{
+    position: absolute;
+    font-size: 87px;
+    color: #4e4e4ed5;
+    left: 20px;
+    top: 253px;
+}
+
+#YellowLine{
+    position: absolute;
+    width: 1193px;
+    height: 10px;
+    background-color: #fecc22d5;
+    left: 0px;
+    top: 431px;
+}
+
+#ICONBACK{
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    right: 89px;
+    top: 45px;
+}
+
+#ICONFRONT{
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    right: 145px;
+    top: 106px;
+}
+
+#PlaceEmailID{
+    position: absolute;
+    right: 98px;
+    top: 420px;
+    font-size: 22px;
+}
