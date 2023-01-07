@@ -1,7 +1,7 @@
 import uvicorn
 import json
 import pickle
-from fastapi import FastAPI
+from fastapi import FastAPI,Form
 
 app=FastAPI()
 
@@ -22,8 +22,8 @@ class CraftozaRecomML:
         # with open('RecommenedCraftozaJson.json','w') as file:
         #         json.dump(RecommenedCraftozaJson,file)
         return RecommenedCraftozaJson
-@app.get('/')
-def getRecommendation(pid: str):
+@app.post('/')
+def getRecommendation(pid: str=Form()):
     x=CraftozaRecomML()
     return(x.giveREC(pid))   
 
