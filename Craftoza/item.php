@@ -364,10 +364,10 @@
                 </div>
                 <script>
                     function slideRight(i){
-                        document.getElementsByClassName('PRODUCTGALLERY')[i].scrollBy(300,0)
+                        document.getElementsByClassName('PRODUCTGALLERY')[i].scrollBy(307,0)
                     }
                     function slideLeft(i){
-                        document.getElementsByClassName('PRODUCTGALLERY')[i].scrollBy(-300,0)
+                        document.getElementsByClassName('PRODUCTGALLERY')[i].scrollBy(-307,0)
                     }
                 </script>
             </div>
