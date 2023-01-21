@@ -313,17 +313,44 @@
             </div>
 
             <br><br><br>
+            <div class="AreaHeader">
+                <p style="Width:60%;  text-shadow: 2px 2px 4px #000000;">Recommended Products</p>
+            </div>
             <div class="ProductSliderItemPage">
                 <div class="leftArrow" id="leftButton" onclick="slideLeft(0)">
                     <img src="Images/leftArrow.png" height="100%" width="100%">
                 </div>
                 <div class="PRODUCTGALLERY" style="width:912px;background-color: white;">
-                    <?php
-                        include "Php/_connectDatabase.php";
-                        $sql="SELECT * FROM `product`";
-                        $res=mysqli_query($db,$sql);
-                        for($i=0;$i<5;$i++)
+                <?php
+                    $ch=curl_init();
+                    $url='http://localhost:8000';
+
+                    $datas=array("pid"=>"{$_SESSION['pid']}");
+                    $data=http_build_query($datas);
+                    curl_setopt($ch,CURLOPT_URL,$url);
+                    curl_setopt($ch,CURLOPT_POST,true);
+                    curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+                    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+
+                    $resp=curl_exec($ch);
+                    if($e=curl_error($ch)){
+                        echo $e;
+                    }
+                    else
+                    {
+                        $decoded=json_decode($resp);
+                        $decoded=json_decode($decoded);
+                        // print_r($decoded);
+                        // echo $decoded->Top10Rec[0];
+
+                        $pids= $decoded->Top10Rec;
+
+
+
+                        for($x=0;$x<9;$x++)
                         {
+                            $sql = "SELECT * FROM `product` WHERE `pid` = '".(string)$pids[$x]."'";
+                            $res=mysqli_query($db,$sql);        
                             $row=mysqli_fetch_assoc($res);
                         ?>
                             <div class="PRODUCT" >
@@ -355,6 +382,8 @@
                                 </form> 
                             </div>
                         <?php
+                            }
+                            curl_close($ch);
                         }
                     ?>
                         
