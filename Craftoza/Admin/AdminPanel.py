@@ -25,6 +25,7 @@ matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import ( FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
 import smtplib
+import webbrowser
 
 
 #Craftoza Modules
@@ -161,8 +162,11 @@ class mainAdmin:
             self.FlexYD=10
 
             self.SERVER="imap.gmail.com"
+            # self.EMAIL_ADDRESS="enquirycraftoza@gmail.com"
+            # self.PASSWORD="lpgqriravcxogwli"
             self.EMAIL_ADDRESS="lloydcosta2002@gmail.com"
             self.PASSWORD="aayzraadrkxfsixk"
+            # aayzraadrkxfsixk
 
             self.MYSQLconnection=mysql.connect(host="localhost",user="root",password="",database="craftozalloyd",port=3307)
             self.cat1={"Bamboo":"A","Clay":"B","Coconut":"C","Shells":"D","Wood":"E","Glass":"F","Ceramic":"G","Cloth":"H","Plastic":"I","General":"J"}
@@ -180,11 +184,13 @@ class mainAdmin:
             
             self.LOGOUT=Label(self.Main_Title,bg="#CD3333",text="Log Out",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.LOGOUT.place(y=25,width=120,x=1400,height=70)
-            self.LOGOUT.bind("<Button-1>",lambda event:self.ENDPROG)
-            self.SITE=Label(self.Main_Title,bg="#CD3333",text="Change Password",fg='white' ,font=('century gothic',10),justify=CENTER)
+            self.LOGOUT.bind("<Button-1>",lambda event:self.ENDPROG(0))
+            self.SITE=Label(self.Main_Title,bg="#CD3333",text="OpenOrderPool",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.SITE.place(y=25,width=120,x=1280,height=70)
+            self.SITE.bind("<Button-1>",lambda event:self.ENDPROG3(0))
             self.OPENWEB=Label(self.Main_Title,bg="#CD3333",text="Open Website",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.OPENWEB.place(y=25,width=120,x=1145,height=70)
+            self.OPENWEB.bind("<Button-1>",lambda event:self.penwebsite(0))
 
 
 
@@ -215,7 +221,7 @@ class mainAdmin:
             self.EditDeliveryAgents.place(y=self.SideStart2+135,width=235,x=13,height=35)
             self.PolicySELLER=Label(self.SideMenu,bg="#FF3030",text="Add Seller",fg='white' ,font=('roboto',11),justify=CENTER)
             self.PolicySELLER.place(y=self.SideStart2+180,width=235,x=13,height=35)
-            self.AdUpdate=Label(self.SideMenu,bg="#FF3030",text="Ads & Desc",fg='white' ,font=('roboto',11),justify=CENTER)
+            self.AdUpdate=Label(self.SideMenu,bg="#FF3030",text="Discnt & Desc",fg='white' ,font=('roboto',11),justify=CENTER)
             self.AdUpdate.place(y=self.SideStart2+225,width=235,x=13,height=35)
 
             self.SideStart3=553
@@ -305,7 +311,8 @@ class mainAdmin:
 
             self.AC.mainloop()
 
-
+        def penwebsite(self,p):
+            webbrowser.open("http://localhost/DBproject/Craftoza/")
 
         def updateCompoundValue(self):
             self.NLTK_value=self.MYSQLconnection.cursor()
@@ -353,6 +360,11 @@ class mainAdmin:
 
         def ENDPROG(self,A):
             self.AC.destroy()
+            OV=OPTION_VERIFICATION()
+        
+        def ENDPROG3(self,A):
+            self.AC.destroy()
+            OV=OrderPool()
 
 
         def DASHBOARD(self):
@@ -413,6 +425,8 @@ class mainAdmin:
 
             self.MidContainer5=Label(self.DASHBOARDcover,bg="white")
             self.MidContainer5.place(x=self.flexX+350,y=self.flexY+240,width=555,height=130)
+            # self.UpdateDictionaryList3653=Button(self.MidContainer5,text='Update Dictionary',padx=10,pady=8,font=('century gothic',10,),bg='whitesmoke',fg='black',relief=FLAT)
+            # self.UpdateDictionaryList3653.place(x=350,y=20,width=160,height=30)
 
 
             self.updateCompoundValue()   
@@ -478,8 +492,8 @@ class mainAdmin:
                   self.itemSection1.insert("",'end',iid=self.loopCount8,values=(X[0],X[1],X[3],X[2]))
                   self.loopCount8=self.loopCount8+1
             self.dASHBOARD_mySQL.close()
-                   
-
+  
+            
         def ProductDictionary(self):
             
             for X,Y in self.cat1.items():
@@ -513,19 +527,19 @@ class mainAdmin:
             try:
                 self.imap=imaplib.IMAP4_SSL(self.SERVER,993)
                 self.imap.login(self.EMAIL_ADDRESS,self.PASSWORD)
-                self.imap.select('"[Gmail]/All Mail;"')
+                self.imap.select('"[Gmail]/All Mail"')
                 result, data = self.imap.uid('search', None, "ALL") # search all email and return uids
                 if result == 'OK':
-                    for num in data[0].split():
-                        S=str()
-                        result, data = self.imap.uid('fetch', num, '(RFC822)')
-                        if result == 'OK':
-                            email_message = email.message_from_bytes(data[0][1])    # raw email text including headers
-                            for part in email_message.walk():
-                                if part.get_content_type()=="text/plain":
-                                    S=S+part.as_string()
-                            S=S.split(";")
-                            self.CustomerMails.insert(END,"  From    "+email_message['From']+","+str(S[1]))
+                        for num in data[0].split():
+                            S=str()
+                            result, data = self.imap.uid('fetch', num, '(RFC822)')
+                            if result == 'OK':
+                                email_message = email.message_from_bytes(data[0][1])    # raw email text including headers
+                                for part in email_message.walk():
+                                    if part.get_content_type()=="text/plain":
+                                        S=S+part.as_string()
+                                S=S.split(";")
+                                self.CustomerMails.insert(END,"  From    "+email_message['From']+","+str(S[1]))
             
             except:
                 messagebox.showinfo("Customer Email","Please check your internet connection")
@@ -550,8 +564,9 @@ class mainAdmin:
             self.ProductSeller.insert(END,str(self.D.get('values')[5]))
             self.ProductPrice.insert(END,str(self.D.get('values')[4]))
             self.ProductQTY.insert(END,str(self.D.get('values')[6]))
-
-            self.ProductImage=Image.open(str(self.D.get('values')[7]))
+            F="C:/"+str(self.D.get('values')[7]) + ".png"
+            self.ProductImage=Image.open(F)
+           
             self.resizeproductIMG= self.ProductImage.resize((160,160))
             self.ProdImgObj=ImageTk.PhotoImage( self.resizeproductIMG)
             self.ProImageContainer=Label(self.ProductDisplay,image=self.ProdImgObj,bg=self.PrdouctContainerColor)
@@ -795,13 +810,14 @@ class mainAdmin:
 
              self.DashBoardSIDE3.place(y=self.SideStart1+90,width=200,x=236,height=35)
 
+             sa,yearPROFIT=self.getDataFromCraftozaModule.get_YearlySales()
              self.GraphTitle=Label( self.STATISTICScover,bg="white",text="Yearly Statistics",fg='Black' ,font=('Century gothic',13),justify=CENTER)
              self.GraphTitle.place(x=self.flexX,y=self.flexY,width=400,height=30)
              self.f = Figure(figsize=(3,3), dpi=70)
              self.a = self.f.add_subplot(111)
              self.a.set_xlabel('Days')
              self.a.set_ylabel('Sales')
-             self.a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
+             self.a.plot([1,2,3,4,5,6,7,8,9,10,11,12],sa)
              self.canvasMonthlyRevenue = FigureCanvasTkAgg(self.f, self.STATISTICScover)
              self.canvasMonthlyRevenue .draw()
              self.canvasMonthlyRevenue .get_tk_widget().place(height=300,width=400,x=self.flexX,y=self.flexY+30)
@@ -945,7 +961,7 @@ class mainAdmin:
 
              self.CFPTitle=Label( self.STATISTICScover,bg="#FCE6C9",text="Current Financial Year Profit",fg='Black' ,font=('Century gothic',13),justify=CENTER)
              self.CFPTitle.place(x=self.flexX+428,y=self.flexY+260,width=250,height=30)
-             self.CFP=Label( self.STATISTICScover,bg="white",text="Rs 0",fg='Black' ,font=('Century gothic',9),justify=CENTER)
+             self.CFP=Label( self.STATISTICScover,bg="white",text="Rs. "+str(yearPROFIT),fg='Black' ,font=('Century gothic',9),justify=CENTER)
              self.CFP.place(x=self.flexX+428,y=self.flexY+287,width=250,height=45)
 
              self.Refresh44=Button(self.STATISTICScover,text='Refresh Page',padx=10,pady=8,font=('century gothic',10,),bg='white',fg='black',relief=FLAT)
@@ -1137,14 +1153,17 @@ class mainAdmin:
 
         def imageFunc(self):
             self.ADDimageFlag=1
-            self.product_IMG12=filedialog.askopenfilename(initialdir="C:\CraftozaParentImages",title="Select a File",filetypes=(("png files","*.png"),("all files","*.*")))
+            self.product_IMG12=filedialog.askopenfilename(initialdir="C:/xampp/htdocs/DBProject/Craftoza/CraftozaParentImages",title="Select a File",filetypes=(("png files","*.png"),("all files","*.*")))
             self.ProductImageAddPro=Image.open(str(self.product_IMG12))
             self.resizeproductIMGAddPro=   self.ProductImageAddPro.resize((160,160))
             self.ProdImgObjAddPro=ImageTk.PhotoImage( self.resizeproductIMGAddPro)
             self.ProImageContainerAddPro=Label(  self.ProductDisplayAddPro,image= self.ProdImgObjAddPro,bg=self.PrdouctContainerColor)
             self.ProImageContainerAddPro.place(x=135,y=100,anchor=CENTER)
-       
+            z=self.product_IMG12.replace('C:/xampp/htdocs/DBProject/Craftoza/','')
+            self.product_IMG12=z.replace('.png','')
+    
 
+          
 
         def ADD_product_submitted(self):
             self.count=1
@@ -1178,7 +1197,6 @@ class mainAdmin:
 
 
 
-
             if str(self.CAT1value.get()) in self.cat1.keys():
                 self.CAT1_Alpha=self.cat1[str(self.CAT1value.get())]
             
@@ -1199,13 +1217,15 @@ class mainAdmin:
                 self.SID= self.PRODUCTsidLIST[0][0]
             
                 self.UN="CRAF-"+str(self.PCNT)+"-"+self.CAT1_Alpha+"#"+self.CAT2_Alpha
+         
                 self.ProductInsert_query1="INSERT INTO Product (pid,sid,pname,price,qnt,material,type,ParentImgLink) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
                 self.ProductInsert_query1Value=(str(self.UN),int(self.SID),str(self.EnterProductName.get()),int(self.EnterProductPrice.get()),int(self.Addqtyr.get()),str(self.CAT1value.get()),str(self.CAT2value.get()),str(self.product_IMG12))
                 self.Add_product_mySQL.execute(self.ProductInsert_query1,self.ProductInsert_query1Value)
                 self.Add_product_mySQL.execute('commit')
                 self.Add_product_mySQL.close()
 
-        
+                for item in  self.itemSectionPROD.get_children():
+                          self.itemSectionPROD.delete(item)
                 self.itemSectionPROD.insert("",'end',iid=1,values=(self.PRODUCTcountADD,str(self.EnterProductName.get()),self.CAT1value.get(),self.CAT2value.get(),str(self.EnterProductPrice.get()),str(self.EnterPSeller.get()),self.Addqtyr.get()))
                 
                 self.textareaAddProduct.delete(1.0,END)
@@ -1910,8 +1930,6 @@ class mainAdmin:
              self.EDIT_DeliveryAgent_mySQL=self.MYSQLconnection.cursor()
              self.CurItem2=self.itemSectionDELIVERYEDIT.focus()
              self.A1=self.itemSectionDELIVERYEDIT.item( self.CurItem2)
-             
-                       
              self.EDIT_DeliveryAgent_mySQL.execute("update deliverymember set fname='"+str(self.DeliveryFirstNameEDIT.get())+"',mname='"+str(self.DeliverySecondNameEDIT.get())+"',lname='"+str(self.DeliveryLastNameEDIT.get())+"',pnum="+str(self.DeliveryContactEDIT.get())+",email='"+str(self.DeliveryEmailEDIT.get())+"',Address='"+str(self.DeliveryAddressEDIT.get())+"',location='"+str(self.DeliveryPostingLocationEDIT.get())+"' where did='"+str(self.A1.get('values')[0])+"'")
              self.EDIT_DeliveryAgent_mySQL.execute("commit")
              self.EDIT_DeliveryAgent_mySQL.close()
@@ -1967,6 +1985,25 @@ class mainAdmin:
             self.textareaEDITDelivery.insert(END," Please Select the\n Product")
             
             self.EDIT_DeliveryAgent_mySQL.close()
+        
+        def fillENtryEditDelivery(self,A):
+             self.DeliveryFirstNameEDIT.delete(0,END)
+             self.DeliverySecondNameEDIT.delete(0,END)
+             self.DeliveryLastNameEDIT.delete(0,END)
+             self.DeliveryPostingLocationEDIT.delete(0,END)
+             self.DeliveryAddressEDIT.delete(0,END)
+             self.DeliveryEmailEDIT.delete(0,END)
+             self.DeliveryContactEDIT.delete(0,END)
+             self.CurItem2=self.itemSectionDELIVERYEDIT.focus()
+             self.A1=self.itemSectionDELIVERYEDIT.item( self.CurItem2)
+             splitname=str(self.A1.get('values')[1]).split(' ')
+             self.DeliveryFirstNameEDIT.insert(0,splitname[0])
+             self.DeliverySecondNameEDIT.insert(0,splitname[1])
+             self.DeliveryLastNameEDIT.insert(0,splitname[2])
+             self.DeliveryPostingLocationEDIT .insert(0,str(self.A1.get('values')[3]))  
+             self.DeliveryAddressEDIT.insert(0,str(self.A1.get('values')[2]))  
+             self.DeliveryEmailEDIT.insert(0,str(self.A1.get('values')[4]))
+             self.DeliveryContactEDIT.insert(0,str(self.A1.get('values')[5]))
 
 
         def EDIT_DELIVERY_AGENT(self):
@@ -1997,6 +2034,7 @@ class mainAdmin:
             self.itemSectionDELIVERYEDIT.heading("CONTACT",text="CONTACT",anchor=W)
  
             self.itemSectionDELIVERYEDIT.place(x=self.flexX+40,y=self.flexY+80,width=1090,height=100)
+            self.itemSectionDELIVERYEDIT.bind('<ButtonRelease-1>',self.fillENtryEditDelivery)
 
             self.userSearchDeliverEDITIDTAG=Label(self.EDIT_DELIVERY_AGENTcover,text='Search by ID :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
             self.userSearchDeliverEDITIDTAG.place(x=self.flexX+60,y=self.flexY+20)
@@ -2258,7 +2296,36 @@ class mainAdmin:
             self.SetSearchIDTEXT.insert(END,"Product Description\nUpdated Successfully")
             self.SetProduct.delete(0,END)
 
-            
+        def updateDIC(self):
+            if self.SetProductDISid=="":
+                self.SetSearchIDTEXT.delete(1.0,END)
+                self.SetSearchIDTEXT.insert(END,"Search ID Field\nEmpty")
+                return
+            self.UpdateDIC_mySQL=self.MYSQLconnection.cursor()
+            self.UpdateDIC_mySQL.execute("select *from product where pid like '"+str(self.SetProductDISid.get())+"'")
+            self.FetchedDataDIC=self.UpdateDIC_mySQL.fetchall()
+            if self.FetchedDataDIC ==[]:
+                self.SetSearchIDTEXT.delete(1.0,END)
+                self.SetSearchIDTEXT.insert(END,"Product Doesn't Exits")
+                return
+            if self.SetProductDIS.get()=="":
+                self.SetSearchIDTEXT.delete(1.0,END)
+                self.SetSearchIDTEXT.insert(END,"Discount Field Empty")
+                return
+            if self.SetProductDIS.get().isnumeric==0 or len(self.SetProductDIS.get())<=100:
+                self.SetSearchIDTEXT.delete(1.0,END)
+                self.SetSearchIDTEXT.insert(END,"Enter valid Discount")
+                return
+
+            self.UpdateDIC_mySQL.execute("Update product set discnt="+str(self.SetProductDIS.get())+" where pid like '"+str(self.SetProductDISid.get())+"'")
+            self.UpdateDIC_mySQL.execute("commit")
+            self.UpdateDIC_mySQL.close()
+            self.SetProductDISid.delete(0,END)
+            self.SetProductDIS.delete(0,END)
+            self.SetSearchIDTEXT.delete(1.0,END)
+            self.SetSearchIDTEXT.insert(END,"Product Discount\nUpdated Successfully")
+            self.SetProduct.delete(0,END)
+               
         def UPDATE_ADVERTISEMENTS(self):
             self.current=9
             self.FlexXD1=340
@@ -2293,6 +2360,21 @@ class mainAdmin:
             self.UpdateDesc.place(x=self.FlexXD+185,y=self.FlexYD+310,width=130)
 
 
+            self.SetProductDISidTAG=Label(self.UPDATE_ADScover,text='Enter ProductID :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
+            self.SetProductDISidTAG.place(x=self.FlexXD+40,y=self.FlexYD+390) 
+            self.SetProductDISid=Entry( self.UPDATE_ADScover,width=45,relief=SUNKEN)
+            self.SetProductDISid.place(x=self.FlexXD+40,y=self.FlexYD+430,height=30,width=280)
+            self.SetProductDISTAG33=Label(self.UPDATE_ADScover,text='Enter Discount :  ',bg="whitesmoke",fg='black' ,font=('century gothic',11,),justify=LEFT,pady=10)
+            self.SetProductDISTAG33.place(x=self.FlexXD+40,y=self.FlexYD+460) 
+            self.SetProductDIS=Entry( self.UPDATE_ADScover,width=45,relief=SUNKEN)
+            self.SetProductDIS.place(x=self.FlexXD+40,y=self.FlexYD+500,height=30,width=280)
+            
+            self.SetProductDISb=Button(self.UPDATE_ADScover,text='Update Discount',padx=20,pady=10,font=('Microsoft JhengHei',8,'bold'),command=self.updateDIC)
+            self.SetProductDISb.place(x=self.FlexXD+112,y=self.FlexYD+558,width=130)
+
+
+
+            
         def SEND_NEWLETTERS(self):
             self.current=10
             self.SEND_NEWLETTERScover.place(y=90,x=267,width=1300,height=710)
@@ -2331,8 +2413,9 @@ class mainAdmin:
                     s=smtplib.SMTP('smtp.gmail.com',587)
                     s.starttls()
                     message='Subject: {}\n\n{}'.format(self.SetSubject.get(),self.textareaNewsLetter.get("1.0",END))
-                    s.login("lloydcosta2002@gmail.com","aayzraadrkxfsixk")
-                    s.sendmail("lloydcosta2002@gmail.com",dest,message)
+                    s.login("craftozahappysales@gmail.com","oxtpveutkjswcpwj")
+                    # oxtpveutkjswcpwj   aayzraadrkxfsixk
+                    s.sendmail("craftozahappysales@gmail.com",dest,message)
                     s.quit()
                     self.textareaNewsLetter.delete(1.0,END)
                     self.SetSubject.delete(0,END)
@@ -2382,8 +2465,8 @@ class mainAdmin:
                     s=smtplib.SMTP('smtp.gmail.com',587)
                     s.starttls()
                     message='Subject: {}\n\n{}'.format(self.SetSubject3.get(),self.textareaDel.get("1.0",END))
-                    s.login("lloydcosta2002@gmail.com","aayzraadrkxfsixk")
-                    s.sendmail("lloydcosta2002@gmail.com",dest,message)
+                    s.login("enquirycraftoza@gmail.com","lpgqriravcxogwli")
+                    s.sendmail("enquirycraftoza@gmail.com",dest,message)
                     s.quit()
                     self.textareaDel.delete(1.0,END)
                     self.SetSubject3.delete(0,END)
@@ -2506,10 +2589,12 @@ class OrderPool:
             
             self.LOGOUTOP=Label(self.Main_TitleOP,bg="#CD3333",text="Log Out",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.LOGOUTOP.place(y=25,width=120,x=1400,height=70)
+            self.LOGOUTOP.bind("<Button-1>",lambda event:self.ENDPROG45(0))
             self.SITEOP=Label(self.Main_TitleOP,bg="#CD3333",text="Change Password",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.SITEOP.place(y=25,width=120,x=1280,height=70)
             self.OPENWEBOP=Label(self.Main_TitleOP,bg="#CD3333",text="Open Website",fg='white' ,font=('century gothic',10),justify=CENTER)
             self.OPENWEBOP.place(y=25,width=120,x=1145,height=70)
+            self.OPENWEBOP.bind("<Button-1>",lambda event:self.ENDPROG4565(0))
 
  
             self.TreeviewTAG=Label(self.tab1,bg="whitesmoke",text="ORDER POOL",fg='black' ,font=('century gothic',14),justify=CENTER)
@@ -2580,13 +2665,17 @@ class OrderPool:
             self.textareaOP5.place(x=520,y=50,)
             self.textareaOP5.insert(END," STATUS BOX:")
 
-
-            
-            
-          
-     
-       
             self.OP.mainloop()
+
+    def ENDPROG4565(self,a):
+        webbrowser.open("http://localhost/DBproject/Craftoza/")
+    
+    def ENDPROG45(self,A):
+            self.OP.destroy()
+            OV=OPTION_VERIFICATION()
+    def penwebsite(self,p):
+            import webbrowser
+            webbrowser.open("http://localhost/DBproject/Craftoza/")
             
     def UpdateFolderLIST(self):
          self.PdfFolderView.delete(0,END)
@@ -2682,9 +2771,9 @@ class OrderPool:
 
 if __name__ == '__main__':
 
-    # SPLASHscreen=Splashscreen()
-    # OV=OPTION_VERIFICATION()
-    x=mainAdmin()
+    SPLASHscreen=Splashscreen()
+    OV=OPTION_VERIFICATION()
+    # x=mainAdmin()
     # x=OrderPool()
  
 
