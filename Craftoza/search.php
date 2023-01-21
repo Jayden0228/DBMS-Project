@@ -175,5 +175,8 @@
         </div>
     </main>
     <?php include 'Php/_footer.php'?>
+    <?php
+        mysqli_close($db);
+    ?>
 </body>
 </html>

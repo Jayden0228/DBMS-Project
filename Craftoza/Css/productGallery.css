@@ -65,4 +65,12 @@
     height: 300px;
     width: 1325;
 }
+.ProductSliderItemPage{
+    /* position: relative; */
+    display: flex;
+    /* margin-left: auto;
+    margin-right: auto; */
+    height: 300px;
+    width: 1103px;
+}
 

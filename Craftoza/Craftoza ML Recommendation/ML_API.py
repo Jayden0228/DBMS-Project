@@ -6,11 +6,11 @@ from fastapi import FastAPI,Form
 app=FastAPI()
 
 class CraftozaRecomML:
-      
+
        def giveREC(self,pid):
-        self.model=pickle.load(open('Model.pkl','rb'))
-        self.modelIndices=pickle.load(open('ModelIndices.pkl','rb'))
-        self.modelDataSet=pickle.load(open('ModelIndicesDatasetCleaned.pkl','rb'))
+        self.model=pickle.load(open('C:/xampp/htdocs/DBProject/Craftoza/Craftoza ML Recommendation/Model.pkl','rb'))
+        self.modelIndices=pickle.load(open('C:/xampp/htdocs/DBProject/Craftoza/Craftoza ML Recommendation/ModelIndices.pkl','rb'))
+        self.modelDataSet=pickle.load(open('C:/xampp/htdocs/DBProject/Craftoza/Craftoza ML Recommendation/ModelIndicesDatasetCleaned.pkl','rb'))
         idx=self.modelIndices[pid]
         sig_scores=list(enumerate(self.model[idx]))
         sig_scores=sorted(sig_scores,key=lambda x:x[1],reverse=True)
@@ -28,4 +28,5 @@ def getRecommendation(pid: str=Form()):
     return(x.giveREC(pid))   
 
 if __name__=='__main__':
-    uvicorn.run(app,host="localhost",port=8000) 
+    uvicorn.run(app,host="localhost",port=8000)
+
